@@ -2,20 +2,18 @@ package io.github.alpenglowsea.gartenmanager
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import io.github.alpenglowsea.gartenmanager.ui.GartenListeScreen
 import io.github.alpenglowsea.gartenmanager.ui.GartenManagerTheme
+import io.github.alpenglowsea.gartenmanager.ui.GartenPlatzhalterScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,26 +21,51 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GartenManagerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                            .padding(24.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            text = stringResource(R.string.hello_garden),
-                            style = MaterialTheme.typography.headlineLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                        Text(
-                            text = stringResource(R.string.hello_subtitle),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(top = 12.dp),
-                        )
+                val viewModel: GartenViewModel = viewModel()
+                val grundstuecke by viewModel.grundstuecke.collectAsState()
+                val gaerten by viewModel.gaerten.collectAsState()
+
+                // Welcher Garten ist offen, und ist er im Bearbeitungsmodus?
+                var offenerGartenId by rememberSaveable { mutableStateOf<Long?>(null) }
+                var bearbeiten by rememberSaveable { mutableStateOf(false) }
+                val offenerGarten = gaerten?.firstOrNull { it.id == offenerGartenId }
+
+                if (offenerGarten != null) {
+                    BackHandler {
+                        // Zurück aus dem Bearbeiten führt in die Ansicht, aus der Ansicht in die Liste.
+                        if (bearbeiten) bearbeiten = false else offenerGartenId = null
                     }
+                    GartenPlatzhalterScreen(
+                        garten = offenerGarten,
+                        bearbeiten = bearbeiten,
+                        onBearbeiten = { bearbeiten = true },
+                        onFertig = { bearbeiten = false },
+                        onZurueck = { offenerGartenId = null },
+                    )
+                } else {
+                    GartenListeScreen(
+                        grundstuecke = grundstuecke,
+                        gaerten = gaerten,
+                        aufgeklappt = viewModel.aufgeklappt,
+                        onSchalteAufgeklappt = viewModel::schalteAufgeklappt,
+                        onGartenOeffnen = { id ->
+                            bearbeiten = false
+                            offenerGartenId = id
+                        },
+                        onGartenBearbeiten = { id ->
+                            bearbeiten = true
+                            offenerGartenId = id
+                        },
+                        onGartenAnlegen = viewModel::legeGartenAn,
+                        onGrundstueckAnlegen = viewModel::legeGrundstueckAn,
+                        onGartenUmbenennen = viewModel::benenneGartenUm,
+                        onGrundstueckUmbenennen = viewModel::benenneGrundstueckUm,
+                        onGartenVerschieben = viewModel::verschiebeGarten,
+                        onGartenDuplizieren = viewModel::dupliziereGarten,
+                        onGartenLoeschen = viewModel::loescheGarten,
+                        onGrundstueckAufloesen = viewModel::loeseGrundstueckAuf,
+                        onGrundstueckMitGaertenLoeschen = viewModel::loescheGrundstueckMitGaerten,
+                    )
                 }
             }
         }

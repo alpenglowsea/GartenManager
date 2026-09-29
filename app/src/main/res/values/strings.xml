@@ -3,4 +3,45 @@
     <string name="app_name">GartenManager</string>
     <string name="hello_garden">Hallo Garten</string>
     <string name="hello_subtitle">Das technische Grundgerüst steht.</string>
+
+    <!-- Allgemein -->
+    <string name="abbrechen">Abbrechen</string>
+    <string name="anlegen">Anlegen</string>
+    <string name="speichern">Speichern</string>
+    <string name="loeschen">Löschen</string>
+    <string name="umbenennen">Umbenennen</string>
+    <string name="duplizieren">Duplizieren</string>
+    <string name="bearbeiten">Bearbeiten</string>
+    <string name="fertig">Fertig</string>
+    <string name="zurueck">Zurück</string>
+    <string name="name_label">Name</string>
+
+    <!-- Gartenliste -->
+    <string name="neuer_garten">Neuer Garten</string>
+    <string name="neues_grundstueck">Neues Grundstück</string>
+    <string name="garten_hinzufuegen">Garten hinzufügen</string>
+    <string name="einzelne_gaerten">Einzelne Gärten</string>
+    <string name="ein_garten">1 Garten</string>
+    <string name="n_gaerten">%d Gärten</string>
+    <string name="zuletzt_geaendert">Zuletzt geändert: %1$s</string>
+    <string name="kopie_zusatz">Kopie</string>
+    <string name="zu_grundstueck_verschieben">Zu Grundstück verschieben</string>
+    <string name="leer_hinweis">Du hast noch keinen Garten. Lege deinen ersten Garten an.</string>
+    <string name="ersten_garten_anlegen">Ersten Garten anlegen</string>
+
+    <!-- Dialoge -->
+    <string name="verschieben_titel">Verschieben nach</string>
+    <string name="kein_grundstueck">Kein Grundstück (einzelner Garten)</string>
+    <string name="garten_loeschen_titel">Garten \"%s\" löschen?</string>
+    <string name="garten_loeschen_text">Der Garten mit allem, was darin gezeichnet ist, wird endgültig gelöscht. Das lässt sich nicht rückgängig machen.</string>
+    <string name="grundstueck_loeschen_titel">Grundstück \"%s\" löschen?</string>
+    <string name="grundstueck_leer_loeschen_text">Das Grundstück enthält keine Gärten und wird gelöscht.</string>
+    <string name="grundstueck_loeschen_text">Was soll mit den Gärten auf diesem Grundstück passieren?</string>
+    <string name="grundstueck_aufloesen">Nur Grundstück auflösen (Gärten bleiben)</string>
+    <string name="grundstueck_mit_gaerten_loeschen">Grundstück mit allen Gärten löschen</string>
+
+    <!-- Garten öffnen (Platzhalter) -->
+    <string name="bearbeiten_titel">Bearbeiten: %s</string>
+    <string name="platzhalter_ansicht">Hier erscheint bald dein Gartenplan (Ansicht).</string>
+    <string name="platzhalter_bearbeiten">Bearbeitungsmodus: Hier kannst du bald zeichnen.</string>
 </resources>
