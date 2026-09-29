@@ -194,8 +194,8 @@ Nicht empfohlen: direkter Austausch zwischen Handys (Bluetooth/QR), eigener Serv
 
 ## 7. Vorgeschlagene Reihenfolge der Umsetzung (grobe Schätzung)
 
-1. Projektgerüst, automatischer Build, "Hallo Garten" auf dem Handy des Projektinhabers
-2. Gartenplan: Flächen zeichnen, Oberflächen, Zoom
+1. ~~Projektgerüst, automatischer Build, "Hallo Garten" auf dem Handy des Projektinhabers~~ **erledigt am 29.09.2026** (Build auf GitHub Actions grün, APK auf dem Handy installiert und gestartet)
+2. Gartenplan: Flächen zeichnen, Oberflächen, Zoom. Konzept: GARTENPLAN.md (Entschieden: Punkte setzen mit automatischer Rundung, Ecke oder rund pro Punkt, zuletzt gezeichnete Fläche oben mit änderbarer Reihenfolge, Flächen mit Namen, Rückgängig, mehrere Gärten, optionale Grundstücke; Teilschritte 2a bis 2e sind Vorschlag)
 3. Objekte platzieren, verschieben, skalieren
 4. Pflanzen und Datenbank, Auswahl-Dialog mit Suche und Filter, Info-Modal
 5. Backup Export/Import (früh, weil es die Datenstruktur absichert)
@@ -250,3 +250,10 @@ Als Nächstes:
 - 29.09.2026: DATENMODELL.md (Version 0.1, Entwurf) angelegt: zwei getrennte Datenbanken (Grunddaten / Meine Daten), Tabellen, Update-Regeln, Sortierregeln. Status: Vorschlag.
 - 29.09.2026: Entschieden: Pflege nur aus "Pflege"-Überschriften; Texte als Auszug; Kohlsorten als eigene Einträge mit geteilter Quelle. Erste Antwort des BfN (Telefonangebot, API nur für Taxonomie). Persönlicher Name in den Projektdateien durch "Projektinhaber" ersetzt, da das Repository öffentlich ist.
 - 29.09.2026: Repository neu angelegt (alter Verlauf enthielt persönlichen Namen), Dokumente dort abgelegt. Antwort ans BfN geschickt: bitte schriftlich weiterkommunizieren. Technisches Grundgerüst (gartenmanager-geruest.zip) als **Vorschlag** erstellt, noch **nicht gebaut**: Anwendungskennung io.github.alpenglowsea.gartenmanager (später nicht mehr änderbar, sobald veröffentlicht), Android 8 (API 26), Kotlin 2.0.21, Compose BOM 2024.12.01, AGP 8.7.3, Gradle 8.9, keine Berechtigungen, Sicherung durch Android abgeschaltet (eigenes Backup geplant), Test-Signatur öffentlich im Repo (nur für Entwicklungs-Builds).
+- 29.09.2026: Schritt 1 der Umsetzung erledigt: Grundgerüst baut auf GitHub Actions ohne Änderungen, App läuft auf dem Handy des Projektinhabers. Hinweis: gradle-wrapper.jar und debug.keystore mussten in der .gitignore per Ausnahme freigegeben werden. Nächster Schritt: Gartenplan (Umsetzungsschritt 2), zuerst als Konzeptgespräch.
+- 29.09.2026: Gartenplan besprochen. Entschieden: Punkte setzen, App rundet ab; zuletzt gezeichnete Fläche liegt oben, Reihenfolge änderbar; mehrere Gärten von Anfang an (auch getrennte Gärten auf einem Grundstück). GARTENPLAN.md (Version 0.1) mit Bedienung, Datenmodell und Teilschritten 2a bis 2e als Vorschlag angelegt.
+- 29.09.2026: GARTENPLAN.md auf Version 0.2: Ecken pro Punkt, Flächennamen (kein eigener Typ Beet), Rückgängig, Oberflächenliste bestätigt; optionale Ebene Grundstück (gruppiert mehrere Gärten, nie aufgedrängt) entschieden.
+- 29.09.2026: GARTENPLAN.md Version 0.3: Oberflächenliste, Rückgängig (letzte Schritte zurücknehmbar) und Kurvenverlauf durch die gesetzten Punkte als entschieden markiert.
+- 29.09.2026: GARTENPLAN.md Version 0.4: Entschieden: Ein Garten öffnet standardmäßig in der Ansicht (nur Betrachten, Flächen und später Pflanzen antippen, Infos lesen). Bearbeiten ist ein eigener Modus, erreichbar aus der Ansicht oder über das Menü in der Gartenliste. Kennzeichnung des Modus, Sofort-Speichern und Verlauf-Ende beim Verlassen sind Vorschlag.
+- 29.09.2026: GARTENPLAN.md Version 0.5: Entschieden: Bearbeitungsmodus wird deutlich gekennzeichnet; Änderungen werden erst mit "Speichern" übernommen (Verwerfen setzt alles seit dem Betreten zurück), damit Nutzer Änderungen durchspielen können; Rückgängig-Verlauf endet beim Verlassen des Modus. Vorschlag: Zwischenspeicher "Entwurf" gegen Verlust bei App-Abbruch.
+- 29.09.2026: GARTENPLAN.md Version 0.6: Entschieden (ersetzt Version 0.5): Änderungen im Bearbeitungsmodus werden sofort gespeichert, kein Speichern-/Verwerfen-Knopf, kein Entwurf. Wer ausprobieren will, dupliziert den Garten über das Menü der Gartenliste. Der Knopf zum Schließen einer gezeichneten Fläche heißt "Fläche abschließen".
