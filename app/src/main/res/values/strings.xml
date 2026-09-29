@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GartenManager</string>
+    <string name="hello_garden">Hallo Garten</string>
+    <string name="hello_subtitle">Das technische Grundgerüst steht.</string>
+</resources>
