@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,15 +37,36 @@ class MainActivity : ComponentActivity() {
                         // Zurück aus dem Bearbeiten führt in die Ansicht, aus der Ansicht in die Liste.
                         if (bearbeiten) bearbeiten = false else offenerGartenId = null
                     }
+                    val gartenId = offenerGarten.id
+                    val flaechen by remember(gartenId) { viewModel.flaechen(gartenId) }
+                        .collectAsState(initial = emptyList())
+                    val punkte by remember(gartenId) { viewModel.punkte(gartenId) }
+                        .collectAsState(initial = emptyList())
+                    // Beim Betreten oder Verlassen des Bearbeitungsmodus: angefangene Zeichnung
+                    // und Rückgängig-Verlauf zurücksetzen.
+                    LaunchedEffect(bearbeiten, gartenId) { viewModel.beendeBearbeitung() }
+
                     GartenScreen(
                         garten = offenerGarten,
+                        flaechen = flaechen,
+                        punkte = punkte,
                         bearbeiten = bearbeiten,
+                        zeichnung = viewModel.zeichnung,
+                        zeichnungRund = viewModel.zeichnungRund,
+                        kannRueckgaengig = viewModel.anzahlRueckgaengig > 0,
                         onBearbeiten = { bearbeiten = true },
                         onFertig = { bearbeiten = false },
                         onZurueck = { offenerGartenId = null },
                         onAnsichtGeaendert = { zoom, x, y ->
-                            viewModel.speichereAnsicht(offenerGarten.id, zoom, x, y)
+                            viewModel.speichereAnsicht(gartenId, zoom, x, y)
                         },
+                        onFlaecheZeichnen = viewModel::starteZeichnung,
+                        onPunktSetzen = viewModel::setzePunkt,
+                        onLetztenPunktEntfernen = viewModel::entferneLetztenPunkt,
+                        onFlaecheRueckgaengig = viewModel::macheFlaecheRueckgaengig,
+                        onZeichnungAbbrechen = viewModel::brichZeichnungAb,
+                        onSchalteRund = viewModel::schalteRund,
+                        onFlaecheAbschliessen = { viewModel.schliesseFlaecheAb(gartenId) },
                     )
                 } else {
                     GartenListeScreen(

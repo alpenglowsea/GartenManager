@@ -52,10 +52,50 @@ abstract class GartenDao {
         loescheGrundstueck(id)
     }
 
-    /**
-     * Legt eine Kopie eines Gartens an (gleiches Grundstück, Name mit Zusatz).
-     * Ab Teilschritt 2c kopiert das auch die Flächen und Punkte.
-     */
+    // ---- Flaechen und Punkte ----
+
+    @Query("SELECT * FROM flaeche WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract fun flaechen(gartenId: Long): Flow<List<Flaeche>>
+
+    @Query(
+        "SELECT p.* FROM punkt p INNER JOIN flaeche f ON p.flaecheId = f.id " +
+            "WHERE f.gartenId = :gartenId ORDER BY p.flaecheId, p.nr",
+    )
+    abstract fun punkte(gartenId: Long): Flow<List<Punkt>>
+
+    @Query("SELECT * FROM flaeche WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract suspend fun flaechenListe(gartenId: Long): List<Flaeche>
+
+    @Query("SELECT * FROM punkt WHERE flaecheId = :flaecheId ORDER BY nr")
+    abstract suspend fun punkteListe(flaecheId: Long): List<Punkt>
+
+    @Query("SELECT COALESCE(MAX(reihenfolge), -1) FROM flaeche WHERE gartenId = :gartenId")
+    abstract suspend fun hoechsteReihenfolge(gartenId: Long): Int
+
+    @Insert
+    abstract suspend fun fuegeFlaecheEin(flaeche: Flaeche): Long
+
+    @Insert
+    abstract suspend fun fuegePunkteEin(punkte: List<Punkt>)
+
+    @Query("DELETE FROM flaeche WHERE id = :id")
+    abstract suspend fun loescheFlaeche(id: Long)
+
+    @Query("UPDATE garten SET geaendertAm = :jetzt WHERE id = :id")
+    abstract suspend fun beruehreGarten(id: Long, jetzt: Long)
+
+    /** Legt eine neue Fläche ganz oben an. Die Punkte kommen mit flaecheId = 0 herein. */
+    @Transaction
+    open suspend fun legeFlaecheAn(gartenId: Long, punkte: List<Punkt>, jetzt: Long): Long {
+        val flaecheId = fuegeFlaecheEin(
+            Flaeche(gartenId = gartenId, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
+        )
+        fuegePunkteEin(punkte.map { it.copy(flaecheId = flaecheId) })
+        beruehreGarten(gartenId, jetzt)
+        return flaecheId
+    }
+
+    /** Legt eine Kopie eines Gartens samt aller Flaechen und Punkte an. */
     @Transaction
     open suspend fun dupliziereGarten(id: Long, jetzt: Long, zusatz: String): Long? {
         val original = gartenMitId(id) ?: return null
@@ -65,6 +105,13 @@ abstract class GartenDao {
             angelegtAm = jetzt,
             geaendertAm = jetzt,
         )
-        return fuegeGartenEin(kopie)
+        val kopieId = fuegeGartenEin(kopie)
+        for (flaeche in flaechenListe(id)) {
+            val neueFlaecheId = fuegeFlaecheEin(flaeche.copy(id = 0, gartenId = kopieId))
+            fuegePunkteEin(
+                punkteListe(flaeche.id).map { it.copy(id = 0, flaecheId = neueFlaecheId) },
+            )
+        }
+        return kopieId
     }
 }

@@ -2,13 +2,18 @@ package io.github.alpenglowsea.gartenmanager
 
 import android.app.Application
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Grundstueck
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
+import io.github.alpenglowsea.gartenmanager.daten.Punkt
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -94,5 +99,78 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loescheGrundstueckMitGaerten(id: Long) {
         viewModelScope.launch { dao.loescheGrundstueckMitGaerten(id) }
+    }
+
+    // ---- Zeichnen (Teilschritt 2c) ----
+
+    fun flaechen(gartenId: Long): Flow<List<Flaeche>> = dao.flaechen(gartenId)
+
+    fun punkte(gartenId: Long): Flow<List<Punkt>> = dao.punkte(gartenId)
+
+    /** Die gerade angefangene Fläche (Punkte in Skizzenkoordinaten). null = es wird nicht gezeichnet. */
+    var zeichnung by mutableStateOf<List<Offset>?>(null)
+        private set
+
+    /** Gilt für alle Punkte der angefangenen Fläche: rund (Standard) oder eckig. */
+    var zeichnungRund by mutableStateOf(true)
+        private set
+
+    // Im Bearbeitungsmodus angelegte Flächen (für "Rückgängig"). Endet beim Verlassen des Modus.
+    private val angelegteFlaechen = mutableListOf<Long>()
+    var anzahlRueckgaengig by mutableIntStateOf(0)
+        private set
+
+    fun starteZeichnung() {
+        zeichnung = emptyList()
+        zeichnungRund = true
+    }
+
+    fun setzePunkt(punkt: Offset) {
+        val aktuell = zeichnung ?: return
+        zeichnung = aktuell + punkt
+    }
+
+    fun entferneLetztenPunkt() {
+        val aktuell = zeichnung ?: return
+        zeichnung = aktuell.dropLast(1)
+    }
+
+    fun schalteRund() {
+        zeichnungRund = !zeichnungRund
+    }
+
+    fun brichZeichnungAb() {
+        zeichnung = null
+    }
+
+    fun schliesseFlaecheAb(gartenId: Long) {
+        val punkte = zeichnung ?: return
+        if (punkte.size < 3) return
+        val rund = zeichnungRund
+        zeichnung = null
+        viewModelScope.launch {
+            val id = dao.legeFlaecheAn(
+                gartenId,
+                punkte.mapIndexed { nr, o -> Punkt(flaecheId = 0, nr = nr, x = o.x, y = o.y, rund = rund) },
+                jetzt(),
+            )
+            angelegteFlaechen.add(id)
+            anzahlRueckgaengig = angelegteFlaechen.size
+        }
+    }
+
+    /** Nimmt die zuletzt angelegte Fläche zurück (solange man im Bearbeitungsmodus ist). */
+    fun macheFlaecheRueckgaengig() {
+        if (angelegteFlaechen.isEmpty()) return
+        val id = angelegteFlaechen.removeAt(angelegteFlaechen.size - 1)
+        anzahlRueckgaengig = angelegteFlaechen.size
+        viewModelScope.launch { dao.loescheFlaeche(id) }
+    }
+
+    /** Beim Verlassen des Bearbeitungsmodus: angefangene Zeichnung und Rückgängig-Verlauf verwerfen. */
+    fun beendeBearbeitung() {
+        zeichnung = null
+        angelegteFlaechen.clear()
+        anzahlRueckgaengig = 0
     }
 }

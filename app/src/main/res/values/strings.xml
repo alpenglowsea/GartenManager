@@ -42,5 +42,11 @@
 
     <!-- Garten öffnen -->
     <string name="bearbeiten_titel">Bearbeiten: %s</string>
+    <string name="flaeche_zeichnen">Fläche zeichnen</string>
+    <string name="rueckgaengig">Rückgängig</string>
+    <string name="alle_eckig">Alle Punkte eckig</string>
+    <string name="alle_rund">Alle Punkte rund</string>
+    <string name="flaeche_abschliessen">Fläche abschließen</string>
+    <string name="zeichnen_hinweis">Tippe die Punkte nacheinander an den Rand der Fläche. Ab drei Punkten kannst du sie abschließen. Mit zwei Fingern zoomst und verschiebst du.</string>
     <string name="ansicht_zuruecksetzen">Ansicht zurücksetzen</string>
 </resources>

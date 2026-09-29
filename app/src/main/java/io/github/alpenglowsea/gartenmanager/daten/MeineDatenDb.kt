@@ -15,8 +15,8 @@ import androidx.room.RoomDatabase
  * (Migrationen) ersetzt werden.
  */
 @Database(
-    entities = [Grundstueck::class, Garten::class],
-    version = 1,
+    entities = [Grundstueck::class, Garten::class, Flaeche::class, Punkt::class],
+    version = 2,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
