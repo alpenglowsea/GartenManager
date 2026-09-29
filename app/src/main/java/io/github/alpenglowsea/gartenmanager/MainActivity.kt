@@ -13,7 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.alpenglowsea.gartenmanager.ui.GartenListeScreen
 import io.github.alpenglowsea.gartenmanager.ui.GartenManagerTheme
-import io.github.alpenglowsea.gartenmanager.ui.GartenPlatzhalterScreen
+import io.github.alpenglowsea.gartenmanager.ui.GartenScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +35,15 @@ class MainActivity : ComponentActivity() {
                         // Zurück aus dem Bearbeiten führt in die Ansicht, aus der Ansicht in die Liste.
                         if (bearbeiten) bearbeiten = false else offenerGartenId = null
                     }
-                    GartenPlatzhalterScreen(
+                    GartenScreen(
                         garten = offenerGarten,
                         bearbeiten = bearbeiten,
                         onBearbeiten = { bearbeiten = true },
                         onFertig = { bearbeiten = false },
                         onZurueck = { offenerGartenId = null },
+                        onAnsichtGeaendert = { zoom, x, y ->
+                            viewModel.speichereAnsicht(offenerGarten.id, zoom, x, y)
+                        },
                     )
                 } else {
                     GartenListeScreen(

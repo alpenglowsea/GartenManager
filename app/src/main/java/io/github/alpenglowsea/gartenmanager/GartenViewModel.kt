@@ -78,6 +78,11 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch { dao.dupliziereGarten(id, jetzt(), zusatz) }
     }
 
+    /** Speichert die letzte Ansicht, ohne "zuletzt geaendert" zu veraendern. */
+    fun speichereAnsicht(id: Long, zoom: Float, x: Float, y: Float) {
+        viewModelScope.launch { dao.speichereAnsicht(id, zoom, x, y) }
+    }
+
     fun loescheGarten(id: Long) {
         viewModelScope.launch { dao.loescheGarten(id) }
     }

@@ -27,6 +27,9 @@ abstract class GartenDao {
     @Query("UPDATE grundstueck SET name = :name WHERE id = :id")
     abstract suspend fun benenneGrundstueckUm(id: Long, name: String)
 
+    @Query("UPDATE garten SET ansichtZoom = :zoom, ansichtX = :x, ansichtY = :y WHERE id = :id")
+    abstract suspend fun speichereAnsicht(id: Long, zoom: Float, x: Float, y: Float)
+
     @Query("UPDATE garten SET name = :name, geaendertAm = :jetzt WHERE id = :id")
     abstract suspend fun benenneGartenUm(id: Long, name: String, jetzt: Long)
 

@@ -40,8 +40,7 @@
     <string name="grundstueck_aufloesen">Nur Grundstück auflösen (Gärten bleiben)</string>
     <string name="grundstueck_mit_gaerten_loeschen">Grundstück mit allen Gärten löschen</string>
 
-    <!-- Garten öffnen (Platzhalter) -->
+    <!-- Garten öffnen -->
     <string name="bearbeiten_titel">Bearbeiten: %s</string>
-    <string name="platzhalter_ansicht">Hier erscheint bald dein Gartenplan (Ansicht).</string>
-    <string name="platzhalter_bearbeiten">Bearbeitungsmodus: Hier kannst du bald zeichnen.</string>
+    <string name="ansicht_zuruecksetzen">Ansicht zurücksetzen</string>
 </resources>
