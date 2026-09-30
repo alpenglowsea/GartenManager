@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gartenplan (Umsetzungsschritt 2)
 
-Stand: 30.09.2026, Version 0.8 (Flächen bearbeiten; Hilfetext hinter Fragezeichen)
+Stand: 30.09.2026, Version 0.10 (Oberflächen mit Farben und Mustern; Info per Tipp in der Ansicht)
 
 Dieses Dokument beschreibt, **wie das Zeichnen des Gartens aussehen und funktionieren soll**, bevor Code entsteht. Es geht nur um Gärten und Flächen. Gegenstände (Häuser, Schuppen, Autos) und Pflanzen kommen in späteren Schritten dazu.
 
@@ -96,13 +96,15 @@ Ein Garten wird nicht ständig umgebaut. Meist will man ihn nur ansehen, Pflanze
 - **Punkt löschen:** Griff antippen, dann "Punkt löschen". Eine Fläche behält mindestens drei Punkte.
 - **Rund oder Ecke:** Griff antippen, dann "Zu Ecke" beziehungsweise "Zu rund". Für die ganze Fläche geht das über das Menü "Fläche" ("Alle Punkte rund / eckig"). **Entschieden**
 - **Fläche verschieben:** die ausgewählte Fläche selbst ziehen.
-- **Menü "Fläche"** (bei ausgewählter Fläche, kein Punkt ausgewählt): Name ändern, Nach vorn, Nach hinten (jeweils eine Ebene), Alle Punkte rund, Alle Punkte eckig, Einrasten an/aus, Löschen (mit Rückfrage). "Oberfläche ändern" kommt mit 2d.
+- **Flächenmenü per langem Tipp. Entschieden** (30.09.2026): Wer den Finger lange ruhig auf eine Fläche hält, wählt sie aus und öffnet an der Fingerstelle ihr Menü: Name ändern, Nach vorn, Nach hinten (jeweils eine Ebene), Alle Punkte rund, Alle Punkte eckig, Löschen (mit Rückfrage). "Oberfläche ändern" kommt mit 2d. Der Knopf "Fläche" in der Werkzeugleiste entfällt; dort steht bei ausgewählter Fläche stattdessen "Abwählen" und "Einrasten an/aus".
+- **Rückmeldung beim Verschieben einer Fläche. Entschieden** (30.09.2026): Sobald die Fläche "an der Hand" ist, gibt es ein kurzes Vibrieren, die Fläche bekommt einen Schatten und einen dickeren Rahmen.
 - **Rückgängig:** Nach jedem Schritt (Fläche anlegen, Punkt ziehen, hinzufügen, löschen, Fläche verschieben, benennen, Reihenfolge, Löschen) lässt sich zurückgehen, bis zu 50 Schritte, solange man im Bearbeitungsmodus ist. Beim Verlassen ist der Verlauf weg, die Änderungen bleiben. Technisch merkt sich die App vor jeder Änderung ein Abbild aller Flächen des Gartens und stellt es wieder her.
+- **Kopfleiste. Entschieden** (30.09.2026): Zurück ist ein Pfeil, Bearbeiten ein Spaten (passend zum Garten; ein Stift ist als Alternative gezeichnet und austauschbar), Hilfe ein Fragezeichen. So bleibt mehr Platz für den Gartennamen. Bei Bearbeiten steht weiter "Fertig" als Text.
 - **Hilfetext:** Der Erklärtext steht nicht mehr über der Werkzeugleiste, sondern hinter einem **Fragezeichen** in der Kopfleiste. Er passt zur aktuellen Lage (Ansicht, Zeichnen, Form, Auswahl). **Entschieden** (30.09.2026)
 
 ### 3.5 Oberflächen
 
-**Entschieden** (Liste für den Anfang; Ergänzungen kommen bei Bedarf mit einem Update, auch nach Wünschen von Anwendern). Jede Oberfläche bekommt eine eigene Farbe und ein dezentes Muster, die ich selbst zeichne; echte Fototexturen erst später:
+**Entschieden** (Liste für den Anfang; Ergänzungen kommen bei Bedarf mit einem Update, auch nach Wünschen von Anwendern). Jede Oberfläche bekommt eine eigene Farbe und ein dezentes Muster, die ich selbst zeichne; echte Fototexturen erst später. **Flächen sind deckend** (Hinweis vom 30.09.2026): Was unter einer höheren Fläche liegt, schimmert nicht durch. Eine einstellbare Durchsichtigkeit wäre später nachrüstbar, ist aber nicht geplant.
 
 | Oberfläche | Gedacht für |
 |---|---|
@@ -186,7 +188,7 @@ Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHub baut, du testest 
 | 2a | Gartenliste: Gärten und Grundstücke anlegen, umbenennen, verschieben, duplizieren, löschen. (Das Duplizieren kopiert zunächst nur den leeren Garten; ab 2c kopiert es auch Flächen und Punkte.) Erste Datenbank in der App. Nach dem Schließen und Neustarten sind die Gärten noch da. |
 | 2b | Leere Gartenfläche mit Zoomen und Verschieben. Ansicht und Bearbeitungsmodus mit Umschalter (im Bearbeitungsmodus noch ohne Werkzeuge). Über das Menü in der Liste lässt sich "Bearbeiten" direkt wählen. |
 | 2c | Im Bearbeitungsmodus Flächen zeichnen: Punkte setzen, Kurve, Schließen per Tipp auf den ersten Punkt, Ausrichtungshilfe, geometrische Formen. Alles wird sofort gespeichert. Flächen sind danach in der Ansicht sichtbar, und Duplizieren kopiert sie mit. (Am Handy getestet: Zeichnen, Kurven, Rückgängig, Speichern, Duplizieren; Nachbesserungen nach dem Test: Schließen, Ausrichtung, Formen.) |
-| 2d | Oberflächen mit Farben und Mustern. In der Ansicht zeigt ein Tipp auf eine Fläche Name und Oberfläche. |
+| 2d | Oberflächen mit Farben und Mustern. In der Ansicht zeigt ein Tipp auf eine Fläche Name und Oberfläche. Nach dem Anlegen einer Fläche öffnet sich die Oberflächenwahl, später im Flächenmenü (langer Tipp, "Oberfläche ändern"). Die Muster zeichnet die App selbst (Gras: Halme, Erde: Punkte, Kies: Steinchen, Pflaster: Ziegelverband, Holz: Bretter, Sand: feine Körner, Wasser: Wellen, Beton: Sprenkel); sie hängen an der Fläche und entfallen bei sehr kleiner Darstellung. |
 | 2e | Bearbeiten: Flächen auswählen, Punkte verschieben, hinzufügen, löschen, Rund/Ecke, Fläche verschieben, benennen, Reihenfolge, löschen, voller Rückgängig-Verlauf. Dazu der Hilfetext hinter dem Fragezeichen. Kommt vor 2d (Oberflächen). |
 
 Wie lange das dauert, kann ich nicht seriös schätzen (wie im Rest des Projekts).

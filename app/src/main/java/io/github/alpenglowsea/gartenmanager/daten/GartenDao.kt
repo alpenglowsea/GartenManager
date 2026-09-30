@@ -120,6 +120,9 @@ abstract class GartenDao {
     @Insert
     abstract suspend fun fuegeFlaechenEin(flaechen: List<Flaeche>)
 
+    @Query("UPDATE flaeche SET oberflaeche = :oberflaeche WHERE id = :id")
+    abstract suspend fun setzeOberflaeche(id: Long, oberflaeche: String)
+
     @Query("UPDATE flaeche SET name = :name WHERE id = :id")
     abstract suspend fun benenneFlaecheUm(id: Long, name: String)
 

@@ -132,6 +132,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var auswahlPunkt by mutableStateOf<Long?>(null)
         private set
 
+    /** Gerade angelegte Fläche, für die noch die Oberfläche gewählt wird (Dialog offen). */
+    var neueFlaecheId by mutableStateOf<Long?>(null)
+        private set
+
     // Rückgängig: Abbilder des Gartens vor jeder Änderung. Endet beim Verlassen des Bearbeitungsmodus.
     private class Abbild(val flaechen: List<Flaeche>, val punkte: List<Punkt>)
 
@@ -230,6 +234,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
             )
             // Die neue Fläche ist gleich ausgewählt, damit man sie sofort verändern kann.
             waehleFlaeche(id)
+            neueFlaecheId = id
         }
     }
 
@@ -260,6 +265,29 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setzeAlleRund(gartenId: Long, flaecheId: Long, rund: Boolean) {
         aendere(gartenId) { dao.setzeAlleRund(flaecheId, rund) }
+    }
+
+    /** Ändert die Oberfläche einer Fläche (ein eigener Schritt für "Rückgängig"). */
+    fun setzeOberflaeche(gartenId: Long, flaecheId: Long, schluessel: String) {
+        aendere(gartenId) { dao.setzeOberflaeche(flaecheId, schluessel) }
+    }
+
+    /**
+     * Oberfläche direkt nach dem Anlegen: kein eigener Schritt für "Rückgängig", damit ein
+     * Rückgängig die ganze neue Fläche entfernt.
+     */
+    fun waehleOberflaecheFuerNeue(gartenId: Long, flaecheId: Long, schluessel: String) {
+        neueFlaecheId = null
+        viewModelScope.launch {
+            sperre.withLock {
+                dao.setzeOberflaeche(flaecheId, schluessel)
+                dao.beruehreGarten(gartenId, jetzt())
+            }
+        }
+    }
+
+    fun beendeOberflaechenWahl() {
+        neueFlaecheId = null
     }
 
     fun benenneFlaecheUm(gartenId: Long, flaecheId: Long, name: String) {
@@ -299,6 +327,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     fun beendeBearbeitung() {
         zeichnung = null
         formAuswahl = null
+        neueFlaecheId = null
         waehleFlaeche(null)
         viewModelScope.launch {
             sperre.withLock {

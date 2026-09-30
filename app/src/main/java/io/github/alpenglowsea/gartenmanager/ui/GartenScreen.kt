@@ -13,10 +13,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -24,6 +29,8 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -50,12 +57,18 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalViewConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.GartenViewModel
 import io.github.alpenglowsea.gartenmanager.R
@@ -106,6 +119,7 @@ fun GartenScreen(
 ) {
     val dichte = LocalDensity.current.density
     val touchSlop = LocalViewConfiguration.current.touchSlop
+    val haptik = LocalHapticFeedback.current
     val zeichnung = viewModel.zeichnung
     val formAuswahl = viewModel.formAuswahl
     val einrasten = viewModel.einrasten
@@ -140,6 +154,11 @@ fun GartenScreen(
     var formenDialog by remember { mutableStateOf(false) }
     var namenDialog by remember { mutableStateOf(false) }
     var loeschenDialog by remember { mutableStateOf(false) }
+    // Flächenmenü (langer Tipp auf eine Fläche): Stelle des Fingers, sonst null
+    var flaechenMenue by remember { mutableStateOf<Offset?>(null) }
+    var oberflaecheDialog by remember { mutableStateOf(false) }
+    // In der Ansicht angetippte Fläche (zeigt Name und Oberfläche)
+    var infoFlaecheId by remember { mutableStateOf<Long?>(null) }
 
     val faktor = zoom * dichte
     fun zuSkizze(bild: Offset) = Offset((bild.x - verschiebungX) / faktor, (bild.y - verschiebungY) / faktor)
@@ -227,6 +246,17 @@ fun GartenScreen(
         return liegtInnen(poly, pos)
     }
 
+    /** Die oberste Fläche unter dem Finger (oder null). */
+    fun flaecheBei(pos: Offset): Flaeche? {
+        for (kandidat in flaechen.asReversed()) {
+            val ihre = punkteJeFlaeche[kandidat.id] ?: continue
+            if (ihre.size < 3) continue
+            val poly = kurvenPolylinie(bildPunkte(kandidat, ihre), ihre.map { it.rund }, true)
+            if (liegtInnen(poly, pos)) return kandidat
+        }
+        return null
+    }
+
     // --- Tipp im Auswahlmodus ---
     fun beiTippAuswahl(pos: Offset) {
         val fl = gewaehlteFlaeche
@@ -260,16 +290,7 @@ fun GartenScreen(
             }
         }
         // 3. Die oberste Fläche unter dem Finger auswählen, sonst Auswahl aufheben
-        for (kandidat in flaechen.asReversed()) {
-            val ihre = punkteJeFlaeche[kandidat.id] ?: continue
-            if (ihre.size < 3) continue
-            val poly = kurvenPolylinie(bildPunkte(kandidat, ihre), ihre.map { it.rund }, true)
-            if (liegtInnen(poly, pos)) {
-                viewModel.waehleFlaeche(kandidat.id)
-                return
-            }
-        }
-        viewModel.waehleFlaeche(null)
+        viewModel.waehleFlaeche(flaecheBei(pos)?.id)
     }
 
     val beiZeiger = rememberUpdatedState<(Offset?) -> Unit> { pos ->
@@ -299,10 +320,32 @@ fun GartenScreen(
                         null
                     }
                 } else {
-                    if (!bewegt && (pos - start).getDistance() > touchSlop) bewegt = true
+                    if (!bewegt && (pos - start).getDistance() > touchSlop) {
+                        bewegt = true
+                        // Fläche "in der Hand": kurzes Fühlen, dazu Schatten und Rahmen in der Anzeige
+                        if (ziehen != null && ziehen?.punktId == null) {
+                            haptik.performHapticFeedback(HapticFeedbackType.LongPress)
+                        }
+                    }
                     val z = ziehen
                     if (bewegt && z != null) ziehen = z.copy(aktuell = zuSkizze(pos))
                 }
+            }
+        }
+    }
+
+    val beiTippAnsicht = rememberUpdatedState<(Offset) -> Unit> { pos ->
+        infoFlaecheId = if (bearbeiten) null else flaecheBei(pos)?.id
+    }
+
+    val beiLangemDruck = rememberUpdatedState<(Offset) -> Unit> { pos ->
+        if (bearbeiten && zeichnung == null && formAuswahl == null) {
+            val treffer = flaecheBei(pos)
+            if (treffer != null) {
+                ziehen = null
+                viewModel.waehleFlaeche(treffer.id)
+                haptik.performHapticFeedback(HapticFeedbackType.LongPress)
+                flaechenMenue = pos
             }
         }
     }
@@ -361,6 +404,7 @@ fun GartenScreen(
         druckStart = null
         ziehen = null
         ziehenFertig = false
+        infoFlaecheId = null
     }
 
     Scaffold(
@@ -377,16 +421,26 @@ fun GartenScreen(
                     )
                 },
                 navigationIcon = {
-                    TextButton(onClick = if (bearbeiten) onFertig else onZurueck) {
-                        Text(stringResource(R.string.zurueck))
+                    IconButton(onClick = if (bearbeiten) onFertig else onZurueck) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_zurueck),
+                            contentDescription = stringResource(R.string.zurueck),
+                        )
                     }
                 },
                 actions = {
-                    TextButton(onClick = { hilfeDialog = true }) { Text(stringResource(R.string.hilfe_knopf)) }
+                    IconButton(onClick = { hilfeDialog = true }) {
+                        Text(stringResource(R.string.hilfe_knopf), style = MaterialTheme.typography.titleLarge)
+                    }
                     if (bearbeiten) {
                         TextButton(onClick = onFertig) { Text(stringResource(R.string.fertig)) }
                     } else {
-                        TextButton(onClick = onBearbeiten) { Text(stringResource(R.string.bearbeiten)) }
+                        IconButton(onClick = onBearbeiten) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_spaten),
+                                contentDescription = stringResource(R.string.bearbeiten),
+                            )
+                        }
                     }
                 },
                 colors = if (bearbeiten) {
@@ -430,12 +484,6 @@ fun GartenScreen(
                         val pu = gewaehlterPunkt
                         if (pu != null) viewModel.setzePunktRund(gartenId, pu.id, !pu.rund)
                     },
-                    onNameAendern = { namenDialog = true },
-                    onNachVorn = { gewaehlteFlaeche?.let { viewModel.bewegeFlaecheInReihenfolge(gartenId, it.id, 1) } },
-                    onNachHinten = { gewaehlteFlaeche?.let { viewModel.bewegeFlaecheInReihenfolge(gartenId, it.id, -1) } },
-                    onAlleRund = { gewaehlteFlaeche?.let { viewModel.setzeAlleRund(gartenId, it.id, true) } },
-                    onAlleEckig = { gewaehlteFlaeche?.let { viewModel.setzeAlleRund(gartenId, it.id, false) } },
-                    onFlaecheLoeschen = { loeschenDialog = true },
                 )
             }
         },
@@ -463,6 +511,8 @@ fun GartenScreen(
                             einFingerAktion = bearbeiten,
                             beiZeiger = { beiZeiger.value(it) },
                             beiLoslassen = { beiLoslassen.value(it) },
+                            beiLangemDruck = { beiLangemDruck.value(it) },
+                            beiTipp = { beiTippAnsicht.value(it) },
                             beiTransform = { schwerpunkt, verschieben, zoomFaktor ->
                                 val neuerZoom = (zoom * zoomFaktor).coerceIn(ZOOM_MIN, ZOOM_MAX)
                                 val echterFaktor = neuerZoom / zoom
@@ -482,17 +532,37 @@ fun GartenScreen(
                     if (ihre.size < 3) continue
                     val bild = bildPunkte(flaeche, ihre)
                     val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
-                    drawPath(pfad, FLAECHE_FUELLUNG)
+                    val inDerHand = bewegt && ziehen?.punktId == null && ziehen?.flaecheId == flaeche.id
+                    if (inDerHand) {
+                        // Schatten: die Fläche wirkt angehoben
+                        translate(left = 4f * dichte, top = 7f * dichte) {
+                            drawPath(pfad, Color.Black.copy(alpha = 0.3f))
+                        }
+                    }
+                    val art = Oberflaeche.vonSchluessel(flaeche.oberflaeche)
+                    drawPath(pfad, art.fuellung)
+                    zeichneMuster(art, pfad, bild, faktor, dichte)
                     drawPath(
                         pfad,
-                        FLAECHE_RAND,
+                        art.rand,
                         style = Stroke(width = 2f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
                     )
+                    if (!bearbeiten && flaeche.id == infoFlaecheId) {
+                        drawPath(
+                            pfad,
+                            achsenFarbe,
+                            style = Stroke(width = 4f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
+                        )
+                    }
                     if (bearbeiten && flaeche.id == gewaehlteFlaeche?.id) {
                         drawPath(
                             pfad,
                             rahmenFarbe,
-                            style = Stroke(width = 3f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
+                            style = Stroke(
+                                width = (if (inDerHand) 6f else 3f) * dichte,
+                                cap = StrokeCap.Round,
+                                join = StrokeJoin.Round,
+                            ),
                         )
                     }
                 }
@@ -605,6 +675,68 @@ fun GartenScreen(
                 }
             }
 
+            val info = flaechen.firstOrNull { it.id == infoFlaecheId }
+            if (!bearbeiten && info != null) {
+                val art = Oberflaeche.vonSchluessel(info.oberflaeche)
+                Surface(
+                    modifier = Modifier.align(Alignment.TopCenter).padding(12.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    tonalElevation = 6.dp,
+                    shadowElevation = 4.dp,
+                ) {
+                    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+                        Text(
+                            text = info.name ?: stringResource(R.string.flaeche_ohne_name),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Row(
+                            modifier = Modifier.padding(top = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Farbfeld(art)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(stringResource(art.nameRes), style = MaterialTheme.typography.bodyMedium)
+                        }
+                    }
+                }
+            }
+
+            val menuePos = flaechenMenue
+            if (menuePos != null && gewaehlteFlaeche != null) {
+                Box(modifier = Modifier.offset { IntOffset(menuePos.x.toInt(), menuePos.y.toInt()) }) {
+                    DropdownMenu(expanded = true, onDismissRequest = { flaechenMenue = null }) {
+                        MenuePunkt(R.string.menue_name_aendern) {
+                            flaechenMenue = null
+                            namenDialog = true
+                        }
+                        MenuePunkt(R.string.menue_oberflaeche) {
+                            flaechenMenue = null
+                            oberflaecheDialog = true
+                        }
+                        MenuePunkt(R.string.menue_nach_vorn) {
+                            flaechenMenue = null
+                            viewModel.bewegeFlaecheInReihenfolge(gartenId, gewaehlteFlaeche.id, 1)
+                        }
+                        MenuePunkt(R.string.menue_nach_hinten) {
+                            flaechenMenue = null
+                            viewModel.bewegeFlaecheInReihenfolge(gartenId, gewaehlteFlaeche.id, -1)
+                        }
+                        MenuePunkt(R.string.alle_rund) {
+                            flaechenMenue = null
+                            viewModel.setzeAlleRund(gartenId, gewaehlteFlaeche.id, true)
+                        }
+                        MenuePunkt(R.string.alle_eckig) {
+                            flaechenMenue = null
+                            viewModel.setzeAlleRund(gartenId, gewaehlteFlaeche.id, false)
+                        }
+                        MenuePunkt(R.string.loeschen) {
+                            flaechenMenue = null
+                            loeschenDialog = true
+                        }
+                    }
+                }
+            }
+
             FilledTonalButton(
                 onClick = {
                     zoom = 1f
@@ -636,6 +768,25 @@ fun GartenScreen(
             onSchliessen = { hilfeDialog = false },
         )
     }
+    // Gleich nach dem Anlegen einer Fläche: Oberfläche wählen (Schließen ohne Wahl behält Gras).
+    val neueFlaecheId = viewModel.neueFlaecheId
+    if (neueFlaecheId != null) {
+        OberflaechenDialog(
+            aktuell = null,
+            onWahl = { art -> viewModel.waehleOberflaecheFuerNeue(gartenId, neueFlaecheId, art.schluessel) },
+            onAbbrechen = { viewModel.beendeOberflaechenWahl() },
+        )
+    }
+    if (oberflaecheDialog && gewaehlteFlaeche != null) {
+        OberflaechenDialog(
+            aktuell = Oberflaeche.vonSchluessel(gewaehlteFlaeche.oberflaeche),
+            onWahl = { art ->
+                oberflaecheDialog = false
+                viewModel.setzeOberflaeche(gartenId, gewaehlteFlaeche.id, art.schluessel)
+            },
+            onAbbrechen = { oberflaecheDialog = false },
+        )
+    }
     if (namenDialog && gewaehlteFlaeche != null) {
         NameDialog(
             titel = stringResource(R.string.flaeche_name_titel),
@@ -662,8 +813,21 @@ fun GartenScreen(
     }
 }
 
-private val FLAECHE_FUELLUNG = Color(0xFF8BC34A).copy(alpha = 0.6f)
-private val FLAECHE_RAND = Color(0xFF33691E)
+private val KNOPF_ABSTAND = PaddingValues(horizontal = 6.dp, vertical = 8.dp)
+
+@Composable
+private fun KnopfVoll(textId: Int, onClick: () -> Unit, modifier: Modifier) {
+    Button(onClick = onClick, modifier = modifier, contentPadding = KNOPF_ABSTAND) {
+        Text(stringResource(textId), maxLines = 1, style = MaterialTheme.typography.labelLarge)
+    }
+}
+
+@Composable
+private fun KnopfUmriss(textId: Int, onClick: () -> Unit, modifier: Modifier, enabled: Boolean = true) {
+    OutlinedButton(onClick = onClick, modifier = modifier, enabled = enabled, contentPadding = KNOPF_ABSTAND) {
+        Text(stringResource(textId), maxLines = 1, style = MaterialTheme.typography.labelLarge)
+    }
+}
 
 @Composable
 private fun Werkzeugleiste(
@@ -684,13 +848,8 @@ private fun Werkzeugleiste(
     onAbwaehlen: () -> Unit,
     onPunktLoeschen: () -> Unit,
     onPunktRundSchalten: () -> Unit,
-    onNameAendern: () -> Unit,
-    onNachVorn: () -> Unit,
-    onNachHinten: () -> Unit,
-    onAlleRund: () -> Unit,
-    onAlleEckig: () -> Unit,
-    onFlaecheLoeschen: () -> Unit,
 ) {
+    val einrastenText = if (einrasten) R.string.einrasten_an else R.string.einrasten_aus
     Surface(tonalElevation = 3.dp) {
         Column(
             modifier = Modifier.fillMaxWidth().navigationBarsPadding().padding(12.dp),
@@ -698,102 +857,42 @@ private fun Werkzeugleiste(
         ) {
             if (zeichnung != null) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = onAbbrechen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.abbrechen), maxLines = 1)
-                    }
-                    OutlinedButton(
-                        onClick = onRueckgaengig,
-                        enabled = zeichnung.isNotEmpty(),
-                        modifier = Modifier.weight(1f),
-                    ) {
-                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
-                    }
+                    KnopfUmriss(R.string.abbrechen, onAbbrechen, Modifier.weight(1f))
+                    KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1f), enabled = zeichnung.isNotEmpty())
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = onSchalteRund, modifier = Modifier.weight(1f)) {
-                        Text(
-                            stringResource(if (zeichnungRund) R.string.alle_eckig else R.string.alle_rund),
-                            maxLines = 1,
-                        )
-                    }
-                    OutlinedButton(onClick = onSchalteEinrasten, modifier = Modifier.weight(1f)) {
-                        Text(
-                            stringResource(if (einrasten) R.string.einrasten_an else R.string.einrasten_aus),
-                            maxLines = 1,
-                        )
-                    }
+                    KnopfUmriss(
+                        if (zeichnungRund) R.string.alle_eckig else R.string.alle_rund,
+                        onSchalteRund,
+                        Modifier.weight(1f),
+                    )
+                    KnopfUmriss(einrastenText, onSchalteEinrasten, Modifier.weight(1f))
                 }
             } else if (formAuswahl != null) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = onAbbrechen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.abbrechen), maxLines = 1)
-                    }
-                    OutlinedButton(onClick = onFormenWaehlen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.andere_form), maxLines = 1)
-                    }
+                    KnopfUmriss(R.string.abbrechen, onAbbrechen, Modifier.weight(1f))
+                    KnopfUmriss(R.string.andere_form, onFormenWaehlen, Modifier.weight(1f))
                 }
             } else if (gewaehlteFlaeche != null) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (gewaehlterPunkt != null) {
-                        OutlinedButton(
-                            onClick = onPunktLoeschen,
-                            enabled = punktLoeschenMoeglich,
-                            modifier = Modifier.weight(1f),
-                        ) {
-                            Text(stringResource(R.string.punkt_loeschen), maxLines = 1)
-                        }
-                        OutlinedButton(onClick = onPunktRundSchalten, modifier = Modifier.weight(1f)) {
-                            Text(
-                                stringResource(if (gewaehlterPunkt.rund) R.string.punkt_zu_ecke else R.string.punkt_zu_rund),
-                                maxLines = 1,
-                            )
-                        }
+                        KnopfUmriss(R.string.punkt_loeschen, onPunktLoeschen, Modifier.weight(1f), enabled = punktLoeschenMoeglich)
+                        KnopfUmriss(
+                            if (gewaehlterPunkt.rund) R.string.punkt_zu_ecke else R.string.punkt_zu_rund,
+                            onPunktRundSchalten,
+                            Modifier.weight(1f),
+                        )
                     } else {
-                        var menueOffen by remember { mutableStateOf(false) }
-                        Box(modifier = Modifier.weight(1f)) {
-                            Button(onClick = { menueOffen = true }, modifier = Modifier.fillMaxWidth()) {
-                                Text(stringResource(R.string.flaeche_menue), maxLines = 1)
-                            }
-                            DropdownMenu(expanded = menueOffen, onDismissRequest = { menueOffen = false }) {
-                                MenuePunkt(R.string.menue_name_aendern) { menueOffen = false; onNameAendern() }
-                                MenuePunkt(R.string.menue_nach_vorn) { menueOffen = false; onNachVorn() }
-                                MenuePunkt(R.string.menue_nach_hinten) { menueOffen = false; onNachHinten() }
-                                MenuePunkt(R.string.alle_rund) { menueOffen = false; onAlleRund() }
-                                MenuePunkt(R.string.alle_eckig) { menueOffen = false; onAlleEckig() }
-                                MenuePunkt(if (einrasten) R.string.einrasten_an else R.string.einrasten_aus) {
-                                    menueOffen = false
-                                    onSchalteEinrasten()
-                                }
-                                MenuePunkt(R.string.loeschen) { menueOffen = false; onFlaecheLoeschen() }
-                            }
-                        }
-                        OutlinedButton(onClick = onAbwaehlen, modifier = Modifier.weight(1f)) {
-                            Text(stringResource(R.string.abwaehlen), maxLines = 1)
-                        }
+                        KnopfUmriss(R.string.abwaehlen, onAbwaehlen, Modifier.weight(1f))
+                        KnopfUmriss(einrastenText, onSchalteEinrasten, Modifier.weight(1f))
                     }
-                    OutlinedButton(
-                        onClick = onRueckgaengig,
-                        enabled = kannRueckgaengig,
-                        modifier = Modifier.weight(1f),
-                    ) {
-                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
-                    }
+                    KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1f), enabled = kannRueckgaengig)
                 }
             } else {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = onFlaecheZeichnen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.zeichnen), maxLines = 1)
-                    }
-                    Button(onClick = onFormenWaehlen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.form_waehlen), maxLines = 1)
-                    }
-                    OutlinedButton(
-                        onClick = onRueckgaengig,
-                        enabled = kannRueckgaengig,
-                        modifier = Modifier.weight(1f),
-                    ) {
-                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
-                    }
+                    KnopfVoll(R.string.zeichnen, onFlaecheZeichnen, Modifier.weight(1f))
+                    KnopfVoll(R.string.form_waehlen, onFormenWaehlen, Modifier.weight(1f))
+                    KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1f), enabled = kannRueckgaengig)
                 }
             }
         }
@@ -868,25 +967,48 @@ private fun HilfeDialog(
  *    er liegt, meldet [beiZeiger] seine Position; beim Loslassen kommt [beiLoslassen]. Kommt ein
  *    zweiter Finger dazu, wird abgebrochen ([beiZeiger] mit null, kein [beiLoslassen]).
  *    Am Ende jeder Geste kommt noch einmal [beiZeiger] mit null.
+ *  - In der Ansicht ([einFingerAktion] aus) meldet ein Tipp (ein Finger, kaum bewegt) [beiTipp].
+ *  - Bleibt der Finger im Bearbeitungsmodus lange ruhig liegen, kommt [beiLangemDruck]. Danach
+ *    ist die Geste beendet (kein Ziehen, kein Loslassen-Ereignis mehr).
  */
 private suspend fun PointerInputScope.gartenGesten(
     einFingerVerschiebt: Boolean,
     einFingerAktion: Boolean,
     beiZeiger: (Offset?) -> Unit,
     beiLoslassen: (Offset) -> Unit,
+    beiLangemDruck: (Offset) -> Unit,
+    beiTipp: (Offset) -> Unit,
     beiTransform: (schwerpunkt: Offset, verschieben: Offset, zoomFaktor: Float) -> Unit,
 ) {
     awaitEachGesture {
         val runter = awaitFirstDown(requireUnconsumed = false)
+        val startZeit = System.currentTimeMillis()
+        val langDauer = viewConfiguration.longPressTimeoutMillis
+        val schwelle = viewConfiguration.touchSlop
         var maxFinger = 1
         var letztePosition = runter.position
+        var zuWeitBewegt = false
+        var langerDruck = false
         if (einFingerAktion) beiZeiger(runter.position)
-        do {
-            val ereignis = awaitPointerEvent()
+        while (true) {
+            val warteAufLang = einFingerAktion && !langerDruck && !zuWeitBewegt && maxFinger == 1
+            val ereignis: PointerEvent? = if (warteAufLang) {
+                val rest = maxOf(1L, langDauer - (System.currentTimeMillis() - startZeit))
+                withTimeoutOrNull(rest) { awaitPointerEvent() }
+            } else {
+                awaitPointerEvent()
+            }
+            if (ereignis == null) {
+                // Der Finger liegt lange ruhig: langer Druck
+                langerDruck = true
+                beiZeiger(null)
+                beiLangemDruck(letztePosition)
+                continue
+            }
             val fingerAnzahl = ereignis.changes.count { it.pressed }
             if (fingerAnzahl > maxFinger) maxFinger = fingerAnzahl
             if (fingerAnzahl >= 2) {
-                if (einFingerAktion) beiZeiger(null)
+                if (einFingerAktion && !langerDruck) beiZeiger(null)
                 beiTransform(
                     ereignis.calculateCentroid(useCurrent = false),
                     ereignis.calculatePan(),
@@ -896,18 +1018,22 @@ private suspend fun PointerInputScope.gartenGesten(
             } else if (fingerAnzahl == 1) {
                 val finger = ereignis.changes.first { it.pressed }
                 letztePosition = finger.position
+                if ((finger.position - runter.position).getDistance() > schwelle) zuWeitBewegt = true
                 if (einFingerAktion) {
-                    if (maxFinger == 1) beiZeiger(finger.position)
+                    if (!langerDruck && maxFinger == 1) beiZeiger(finger.position)
                     ereignis.changes.forEach { if (it.positionChanged()) it.consume() }
-                } else if (einFingerVerschiebt && (finger.position - runter.position).getDistance() > viewConfiguration.touchSlop) {
+                } else if (einFingerVerschiebt && zuWeitBewegt) {
                     beiTransform(finger.position, ereignis.calculatePan(), 1f)
                     ereignis.changes.forEach { if (it.positionChanged()) it.consume() }
                 }
             }
-        } while (ereignis.changes.any { it.pressed })
+            if (ereignis.changes.none { it.pressed }) break
+        }
         if (einFingerAktion) {
-            if (maxFinger == 1) beiLoslassen(letztePosition)
+            if (maxFinger == 1 && !langerDruck) beiLoslassen(letztePosition)
             beiZeiger(null)
+        } else if (maxFinger == 1 && !zuWeitBewegt) {
+            beiTipp(letztePosition)
         }
     }
 }
