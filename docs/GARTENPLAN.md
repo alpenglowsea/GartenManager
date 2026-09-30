@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gartenplan (Umsetzungsschritt 2)
 
-Stand: 29.09.2026, Version 0.6 (Sofort speichern; Garten duplizieren statt Entwurf)
+Stand: 30.09.2026, Version 0.7 (Fläche schließt per Tipp auf den ersten Punkt; Ausrichtungshilfe; geometrische Formen)
 
 Dieses Dokument beschreibt, **wie das Zeichnen des Gartens aussehen und funktionieren soll**, bevor Code entsteht. Es geht nur um Gärten und Flächen. Gegenstände (Häuser, Schuppen, Autos) und Pflanzen kommen in späteren Schritten dazu.
 
@@ -77,10 +77,16 @@ Ein Garten wird nicht ständig umgebaut. Meist will man ihn nur ansehen, Pflanze
 ### 3.3 Eine Fläche zeichnen (im Bearbeitungsmodus)
 
 1. Tipp auf "Fläche zeichnen".
-2. Punkte nacheinander an den Rand tippen. Nach jedem Punkt sieht man sofort die gerundete Linie.
-3. Ab dem dritten Punkt erscheint der Knopf "Fläche abschließen". Die App schließt die Fläche selbst (der letzte Punkt wird mit dem ersten verbunden).
-4. Danach öffnet sich die Auswahl der **Oberfläche**. Die Fläche ist sofort sichtbar gefüllt.
-5. Mit "Abbrechen" verwirft man die angefangene Fläche. Ein einzelner Punkt lässt sich mit "Rückgängig" zurücknehmen.
+2. Punkte nacheinander setzen: Finger auf die Stelle legen, bei Bedarf verschieben, **loslassen setzt den Punkt** (so verdeckt der Finger die Stelle nicht). Die Linie durch die Punkte bleibt **offen**, sie schließt sich nicht von selbst. **Entschieden** (30.09.2026)
+3. Ab dem dritten Punkt erscheint ein Ring um den ersten Punkt. **Ein Tipp auf den ersten Punkt schließt die Fläche.** Einen eigenen Knopf "Fläche abschließen" gibt es nicht mehr. **Entschieden** (30.09.2026)
+4. Danach öffnet sich die Auswahl der **Oberfläche** (ab 2d). Die Fläche ist sofort sichtbar gefüllt.
+5. Mit "Abbrechen" verwirft man die angefangene Fläche. Den letzten Punkt nimmt "Rückgängig" zurück.
+
+**Ausrichtungshilfe (Einrasten). Entschieden** (30.09.2026): Beim Setzen eines Punktes rastet dieser ein, wenn er in die Nähe (etwa 12 Punkte auf dem Bildschirm) einer Hilfslinie kommt: waagerecht oder senkrecht zu einem schon gesetzten Punkt, in Verlängerung der letzten Kante oder im rechten Winkel zur letzten Kante. Liegen zwei Hilfslinien in Reichweite, rastet der Punkt an ihrem Schnittpunkt ein (so entstehen saubere Rechtecke). Die Hilfslinien erscheinen gestrichelt, solange der Finger liegt. Standardmäßig an, in der Werkzeugleiste abschaltbar ("Einrasten: an/aus"). Die Reichweite (12) ist ein Schätzwert, ungetestet am Gerät.
+
+### 3.3a Geometrische Formen (im Bearbeitungsmodus)
+
+**Entschieden** (30.09.2026): Der Knopf "Form" bietet Rechteck, Quadrat, Kreis, Ellipse, Dreieck, Fünfeck, Sechseck und Achteck. Nach der Wahl zieht man die Form mit einem Finger auf, von einer Ecke zur gegenüberliegenden Ecke des umschließenden Rechtecks. Quadrat, Kreis und die Vielecke werden immer in ein Quadrat gezogen. Das Ergebnis ist eine ganz normale Fläche aus Punkten (Rechteck: 4 Eckpunkte, Kreis und Ellipse: 8 runde Punkte). Dadurch lassen sich an der Form später **Punkte ziehen, hinzufügen und löschen**, um sie zu verändern, zum Beispiel für ein nicht ganz rechteckiges Grundstück. Das Bearbeiten der Punkte kommt mit Teilschritt 2e. **Hinweis:** Eine Ellipse, die aus 8 Punkten besteht, ist eine Annäherung und keine mathematisch exakte Ellipse.
 
 ### 3.4 Eine Fläche bearbeiten (im Bearbeitungsmodus)
 
@@ -176,7 +182,7 @@ Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHub baut, du testest 
 |---|---|
 | 2a | Gartenliste: Gärten und Grundstücke anlegen, umbenennen, verschieben, duplizieren, löschen. (Das Duplizieren kopiert zunächst nur den leeren Garten; ab 2c kopiert es auch Flächen und Punkte.) Erste Datenbank in der App. Nach dem Schließen und Neustarten sind die Gärten noch da. |
 | 2b | Leere Gartenfläche mit Zoomen und Verschieben. Ansicht und Bearbeitungsmodus mit Umschalter (im Bearbeitungsmodus noch ohne Werkzeuge). Über das Menü in der Liste lässt sich "Bearbeiten" direkt wählen. |
-| 2c | Im Bearbeitungsmodus Flächen zeichnen: Punkte setzen, Kurve, "Fläche abschließen". Alles wird sofort gespeichert. Flächen sind danach in der Ansicht sichtbar, und Duplizieren kopiert sie mit. |
+| 2c | Im Bearbeitungsmodus Flächen zeichnen: Punkte setzen, Kurve, Schließen per Tipp auf den ersten Punkt, Ausrichtungshilfe, geometrische Formen. Alles wird sofort gespeichert. Flächen sind danach in der Ansicht sichtbar, und Duplizieren kopiert sie mit. (Am Handy getestet: Zeichnen, Kurven, Rückgängig, Speichern, Duplizieren; Nachbesserungen nach dem Test: Schließen, Ausrichtung, Formen.) |
 | 2d | Oberflächen mit Farben und Mustern. In der Ansicht zeigt ein Tipp auf eine Fläche Name und Oberfläche. |
 | 2e | Bearbeiten: Punkte verschieben, hinzufügen, löschen, Reihenfolge, Löschen, Rückgängig. |
 

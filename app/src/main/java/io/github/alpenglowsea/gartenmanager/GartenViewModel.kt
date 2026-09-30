@@ -13,6 +13,7 @@ import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Grundstueck
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.Punkt
+import io.github.alpenglowsea.gartenmanager.ui.Form
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -120,9 +121,31 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var anzahlRueckgaengig by mutableIntStateOf(0)
         private set
 
+    /** Gewählte Form, die gerade aufgezogen werden soll. null = keine Form. */
+    var formAuswahl by mutableStateOf<Form?>(null)
+        private set
+
+    /** Ausrichtungshilfe beim Setzen von Punkten (waagerecht, senkrecht, rechter Winkel). */
+    var einrasten by mutableStateOf(true)
+        private set
+
     fun starteZeichnung() {
+        formAuswahl = null
         zeichnung = emptyList()
         zeichnungRund = true
+    }
+
+    fun waehleForm(form: Form) {
+        zeichnung = null
+        formAuswahl = form
+    }
+
+    fun brichFormAb() {
+        formAuswahl = null
+    }
+
+    fun schalteEinrasten() {
+        einrasten = !einrasten
     }
 
     fun setzePunkt(punkt: Offset) {
@@ -143,15 +166,27 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         zeichnung = null
     }
 
+    /** Schließt die angefangene Fläche (Tipp auf den ersten Punkt, ab drei Punkten). */
     fun schliesseFlaecheAb(gartenId: Long) {
         val punkte = zeichnung ?: return
         if (punkte.size < 3) return
         val rund = zeichnungRund
         zeichnung = null
+        speichereFlaeche(gartenId, punkte, List(punkte.size) { rund })
+    }
+
+    /** Legt eine aufgezogene Form als Fläche an. */
+    fun legeFormAn(gartenId: Long, punkte: List<Offset>, rund: List<Boolean>) {
+        formAuswahl = null
+        if (punkte.size < 3) return
+        speichereFlaeche(gartenId, punkte, rund)
+    }
+
+    private fun speichereFlaeche(gartenId: Long, punkte: List<Offset>, rund: List<Boolean>) {
         viewModelScope.launch {
             val id = dao.legeFlaecheAn(
                 gartenId,
-                punkte.mapIndexed { nr, o -> Punkt(flaecheId = 0, nr = nr, x = o.x, y = o.y, rund = rund) },
+                punkte.mapIndexed { nr, o -> Punkt(flaecheId = 0, nr = nr, x = o.x, y = o.y, rund = rund[nr]) },
                 jetzt(),
             )
             angelegteFlaechen.add(id)
@@ -170,6 +205,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     /** Beim Verlassen des Bearbeitungsmodus: angefangene Zeichnung und Rückgängig-Verlauf verwerfen. */
     fun beendeBearbeitung() {
         zeichnung = null
+        formAuswahl = null
         angelegteFlaechen.clear()
         anzahlRueckgaengig = 0
     }

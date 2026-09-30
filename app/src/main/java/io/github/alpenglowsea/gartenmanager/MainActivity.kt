@@ -53,6 +53,8 @@ class MainActivity : ComponentActivity() {
                         bearbeiten = bearbeiten,
                         zeichnung = viewModel.zeichnung,
                         zeichnungRund = viewModel.zeichnungRund,
+                        formAuswahl = viewModel.formAuswahl,
+                        einrasten = viewModel.einrasten,
                         kannRueckgaengig = viewModel.anzahlRueckgaengig > 0,
                         onBearbeiten = { bearbeiten = true },
                         onFertig = { bearbeiten = false },
@@ -66,6 +68,10 @@ class MainActivity : ComponentActivity() {
                         onFlaecheRueckgaengig = viewModel::macheFlaecheRueckgaengig,
                         onZeichnungAbbrechen = viewModel::brichZeichnungAb,
                         onSchalteRund = viewModel::schalteRund,
+                        onFormWaehlen = viewModel::waehleForm,
+                        onFormAbbrechen = viewModel::brichFormAb,
+                        onFormAnlegen = { punkte, rund -> viewModel.legeFormAn(gartenId, punkte, rund) },
+                        onSchalteEinrasten = viewModel::schalteEinrasten,
                         onFlaecheAbschliessen = { viewModel.schliesseFlaecheAb(gartenId) },
                     )
                 } else {

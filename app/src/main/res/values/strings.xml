@@ -46,7 +46,20 @@
     <string name="rueckgaengig">Rückgängig</string>
     <string name="alle_eckig">Alle Punkte eckig</string>
     <string name="alle_rund">Alle Punkte rund</string>
-    <string name="flaeche_abschliessen">Fläche abschließen</string>
-    <string name="zeichnen_hinweis">Tippe die Punkte nacheinander an den Rand der Fläche. Ab drei Punkten kannst du sie abschließen. Mit zwei Fingern zoomst und verschiebst du.</string>
+    <string name="zeichnen_hinweis">Finger auf die Stelle legen, bei Bedarf verschieben, loslassen setzt den Punkt. Tippe auf den ersten Punkt, um die Fläche zu schließen (ab drei Punkten). Mit zwei Fingern zoomst und verschiebst du.</string>
+    <string name="einrasten_an">Einrasten: an</string>
+    <string name="einrasten_aus">Einrasten: aus</string>
+    <string name="form_waehlen">Form</string>
+    <string name="andere_form">Andere Form</string>
+    <string name="form_dialog_titel">Form wählen</string>
+    <string name="form_hinweis">%s: Ziehe die Form mit einem Finger auf, von einer Ecke zur gegenüberliegenden. Mit zwei Fingern zoomst und verschiebst du.</string>
+    <string name="form_rechteck">Rechteck</string>
+    <string name="form_quadrat">Quadrat</string>
+    <string name="form_kreis">Kreis</string>
+    <string name="form_ellipse">Ellipse</string>
+    <string name="form_dreieck">Dreieck</string>
+    <string name="form_fuenfeck">Fünfeck</string>
+    <string name="form_sechseck">Sechseck</string>
+    <string name="form_achteck">Achteck</string>
     <string name="ansicht_zuruecksetzen">Ansicht zurücksetzen</string>
 </resources>
