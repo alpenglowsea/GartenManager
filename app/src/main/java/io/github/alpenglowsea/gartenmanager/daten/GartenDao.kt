@@ -84,6 +84,87 @@ abstract class GartenDao {
     @Query("UPDATE garten SET geaendertAm = :jetzt WHERE id = :id")
     abstract suspend fun beruehreGarten(id: Long, jetzt: Long)
 
+    @Query(
+        "SELECT p.* FROM punkt p INNER JOIN flaeche f ON p.flaecheId = f.id " +
+            "WHERE f.gartenId = :gartenId ORDER BY p.flaecheId, p.nr",
+    )
+    abstract suspend fun punkteDesGartens(gartenId: Long): List<Punkt>
+
+    @Query("UPDATE punkt SET x = :x, y = :y WHERE id = :id")
+    abstract suspend fun setzePunktLage(id: Long, x: Float, y: Float)
+
+    @Query("UPDATE punkt SET x = x + :dx, y = y + :dy WHERE flaecheId = :flaecheId")
+    abstract suspend fun verschiebeFlaeche(flaecheId: Long, dx: Float, dy: Float)
+
+    @Query("UPDATE punkt SET rund = :rund WHERE id = :id")
+    abstract suspend fun setzePunktRund(id: Long, rund: Boolean)
+
+    @Query("UPDATE punkt SET rund = :rund WHERE flaecheId = :flaecheId")
+    abstract suspend fun setzeAlleRund(flaecheId: Long, rund: Boolean)
+
+    @Query("UPDATE punkt SET nr = nr + 1 WHERE flaecheId = :flaecheId AND nr >= :ab")
+    abstract suspend fun schiebePunkteNach(flaecheId: Long, ab: Int)
+
+    @Query("UPDATE punkt SET nr = nr - 1 WHERE flaecheId = :flaecheId AND nr > :nach")
+    abstract suspend fun schliesseLuecke(flaecheId: Long, nach: Int)
+
+    @Query("DELETE FROM punkt WHERE id = :id")
+    abstract suspend fun loeschePunkt(id: Long)
+
+    @Query("SELECT COUNT(*) FROM punkt WHERE flaecheId = :flaecheId")
+    abstract suspend fun zaehlePunkte(flaecheId: Long): Int
+
+    @Insert
+    abstract suspend fun fuegePunktEin(punkt: Punkt): Long
+
+    @Insert
+    abstract suspend fun fuegeFlaechenEin(flaechen: List<Flaeche>)
+
+    @Query("UPDATE flaeche SET name = :name WHERE id = :id")
+    abstract suspend fun benenneFlaecheUm(id: Long, name: String)
+
+    @Query("UPDATE flaeche SET reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeReihenfolge(id: Long, reihenfolge: Int)
+
+    @Query("DELETE FROM flaeche WHERE gartenId = :gartenId")
+    abstract suspend fun loescheFlaechenDesGartens(gartenId: Long)
+
+    /** Fügt einen Punkt an Stelle [nr] ein; die folgenden Punkte rücken nach. */
+    @Transaction
+    open suspend fun fuegePunktAn(flaecheId: Long, nr: Int, x: Float, y: Float, rund: Boolean): Long {
+        schiebePunkteNach(flaecheId, nr)
+        return fuegePunktEin(Punkt(flaecheId = flaecheId, nr = nr, x = x, y = y, rund = rund))
+    }
+
+    /** Entfernt einen Punkt, aber nie unter drei Punkte pro Fläche. */
+    @Transaction
+    open suspend fun entfernePunkt(flaecheId: Long, punktId: Long, nr: Int) {
+        if (zaehlePunkte(flaecheId) <= 3) return
+        loeschePunkt(punktId)
+        schliesseLuecke(flaecheId, nr)
+    }
+
+    /** Verschiebt eine Fläche um [schritt] Plätze in der Reihenfolge (+1 = weiter nach oben). */
+    @Transaction
+    open suspend fun bewegeInReihenfolge(gartenId: Long, flaecheId: Long, schritt: Int) {
+        val liste = flaechenListe(gartenId).toMutableList()
+        val von = liste.indexOfFirst { it.id == flaecheId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        val f = liste.removeAt(von)
+        liste.add(nach, f)
+        liste.forEachIndexed { index, fl -> setzeReihenfolge(fl.id, index) }
+    }
+
+    /** Stellt den Zustand aller Flächen und Punkte eines Gartens aus einem Abbild wieder her. */
+    @Transaction
+    open suspend fun stelleWiederHer(gartenId: Long, flaechen: List<Flaeche>, punkte: List<Punkt>) {
+        loescheFlaechenDesGartens(gartenId)
+        fuegeFlaechenEin(flaechen)
+        fuegePunkteEin(punkte)
+        beruehreGarten(gartenId, System.currentTimeMillis())
+    }
+
     /** Legt eine neue Fläche ganz oben an. Die Punkte kommen mit flaecheId = 0 herein. */
     @Transaction
     open suspend fun legeFlaecheAn(gartenId: Long, punkte: List<Punkt>, jetzt: Long): Long {

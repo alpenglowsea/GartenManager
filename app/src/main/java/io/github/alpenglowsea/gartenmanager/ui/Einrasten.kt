@@ -23,7 +23,7 @@ private fun kreuz(a: Offset, b: Offset): Float = a.x * b.y - a.y * b.x
  * Schnittpunkt ein (so entstehen saubere Rechtecke). [schwelle] ist die Reichweite
  * in Skizzeneinheiten.
  */
-fun rastePunktEin(roh: Offset, punkte: List<Offset>, schwelle: Float): EinrastErgebnis {
+fun rastePunktEin(roh: Offset, punkte: List<Offset>, schwelle: Float, mitKante: Boolean = true): EinrastErgebnis {
     if (punkte.isEmpty()) return EinrastErgebnis(roh, emptyList())
 
     val kandidaten = ArrayList<Pair<Offset, Offset>>() // Ursprung und Richtung (Länge 1)
@@ -31,7 +31,7 @@ fun rastePunktEin(roh: Offset, punkte: List<Offset>, schwelle: Float): EinrastEr
         kandidaten.add(p to Offset(1f, 0f))
         kandidaten.add(p to Offset(0f, 1f))
     }
-    if (punkte.size >= 2) {
+    if (mitKante && punkte.size >= 2) {
         val letzter = punkte[punkte.size - 1]
         val vorletzter = punkte[punkte.size - 2]
         val kante = letzter - vorletzter

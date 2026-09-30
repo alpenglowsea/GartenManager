@@ -20,6 +20,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
@@ -41,8 +43,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
@@ -52,8 +54,10 @@ import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChanged
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalViewConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.github.alpenglowsea.gartenmanager.GartenViewModel
 import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
@@ -63,17 +67,29 @@ import kotlin.math.floor
 
 private const val ZOOM_MIN = 0.1f
 private const val ZOOM_MAX = 10f
+private const val SCHLIESS_RADIUS_DP = 28f
+private const val MIN_FORM_DP = 16f
+private const val GRIFF_RADIUS_DP = 26f
+private const val KANTE_RADIUS_DP = 18f
+
+/** Ein laufendes Ziehen mit einem Finger: einen Punkt ([punktId]) oder die ganze Fläche (punktId = null). */
+private data class Ziehen(
+    val flaecheId: Long,
+    val punktId: Long?,
+    val start: Offset,
+    val aktuell: Offset,
+)
 
 /**
- * Geöffneter Garten: Zeichenfläche mit Zoomen und Verschieben (2b) und Flächen
- * zeichnen (2c). Ansicht (Standard) und Bearbeiten unterscheiden sich durch
- * Kopfzeile, Rahmen und Werkzeugleiste.
+ * Geöffneter Garten: Zeichenfläche mit Zoomen und Verschieben (2b), Flächen
+ * zeichnen (2c) und Flächen bearbeiten (2e).
  *
  * Koordinaten: Bildschirmposition = Skizzenpunkt * zoom * dichte + verschiebung.
  * Die Verschiebung wird in dp gespeichert, damit sie unabhängig von der Bildschirmdichte ist.
  *
  * Bedienung: In der Ansicht verschiebt ein Finger, zwei Finger zoomen. Im Bearbeitungsmodus
- * ist ein Finger zum Punktesetzen frei, verschoben und gezoomt wird mit zwei Fingern.
+ * gehört ein Finger dem Zeichnen, Auswählen und Ziehen; verschoben und gezoomt wird dort
+ * mit zwei Fingern.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,46 +98,48 @@ fun GartenScreen(
     flaechen: List<Flaeche>,
     punkte: List<Punkt>,
     bearbeiten: Boolean,
-    zeichnung: List<Offset>?,
-    zeichnungRund: Boolean,
-    formAuswahl: Form?,
-    einrasten: Boolean,
-    kannRueckgaengig: Boolean,
+    viewModel: GartenViewModel,
     onBearbeiten: () -> Unit,
     onFertig: () -> Unit,
     onZurueck: () -> Unit,
     onAnsichtGeaendert: (zoom: Float, x: Float, y: Float) -> Unit,
-    onFlaecheZeichnen: () -> Unit,
-    onPunktSetzen: (Offset) -> Unit,
-    onLetztenPunktEntfernen: () -> Unit,
-    onFlaecheRueckgaengig: () -> Unit,
-    onZeichnungAbbrechen: () -> Unit,
-    onSchalteRund: () -> Unit,
-    onFlaecheAbschliessen: () -> Unit,
-    onFormWaehlen: (Form) -> Unit,
-    onFormAbbrechen: () -> Unit,
-    onFormAnlegen: (punkte: List<Offset>, rund: List<Boolean>) -> Unit,
-    onSchalteEinrasten: () -> Unit,
 ) {
     val dichte = LocalDensity.current.density
+    val touchSlop = LocalViewConfiguration.current.touchSlop
+    val zeichnung = viewModel.zeichnung
+    val formAuswahl = viewModel.formAuswahl
+    val einrasten = viewModel.einrasten
+    val gartenId = garten.id
+
     // Ansicht pro Garten neu aus den gespeicherten Werten starten (nur beim Öffnen).
-    var zoom by remember(garten.id) { mutableFloatStateOf(garten.ansichtZoom) }
-    var verschiebungX by remember(garten.id) { mutableFloatStateOf(garten.ansichtX * dichte) }
-    var verschiebungY by remember(garten.id) { mutableFloatStateOf(garten.ansichtY * dichte) }
+    var zoom by remember(gartenId) { mutableFloatStateOf(garten.ansichtZoom) }
+    var verschiebungX by remember(gartenId) { mutableFloatStateOf(garten.ansichtX * dichte) }
+    var verschiebungY by remember(gartenId) { mutableFloatStateOf(garten.ansichtY * dichte) }
 
     // Ansicht kurz nach der letzten Bewegung speichern (nicht bei jedem Pixel).
-    LaunchedEffect(garten.id, zoom, verschiebungX, verschiebungY) {
+    LaunchedEffect(gartenId, zoom, verschiebungX, verschiebungY) {
         delay(600)
         onAnsichtGeaendert(zoom, verschiebungX / dichte, verschiebungY / dichte)
     }
 
     val punkteJeFlaeche = remember(punkte) { punkte.groupBy { it.flaecheId } }
+    val gewaehlteFlaeche = flaechen.firstOrNull { it.id == viewModel.auswahlFlaeche }
+    val gewaehltePunkte = gewaehlteFlaeche?.let { punkteJeFlaeche[it.id] }.orEmpty()
+    val gewaehlterPunkt = gewaehltePunkte.firstOrNull { it.id == viewModel.auswahlPunkt }
 
-    // Finger beim Zeichnen oder Aufziehen einer Form (Bildschirmkoordinaten), sonst null.
-    var zeigerPos by remember { mutableStateOf<Offset?>(null) }
-    // Startpunkt einer aufgezogenen Form (Skizzenkoordinaten).
-    var formStart by remember { mutableStateOf<Offset?>(null) }
+    // Zustand der Gesten
+    var zeigerPos by remember { mutableStateOf<Offset?>(null) } // Finger beim Zeichnen/Aufziehen (Bildschirm)
+    var formStart by remember { mutableStateOf<Offset?>(null) } // Startpunkt einer aufgezogenen Form (Skizze)
+    var druckStart by remember { mutableStateOf<Offset?>(null) } // Fingerauflage im Auswahlmodus (Bildschirm)
+    var bewegt by remember { mutableStateOf(false) }
+    var ziehen by remember { mutableStateOf<Ziehen?>(null) }
+    var ziehenFertig by remember { mutableStateOf(false) }
+
+    // Dialoge
+    var hilfeDialog by remember { mutableStateOf(false) }
     var formenDialog by remember { mutableStateOf(false) }
+    var namenDialog by remember { mutableStateOf(false) }
+    var loeschenDialog by remember { mutableStateOf(false) }
 
     val faktor = zoom * dichte
     fun zuSkizze(bild: Offset) = Offset((bild.x - verschiebungX) / faktor, (bild.y - verschiebungY) / faktor)
@@ -129,9 +147,9 @@ fun GartenScreen(
 
     // Reichweite der Ausrichtungshilfe: 12 dp auf dem Bildschirm, umgerechnet in Skizzeneinheiten.
     val einrastSchwelle = 12f / zoom
-    val aktion = bearbeiten && (zeichnung != null || formAuswahl != null)
+    val zeichnet = zeichnung != null || formAuswahl != null
 
-    // Vorschau des nächsten Punktes (mit Ausrichtungshilfe), solange der Finger liegt.
+    // --- Vorschau des nächsten Punktes beim Zeichnen ---
     val vorschau: EinrastErgebnis? = run {
         val roh = zeigerPos
         if (zeichnung != null && formAuswahl == null && roh != null) {
@@ -149,35 +167,200 @@ fun GartenScreen(
             (zuBildschirm(erster) - roh).getDistance() < SCHLIESS_RADIUS_DP * dichte
     }
 
-    // Beim Wechsel der Betriebsart keine Reste einer Geste behalten.
-    LaunchedEffect(aktion) {
-        zeigerPos = null
-        formStart = null
+    // --- Ergebnis eines laufenden Ziehens (Punkt mit Einrasten, oder Flächenverschiebung) ---
+    val ziehDelta: Offset = ziehen?.let { it.aktuell - it.start } ?: Offset.Zero
+    val ziehErgebnis: EinrastErgebnis? = run {
+        val z = ziehen
+        val punktId = z?.punktId
+        if (z == null || punktId == null) {
+            null
+        } else {
+            val ihre = punkteJeFlaeche[z.flaecheId].orEmpty()
+            val index = ihre.indexOfFirst { it.id == punktId }
+            if (index < 0) {
+                null
+            } else {
+                val original = Offset(ihre[index].x, ihre[index].y)
+                val roh = original + ziehDelta
+                if (einrasten && ihre.size >= 3) {
+                    val vor = ihre[(index - 1 + ihre.size) % ihre.size]
+                    val nach = ihre[(index + 1) % ihre.size]
+                    rastePunktEin(roh, listOf(Offset(vor.x, vor.y), Offset(nach.x, nach.y)), einrastSchwelle, mitKante = false)
+                } else {
+                    EinrastErgebnis(roh, emptyList())
+                }
+            }
+        }
+    }
+
+    /** Lage eines Punktes in Skizzenkoordinaten, mit dem laufenden Ziehen eingerechnet. */
+    fun lage(flaeche: Flaeche, p: Punkt): Offset {
+        val z = ziehen
+        if (z != null && z.flaecheId == flaeche.id) {
+            if (z.punktId == null) return Offset(p.x, p.y) + ziehDelta
+            if (z.punktId == p.id && ziehErgebnis != null) return ziehErgebnis.punkt
+        }
+        return Offset(p.x, p.y)
+    }
+
+    /** Was liegt unter dem Finger bei der ausgewählten Fläche: ein Griff (Punkt) oder ihr Inneren? */
+    fun griffBei(pos: Offset): Punkt? {
+        val fl = gewaehlteFlaeche ?: return null
+        var beste: Punkt? = null
+        var besterAbstand = GRIFF_RADIUS_DP * dichte
+        for (p in gewaehltePunkte) {
+            val d = (zuBildschirm(lage(fl, p)) - pos).getDistance()
+            if (d < besterAbstand) {
+                beste = p
+                besterAbstand = d
+            }
+        }
+        return beste
+    }
+
+    fun bildPunkte(fl: Flaeche, liste: List<Punkt>): List<Offset> = liste.map { zuBildschirm(lage(fl, it)) }
+
+    fun innerhalbGewaehlter(pos: Offset): Boolean {
+        val fl = gewaehlteFlaeche ?: return false
+        if (gewaehltePunkte.size < 3) return false
+        val poly = kurvenPolylinie(bildPunkte(fl, gewaehltePunkte), gewaehltePunkte.map { it.rund }, true)
+        return liegtInnen(poly, pos)
+    }
+
+    // --- Tipp im Auswahlmodus ---
+    fun beiTippAuswahl(pos: Offset) {
+        val fl = gewaehlteFlaeche
+        if (fl != null) {
+            // 1. Griff antippen: Punkt auswählen
+            val griff = griffBei(pos)
+            if (griff != null) {
+                viewModel.waehlePunkt(fl.id, griff.id)
+                return
+            }
+            // 2. Rand antippen: neuen Punkt einfügen
+            if (gewaehltePunkte.size >= 3) {
+                val treffer = naechsterKurvenPunkt(
+                    bildPunkte(fl, gewaehltePunkte),
+                    gewaehltePunkte.map { it.rund },
+                    true,
+                    pos,
+                )
+                if (treffer != null && treffer.abstand < KANTE_RADIUS_DP * dichte) {
+                    val neu = zuSkizze(treffer.punkt)
+                    viewModel.fuegePunktEin(
+                        gartenId,
+                        fl.id,
+                        treffer.segment + 1,
+                        neu.x,
+                        neu.y,
+                        gewaehltePunkte[treffer.segment].rund,
+                    )
+                    return
+                }
+            }
+        }
+        // 3. Die oberste Fläche unter dem Finger auswählen, sonst Auswahl aufheben
+        for (kandidat in flaechen.asReversed()) {
+            val ihre = punkteJeFlaeche[kandidat.id] ?: continue
+            if (ihre.size < 3) continue
+            val poly = kurvenPolylinie(bildPunkte(kandidat, ihre), ihre.map { it.rund }, true)
+            if (liegtInnen(poly, pos)) {
+                viewModel.waehleFlaeche(kandidat.id)
+                return
+            }
+        }
+        viewModel.waehleFlaeche(null)
     }
 
     val beiZeiger = rememberUpdatedState<(Offset?) -> Unit> { pos ->
-        zeigerPos = pos
-        if (formAuswahl != null) {
-            if (pos == null) formStart = null else if (formStart == null) formStart = zuSkizze(pos)
+        if (pos == null) {
+            // Geste abgebrochen oder beendet
+            zeigerPos = null
+            formStart = null
+            druckStart = null
+            if (!ziehenFertig) ziehen = null
+        } else {
+            zeigerPos = pos
+            if (formAuswahl != null) {
+                if (formStart == null) formStart = zuSkizze(pos)
+            } else if (zeichnung == null && bearbeiten) {
+                val start = druckStart
+                if (start == null) {
+                    // Finger ist gerade aufgesetzt worden: was liegt darunter?
+                    druckStart = pos
+                    bewegt = false
+                    val fl = gewaehlteFlaeche
+                    val griff = griffBei(pos)
+                    ziehen = if (fl != null && griff != null) {
+                        Ziehen(fl.id, griff.id, zuSkizze(pos), zuSkizze(pos))
+                    } else if (fl != null && innerhalbGewaehlter(pos)) {
+                        Ziehen(fl.id, null, zuSkizze(pos), zuSkizze(pos))
+                    } else {
+                        null
+                    }
+                } else {
+                    if (!bewegt && (pos - start).getDistance() > touchSlop) bewegt = true
+                    val z = ziehen
+                    if (bewegt && z != null) ziehen = z.copy(aktuell = zuSkizze(pos))
+                }
+            }
         }
     }
+
     val beiLoslassen = rememberUpdatedState<(Offset) -> Unit> { pos ->
         if (formAuswahl != null) {
             val start = formStart
             if (start != null) {
                 val punkteDerForm = formPunkte(formAuswahl, start, zuSkizze(pos), MIN_FORM_DP / faktor)
                 if (punkteDerForm.isNotEmpty()) {
-                    onFormAnlegen(punkteDerForm.map { it.lage }, punkteDerForm.map { it.rund })
+                    viewModel.legeFormAn(gartenId, punkteDerForm.map { it.lage }, punkteDerForm.map { it.rund })
                 }
             }
         } else if (zeichnung != null) {
             if (nahErstemPunkt) {
-                onFlaecheAbschliessen()
+                viewModel.schliesseFlaecheAb(gartenId)
             } else {
                 val sk = zuSkizze(pos)
-                onPunktSetzen(if (einrasten) rastePunktEin(sk, zeichnung, einrastSchwelle).punkt else sk)
+                viewModel.setzePunkt(if (einrasten) rastePunktEin(sk, zeichnung, einrastSchwelle).punkt else sk)
+            }
+        } else if (bearbeiten) {
+            val z = ziehen
+            if (z != null && bewegt) {
+                val fertig = z.copy(aktuell = zuSkizze(pos))
+                if (fertig.punktId != null) {
+                    val ergebnis = ziehErgebnis
+                    if (ergebnis != null) {
+                        viewModel.verschiebePunkt(gartenId, fertig.punktId, ergebnis.punkt.x, ergebnis.punkt.y)
+                    }
+                } else {
+                    val delta = fertig.aktuell - fertig.start
+                    viewModel.verschiebeFlaeche(gartenId, fertig.flaecheId, delta.x, delta.y)
+                }
+                // Die Anzeige bleibt kurz auf dem neuen Stand, bis die Datenbank nachgezogen hat.
+                ziehen = fertig
+                ziehenFertig = true
+            } else if (!bewegt) {
+                ziehen = null
+                beiTippAuswahl(druckStart ?: pos)
             }
         }
+    }
+
+    // Nach dem Loslassen: Anzeige wieder auf die Daten aus der Datenbank umstellen.
+    LaunchedEffect(ziehenFertig, punkte) {
+        if (ziehenFertig) {
+            delay(150)
+            ziehen = null
+            ziehenFertig = false
+        }
+    }
+    // Beim Wechsel der Betriebsart keine Reste einer Geste behalten.
+    LaunchedEffect(bearbeiten, zeichnet) {
+        zeigerPos = null
+        formStart = null
+        druckStart = null
+        ziehen = null
+        ziehenFertig = false
     }
 
     Scaffold(
@@ -190,6 +373,7 @@ fun GartenScreen(
                         } else {
                             garten.name
                         },
+                        maxLines = 1,
                     )
                 },
                 navigationIcon = {
@@ -198,6 +382,7 @@ fun GartenScreen(
                     }
                 },
                 actions = {
+                    TextButton(onClick = { hilfeDialog = true }) { Text(stringResource(R.string.hilfe_knopf)) }
                     if (bearbeiten) {
                         TextButton(onClick = onFertig) { Text(stringResource(R.string.fertig)) }
                     } else {
@@ -218,16 +403,39 @@ fun GartenScreen(
             if (bearbeiten) {
                 Werkzeugleiste(
                     zeichnung = zeichnung,
-                    zeichnungRund = zeichnungRund,
+                    zeichnungRund = viewModel.zeichnungRund,
                     formAuswahl = formAuswahl,
                     einrasten = einrasten,
-                    kannRueckgaengig = kannRueckgaengig,
-                    onFlaecheZeichnen = onFlaecheZeichnen,
+                    kannRueckgaengig = viewModel.anzahlRueckgaengig > 0,
+                    gewaehlteFlaeche = gewaehlteFlaeche,
+                    gewaehlterPunkt = gewaehlterPunkt,
+                    punktLoeschenMoeglich = gewaehltePunkte.size > 3,
+                    onFlaecheZeichnen = viewModel::starteZeichnung,
                     onFormenWaehlen = { formenDialog = true },
-                    onRueckgaengig = if (zeichnung != null) onLetztenPunktEntfernen else onFlaecheRueckgaengig,
-                    onAbbrechen = if (formAuswahl != null) onFormAbbrechen else onZeichnungAbbrechen,
-                    onSchalteRund = onSchalteRund,
-                    onSchalteEinrasten = onSchalteEinrasten,
+                    onRueckgaengig = {
+                        if (zeichnung != null) viewModel.entferneLetztenPunkt() else viewModel.macheRueckgaengig(gartenId)
+                    },
+                    onAbbrechen = {
+                        if (formAuswahl != null) viewModel.brichFormAb() else viewModel.brichZeichnungAb()
+                    },
+                    onSchalteRund = viewModel::schalteRund,
+                    onSchalteEinrasten = viewModel::schalteEinrasten,
+                    onAbwaehlen = { viewModel.waehleFlaeche(null) },
+                    onPunktLoeschen = {
+                        val fl = gewaehlteFlaeche
+                        val pu = gewaehlterPunkt
+                        if (fl != null && pu != null) viewModel.loeschePunkt(gartenId, fl.id, pu.id, pu.nr)
+                    },
+                    onPunktRundSchalten = {
+                        val pu = gewaehlterPunkt
+                        if (pu != null) viewModel.setzePunktRund(gartenId, pu.id, !pu.rund)
+                    },
+                    onNameAendern = { namenDialog = true },
+                    onNachVorn = { gewaehlteFlaeche?.let { viewModel.bewegeFlaecheInReihenfolge(gartenId, it.id, 1) } },
+                    onNachHinten = { gewaehlteFlaeche?.let { viewModel.bewegeFlaecheInReihenfolge(gartenId, it.id, -1) } },
+                    onAlleRund = { gewaehlteFlaeche?.let { viewModel.setzeAlleRund(gartenId, it.id, true) } },
+                    onAlleEckig = { gewaehlteFlaeche?.let { viewModel.setzeAlleRund(gartenId, it.id, false) } },
+                    onFlaecheLoeschen = { loeschenDialog = true },
                 )
             }
         },
@@ -249,10 +457,10 @@ fun GartenScreen(
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()
-                    .pointerInput(bearbeiten, aktion) {
+                    .pointerInput(bearbeiten) {
                         gartenGesten(
                             einFingerVerschiebt = !bearbeiten,
-                            einFingerAktion = aktion,
+                            einFingerAktion = bearbeiten,
                             beiZeiger = { beiZeiger.value(it) },
                             beiLoslassen = { beiLoslassen.value(it) },
                             beiTransform = { schwerpunkt, verschieben, zoomFaktor ->
@@ -266,21 +474,73 @@ fun GartenScreen(
                         )
                     },
             ) {
-                val verschiebung = Offset(verschiebungX, verschiebungY)
-                zeichneGitter(zoom, dichte, verschiebung, gitterFarbe, achsenFarbe)
+                zeichneGitter(zoom, dichte, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
 
                 // Fertige Flächen: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
                 for (flaeche in flaechen) {
-                    val ihrePunkte = punkteJeFlaeche[flaeche.id] ?: continue
-                    if (ihrePunkte.size < 3) continue
-                    val bild = ihrePunkte.map { Offset(it.x * faktor + verschiebung.x, it.y * faktor + verschiebung.y) }
-                    val pfad = kurvenPfad(bild, ihrePunkte.map { it.rund }, geschlossen = true)
+                    val ihre = punkteJeFlaeche[flaeche.id] ?: continue
+                    if (ihre.size < 3) continue
+                    val bild = bildPunkte(flaeche, ihre)
+                    val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
                     drawPath(pfad, FLAECHE_FUELLUNG)
                     drawPath(
                         pfad,
                         FLAECHE_RAND,
                         style = Stroke(width = 2f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
                     )
+                    if (bearbeiten && flaeche.id == gewaehlteFlaeche?.id) {
+                        drawPath(
+                            pfad,
+                            rahmenFarbe,
+                            style = Stroke(width = 3f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
+                        )
+                    }
+                }
+
+                // Griffe der ausgewählten Fläche: runde Punkte als Kreis, Ecken als Quadrat
+                if (bearbeiten && gewaehlteFlaeche != null && zeichnung == null && formAuswahl == null) {
+                    for (p in gewaehltePunkte) {
+                        val mitte = zuBildschirm(lage(gewaehlteFlaeche, p))
+                        val gewaehlt = p.id == gewaehlterPunkt?.id
+                        val r = (if (gewaehlt) 13f else 10f) * dichte
+                        if (p.rund) {
+                            drawCircle(hintergrund, radius = r, center = mitte)
+                            drawCircle(
+                                rahmenFarbe,
+                                radius = r,
+                                center = mitte,
+                                style = Stroke(width = 2.5f * dichte),
+                            )
+                            if (gewaehlt) drawCircle(rahmenFarbe, radius = r * 0.55f, center = mitte)
+                        } else {
+                            val ecke = Offset(mitte.x - r, mitte.y - r)
+                            drawRect(hintergrund, topLeft = ecke, size = Size(2f * r, 2f * r))
+                            drawRect(
+                                rahmenFarbe,
+                                topLeft = ecke,
+                                size = Size(2f * r, 2f * r),
+                                style = Stroke(width = 2.5f * dichte),
+                            )
+                            if (gewaehlt) {
+                                drawRect(
+                                    rahmenFarbe,
+                                    topLeft = Offset(mitte.x - r * 0.55f, mitte.y - r * 0.55f),
+                                    size = Size(1.1f * r, 1.1f * r),
+                                )
+                            }
+                        }
+                    }
+                    // Hilfslinien beim Ziehen eines Punktes
+                    val gestrichelt = PathEffect.dashPathEffect(floatArrayOf(12f * dichte, 8f * dichte))
+                    for ((von, bis) in ziehErgebnis?.hilfslinien.orEmpty()) {
+                        drawLine(
+                            rahmenFarbe.copy(alpha = 0.8f),
+                            zuBildschirm(von),
+                            zuBildschirm(bis),
+                            strokeWidth = 2f * dichte,
+                            pathEffect = gestrichelt,
+                        )
+                    }
                 }
 
                 // Angefangene Fläche: offene Linie durch die Punkte, erst ein Tipp auf den ersten Punkt schließt sie.
@@ -288,7 +548,7 @@ fun GartenScreen(
                     val bild = zeichnung.map { zuBildschirm(it) }
                     val mitVorschau = if (vorschau != null) bild + zuBildschirm(vorschau.punkt) else bild
                     if (mitVorschau.size >= 2) {
-                        val pfad = kurvenPfad(mitVorschau, List(mitVorschau.size) { zeichnungRund }, geschlossen = false)
+                        val pfad = kurvenPfad(mitVorschau, List(mitVorschau.size) { viewModel.zeichnungRund }, geschlossen = false)
                         drawPath(
                             pfad,
                             rahmenFarbe,
@@ -362,15 +622,45 @@ fun GartenScreen(
         FormenDialog(
             onWahl = { form ->
                 formenDialog = false
-                onFormWaehlen(form)
+                viewModel.waehleForm(form)
             },
             onAbbrechen = { formenDialog = false },
         )
     }
+    if (hilfeDialog) {
+        HilfeDialog(
+            bearbeiten = bearbeiten,
+            zeichnet = zeichnung != null,
+            formModus = formAuswahl != null,
+            flaecheGewaehlt = gewaehlteFlaeche != null,
+            onSchliessen = { hilfeDialog = false },
+        )
+    }
+    if (namenDialog && gewaehlteFlaeche != null) {
+        NameDialog(
+            titel = stringResource(R.string.flaeche_name_titel),
+            startwert = gewaehlteFlaeche.name.orEmpty(),
+            bestaetigenText = stringResource(R.string.speichern),
+            onBestaetigt = { name ->
+                namenDialog = false
+                viewModel.benenneFlaecheUm(gartenId, gewaehlteFlaeche.id, name)
+            },
+            onAbbruch = { namenDialog = false },
+        )
+    }
+    if (loeschenDialog && gewaehlteFlaeche != null) {
+        BestaetigenDialog(
+            titel = stringResource(R.string.flaeche_loeschen_titel),
+            text = stringResource(R.string.flaeche_loeschen_text),
+            bestaetigenText = stringResource(R.string.loeschen),
+            onBestaetigt = {
+                loeschenDialog = false
+                viewModel.loescheFlaeche(gartenId, gewaehlteFlaeche.id)
+            },
+            onAbbruch = { loeschenDialog = false },
+        )
+    }
 }
-
-private const val SCHLIESS_RADIUS_DP = 28f
-private const val MIN_FORM_DP = 16f
 
 private val FLAECHE_FUELLUNG = Color(0xFF8BC34A).copy(alpha = 0.6f)
 private val FLAECHE_RAND = Color(0xFF33691E)
@@ -382,12 +672,24 @@ private fun Werkzeugleiste(
     formAuswahl: Form?,
     einrasten: Boolean,
     kannRueckgaengig: Boolean,
+    gewaehlteFlaeche: Flaeche?,
+    gewaehlterPunkt: Punkt?,
+    punktLoeschenMoeglich: Boolean,
     onFlaecheZeichnen: () -> Unit,
     onFormenWaehlen: () -> Unit,
     onRueckgaengig: () -> Unit,
     onAbbrechen: () -> Unit,
     onSchalteRund: () -> Unit,
     onSchalteEinrasten: () -> Unit,
+    onAbwaehlen: () -> Unit,
+    onPunktLoeschen: () -> Unit,
+    onPunktRundSchalten: () -> Unit,
+    onNameAendern: () -> Unit,
+    onNachVorn: () -> Unit,
+    onNachHinten: () -> Unit,
+    onAlleRund: () -> Unit,
+    onAlleEckig: () -> Unit,
+    onFlaecheLoeschen: () -> Unit,
 ) {
     Surface(tonalElevation = 3.dp) {
         Column(
@@ -395,20 +697,16 @@ private fun Werkzeugleiste(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             if (zeichnung != null) {
-                Text(
-                    text = stringResource(R.string.zeichnen_hinweis),
-                    style = MaterialTheme.typography.bodySmall,
-                )
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = onAbbrechen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.abbrechen))
+                        Text(stringResource(R.string.abbrechen), maxLines = 1)
                     }
                     OutlinedButton(
                         onClick = onRueckgaengig,
                         enabled = zeichnung.isNotEmpty(),
                         modifier = Modifier.weight(1f),
                     ) {
-                        Text(stringResource(R.string.rueckgaengig))
+                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
                     }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -426,37 +724,85 @@ private fun Werkzeugleiste(
                     }
                 }
             } else if (formAuswahl != null) {
-                Text(
-                    text = stringResource(R.string.form_hinweis, stringResource(formAuswahl.nameRes)),
-                    style = MaterialTheme.typography.bodySmall,
-                )
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = onAbbrechen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.abbrechen))
+                        Text(stringResource(R.string.abbrechen), maxLines = 1)
                     }
                     OutlinedButton(onClick = onFormenWaehlen, modifier = Modifier.weight(1f)) {
                         Text(stringResource(R.string.andere_form), maxLines = 1)
                     }
                 }
+            } else if (gewaehlteFlaeche != null) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (gewaehlterPunkt != null) {
+                        OutlinedButton(
+                            onClick = onPunktLoeschen,
+                            enabled = punktLoeschenMoeglich,
+                            modifier = Modifier.weight(1f),
+                        ) {
+                            Text(stringResource(R.string.punkt_loeschen), maxLines = 1)
+                        }
+                        OutlinedButton(onClick = onPunktRundSchalten, modifier = Modifier.weight(1f)) {
+                            Text(
+                                stringResource(if (gewaehlterPunkt.rund) R.string.punkt_zu_ecke else R.string.punkt_zu_rund),
+                                maxLines = 1,
+                            )
+                        }
+                    } else {
+                        var menueOffen by remember { mutableStateOf(false) }
+                        Box(modifier = Modifier.weight(1f)) {
+                            Button(onClick = { menueOffen = true }, modifier = Modifier.fillMaxWidth()) {
+                                Text(stringResource(R.string.flaeche_menue), maxLines = 1)
+                            }
+                            DropdownMenu(expanded = menueOffen, onDismissRequest = { menueOffen = false }) {
+                                MenuePunkt(R.string.menue_name_aendern) { menueOffen = false; onNameAendern() }
+                                MenuePunkt(R.string.menue_nach_vorn) { menueOffen = false; onNachVorn() }
+                                MenuePunkt(R.string.menue_nach_hinten) { menueOffen = false; onNachHinten() }
+                                MenuePunkt(R.string.alle_rund) { menueOffen = false; onAlleRund() }
+                                MenuePunkt(R.string.alle_eckig) { menueOffen = false; onAlleEckig() }
+                                MenuePunkt(if (einrasten) R.string.einrasten_an else R.string.einrasten_aus) {
+                                    menueOffen = false
+                                    onSchalteEinrasten()
+                                }
+                                MenuePunkt(R.string.loeschen) { menueOffen = false; onFlaecheLoeschen() }
+                            }
+                        }
+                        OutlinedButton(onClick = onAbwaehlen, modifier = Modifier.weight(1f)) {
+                            Text(stringResource(R.string.abwaehlen), maxLines = 1)
+                        }
+                    }
+                    OutlinedButton(
+                        onClick = onRueckgaengig,
+                        enabled = kannRueckgaengig,
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
+                    }
+                }
             } else {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(onClick = onFlaecheZeichnen, modifier = Modifier.weight(1f)) {
-                        Text(stringResource(R.string.flaeche_zeichnen), maxLines = 1)
+                        Text(stringResource(R.string.zeichnen), maxLines = 1)
                     }
                     Button(onClick = onFormenWaehlen, modifier = Modifier.weight(1f)) {
                         Text(stringResource(R.string.form_waehlen), maxLines = 1)
                     }
-                }
-                OutlinedButton(
-                    onClick = onRueckgaengig,
-                    enabled = kannRueckgaengig,
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text(stringResource(R.string.rueckgaengig))
+                    OutlinedButton(
+                        onClick = onRueckgaengig,
+                        enabled = kannRueckgaengig,
+                        modifier = Modifier.weight(1f),
+                    ) {
+                        Text(stringResource(R.string.rueckgaengig), maxLines = 1)
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun MenuePunkt(textId: Int, onClick: () -> Unit) {
+    DropdownMenuItem(text = { Text(stringResource(textId)) }, onClick = onClick)
 }
 
 @Composable
@@ -480,13 +826,48 @@ private fun FormenDialog(onWahl: (Form) -> Unit, onAbbrechen: () -> Unit) {
     )
 }
 
+/** Hilfetext, der zur aktuellen Lage passt (Ansicht, Zeichnen, Form, Auswahl). */
+@Composable
+private fun HilfeDialog(
+    bearbeiten: Boolean,
+    zeichnet: Boolean,
+    formModus: Boolean,
+    flaecheGewaehlt: Boolean,
+    onSchliessen: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onSchliessen,
+        title = { Text(stringResource(R.string.hilfe_titel)) },
+        text = {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                if (!bearbeiten) {
+                    Text(stringResource(R.string.hilfe_ansicht))
+                } else {
+                    Text(stringResource(R.string.hilfe_bearbeiten))
+                    if (zeichnet) Text(stringResource(R.string.hilfe_zeichnen))
+                    if (formModus) Text(stringResource(R.string.hilfe_form))
+                    if (flaecheGewaehlt) Text(stringResource(R.string.hilfe_auswahl))
+                    if (!zeichnet && !formModus && !flaecheGewaehlt) Text(stringResource(R.string.hilfe_werkzeuge))
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onSchliessen) { Text(stringResource(R.string.ok)) }
+        },
+    )
+}
+
 /**
  * Eigene Gestenerkennung.
  *  - Zwei Finger zoomen und verschieben immer.
  *  - [einFingerVerschiebt]: ein Finger verschiebt die Ansicht (nur in der Ansicht).
- *  - [einFingerAktion]: ein Finger zeichnet oder zieht eine Form auf. Solange er liegt,
- *    meldet [beiZeiger] seine Position; beim Loslassen kommt [beiLoslassen]. Kommt ein
+ *  - [einFingerAktion]: ein Finger zeichnet, wählt aus oder zieht (Bearbeitungsmodus). Solange
+ *    er liegt, meldet [beiZeiger] seine Position; beim Loslassen kommt [beiLoslassen]. Kommt ein
  *    zweiter Finger dazu, wird abgebrochen ([beiZeiger] mit null, kein [beiLoslassen]).
+ *    Am Ende jeder Geste kommt noch einmal [beiZeiger] mit null.
  */
 private suspend fun PointerInputScope.gartenGesten(
     einFingerVerschiebt: Boolean,
@@ -529,39 +910,6 @@ private suspend fun PointerInputScope.gartenGesten(
             beiZeiger(null)
         }
     }
-}
-
-/**
- * Kurve durch die Punkte (Catmull-Rom, als Bézier-Stücke). Ein Punkt mit rund = false
- * ist eine Ecke (dort keine weiche Führung). Die Führung wird auf 40 Prozent der Länge
- * des Teilstücks begrenzt, damit die Kurve bei sehr ungleichen Abständen nicht so
- * stark überschießt.
- */
-private fun kurvenPfad(p: List<Offset>, rund: List<Boolean>, geschlossen: Boolean): Path {
-    val pfad = Path()
-    val n = p.size
-    if (n == 0) return pfad
-    pfad.moveTo(p[0].x, p[0].y)
-    if (n == 1) return pfad
-    val segmente = if (geschlossen) n else n - 1
-    for (i in 0 until segmente) {
-        val i2 = (i + 1) % n
-        val p1 = p[i]
-        val p2 = p[i2]
-        val p0 = if (geschlossen) p[(i - 1 + n) % n] else p[maxOf(i - 1, 0)]
-        val p3 = if (geschlossen) p[(i + 2) % n] else p[minOf(i + 2, n - 1)]
-        val grenze = (p2 - p1).getDistance() * 0.4f
-        val c1 = if (rund[i]) p1 + begrenze((p2 - p0) / 6f, grenze) else p1
-        val c2 = if (rund[i2]) p2 - begrenze((p3 - p1) / 6f, grenze) else p2
-        pfad.cubicTo(c1.x, c1.y, c2.x, c2.y, p2.x, p2.y)
-    }
-    if (geschlossen) pfad.close()
-    return pfad
-}
-
-private fun begrenze(v: Offset, maximum: Float): Offset {
-    val laenge = v.getDistance()
-    return if (laenge > maximum && laenge > 0f) v * (maximum / laenge) else v
 }
 
 /**

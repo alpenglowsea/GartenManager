@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gartenplan (Umsetzungsschritt 2)
 
-Stand: 30.09.2026, Version 0.7 (Fläche schließt per Tipp auf den ersten Punkt; Ausrichtungshilfe; geometrische Formen)
+Stand: 30.09.2026, Version 0.8 (Flächen bearbeiten; Hilfetext hinter Fragezeichen)
 
 Dieses Dokument beschreibt, **wie das Zeichnen des Gartens aussehen und funktionieren soll**, bevor Code entsteht. Es geht nur um Gärten und Flächen. Gegenstände (Häuser, Schuppen, Autos) und Pflanzen kommen in späteren Schritten dazu.
 
@@ -90,12 +90,15 @@ Ein Garten wird nicht ständig umgebaut. Meist will man ihn nur ansehen, Pflanze
 
 ### 3.4 Eine Fläche bearbeiten (im Bearbeitungsmodus)
 
-- Ein Tipp auf eine Fläche wählt sie aus. Ihre Punkte werden als Griffe sichtbar.
-- **Punkt verschieben:** Griff mit dem Finger ziehen.
-- **Punkt hinzufügen:** auf den Rand tippen, dort entsteht ein neuer Punkt.
+- **Auswählen:** Ein Tipp auf eine Fläche wählt sie aus (bei Überlappung die oberste). Ihr Rand wird hervorgehoben, ihre Punkte werden als Griffe sichtbar: **runde Punkte als Kreis, Ecken als Quadrat**. Ein Tipp neben die Fläche oder "Abwählen" hebt die Auswahl auf. Eine neu gezeichnete Fläche oder Form ist gleich ausgewählt.
+- **Punkt verschieben:** Griff mit dem Finger ziehen. Die Ausrichtungshilfe (Einrasten) hilft dabei waagerecht und senkrecht zu den beiden Nachbarpunkten. Ziehen wird beim Loslassen gespeichert.
+- **Punkt hinzufügen:** auf den Rand der ausgewählten Fläche tippen, dort entsteht ein neuer Punkt, der gleich ausgewählt ist. Er übernimmt "rund" oder "Ecke" vom Punkt davor (so bleibt ein Rechteck eckig und ein Kreis rund). **Entschieden**
 - **Punkt löschen:** Griff antippen, dann "Punkt löschen". Eine Fläche behält mindestens drei Punkte.
-- **Fläche verschieben:** die Fläche selbst ziehen.
-- Ein Menü an der ausgewählten Fläche bietet: Oberfläche ändern, Name ändern, **Nach vorn / Nach hinten**, Löschen (mit Rückfrage).
+- **Rund oder Ecke:** Griff antippen, dann "Zu Ecke" beziehungsweise "Zu rund". Für die ganze Fläche geht das über das Menü "Fläche" ("Alle Punkte rund / eckig"). **Entschieden**
+- **Fläche verschieben:** die ausgewählte Fläche selbst ziehen.
+- **Menü "Fläche"** (bei ausgewählter Fläche, kein Punkt ausgewählt): Name ändern, Nach vorn, Nach hinten (jeweils eine Ebene), Alle Punkte rund, Alle Punkte eckig, Einrasten an/aus, Löschen (mit Rückfrage). "Oberfläche ändern" kommt mit 2d.
+- **Rückgängig:** Nach jedem Schritt (Fläche anlegen, Punkt ziehen, hinzufügen, löschen, Fläche verschieben, benennen, Reihenfolge, Löschen) lässt sich zurückgehen, bis zu 50 Schritte, solange man im Bearbeitungsmodus ist. Beim Verlassen ist der Verlauf weg, die Änderungen bleiben. Technisch merkt sich die App vor jeder Änderung ein Abbild aller Flächen des Gartens und stellt es wieder her.
+- **Hilfetext:** Der Erklärtext steht nicht mehr über der Werkzeugleiste, sondern hinter einem **Fragezeichen** in der Kopfleiste. Er passt zur aktuellen Lage (Ansicht, Zeichnen, Form, Auswahl). **Entschieden** (30.09.2026)
 
 ### 3.5 Oberflächen
 
@@ -184,7 +187,7 @@ Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHub baut, du testest 
 | 2b | Leere Gartenfläche mit Zoomen und Verschieben. Ansicht und Bearbeitungsmodus mit Umschalter (im Bearbeitungsmodus noch ohne Werkzeuge). Über das Menü in der Liste lässt sich "Bearbeiten" direkt wählen. |
 | 2c | Im Bearbeitungsmodus Flächen zeichnen: Punkte setzen, Kurve, Schließen per Tipp auf den ersten Punkt, Ausrichtungshilfe, geometrische Formen. Alles wird sofort gespeichert. Flächen sind danach in der Ansicht sichtbar, und Duplizieren kopiert sie mit. (Am Handy getestet: Zeichnen, Kurven, Rückgängig, Speichern, Duplizieren; Nachbesserungen nach dem Test: Schließen, Ausrichtung, Formen.) |
 | 2d | Oberflächen mit Farben und Mustern. In der Ansicht zeigt ein Tipp auf eine Fläche Name und Oberfläche. |
-| 2e | Bearbeiten: Punkte verschieben, hinzufügen, löschen, Reihenfolge, Löschen, Rückgängig. |
+| 2e | Bearbeiten: Flächen auswählen, Punkte verschieben, hinzufügen, löschen, Rund/Ecke, Fläche verschieben, benennen, Reihenfolge, löschen, voller Rückgängig-Verlauf. Dazu der Hilfetext hinter dem Fragezeichen. Kommt vor 2d (Oberflächen). |
 
 Wie lange das dauert, kann ich nicht seriös schätzen (wie im Rest des Projekts).
 

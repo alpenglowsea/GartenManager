@@ -51,28 +51,13 @@ class MainActivity : ComponentActivity() {
                         flaechen = flaechen,
                         punkte = punkte,
                         bearbeiten = bearbeiten,
-                        zeichnung = viewModel.zeichnung,
-                        zeichnungRund = viewModel.zeichnungRund,
-                        formAuswahl = viewModel.formAuswahl,
-                        einrasten = viewModel.einrasten,
-                        kannRueckgaengig = viewModel.anzahlRueckgaengig > 0,
+                        viewModel = viewModel,
                         onBearbeiten = { bearbeiten = true },
                         onFertig = { bearbeiten = false },
                         onZurueck = { offenerGartenId = null },
                         onAnsichtGeaendert = { zoom, x, y ->
                             viewModel.speichereAnsicht(gartenId, zoom, x, y)
                         },
-                        onFlaecheZeichnen = viewModel::starteZeichnung,
-                        onPunktSetzen = viewModel::setzePunkt,
-                        onLetztenPunktEntfernen = viewModel::entferneLetztenPunkt,
-                        onFlaecheRueckgaengig = viewModel::macheFlaecheRueckgaengig,
-                        onZeichnungAbbrechen = viewModel::brichZeichnungAb,
-                        onSchalteRund = viewModel::schalteRund,
-                        onFormWaehlen = viewModel::waehleForm,
-                        onFormAbbrechen = viewModel::brichFormAb,
-                        onFormAnlegen = { punkte, rund -> viewModel.legeFormAn(gartenId, punkte, rund) },
-                        onSchalteEinrasten = viewModel::schalteEinrasten,
-                        onFlaecheAbschliessen = { viewModel.schliesseFlaecheAb(gartenId) },
                     )
                 } else {
                     GartenListeScreen(

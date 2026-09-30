@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Verbindet die Datenbank mit der Oberfläche. "null" heißt: wird noch geladen.
@@ -102,7 +104,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch { dao.loescheGrundstueckMitGaerten(id) }
     }
 
-    // ---- Zeichnen (Teilschritt 2c) ----
+    // ---- Zeichnen und Bearbeiten (Teilschritte 2c und 2e) ----
 
     fun flaechen(gartenId: Long): Flow<List<Flaeche>> = dao.flaechen(gartenId)
 
@@ -116,28 +118,39 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var zeichnungRund by mutableStateOf(true)
         private set
 
-    // Im Bearbeitungsmodus angelegte Flächen (für "Rückgängig"). Endet beim Verlassen des Modus.
-    private val angelegteFlaechen = mutableListOf<Long>()
-    var anzahlRueckgaengig by mutableIntStateOf(0)
-        private set
-
     /** Gewählte Form, die gerade aufgezogen werden soll. null = keine Form. */
     var formAuswahl by mutableStateOf<Form?>(null)
         private set
 
-    /** Ausrichtungshilfe beim Setzen von Punkten (waagerecht, senkrecht, rechter Winkel). */
+    /** Ausrichtungshilfe beim Setzen und Ziehen von Punkten (waagerecht, senkrecht, rechter Winkel). */
     var einrasten by mutableStateOf(true)
+        private set
+
+    /** Ausgewählte Fläche und ausgewählter Punkt (nur im Bearbeitungsmodus). */
+    var auswahlFlaeche by mutableStateOf<Long?>(null)
+        private set
+    var auswahlPunkt by mutableStateOf<Long?>(null)
+        private set
+
+    // Rückgängig: Abbilder des Gartens vor jeder Änderung. Endet beim Verlassen des Bearbeitungsmodus.
+    private class Abbild(val flaechen: List<Flaeche>, val punkte: List<Punkt>)
+
+    private val verlauf = mutableListOf<Abbild>()
+    private val sperre = Mutex()
+    var anzahlRueckgaengig by mutableIntStateOf(0)
         private set
 
     fun starteZeichnung() {
         formAuswahl = null
         zeichnung = emptyList()
         zeichnungRund = true
+        waehleFlaeche(null)
     }
 
     fun waehleForm(form: Form) {
         zeichnung = null
         formAuswahl = form
+        waehleFlaeche(null)
     }
 
     fun brichFormAb() {
@@ -166,6 +179,32 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         zeichnung = null
     }
 
+    fun waehleFlaeche(id: Long?) {
+        auswahlFlaeche = id
+        auswahlPunkt = null
+    }
+
+    fun waehlePunkt(flaecheId: Long, punktId: Long) {
+        auswahlFlaeche = flaecheId
+        auswahlPunkt = punktId
+    }
+
+    /**
+     * Führt eine Änderung am Garten aus. Vorher wird ein Abbild für "Rückgängig" gemerkt.
+     * Alle Änderungen laufen nacheinander (Sperre), damit die Abbilder zur Reihenfolge passen.
+     */
+    private fun aendere(gartenId: Long, block: suspend () -> Unit) {
+        viewModelScope.launch {
+            sperre.withLock {
+                verlauf.add(Abbild(dao.flaechenListe(gartenId), dao.punkteDesGartens(gartenId)))
+                if (verlauf.size > MAX_VERLAUF) verlauf.removeAt(0)
+                anzahlRueckgaengig = verlauf.size
+                block()
+                dao.beruehreGarten(gartenId, jetzt())
+            }
+        }
+    }
+
     /** Schließt die angefangene Fläche (Tipp auf den ersten Punkt, ab drei Punkten). */
     fun schliesseFlaecheAb(gartenId: Long) {
         val punkte = zeichnung ?: return
@@ -183,30 +222,93 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun speichereFlaeche(gartenId: Long, punkte: List<Offset>, rund: List<Boolean>) {
-        viewModelScope.launch {
+        aendere(gartenId) {
             val id = dao.legeFlaecheAn(
                 gartenId,
                 punkte.mapIndexed { nr, o -> Punkt(flaecheId = 0, nr = nr, x = o.x, y = o.y, rund = rund[nr]) },
                 jetzt(),
             )
-            angelegteFlaechen.add(id)
-            anzahlRueckgaengig = angelegteFlaechen.size
+            // Die neue Fläche ist gleich ausgewählt, damit man sie sofort verändern kann.
+            waehleFlaeche(id)
         }
     }
 
-    /** Nimmt die zuletzt angelegte Fläche zurück (solange man im Bearbeitungsmodus ist). */
-    fun macheFlaecheRueckgaengig() {
-        if (angelegteFlaechen.isEmpty()) return
-        val id = angelegteFlaechen.removeAt(angelegteFlaechen.size - 1)
-        anzahlRueckgaengig = angelegteFlaechen.size
-        viewModelScope.launch { dao.loescheFlaeche(id) }
+    fun verschiebePunkt(gartenId: Long, punktId: Long, x: Float, y: Float) {
+        aendere(gartenId) { dao.setzePunktLage(punktId, x, y) }
     }
 
-    /** Beim Verlassen des Bearbeitungsmodus: angefangene Zeichnung und Rückgängig-Verlauf verwerfen. */
+    fun verschiebeFlaeche(gartenId: Long, flaecheId: Long, dx: Float, dy: Float) {
+        aendere(gartenId) { dao.verschiebeFlaeche(flaecheId, dx, dy) }
+    }
+
+    /** Fügt einen Punkt als Nummer [nr] in eine Fläche ein und wählt ihn aus. */
+    fun fuegePunktEin(gartenId: Long, flaecheId: Long, nr: Int, x: Float, y: Float, rund: Boolean) {
+        aendere(gartenId) {
+            val id = dao.fuegePunktAn(flaecheId, nr, x, y, rund)
+            waehlePunkt(flaecheId, id)
+        }
+    }
+
+    fun loeschePunkt(gartenId: Long, flaecheId: Long, punktId: Long, nr: Int) {
+        auswahlPunkt = null
+        aendere(gartenId) { dao.entfernePunkt(flaecheId, punktId, nr) }
+    }
+
+    fun setzePunktRund(gartenId: Long, punktId: Long, rund: Boolean) {
+        aendere(gartenId) { dao.setzePunktRund(punktId, rund) }
+    }
+
+    fun setzeAlleRund(gartenId: Long, flaecheId: Long, rund: Boolean) {
+        aendere(gartenId) { dao.setzeAlleRund(flaecheId, rund) }
+    }
+
+    fun benenneFlaecheUm(gartenId: Long, flaecheId: Long, name: String) {
+        aendere(gartenId) { dao.benenneFlaecheUm(flaecheId, name) }
+    }
+
+    /** schritt = +1: eine Ebene nach vorn (oben), -1: eine Ebene nach hinten. */
+    fun bewegeFlaecheInReihenfolge(gartenId: Long, flaecheId: Long, schritt: Int) {
+        aendere(gartenId) { dao.bewegeInReihenfolge(gartenId, flaecheId, schritt) }
+    }
+
+    fun loescheFlaeche(gartenId: Long, flaecheId: Long) {
+        waehleFlaeche(null)
+        aendere(gartenId) { dao.loescheFlaeche(flaecheId) }
+    }
+
+    /** Nimmt die letzte Änderung zurück (solange man im Bearbeitungsmodus ist). */
+    fun macheRueckgaengig(gartenId: Long) {
+        viewModelScope.launch {
+            sperre.withLock {
+                if (verlauf.isEmpty()) return@withLock
+                val abbild = verlauf.removeAt(verlauf.size - 1)
+                anzahlRueckgaengig = verlauf.size
+                dao.stelleWiederHer(gartenId, abbild.flaechen, abbild.punkte)
+                // Die Auswahl gilt nur weiter, wenn es die Fläche und den Punkt noch gibt.
+                val flaecheDa = abbild.flaechen.any { it.id == auswahlFlaeche }
+                if (!flaecheDa) {
+                    waehleFlaeche(null)
+                } else if (abbild.punkte.none { it.id == auswahlPunkt }) {
+                    auswahlPunkt = null
+                }
+            }
+        }
+    }
+
+    /** Beim Verlassen des Bearbeitungsmodus: angefangene Zeichnung, Auswahl und Rückgängig-Verlauf verwerfen. */
     fun beendeBearbeitung() {
         zeichnung = null
         formAuswahl = null
-        angelegteFlaechen.clear()
-        anzahlRueckgaengig = 0
+        waehleFlaeche(null)
+        viewModelScope.launch {
+            sperre.withLock {
+                verlauf.clear()
+                anzahlRueckgaengig = 0
+            }
+        }
+    }
+
+    private companion object {
+        const val MAX_VERLAUF = 50
     }
 }
