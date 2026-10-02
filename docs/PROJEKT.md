@@ -300,3 +300,8 @@ Als Nächstes:
 ### 3c Testergebnis / 3b2
 - 3c: alles OK außer Dicke schmaler Gegenstände und Verdecktes zeigen (Formen gleicher Ebene).
 - 3b2 geliefert (ungebaut, ungetestet): Dicken-Griff, korrigiertes Verdecktes zeigen, Ziehgriffe für Reihenfolge, freies Gebäude.
+
+### 3b2 Testergebnis / 3d
+- 3b2: alle 9 Tests OK.
+- 3d geliefert (ungebaut, ungetestet): Einrasten an anderen Formen, Lupe, Ebenenliste (Block wandert mit, Elemente zwischen Ebenen), Hilfetexte geprüft, Aufräumen.
+- Danach: Schritt 4 (Pflanzen), vorher Lizenzfrage der Pflanzendaten klären.

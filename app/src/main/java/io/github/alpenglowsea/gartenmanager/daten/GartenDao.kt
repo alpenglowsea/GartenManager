@@ -347,6 +347,18 @@ abstract class GartenDao {
         }
     }
 
+    /**
+     * Verschiebt ein Element ("f<Nummer>" oder "g<Nummer>") in die Ebene [zielEbeneId] und ordnet dort
+     * alle Elemente neu ([ordnung] von hinten nach vorn, mit dem verschobenen Element).
+     */
+    @Transaction
+    open suspend fun verschiebeElementInEbene(gartenId: Long, schluessel: String, zielEbeneId: Long, ordnung: List<String>) {
+        val id = schluessel.drop(1).toLongOrNull() ?: return
+        val neu = hoechsteReihenfolge(gartenId) + 1
+        if (schluessel.startsWith("f")) setzeFlaecheEbene(id, zielEbeneId, neu) else setzeGegenstandEbene(id, zielEbeneId, neu)
+        ordneElemente(gartenId, zielEbeneId, ordnung)
+    }
+
     /** Setzt eine Ebene auf Platz [neuerPlatz] (0 = ganz hinten). */
     @Transaction
     open suspend fun setzeEbenePlatz(gartenId: Long, ebeneId: Long, neuerPlatz: Int) {

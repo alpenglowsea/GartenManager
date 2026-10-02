@@ -15,8 +15,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,6 +59,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.StrokeCap
@@ -77,7 +76,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextOverflow
 import io.github.alpenglowsea.gartenmanager.daten.Gegenstandspunkt
 import androidx.compose.ui.zIndex
-import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.graphicsLayer
@@ -123,6 +123,12 @@ private const val SCHLIESS_RADIUS_DP = 28f
 private const val MIN_FORM_DP = 16f
 private const val GRIFF_RADIUS_DP = 26f
 private const val KANTE_RADIUS_DP = 18f
+private const val LUPE_RADIUS_DP = 58f
+private val FANG_FARBE = Color(0xFFFF9800)
+private const val LUPE_FAKTOR = 2.5f
+
+/** Große Fläche für Ebenen-Zwischenspeicher, damit auch die vergrößerte Lupe nicht abgeschnitten wird. */
+private val SZENE_GRENZE = Rect(-50000f, -50000f, 50000f, 50000f)
 
 /** Ein laufendes Ziehen mit einem Finger: einen Punkt ([punktId]) oder die ganze Fläche (punktId = null). */
 private data class Ziehen(
@@ -170,6 +176,72 @@ private data class ZeilenEintrag(val reihenfolge: Int, val flaeche: Flaeche?, va
 
 private fun istGebaeude(g: Gegenstand): Boolean = g.art == GegenstandsArt.GEBAEUDE_FREI.schluessel
 
+/** Einrasten an anderen Formen beim Ziehen eines Gegenstands: Ziele, Reichweite und die eigenen Ecken. */
+private class Fang(val ziele: FremdZiele, val schwelle: Float, val eigeneEcken: List<Offset>)
+
+private fun rasteMarken(e: BewegungsErgebnis?): List<Offset> = e?.marken.orEmpty()
+
+/** Ecken eines Gegenstands in Skizzenkoordinaten (bei freien Gebäuden die Punkte). */
+private fun gEckenSkizze(g: Gegenstand, ps: List<Gegenstandspunkt>): List<Offset> {
+    val w = Math.toRadians(g.drehung.toDouble())
+    val c = cos(w).toFloat()
+    val s = sin(w).toFloat()
+    fun skizze(lx: Float, ly: Float) = Offset(g.mitteX + lx * c - ly * s, g.mitteY + lx * s + ly * c)
+    return if (istGebaeude(g)) {
+        ps.map { skizze(it.x, it.y) }
+    } else {
+        val b = g.breite / 2f
+        val h = g.hoehe / 2f
+        listOf(skizze(-b, -h), skizze(b, -h), skizze(b, h), skizze(-b, h))
+    }
+}
+
+/** Kanten eines Gegenstands in Skizzenkoordinaten. */
+private fun gKantenSkizze(g: Gegenstand, ps: List<Gegenstandspunkt>): List<Pair<Offset, Offset>> {
+    val w = Math.toRadians(g.drehung.toDouble())
+    val c = cos(w).toFloat()
+    val s = sin(w).toFloat()
+    fun skizze(p: Offset) = Offset(g.mitteX + p.x * c - p.y * s, g.mitteY + p.x * s + p.y * c)
+    val umriss = if (istGebaeude(g)) {
+        if (ps.size < 3) return emptyList()
+        kurvenPolylinie(ps.map { Offset(it.x, it.y) }, ps.map { it.rund }, true).map { skizze(it) }
+    } else {
+        gEckenSkizze(g, ps)
+    }
+    return umriss.indices.map { umriss[it] to umriss[(it + 1) % umriss.size] }
+}
+
+/** Ziel eines gezogenen Gebäudepunkts im Koordinatensystem des Gebäudes (mit Einrasten) und das Ergebnis des Einrastens. */
+private fun gebaeudePunktZiel(
+    g: Gegenstand,
+    ps: List<Gegenstandspunkt>,
+    z: GZiehen,
+    fang: Fang?,
+    einrasten: Boolean,
+): Pair<Offset, EinrastErgebnis?> {
+    val p = ps.firstOrNull { it.id == z.punktId } ?: return Offset.Zero to null
+    val d = lokaleVerschiebung(z)
+    val lokal = Offset(p.x + d.x, p.y + d.y)
+    if (!einrasten || fang == null || ps.size < 3) return lokal to null
+    val w = Math.toRadians(g.drehung.toDouble())
+    val c = cos(w).toFloat()
+    val s = sin(w).toFloat()
+    fun skizze(q: Offset) = Offset(g.mitteX + q.x * c - q.y * s, g.mitteY + q.x * s + q.y * c)
+    val index = ps.indexOfFirst { it.id == p.id }
+    val vor = ps[(index - 1 + ps.size) % ps.size]
+    val nach = ps[(index + 1) % ps.size]
+    val erg = rastePunktMitFremd(
+        skizze(lokal),
+        listOf(skizze(Offset(vor.x, vor.y)), skizze(Offset(nach.x, nach.y))),
+        fang.schwelle,
+        false,
+        fang.ziele,
+    )
+    val dx = erg.punkt.x - g.mitteX
+    val dy = erg.punkt.y - g.mitteY
+    return Offset(dx * c + dy * s, -dx * s + dy * c) to erg
+}
+
 /** Verschiebung des Fingers im Koordinatensystem des (gedrehten) Gegenstands, in Skizzeneinheiten. */
 private fun lokaleVerschiebung(z: GZiehen): Offset {
     val d = z.aktuell - z.start
@@ -183,12 +255,23 @@ private fun lokaleVerschiebung(z: GZiehen): Offset {
  * Der Gegenstand nach einem laufenden Ziehen. Beim Größe ändern bleibt der gegenüberliegende Griff
  * (Anker) stehen; gerechnet wird im Koordinatensystem des gedrehten Gegenstands.
  */
-private fun angepasst(z: GZiehen, einrasten: Boolean, minGroesse: Float): Gegenstand {
+private fun angepasst(
+    z: GZiehen,
+    einrasten: Boolean,
+    minGroesse: Float,
+    fang: Fang? = null,
+    marken: MutableList<Offset>? = null,
+): Gegenstand {
     val o = z.original
     return when (z.modus) {
         GModus.PUNKT -> o // Beim Ziehen eines Gebäudepunkts bleibt der Gegenstand selbst, nur der Punkt wandert.
         GModus.VERSCHIEBEN -> {
-            val d = z.aktuell - z.start
+            var d = z.aktuell - z.start
+            if (fang != null) {
+                val r = rasteBewegung(fang.eigeneEcken, d, fang.ziele, fang.schwelle)
+                d = r.delta
+                marken?.addAll(r.marken)
+            }
             o.copy(mitteX = o.mitteX + d.x, mitteY = o.mitteY + d.y)
         }
         GModus.DREHEN -> {
@@ -209,7 +292,28 @@ private fun angepasst(z: GZiehen, einrasten: Boolean, minGroesse: Float): Gegens
             }
             val l0 = lokal(z.start)
             val l1 = lokal(z.aktuell)
-            val kante = Offset(z.sx * o.breite / 2f + (l1.x - l0.x), z.sy * o.hoehe / 2f + (l1.y - l0.y))
+            var kante = Offset(z.sx * o.breite / 2f + (l1.x - l0.x), z.sy * o.hoehe / 2f + (l1.y - l0.y))
+            if (fang != null) {
+                // Die gezogene Kante rastet in einer Flucht mit fremden Ecken ein (im Koordinatensystem des Gegenstands).
+                var kx = kante.x
+                var ky = kante.y
+                var bx = fang.schwelle
+                var by = fang.schwelle
+                for (f in fang.ziele.ecken) {
+                    val lf = lokal(f)
+                    if (z.sx != 0 && abs(lf.x - kante.x) < bx) {
+                        bx = abs(lf.x - kante.x)
+                        kx = lf.x
+                        marken?.add(f)
+                    }
+                    if (z.sy != 0 && abs(lf.y - kante.y) < by) {
+                        by = abs(lf.y - kante.y)
+                        ky = lf.y
+                        marken?.add(f)
+                    }
+                }
+                kante = Offset(kx, ky)
+            }
             val anker = Offset(-z.sx * o.breite / 2f, -z.sy * o.hoehe / 2f)
             var nb = o.breite
             var nh = o.hoehe
@@ -452,12 +556,50 @@ fun GartenScreen(
     val einrastSchwelle = 12f / zoom
     val zeichnet = zeichnung != null || formAuswahl != null
 
+    // Ziele zum Einrasten an anderen Flächen und Gegenständen; nur während einer Geste berechnet.
+    val ausserFlaecheId = ziehen?.flaecheId
+    val ausserGegenstandId = gZiehen?.original?.id
+    val geste = zeichnung != null || formAuswahl != null || ziehen != null || gZiehen != null
+    val fremd: FremdZiele? = remember(
+        geste, einrasten, sichtbareElemente, punkteJeFlaeche, gpJeGegenstand, ausserFlaecheId, ausserGegenstandId,
+    ) {
+        if (!geste || !einrasten) {
+            null
+        } else {
+            val ecken = ArrayList<Offset>()
+            val kanten = ArrayList<Pair<Offset, Offset>>()
+            for (el in sichtbareElemente) {
+                val f = el.flaeche
+                val g = el.gegenstand
+                if (f != null) {
+                    if (f.id == ausserFlaecheId) continue
+                    val ihre = punkteJeFlaeche[f.id] ?: continue
+                    if (ihre.size < 3) continue
+                    val lagen = ihre.map { Offset(it.x, it.y) }
+                    ecken.addAll(lagen)
+                    val poly = kurvenPolylinie(lagen, ihre.map { it.rund }, true)
+                    for (i in poly.indices) kanten.add(poly[i] to poly[(i + 1) % poly.size])
+                } else if (g != null) {
+                    if (g.id == ausserGegenstandId) continue
+                    val ps = gpJeGegenstand[g.id].orEmpty()
+                    ecken.addAll(gEckenSkizze(g, ps))
+                    kanten.addAll(gKantenSkizze(g, ps))
+                }
+            }
+            FremdZiele(ecken, kanten)
+        }
+    }
+    fun fangFuer(g: Gegenstand): Fang? =
+        if (fremd != null) Fang(fremd, einrastSchwelle, gEckenSkizze(g, gpJeGegenstand[g.id].orEmpty())) else null
+    fun fangFremd(sk: Offset): Offset =
+        if (einrasten) rastePunktMitFremd(sk, emptyList(), einrastSchwelle, false, fremd).punkt else sk
+
     // --- Vorschau des nächsten Punktes beim Zeichnen ---
     val vorschau: EinrastErgebnis? = run {
         val roh = zeigerPos
         if (zeichnung != null && formAuswahl == null && roh != null) {
             val sk = zuSkizze(roh)
-            if (einrasten) rastePunktEin(sk, zeichnung, einrastSchwelle) else EinrastErgebnis(sk, emptyList())
+            if (einrasten) rastePunktMitFremd(sk, zeichnung, einrastSchwelle, true, fremd) else EinrastErgebnis(sk, emptyList())
         } else {
             null
         }
@@ -471,7 +613,16 @@ fun GartenScreen(
     }
 
     // --- Ergebnis eines laufenden Ziehens (Punkt mit Einrasten, oder Flächenverschiebung) ---
-    val ziehDelta: Offset = ziehen?.let { it.aktuell - it.start } ?: Offset.Zero
+    val flaechenFang: BewegungsErgebnis? = run {
+        val z = ziehen
+        if (z == null || z.punktId != null || fremd == null || !bewegt) {
+            null
+        } else {
+            val ecken = punkteJeFlaeche[z.flaecheId].orEmpty().map { Offset(it.x, it.y) }
+            rasteBewegung(ecken, z.aktuell - z.start, fremd, einrastSchwelle)
+        }
+    }
+    val ziehDelta: Offset = flaechenFang?.delta ?: ziehen?.let { it.aktuell - it.start } ?: Offset.Zero
     val ziehErgebnis: EinrastErgebnis? = run {
         val z = ziehen
         val punktId = z?.punktId
@@ -488,7 +639,7 @@ fun GartenScreen(
                 if (einrasten && ihre.size >= 3) {
                     val vor = ihre[(index - 1 + ihre.size) % ihre.size]
                     val nach = ihre[(index + 1) % ihre.size]
-                    rastePunktEin(roh, listOf(Offset(vor.x, vor.y), Offset(nach.x, nach.y)), einrastSchwelle, mitKante = false)
+                    rastePunktMitFremd(roh, listOf(Offset(vor.x, vor.y), Offset(nach.x, nach.y)), einrastSchwelle, false, fremd)
                 } else {
                     EinrastErgebnis(roh, emptyList())
                 }
@@ -536,7 +687,11 @@ fun GartenScreen(
     /** Der Gegenstand mit dem laufenden Ziehen eingerechnet. */
     fun gLive(g: Gegenstand): Gegenstand {
         val z = gZiehen
-        return if (z != null && z.original.id == g.id) angepasst(z, einrasten, minGegenstand) else g
+        return if (z != null && z.original.id == g.id) {
+            angepasst(z, einrasten, minGegenstand, if (bewegt) fangFuer(z.original) else null)
+        } else {
+            g
+        }
     }
 
     /** Ein Punkt im Koordinatensystem des Gegenstands (Mitte = 0, vor der Drehung, Bildschirmpixel) auf dem Bildschirm. */
@@ -554,8 +709,8 @@ fun GartenScreen(
         val z = gZiehen
         val punktId = z?.punktId
         if (z == null || punktId == null || z.modus != GModus.PUNKT || z.original.id != g.id) return liste
-        val d = lokaleVerschiebung(z)
-        return liste.map { if (it.id == punktId) it.copy(x = it.x + d.x, y = it.y + d.y) else it }
+        val ziel = gebaeudePunktZiel(z.original, liste, z, if (bewegt) fangFuer(z.original) else null, einrasten).first
+        return liste.map { if (it.id == punktId) it.copy(x = ziel.x, y = ziel.y) else it }
     }
 
     fun gGriffe(g: Gegenstand): List<GriffInfo> {
@@ -778,7 +933,7 @@ fun GartenScreen(
         } else {
             zeigerPos = pos
             if (formAuswahl != null) {
-                if (formStart == null) formStart = zuSkizze(pos)
+                if (formStart == null) formStart = fangFremd(zuSkizze(pos))
             } else if (zeichnung == null && bearbeiten && !viewModel.platzieren) {
                 val start = druckStart
                 if (start == null) {
@@ -876,7 +1031,7 @@ fun GartenScreen(
         if (formAuswahl != null) {
             val start = formStart
             if (start != null) {
-                val punkteDerForm = formPunkte(formAuswahl, start, zuSkizze(pos), MIN_FORM_DP / faktor)
+                val punkteDerForm = formPunkte(formAuswahl, start, fangFremd(zuSkizze(pos)), MIN_FORM_DP / faktor)
                 if (punkteDerForm.isNotEmpty()) {
                     viewModel.legeFormAn(gartenId, punkteDerForm.map { it.lage }, punkteDerForm.map { it.rund })
                 }
@@ -886,7 +1041,7 @@ fun GartenScreen(
                 viewModel.schliesseFlaecheAb(gartenId)
             } else {
                 val sk = zuSkizze(pos)
-                viewModel.setzePunkt(if (einrasten) rastePunktEin(sk, zeichnung, einrastSchwelle).punkt else sk)
+                viewModel.setzePunkt(if (einrasten) rastePunktMitFremd(sk, zeichnung, einrastSchwelle, true, fremd).punkt else sk)
             }
         } else if (viewModel.platzieren) {
             platzOrt = zuSkizze(pos)
@@ -897,13 +1052,14 @@ fun GartenScreen(
                 val fertig = gz.copy(aktuell = zuSkizze(pos))
                 val ziehPunkt = fertig.punktId
                 if (fertig.modus == GModus.PUNKT && ziehPunkt != null) {
-                    val p = gpJeGegenstand[fertig.original.id]?.firstOrNull { it.id == ziehPunkt }
+                    val liste = gpJeGegenstand[fertig.original.id].orEmpty()
+                    val p = liste.firstOrNull { it.id == ziehPunkt }
                     if (p != null) {
-                        val d = lokaleVerschiebung(fertig)
-                        viewModel.verschiebeGebaeudePunkt(gartenId, p.id, p.x + d.x, p.y + d.y)
+                        val ziel = gebaeudePunktZiel(fertig.original, liste, fertig, fangFuer(fertig.original), einrasten).first
+                        viewModel.verschiebeGebaeudePunkt(gartenId, p.id, ziel.x, ziel.y)
                     }
                 } else {
-                    viewModel.setzeGegenstandLage(gartenId, angepasst(fertig, einrasten, minGegenstand))
+                    viewModel.setzeGegenstandLage(gartenId, angepasst(fertig, einrasten, minGegenstand, fangFuer(fertig.original)))
                 }
                 gZiehen = fertig
                 ziehenFertig = true
@@ -915,7 +1071,11 @@ fun GartenScreen(
                         viewModel.verschiebePunkt(gartenId, fertig.punktId, ergebnis.punkt.x, ergebnis.punkt.y)
                     }
                 } else {
-                    val delta = fertig.aktuell - fertig.start
+                    var delta = fertig.aktuell - fertig.start
+                    if (fremd != null) {
+                        val ecken = punkteJeFlaeche[fertig.flaecheId].orEmpty().map { Offset(it.x, it.y) }
+                        delta = rasteBewegung(ecken, delta, fremd, einrastSchwelle).delta
+                    }
                     viewModel.verschiebeFlaeche(gartenId, fertig.flaecheId, delta.x, delta.y)
                 }
                 // Die Anzeige bleibt kurz auf dem neuen Stand, bis die Datenbank nachgezogen hat.
@@ -947,6 +1107,54 @@ fun GartenScreen(
         ziehenFertig = false
         infoFlaecheId = null
         infoGegenstandId = null
+    }
+
+    // Stellen, an denen gerade an einer fremden Ecke oder Kante eingerastet wird (orange Markierung)
+    val fangMarken: List<Offset> = run {
+        val m = ArrayList<Offset>()
+        if (zeichnung != null) vorschau?.marke?.let { m.add(it) }
+        val zf = ziehen
+        if (zf != null && bewegt) {
+            if (zf.punktId == null) m.addAll(rasteMarken(flaechenFang)) else ziehErgebnis?.marke?.let { m.add(it) }
+        }
+        val gz = gZiehen
+        if (gz != null && bewegt && einrasten) {
+            if (gz.modus == GModus.PUNKT) {
+                val liste = gpJeGegenstand[gz.original.id].orEmpty()
+                gebaeudePunktZiel(gz.original, liste, gz, fangFuer(gz.original), true).second?.marke?.let { m.add(it) }
+            } else if (gz.modus != GModus.DREHEN) {
+                angepasst(gz, true, minGegenstand, fangFuer(gz.original), m)
+            }
+        }
+        val fe = zeigerPos
+        if (formAuswahl != null && formStart != null && fe != null && einrasten) {
+            rastePunktMitFremd(zuSkizze(fe), emptyList(), einrastSchwelle, false, fremd).marke?.let { m.add(it) }
+        }
+        m
+    }
+
+    // Lupe: Stelle (Bildschirm), die vergrößert gezeigt wird, sonst null
+    val lupeFokus: Offset? = run {
+        val finger = zeigerPos
+        val zf = ziehen
+        val gz = gZiehen
+        if (finger == null) {
+            null
+        } else if (zeichnung != null) {
+            vorschau?.let { zuBildschirm(it.punkt) } ?: finger
+        } else if (formAuswahl != null) {
+            if (formStart != null) finger else null
+        } else if (bewegt && zf != null) {
+            val e = ziehErgebnis
+            if (zf.punktId != null && e != null) zuBildschirm(e.punkt) else finger
+        } else if (bewegt && gz != null && gz.modus != GModus.DREHEN) {
+            val punktId = gz.punktId
+            val live = gLive(gz.original)
+            val pg = if (gz.modus == GModus.PUNKT && punktId != null) gPunkteLive(live).firstOrNull { it.id == punktId } else null
+            if (pg != null) gBild(live, pg.x * faktor, pg.y * faktor) else finger
+        } else {
+            null
+        }
     }
 
     // Maß oder Winkel, der beim Ändern von Größe oder Drehung neben dem Finger steht
@@ -1101,6 +1309,8 @@ fun GartenScreen(
                         )
                     },
             ) {
+              // Die ganze Szene (Gitter, Flächen, Gegenstände, Griffe, Hilfslinien); die Lupe zeichnet sie ein zweites Mal.
+              fun zeichneSzene() {
                 zeichneGitter(zoom, dichte, garten.massstab, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
 
                 // Fertige Flächen: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
@@ -1109,7 +1319,7 @@ fun GartenScreen(
                     if (gegenstand != null) {
                         val live = gLive(gegenstand)
                         val blassG = live.ebeneId in blasseEbenen
-                        if (blassG) drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
+                        if (blassG) drawContext.canvas.saveLayer(SZENE_GRENZE, Paint().apply { alpha = 0.35f })
                         val inDerHandG = bewegt && gZiehen?.original?.id == gegenstand.id &&
                             gZiehen?.modus == GModus.VERSCHIEBEN
                         val imInfo = !bearbeiten && gegenstand.id == infoGegenstandId
@@ -1148,7 +1358,7 @@ fun GartenScreen(
                     val bild = bildPunkte(flaeche, ihre)
                     val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
                     val blass = flaeche.ebeneId in blasseEbenen
-                    if (blass) drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
+                    if (blass) drawContext.canvas.saveLayer(SZENE_GRENZE, Paint().apply { alpha = 0.35f })
                     val inDerHand = bewegt && ziehen?.punktId == null && ziehen?.flaecheId == flaeche.id
                     val art = Oberflaeche.vonSchluessel(flaeche.oberflaeche)
                     // Angefasste Fläche: Farbe heller und greller, damit man sieht, was man in der Hand hat
@@ -1192,7 +1402,7 @@ fun GartenScreen(
                     val jeEbeneElemente = sichtbareElemente.groupBy { it.ebeneId }
                     for (e in ebenen.asReversed().drop(1)) {
                         val liste = jeEbeneElemente[e.id] ?: continue
-                        drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
+                        drawContext.canvas.saveLayer(SZENE_GRENZE, Paint().apply { alpha = 0.35f })
                         for (el in liste) zeichneElement(el)
                         drawContext.canvas.restore()
                     }
@@ -1359,7 +1569,7 @@ fun GartenScreen(
                 val start = formStart
                 val ende = zeigerPos
                 if (formAuswahl != null && start != null && ende != null) {
-                    val vorschauPunkte = formPunkte(formAuswahl, start, zuSkizze(ende), 0.001f)
+                    val vorschauPunkte = formPunkte(formAuswahl, start, fangFremd(zuSkizze(ende)), 0.001f)
                     if (vorschauPunkte.size >= 3) {
                         val pfad = kurvenPfad(
                             vorschauPunkte.map { zuBildschirm(it.lage) },
@@ -1373,6 +1583,39 @@ fun GartenScreen(
                             style = Stroke(width = 3f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
                         )
                     }
+                }
+
+                // Einrastmarken an fremden Ecken und Kanten
+                for (m in fangMarken) {
+                    val c = zuBildschirm(m)
+                    drawCircle(FANG_FARBE, radius = 9f * dichte, center = c, style = Stroke(width = 3f * dichte))
+                    drawCircle(FANG_FARBE, radius = 3f * dichte, center = c)
+                }
+              }
+              zeichneSzene()
+
+                // Lupe: vergrößerter Ausschnitt über dem Finger, solange gezogen oder gezeichnet wird
+                val lf = lupeFokus
+                val fingerLupe = zeigerPos
+                if (lf != null && fingerLupe != null) {
+                    val r = LUPE_RADIUS_DP * dichte
+                    val rand = 6f * dichte
+                    val cx = fingerLupe.x.coerceIn(r + rand, size.width - r - rand)
+                    var cy = fingerLupe.y - r - 84f * dichte
+                    if (cy < r + 36f * dichte) cy = (fingerLupe.y + r + 84f * dichte).coerceAtMost(size.height - r - rand)
+                    val mitteLupe = Offset(cx, cy)
+                    drawCircle(Color(0x55000000), radius = r + 3f * dichte, center = mitteLupe + Offset(0f, 2f * dichte))
+                    clipPath(Path().apply { addOval(Rect(center = mitteLupe, radius = r)) }) {
+                        drawRect(hintergrund, topLeft = Offset(cx - r, cy - r), size = Size(2f * r, 2f * r))
+                        withTransform({
+                            translate(cx - lf.x, cy - lf.y)
+                            scale(LUPE_FAKTOR, LUPE_FAKTOR, pivot = lf)
+                        }) { zeichneSzene() }
+                    }
+                    drawCircle(rahmenFarbe, radius = r, center = mitteLupe, style = Stroke(width = 3f * dichte))
+                    val arm = 8f * dichte
+                    drawLine(Color(0xCC000000), Offset(cx - arm, cy), Offset(cx + arm, cy), strokeWidth = 1.5f * dichte)
+                    drawLine(Color(0xCC000000), Offset(cx, cy - arm), Offset(cx, cy + arm), strokeWidth = 1.5f * dichte)
                 }
 
                 // Maß oder Winkel neben dem Finger, solange Größe oder Drehung geändert wird
@@ -1604,6 +1847,7 @@ fun GartenScreen(
                     onVerdecktSchalten = viewModel::schalteVerdecktZeigen,
                     onEbenePlatz = { id, platz -> viewModel.setzeEbenePlatz(gartenId, id, platz) },
                     onOrdneElemente = { id, ordnung -> viewModel.ordneElemente(gartenId, id, ordnung) },
+                    onElementInEbene = { key, ziel, ordnung -> viewModel.verschiebeElementInEbene(gartenId, key, ziel, ordnung) },
                     onNeueEbene = { viewModel.legeEbeneAn(gartenId) },
                     onUmbenennen = { ebeneUmbenennenId = it },
                     onNachVorn = { viewModel.bewegeEbene(gartenId, it, 1) },
@@ -2340,6 +2584,7 @@ private fun EbenenBereich(
     onVerdecktSchalten: () -> Unit,
     onEbenePlatz: (Long, Int) -> Unit,
     onOrdneElemente: (Long, List<String>) -> Unit,
+    onElementInEbene: (String, Long, List<String>) -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2369,6 +2614,7 @@ private fun EbenenBereich(
                     onVerdecktSchalten = onVerdecktSchalten,
                     onEbenePlatz = onEbenePlatz,
                     onOrdneElemente = onOrdneElemente,
+                    onElementInEbene = onElementInEbene,
                     onNeueEbene = onNeueEbene,
                     onUmbenennen = onUmbenennen,
                     onNachVorn = onNachVorn,
@@ -2534,6 +2780,7 @@ private fun EbenenListe(
     onVerdecktSchalten: () -> Unit,
     onEbenePlatz: (Long, Int) -> Unit,
     onOrdneElemente: (Long, List<String>) -> Unit,
+    onElementInEbene: (String, Long, List<String>) -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2584,6 +2831,30 @@ private fun EbenenListe(
         return peers.filter { it != key }.count { mitteVon(it) < meineMitte }
     }
 
+    /**
+     * Wohin würde ein gezogenes Element fallen? Ebene (die unter der Mitte der gezogenen Zeile, sonst die nächste)
+     * und Platz von oben in dieser Ebene (0 = ganz vorn). Bei einer eingeklappten fremden Ebene: ganz vorn.
+     */
+    fun elementZiel(key: String): Pair<Long, Int>? {
+        if (key.startsWith("e")) return null
+        val eigene = ebeneVon(key) ?: return null
+        val meine = ziehStart + (lagen[key]?.y ?: 0f) / 2f + ziehDy
+        var zielId: Long? = null
+        var besterAbstand = Float.MAX_VALUE
+        for (e in vorneZuerst) {
+            val l = lagen["e" + e.id] ?: continue
+            val abstand = if (meine < l.x) l.x - meine else if (meine > l.x + l.y) meine - (l.x + l.y) else 0f
+            if (abstand < besterAbstand) {
+                besterAbstand = abstand
+                zielId = e.id
+            }
+        }
+        val ziel = zielId ?: return null
+        if (ziel != eigene && ziel !in aufgeklappt) return ziel to 0
+        val peers = zeilenFuer(ziel).map { schluesselVon(it) }.filter { it != key }
+        return ziel to peers.count { mitteVon(it) < meine }
+    }
+
     fun startZiehen(key: String) {
         ziehKey = key
         ziehDy = 0f
@@ -2603,13 +2874,19 @@ private fun EbenenListe(
             }
         } else {
             val ebeneId = ebeneVon(key)
-            if (ebeneId != null) {
-                val peers = zeilenFuer(ebeneId).map { schluesselVon(it) }
-                val neuOben = platzVon(peers, key)
+            val ziel = elementZiel(key)
+            if (ebeneId != null && ziel != null) {
+                val zielEbene = ziel.first
+                val peers = zeilenFuer(zielEbene).map { schluesselVon(it) }
                 val neu = peers.toMutableList()
                 neu.remove(key)
-                neu.add(neuOben.coerceIn(0, neu.size), key)
-                if (neu != peers) onOrdneElemente(ebeneId, neu.reversed())
+                neu.add(ziel.second.coerceIn(0, neu.size), key)
+                if (zielEbene == ebeneId) {
+                    if (neu != peers) onOrdneElemente(ebeneId, neu.reversed())
+                } else {
+                    onElementInEbene(key, zielEbene, neu.reversed())
+                    aufgeklappt = aufgeklappt + zielEbene
+                }
             }
         }
         ziehKey = null
@@ -2618,14 +2895,36 @@ private fun EbenenListe(
 
     fun Modifier.ziehbar(key: String): Modifier = this
         .onGloballyPositioned {
-            val neu = Offset(it.positionInParent().y, it.size.height.toFloat())
-            if (ziehKey != key && lagen[key] != neu) lagen[key] = neu
+            // Während eines Ziehens bleiben die Lagen, wie sie vor dem Ziehen waren.
+            val neu = Offset(it.positionInRoot().y, it.size.height.toFloat())
+            if (ziehKey == null && lagen[key] != neu) lagen[key] = neu
         }
         .zIndex(if (ziehKey == key) 1f else 0f)
-        .graphicsLayer { translationY = if (ziehKey == key) ziehDy else 0f }
+        .graphicsLayer {
+            if (ziehKey == key) {
+                // Die gehaltene Zeile hebt sich ab: größer, mit Schatten, folgt dem Finger.
+                translationY = ziehDy
+                scaleX = 1.04f
+                scaleY = 1.04f
+                shadowElevation = 18f
+                shape = RoundedCornerShape(8.dp)
+            }
+        }
         .then(
             if (ziehKey == key) Modifier.background(ziehHintergrund, RoundedCornerShape(8.dp)) else Modifier,
         )
+
+    // Ziel des laufenden Ziehens (für die Markierungen)
+    val gezogen = ziehKey
+    val elementZielJetzt: Pair<Long, Int>? = gezogen?.let { elementZiel(it) }
+    val eigeneEbeneGezogen: Long? = gezogen?.let { if (it.startsWith("e")) null else ebeneVon(it) }
+    val ebenenZielOben: Int? = if (gezogen != null && gezogen.startsWith("e")) {
+        platzVon(vorneZuerst.map { "e" + it.id }, gezogen)
+    } else {
+        null
+    }
+    val linienFarbe = MaterialTheme.colorScheme.primary
+    val zielFlaeche = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
 
     Surface(
         modifier = modifier,
@@ -2658,10 +2957,31 @@ private fun EbenenListe(
                 val aktiv = e.id == aktiveId
                 val offen = e.id in aufgeklappt
                 val ebenenKey = "e" + e.id
-                Row(
+                val ebenenIndexOhne = vorneZuerst.filter { "e" + it.id != gezogen }.indexOfFirst { it.id == e.id }
+                val ebeneIstZiel = elementZielJetzt != null && elementZielJetzt.first == e.id && e.id != eigeneEbeneGezogen
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .ziehbar(ebenenKey)
+                        .einfuegelinie(
+                            oben = ebenenZielOben != null && ebenenIndexOhne >= 0 && ebenenZielOben == ebenenIndexOhne,
+                            unten = ebenenZielOben != null && ebenenIndexOhne >= 0 &&
+                                ebenenIndexOhne == vorneZuerst.size - 2 && ebenenZielOben == vorneZuerst.size - 1,
+                            farbe = linienFarbe,
+                        )
+                        .then(
+                            if (ebeneIstZiel) {
+                                Modifier
+                                    .background(zielFlaeche, RoundedCornerShape(10.dp))
+                                    .border(2.dp, linienFarbe, RoundedCornerShape(10.dp))
+                            } else {
+                                Modifier
+                            },
+                        ),
+                ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .background(
                             if (aktiv) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
                             RoundedCornerShape(8.dp),
@@ -2762,8 +3082,12 @@ private fun EbenenListe(
                     }
                 }
                 if (offen) {
-                    for (zeile in zeilenFuer(e.id)) {
+                    val zeilenListe = zeilenFuer(e.id)
+                    val ohneGezogene = zeilenListe.filter { schluesselVon(it) != gezogen }
+                    for (zeile in zeilenListe) {
                         val zeilenKey = schluesselVon(zeile)
+                        val zeilenIndex = ohneGezogene.indexOfFirst { schluesselVon(it) == zeilenKey }
+                        val zielHier = elementZielJetzt != null && elementZielJetzt.first == e.id && zeilenIndex >= 0
                         val g = zeile.gegenstand
                         val f = zeile.flaeche
                         val gewaehlt = (g != null && g.id == gewaehlterGegenstandId) ||
@@ -2773,6 +3097,12 @@ private fun EbenenListe(
                                 .fillMaxWidth()
                                 .padding(start = 28.dp)
                                 .ziehbar(zeilenKey)
+                                .einfuegelinie(
+                                    oben = zielHier && elementZielJetzt?.second == zeilenIndex,
+                                    unten = zielHier && zeilenIndex == ohneGezogene.size - 1 &&
+                                        elementZielJetzt?.second == ohneGezogene.size,
+                                    farbe = linienFarbe,
+                                )
                                 .background(
                                     if (gewaehlt) MaterialTheme.colorScheme.tertiaryContainer else Color.Transparent,
                                     RoundedCornerShape(8.dp),
@@ -2819,7 +3149,20 @@ private fun EbenenListe(
                         }
                     }
                 }
+                }
             }
         }
     }
 }
+
+/** Zeichnet beim Ziehen eine Linie über oder unter der Zeile, an der die gehaltene Zeile einrasten würde. */
+private fun Modifier.einfuegelinie(oben: Boolean, unten: Boolean, farbe: Color): Modifier =
+    if (!oben && !unten) {
+        this
+    } else {
+        this.drawBehind {
+            val dicke = 4.dp.toPx()
+            val y = if (oben) -dicke / 2f else size.height - dicke / 2f
+            drawRoundRect(farbe, topLeft = Offset(0f, y), size = Size(size.width, dicke), cornerRadius = CornerRadius(dicke / 2f))
+        }
+    }

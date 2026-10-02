@@ -294,9 +294,16 @@ Entwicklungsmodus: Die Datenbank wird bei Änderung neu angelegt (einmaliger Dat
 - **Ungeprüft:** Alles. Nicht kompiliert, nicht am Gerät getestet.
 
 
-## 15. Stand 3b2 (geliefert, noch nicht gebaut/getestet)
+## 15. Stand 3b2 (gebaut und getestet, alle 9 Tests OK)
 - Schmale Gegenstände (Zaun, Mauer, Bewässerung): Dicke über einen Stiel-Griff gegenüber dem Drehgriff.
 - „Verdecktes zeigen“ vergleicht nur Ebene gegen Ebene; Formen derselben Ebene scheinen nicht mehr durch.
 - Reihenfolge innerhalb einer Ebene entscheidet, was oben liegt; änderbar per Halten und Ziehen am „≡“-Griff (Ebenen und Elemente in der Ebenenliste).
 - Gebäude (freie Form): Eckpunkte wie bei Flächen (ziehen, einfügen, löschen, Ecke/rund), drehbar, Farbe, Duplizieren, Fläche in m².
 - Testergebnis 3c: Tests 1–6, 8–10 OK; Test 7 (Dicke) war nur bei Hecke möglich → in 3b2 behoben.
+
+## 16. Stand 3d – Feinschliff (geliefert, noch nicht gebaut/getestet)
+- **Einrasten an anderen Formen** (nur bei „Einrasten: an“): Beim Zeichnen von Flächen, Aufziehen von Formen, Ziehen von Flächen- und Gebäudepunkten sowie beim Verschieben und Größe ändern von Flächen, Gegenständen und Gebäuden rastet es an Ecken und Kanten der anderen sichtbaren Elemente ein. Reihenfolge der Prüfung: 1. fremde Ecke, 2. eigene Hilfslinien (waagerecht/senkrecht/rechter Winkel), 3. fremde Kante, 4. Flucht mit einer fremden Ecke. Beim Verschieben: Ecke auf Ecke; sonst Ecke auf Kante und danach entlang der Kante Ecke auf Ecke. Beim Größe ändern rastet die gezogene Kante in einer Flucht mit fremden Ecken ein. Reichweite 12 dp. Orange Ringe markieren die Einraststelle. Noch nicht: Drehen rastet nicht am Winkel fremder Kanten ein.
+- **Lupe** über dem Finger (Radius 58 dp, 2,5-fach) beim Zeichnen, Formen aufziehen, Ziehen von Punkten, Verschieben und Größe ändern. Sie zeigt die Szene noch einmal vergrößert um die Stelle (bei Punkten: um den Punkt, sonst um den Finger), mit Fadenkreuz. Beim Drehen keine Lupe.
+- **Ebenenliste:** Beim Ziehen einer Ebene wandert der ganze Block (mit aufgeklappten Elementen). Die gehaltene Zeile ist größer, mit Schatten; eine Linie zeigt den Einfügeplatz. Elemente lassen sich mit dem „≡“-Griff in eine andere Ebene ziehen (Zielebene wird umrahmt; bei eingeklappter Zielebene landet das Element ganz vorn; die Zielebene klappt danach auf).
+- Hilfetexte alle geprüft; der Text zum freien Gebäude war falsch (es startet als Rechteck aus vier Ecken) und ist korrigiert.
+- Aufgeräumt: ungenutzte Importe entfernt.

@@ -471,6 +471,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.ordneElemente(gartenId, ebeneId, ordnung) }
     }
 
+    fun verschiebeElementInEbene(gartenId: Long, schluessel: String, zielEbeneId: Long, ordnung: List<String>) {
+        aendere(gartenId) { dao.verschiebeElementInEbene(gartenId, schluessel, zielEbeneId, ordnung) }
+    }
+
     fun setzeEbenePlatz(gartenId: Long, ebeneId: Long, neuerPlatz: Int) {
         aendere(gartenId) { dao.setzeEbenePlatz(gartenId, ebeneId, neuerPlatz) }
     }
