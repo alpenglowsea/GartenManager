@@ -4,6 +4,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -39,6 +40,8 @@ enum class GegenstandsArt(
     farbeArgb: Long,
 ) {
     HAUS("haus", R.string.gg_haus, GegenstandsGruppe.GEBAEUDE, 10f, 8f, 0xFFC0603F),
+    // Freies Gebäude: Form aus Punkten (Tabelle Gegenstandspunkt); die Maße hier gelten nur für das Rechteck zu Beginn.
+    GEBAEUDE_FREI("gebaeude_frei", R.string.gg_gebaeude_frei, GegenstandsGruppe.GEBAEUDE, 8f, 6f, 0xFFC0603F),
     GARAGE("garage", R.string.gg_garage, GegenstandsGruppe.GEBAEUDE, 3f, 6f, 0xFF9EA3A8),
     CARPORT("carport", R.string.gg_carport, GegenstandsGruppe.GEBAEUDE, 3f, 5.5f, 0xFFB9A58A),
     SCHUPPEN("schuppen", R.string.gg_schuppen, GegenstandsGruppe.GEBAEUDE, 2.5f, 2f, 0xFF9C7A54),
@@ -153,6 +156,20 @@ fun DrawScope.zeichneGegenstand(
             linie(0f, 0.5f, 1f, 0.5f)
             rechteck(0.72f, 0.12f, 0.08f, 0.12f, schwarz, 0f)
             rechteck(0f, 0f, 1f, 1f, Color.Transparent, 0.02f)
+        }
+        GegenstandsArt.GEBAEUDE_FREI -> {
+            // Vorschau im Katalog: ein L-förmiges Gebäude. Im Garten zeichnet GartenScreen die echte Form aus den Punkten.
+            val l = Path()
+            l.moveTo(0f, 0f)
+            l.lineTo(b, 0f)
+            l.lineTo(b, 0.5f * h)
+            l.lineTo(0.55f * b, 0.5f * h)
+            l.lineTo(0.55f * b, h)
+            l.lineTo(0f, h)
+            l.close()
+            drawPath(l, haupt)
+            for (i in 1..4) linie(0f, i * 0.2f, 0.55f, i * 0.2f, hell.copy(alpha = 0.5f))
+            drawPath(l, rand, style = Stroke(strich))
         }
         GegenstandsArt.GARAGE, GegenstandsArt.SCHUPPEN -> {
             rechteck(0f, 0f, 1f, 1f, haupt, 0.03f)

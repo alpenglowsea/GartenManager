@@ -12,6 +12,7 @@ import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Gegenstand
+import io.github.alpenglowsea.gartenmanager.daten.Gegenstandspunkt
 import io.github.alpenglowsea.gartenmanager.daten.Grundstueck
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.Punkt
@@ -114,6 +115,8 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun gegenstaende(gartenId: Long): Flow<List<Gegenstand>> = dao.gegenstaende(gartenId)
 
+    fun gegenstandspunkte(gartenId: Long): Flow<List<Gegenstandspunkt>> = dao.gegenstandspunkte(gartenId)
+
     /** Stellt sicher, dass der Garten mindestens eine Ebene hat (wird beim Öffnen aufgerufen). */
     fun sichereEbene(gartenId: Long) {
         viewModelScope.launch { sperre.withLock { dao.ebeneFuer(gartenId, null) } }
@@ -185,6 +188,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var auswahlGegenstand by mutableStateOf<Long?>(null)
         private set
 
+    /** Ausgewählter Punkt eines freien Gebäudes. */
+    var auswahlGegenstandPunkt by mutableStateOf<Long?>(null)
+        private set
+
     /** Platzieren: Knopf "Gegenstand" gedrückt, jetzt auf die Stelle im Garten tippen. */
     var platzieren by mutableStateOf(false)
         private set
@@ -210,6 +217,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         val flaechen: List<Flaeche>,
         val punkte: List<Punkt>,
         val gegenstaende: List<Gegenstand>,
+        val gegenstandspunkte: List<Gegenstandspunkt>,
     )
 
     private val verlauf = mutableListOf<Abbild>()
@@ -262,12 +270,14 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         auswahlFlaeche = id
         auswahlPunkt = null
         auswahlGegenstand = null
+        auswahlGegenstandPunkt = null
     }
 
     fun waehlePunkt(flaecheId: Long, punktId: Long) {
         auswahlFlaeche = flaecheId
         auswahlPunkt = punktId
         auswahlGegenstand = null
+        auswahlGegenstandPunkt = null
     }
 
     /** Wählt einen Gegenstand aus (hebt die Auswahl von Fläche und Punkt auf). null = nichts ausgewählt. */
@@ -275,6 +285,15 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         auswahlFlaeche = null
         auswahlPunkt = null
         auswahlGegenstand = id
+        auswahlGegenstandPunkt = null
+    }
+
+    /** Wählt einen Punkt eines ausgewählten freien Gebäudes. */
+    fun waehleGegenstandPunkt(gegenstandId: Long, punktId: Long?) {
+        auswahlFlaeche = null
+        auswahlPunkt = null
+        auswahlGegenstand = gegenstandId
+        auswahlGegenstandPunkt = punktId
     }
 
     /**
@@ -290,6 +309,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
                         dao.flaechenListe(gartenId),
                         dao.punkteDesGartens(gartenId),
                         dao.gegenstaendeListe(gartenId),
+                        dao.gegenstandspunkteDesGartens(gartenId),
                     ),
                 )
                 if (verlauf.size > MAX_VERLAUF) verlauf.removeAt(0)
@@ -394,10 +414,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     // ---- Gegenstände (Teilschritt 3b) ----
 
     /** Legt einen neuen Gegenstand in der aktiven Ebene an und wählt ihn aus. */
-    fun legeGegenstandAn(gartenId: Long, vorlage: Gegenstand) {
+    fun legeGegenstandAn(gartenId: Long, vorlage: Gegenstand, punkte: List<Gegenstandspunkt> = emptyList()) {
         platzieren = false
         aendere(gartenId) {
-            val id = dao.legeGegenstandAn(gartenId, aktiveEbeneId, vorlage, jetzt())
+            val id = dao.legeGegenstandAn(gartenId, aktiveEbeneId, vorlage, punkte, jetzt())
             waehleGegenstand(id)
         }
     }
@@ -421,6 +441,38 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun schalteVerdecktZeigen() {
         verdecktZeigen = !verdecktZeigen
+    }
+
+    // ---- Punkte freier Gebäude ----
+
+    fun verschiebeGebaeudePunkt(gartenId: Long, punktId: Long, x: Float, y: Float) {
+        aendere(gartenId) { dao.setzeGegenstandspunktLage(punktId, x, y) }
+    }
+
+    fun fuegeGebaeudePunktEin(gartenId: Long, gegenstandId: Long, nr: Int, x: Float, y: Float, rund: Boolean) {
+        aendere(gartenId) {
+            val id = dao.fuegeGegenstandspunktAn(gegenstandId, nr, x, y, rund)
+            waehleGegenstandPunkt(gegenstandId, id)
+        }
+    }
+
+    fun loescheGebaeudePunkt(gartenId: Long, gegenstandId: Long, punktId: Long, nr: Int) {
+        auswahlGegenstandPunkt = null
+        aendere(gartenId) { dao.entferneGegenstandspunkt(gegenstandId, punktId, nr) }
+    }
+
+    fun setzeGebaeudePunktRund(gartenId: Long, punktId: Long, rund: Boolean) {
+        aendere(gartenId) { dao.setzeGegenstandspunktRund(punktId, rund) }
+    }
+
+    // ---- Reihenfolge ändern (Ziehen in der Ebenenliste) ----
+
+    fun ordneElemente(gartenId: Long, ebeneId: Long, ordnung: List<String>) {
+        aendere(gartenId) { dao.ordneElemente(gartenId, ebeneId, ordnung) }
+    }
+
+    fun setzeEbenePlatz(gartenId: Long, ebeneId: Long, neuerPlatz: Int) {
+        aendere(gartenId) { dao.setzeEbenePlatz(gartenId, ebeneId, neuerPlatz) }
     }
 
     fun benenneGegenstandUm(gartenId: Long, id: Long, name: String) {
@@ -456,11 +508,16 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
                 if (verlauf.isEmpty()) return@withLock
                 val abbild = verlauf.removeAt(verlauf.size - 1)
                 anzahlRueckgaengig = verlauf.size
-                dao.stelleWiederHer(gartenId, abbild.ebenen, abbild.flaechen, abbild.punkte, abbild.gegenstaende)
+                dao.stelleWiederHer(gartenId, abbild.ebenen, abbild.flaechen, abbild.punkte, abbild.gegenstaende, abbild.gegenstandspunkte)
                 if (abbild.ebenen.none { it.id == aktiveEbeneId }) aktiveEbeneId = null
                 // Die Auswahl gilt nur weiter, wenn es die Fläche und den Punkt noch gibt.
                 if (auswahlGegenstand != null) {
-                    if (abbild.gegenstaende.none { it.id == auswahlGegenstand }) auswahlGegenstand = null
+                    if (abbild.gegenstaende.none { it.id == auswahlGegenstand }) {
+                        auswahlGegenstand = null
+                        auswahlGegenstandPunkt = null
+                    } else if (abbild.gegenstandspunkte.none { it.id == auswahlGegenstandPunkt }) {
+                        auswahlGegenstandPunkt = null
+                    }
                 } else {
                     val flaecheDa = abbild.flaechen.any { it.id == auswahlFlaeche }
                     if (!flaecheDa) {

@@ -235,12 +235,19 @@ abstract class GartenDao {
 
     /** Legt einen Gegenstand in der Ebene [ebeneId] ganz oben an (gibt es sie nicht: vorderste Ebene). */
     @Transaction
-    open suspend fun legeGegenstandAn(gartenId: Long, ebeneId: Long?, vorlage: Gegenstand, jetzt: Long): Long {
+    open suspend fun legeGegenstandAn(
+        gartenId: Long,
+        ebeneId: Long?,
+        vorlage: Gegenstand,
+        punkte: List<Gegenstandspunkt>,
+        jetzt: Long,
+    ): Long {
         val ziel = ebeneFuer(gartenId, ebeneId)
         setzeEbeneSicht(ziel, 0)
         val id = fuegeGegenstandEin(
             vorlage.copy(id = 0, gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
         )
+        if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = id) })
         beruehreGarten(gartenId, jetzt)
         return id
     }
@@ -249,7 +256,7 @@ abstract class GartenDao {
     @Transaction
     open suspend fun dupliziereGegenstand(gartenId: Long, gegenstandId: Long, dx: Float, dy: Float): Long? {
         val g = gegenstandMitId(gegenstandId) ?: return null
-        return fuegeGegenstandEin(
+        val neu = fuegeGegenstandEin(
             g.copy(
                 id = 0,
                 mitteX = g.mitteX + dx,
@@ -257,6 +264,98 @@ abstract class GartenDao {
                 reihenfolge = hoechsteReihenfolge(gartenId) + 1,
             ),
         )
+        val punkte = gegenstandspunkteListe(gegenstandId)
+        if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = neu) })
+        return neu
+    }
+
+    // ---- Punkte freier Gebäude ----
+
+    @Query(
+        "SELECT p.* FROM gegenstandspunkt p INNER JOIN gegenstand g ON p.gegenstandId = g.id " +
+            "WHERE g.gartenId = :gartenId ORDER BY p.gegenstandId, p.nr",
+    )
+    abstract fun gegenstandspunkte(gartenId: Long): Flow<List<Gegenstandspunkt>>
+
+    @Query(
+        "SELECT p.* FROM gegenstandspunkt p INNER JOIN gegenstand g ON p.gegenstandId = g.id " +
+            "WHERE g.gartenId = :gartenId ORDER BY p.gegenstandId, p.nr",
+    )
+    abstract suspend fun gegenstandspunkteDesGartens(gartenId: Long): List<Gegenstandspunkt>
+
+    @Query("SELECT * FROM gegenstandspunkt WHERE gegenstandId = :gegenstandId ORDER BY nr")
+    abstract suspend fun gegenstandspunkteListe(gegenstandId: Long): List<Gegenstandspunkt>
+
+    @Insert
+    abstract suspend fun fuegeGegenstandspunkteEin(punkte: List<Gegenstandspunkt>)
+
+    @Insert
+    abstract suspend fun fuegeGegenstandspunktEin(punkt: Gegenstandspunkt): Long
+
+    @Query("UPDATE gegenstandspunkt SET x = :x, y = :y WHERE id = :id")
+    abstract suspend fun setzeGegenstandspunktLage(id: Long, x: Float, y: Float)
+
+    @Query("UPDATE gegenstandspunkt SET rund = :rund WHERE id = :id")
+    abstract suspend fun setzeGegenstandspunktRund(id: Long, rund: Boolean)
+
+    @Query("UPDATE gegenstandspunkt SET nr = nr + 1 WHERE gegenstandId = :gegenstandId AND nr >= :ab")
+    abstract suspend fun schiebeGegenstandspunkteNach(gegenstandId: Long, ab: Int)
+
+    @Query("UPDATE gegenstandspunkt SET nr = nr - 1 WHERE gegenstandId = :gegenstandId AND nr > :nach")
+    abstract suspend fun schliesseGegenstandspunktLuecke(gegenstandId: Long, nach: Int)
+
+    @Query("DELETE FROM gegenstandspunkt WHERE id = :id")
+    abstract suspend fun loescheGegenstandspunkt(id: Long)
+
+    @Query("SELECT COUNT(*) FROM gegenstandspunkt WHERE gegenstandId = :gegenstandId")
+    abstract suspend fun zaehleGegenstandspunkte(gegenstandId: Long): Int
+
+    /** Fügt einen Punkt an Stelle [nr] ein; die folgenden Punkte rücken nach. */
+    @Transaction
+    open suspend fun fuegeGegenstandspunktAn(gegenstandId: Long, nr: Int, x: Float, y: Float, rund: Boolean): Long {
+        schiebeGegenstandspunkteNach(gegenstandId, nr)
+        return fuegeGegenstandspunktEin(Gegenstandspunkt(gegenstandId = gegenstandId, nr = nr, x = x, y = y, rund = rund))
+    }
+
+    /** Entfernt einen Punkt, aber nie unter drei Punkte. */
+    @Transaction
+    open suspend fun entferneGegenstandspunkt(gegenstandId: Long, punktId: Long, nr: Int) {
+        if (zaehleGegenstandspunkte(gegenstandId) <= 3) return
+        loescheGegenstandspunkt(punktId)
+        schliesseGegenstandspunktLuecke(gegenstandId, nr)
+    }
+
+    // ---- Reihenfolge ändern (Ziehen in der Ebenenliste) ----
+
+    @Query("UPDATE gegenstand SET reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeGegenstandReihenfolge(id: Long, reihenfolge: Int)
+
+    /**
+     * Neue Reihenfolge der Elemente einer Ebene. [ordnung] enthält "f<Nummer>" (Fläche) oder
+     * "g<Nummer>" (Gegenstand), von hinten nach vorn. Die vorhandenen Reihenfolgenummern werden nur
+     * neu verteilt, so bleibt der gemeinsame Zähler heil.
+     */
+    @Transaction
+    open suspend fun ordneElemente(gartenId: Long, ebeneId: Long, ordnung: List<String>) {
+        val fl = flaechenListe(gartenId).filter { it.ebeneId == ebeneId }.associateBy { "f" + it.id }
+        val ge = gegenstaendeListe(gartenId).filter { it.ebeneId == ebeneId }.associateBy { "g" + it.id }
+        val zahlen = (fl.values.map { it.reihenfolge } + ge.values.map { it.reihenfolge }).sorted()
+        if (zahlen.size != ordnung.size) return
+        ordnung.forEachIndexed { i, schluessel ->
+            fl[schluessel]?.let { setzeReihenfolge(it.id, zahlen[i]) }
+            ge[schluessel]?.let { setzeGegenstandReihenfolge(it.id, zahlen[i]) }
+        }
+    }
+
+    /** Setzt eine Ebene auf Platz [neuerPlatz] (0 = ganz hinten). */
+    @Transaction
+    open suspend fun setzeEbenePlatz(gartenId: Long, ebeneId: Long, neuerPlatz: Int) {
+        val liste = ebenenListe(gartenId).toMutableList()
+        val von = liste.indexOfFirst { it.id == ebeneId }
+        if (von < 0) return
+        val e = liste.removeAt(von)
+        liste.add(neuerPlatz.coerceIn(0, liste.size), e)
+        liste.forEachIndexed { index, eb -> setzeEbeneReihenfolge(eb.id, index) }
     }
 
     /** Verschiebt einen Gegenstand in die Nachbarebene ([schritt] +1 = nach vorn, -1 = nach hinten). */
@@ -356,6 +455,7 @@ abstract class GartenDao {
         flaechen: List<Flaeche>,
         punkte: List<Punkt>,
         gegenstaende: List<Gegenstand>,
+        gegenstandspunkte: List<Gegenstandspunkt>,
     ) {
         loescheEbenenDesGartens(gartenId) // nimmt wegen CASCADE auch alle Flächen, Punkte und Gegenstände mit
         loescheFlaechenDesGartens(gartenId)
@@ -364,6 +464,7 @@ abstract class GartenDao {
         fuegeFlaechenEin(flaechen)
         fuegePunkteEin(punkte)
         fuegeGegenstaendeEin(gegenstaende)
+        fuegeGegenstandspunkteEin(gegenstandspunkte)
         beruehreGarten(gartenId, System.currentTimeMillis())
     }
 
@@ -408,7 +509,9 @@ abstract class GartenDao {
         }
         for (g in gegenstaendeListe(id)) {
             val ebeneZiel = neueEbenen[g.ebeneId] ?: ebeneFuer(kopieId, null)
-            fuegeGegenstandEin(g.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
+            val neueId = fuegeGegenstandEin(g.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
+            val punkte = gegenstandspunkteListe(g.id)
+            if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = neueId) })
         }
         return kopieId
     }

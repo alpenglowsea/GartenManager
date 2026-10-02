@@ -75,6 +75,15 @@ import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextOverflow
+import io.github.alpenglowsea.gartenmanager.daten.Gegenstandspunkt
+import androidx.compose.ui.zIndex
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.draw.alpha
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.foundation.gestures.detectDragGestures
 import kotlin.math.sin
 import kotlin.math.cos
 import kotlin.math.atan2
@@ -123,7 +132,7 @@ private data class Ziehen(
     val aktuell: Offset,
 )
 
-private enum class GModus { VERSCHIEBEN, GROESSE, DREHEN }
+private enum class GModus { VERSCHIEBEN, GROESSE, DREHEN, PUNKT }
 
 /** Ein laufendes Ziehen an einem Gegenstand: Verschieben, Größe ändern (Griff sx/sy) oder Drehen. */
 private data class GZiehen(
@@ -133,10 +142,18 @@ private data class GZiehen(
     val sy: Int,
     val start: Offset,
     val aktuell: Offset,
+    val punktId: Long? = null, // nur bei GModus.PUNKT: der gezogene Punkt eines freien Gebäudes
 )
 
 /** Ein Griff am ausgewählten Gegenstand (Position auf dem Bildschirm). */
-private data class GriffInfo(val sx: Int, val sy: Int, val drehen: Boolean, val pos: Offset, val radius: Float)
+private data class GriffInfo(
+    val sx: Int,
+    val sy: Int,
+    val drehen: Boolean,
+    val pos: Offset,
+    val radius: Float,
+    val stiel: Offset? = null, // Ansatzpunkt am Rand, wenn der Griff an einem Stiel sitzt
+)
 
 /** Fläche oder Gegenstand in der gemeinsamen Zeichenreihenfolge. */
 private data class Element(
@@ -151,6 +168,17 @@ private data class Element(
 /** Eine Zeile unter einer aufgeklappten Ebene: eine Fläche oder ein Gegenstand. */
 private data class ZeilenEintrag(val reihenfolge: Int, val flaeche: Flaeche?, val gegenstand: Gegenstand?)
 
+private fun istGebaeude(g: Gegenstand): Boolean = g.art == GegenstandsArt.GEBAEUDE_FREI.schluessel
+
+/** Verschiebung des Fingers im Koordinatensystem des (gedrehten) Gegenstands, in Skizzeneinheiten. */
+private fun lokaleVerschiebung(z: GZiehen): Offset {
+    val d = z.aktuell - z.start
+    val w = Math.toRadians(z.original.drehung.toDouble())
+    val c = cos(w).toFloat()
+    val s = sin(w).toFloat()
+    return Offset(d.x * c + d.y * s, -d.x * s + d.y * c)
+}
+
 /**
  * Der Gegenstand nach einem laufenden Ziehen. Beim Größe ändern bleibt der gegenüberliegende Griff
  * (Anker) stehen; gerechnet wird im Koordinatensystem des gedrehten Gegenstands.
@@ -158,6 +186,7 @@ private data class ZeilenEintrag(val reihenfolge: Int, val flaeche: Flaeche?, va
 private fun angepasst(z: GZiehen, einrasten: Boolean, minGroesse: Float): Gegenstand {
     val o = z.original
     return when (z.modus) {
+        GModus.PUNKT -> o // Beim Ziehen eines Gebäudepunkts bleibt der Gegenstand selbst, nur der Punkt wandert.
         GModus.VERSCHIEBEN -> {
             val d = z.aktuell - z.start
             o.copy(mitteX = o.mitteX + d.x, mitteY = o.mitteY + d.y)
@@ -233,6 +262,60 @@ private fun DrawScope.zeichneGegenstandBild(
     }
 }
 
+/** Zeichnet ein freies Gebäude aus seinen Punkten (relativ zur Mitte), gedreht, mit Dachziegel-Muster. */
+private fun DrawScope.zeichneGebaeude(
+    g: Gegenstand,
+    ps: List<Gegenstandspunkt>,
+    mitte: Offset,
+    faktor: Float,
+    dichte: Float,
+    inDerHand: Boolean,
+    umriss: Color?,
+    umrissBreite: Float,
+    pixelProMeter: Float,
+) {
+    if (ps.size < 3) return
+    val grund = g.farbe?.let { Color(it) } ?: GegenstandsArt.GEBAEUDE_FREI.farbe
+    val haupt = if (inDerHand) lerp(grund, Color.White, 0.35f) else grund
+    val rand = lerp(grund, Color.Black, 0.45f)
+    withTransform({
+        translate(mitte.x, mitte.y)
+        rotate(g.drehung, Offset.Zero)
+    }) {
+        val bild = ps.map { Offset(it.x * faktor, it.y * faktor) }
+        val pfad = kurvenPfad(bild, ps.map { it.rund }, geschlossen = true)
+        drawPath(pfad, haupt)
+        // Dachziegel: Reihen alle 0,5 m mit versetzten Fugen; zu kleine Muster werden weggelassen
+        val reihe = 0.5f * pixelProMeter
+        val minX = bild.minOf { it.x }
+        val maxX = bild.maxOf { it.x }
+        val minY = bild.minOf { it.y }
+        val maxY = bild.maxOf { it.y }
+        val ziegel = reihe * 1.6f
+        if (reihe >= 5f * dichte && ((maxX - minX) / ziegel) * ((maxY - minY) / reihe) <= 4000f) {
+            clipPath(pfad) {
+                var y = minY
+                var r = 0
+                while (y < maxY) {
+                    drawLine(rand.copy(alpha = 0.45f), Offset(minX, y), Offset(maxX, y), strokeWidth = dichte)
+                    var x = minX + (if (r % 2 == 0) 0f else ziegel / 2f)
+                    while (x < maxX) {
+                        drawLine(rand.copy(alpha = 0.45f), Offset(x, y), Offset(x, y + reihe), strokeWidth = dichte)
+                        x += ziegel
+                    }
+                    y += reihe
+                    r++
+                }
+            }
+        }
+        if (inDerHand) drawPath(pfad, Color.White.copy(alpha = 0.2f))
+        drawPath(pfad, rand, style = Stroke(width = 2f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        if (umriss != null) {
+            drawPath(pfad, umriss, style = Stroke(width = umrissBreite, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        }
+    }
+}
+
 /**
  * Geöffneter Garten: Zeichenfläche mit Zoomen und Verschieben (2b), Flächen
  * zeichnen (2c) und Flächen bearbeiten (2e).
@@ -251,6 +334,7 @@ fun GartenScreen(
     flaechen: List<Flaeche>,
     ebenen: List<Ebene>,
     gegenstaende: List<Gegenstand>,
+    gegenstandspunkte: List<Gegenstandspunkt>,
     punkte: List<Punkt>,
     bearbeiten: Boolean,
     viewModel: GartenViewModel,
@@ -279,6 +363,7 @@ fun GartenScreen(
     }
 
     val punkteJeFlaeche = remember(punkte) { punkte.groupBy { it.flaecheId } }
+    val gpJeGegenstand = remember(gegenstandspunkte) { gegenstandspunkte.groupBy { it.gegenstandId } }
     val gewaehlteFlaeche = flaechen.firstOrNull { it.id == viewModel.auswahlFlaeche }
     val gewaehltePunkte = gewaehlteFlaeche?.let { punkteJeFlaeche[it.id] }.orEmpty()
     val gewaehlterPunkt = gewaehltePunkte.firstOrNull { it.id == viewModel.auswahlPunkt }
@@ -303,6 +388,9 @@ fun GartenScreen(
             .sortedWith(compareBy<Element>({ it.rang }, { it.reihenfolge }, { it.gegenstand != null }, { it.id }))
     }
     val gewaehlterGegenstand = gegenstaende.firstOrNull { it.id == viewModel.auswahlGegenstand }
+    val gewaehlterGebaeudePunkt = gewaehlterGegenstand?.let { g ->
+        gpJeGegenstand[g.id]?.firstOrNull { it.id == viewModel.auswahlGegenstandPunkt }
+    }
 
     // Aktive Ebene: die des ausgewählten Elements, sonst die zuletzt gewählte, sonst die vorderste.
     val aktiveEbeneId: Long? = gewaehlteFlaeche?.ebeneId
@@ -460,11 +548,27 @@ fun GartenScreen(
         return Offset(c.x + lx * cs - ly * sn, c.y + lx * sn + ly * cs)
     }
 
+    /** Punkte eines freien Gebäudes mit dem laufenden Ziehen eines Punktes eingerechnet. */
+    fun gPunkteLive(g: Gegenstand): List<Gegenstandspunkt> {
+        val liste = gpJeGegenstand[g.id].orEmpty()
+        val z = gZiehen
+        val punktId = z?.punktId
+        if (z == null || punktId == null || z.modus != GModus.PUNKT || z.original.id != g.id) return liste
+        val d = lokaleVerschiebung(z)
+        return liste.map { if (it.id == punktId) it.copy(x = it.x + d.x, y = it.y + d.y) else it }
+    }
+
     fun gGriffe(g: Gegenstand): List<GriffInfo> {
         val w = g.breite * faktor
         val h = g.hoehe * faktor
         val eckRadius = (minOf(w, h) * 0.35f).coerceIn(14f * dichte, 26f * dichte)
         val liste = mutableListOf<GriffInfo>()
+        if (istGebaeude(g)) {
+            // Freies Gebäude: nur der Drehgriff (die Form ändern die Punkte)
+            val minY = gPunkteLive(g).minOfOrNull { it.y * faktor } ?: (-h / 2f)
+            liste.add(GriffInfo(0, 0, true, gBild(g, 0f, minY - 36f * dichte), 24f * dichte, gBild(g, 0f, minY)))
+            return liste
+        }
         if (minOf(w, h) < 40f * dichte) {
             // Schmaler Gegenstand (Zaun, Hecke, ...): nur Griffe an den Enden der langen Seite, damit die
             // Mitte zum Verschieben frei bleibt. Die Dicke ändert man nach dem Hineinzoomen.
@@ -473,11 +577,14 @@ fun GartenScreen(
             if (w >= h) {
                 liste.add(GriffInfo(-1, 0, false, gBild(g, -w / 2f, 0f), rad))
                 liste.add(GriffInfo(1, 0, false, gBild(g, w / 2f, 0f), rad))
+                // Dicke: Griff an einem Stiel unterhalb (gegenüber vom Drehgriff)
+                liste.add(GriffInfo(0, 1, false, gBild(g, 0f, h / 2f + 30f * dichte), 20f * dichte, gBild(g, 0f, h / 2f)))
             } else {
                 liste.add(GriffInfo(0, -1, false, gBild(g, 0f, -h / 2f), rad))
                 liste.add(GriffInfo(0, 1, false, gBild(g, 0f, h / 2f), rad))
+                liste.add(GriffInfo(1, 0, false, gBild(g, w / 2f + 30f * dichte, 0f), 20f * dichte, gBild(g, w / 2f, 0f)))
             }
-            liste.add(GriffInfo(0, 0, true, gBild(g, 0f, -(h / 2f + 36f * dichte)), 24f * dichte))
+            liste.add(GriffInfo(0, 0, true, gBild(g, 0f, -(h / 2f + 36f * dichte)), 24f * dichte, gBild(g, 0f, -h / 2f)))
             return liste
         }
         for (sx in -1..1) {
@@ -489,7 +596,7 @@ fun GartenScreen(
                 liste.add(GriffInfo(sx, sy, false, gBild(g, sx * w / 2f, sy * h / 2f), if (ecke) eckRadius else 20f * dichte))
             }
         }
-        liste.add(GriffInfo(0, 0, true, gBild(g, 0f, -(h / 2f + 36f * dichte)), 24f * dichte))
+        liste.add(GriffInfo(0, 0, true, gBild(g, 0f, -(h / 2f + 36f * dichte)), 24f * dichte, gBild(g, 0f, -h / 2f)))
         return liste
     }
 
@@ -515,9 +622,42 @@ fun GartenScreen(
         val dy = pos.y - c.y
         val lx = dx * cs + dy * sn
         val ly = -dx * sn + dy * cs
+        if (istGebaeude(g)) {
+            val ps = gPunkteLive(g)
+            return ps.size >= 3 &&
+                liegtInnen(
+                    kurvenPolylinie(ps.map { Offset(it.x * faktor, it.y * faktor) }, ps.map { it.rund }, true),
+                    Offset(lx, ly),
+                )
+        }
         val halbB = maxOf(g.breite * faktor / 2f, 12f * dichte)
         val halbH = maxOf(g.hoehe * faktor / 2f, 12f * dichte)
         return abs(lx) <= halbB && abs(ly) <= halbH
+    }
+
+    /** Der Gebäudepunkt unter dem Finger (nur bei freien Gebäuden). */
+    fun gPunktBei(g: Gegenstand, pos: Offset): Gegenstandspunkt? {
+        var beste: Gegenstandspunkt? = null
+        var besterAbstand = GRIFF_RADIUS_DP * dichte
+        for (p in gPunkteLive(g)) {
+            val d = (gBild(g, p.x * faktor, p.y * faktor) - pos).getDistance()
+            if (d < besterAbstand) {
+                beste = p
+                besterAbstand = d
+            }
+        }
+        return beste
+    }
+
+    /** Eine Bildschirmposition im Koordinatensystem des Gegenstands (Skizzeneinheiten, vor der Drehung). */
+    fun gLokalSkizze(g: Gegenstand, bild: Offset): Offset {
+        val c = zuBildschirm(Offset(g.mitteX, g.mitteY))
+        val w = Math.toRadians(g.drehung.toDouble())
+        val cs = cos(w).toFloat()
+        val sn = sin(w).toFloat()
+        val dx = bild.x - c.x
+        val dy = bild.y - c.y
+        return Offset((dx * cs + dy * sn) / faktor, (-dx * sn + dy * cs) / faktor)
     }
 
     /** Das oberste Element (Fläche oder Gegenstand) unter dem Finger. */
@@ -551,7 +691,37 @@ fun GartenScreen(
     // --- Tipp im Auswahlmodus ---
     fun beiTippAuswahl(pos: Offset) {
         val gg = gewaehlterGegenstand
-        if (gg != null && (gGriffBei(gg, pos) != null || gTrifft(gg, pos))) return // Tipp auf den eigenen Gegenstand
+        if (gg != null) {
+            if (istGebaeude(gg)) {
+                val pg = gPunktBei(gg, pos)
+                if (pg != null) {
+                    viewModel.waehleGegenstandPunkt(gg.id, pg.id)
+                    return
+                }
+                if (gGriffBei(gg, pos) != null) return
+                val ps = gPunkteLive(gg)
+                if (ps.size >= 3) {
+                    val treffer = naechsterKurvenPunkt(
+                        ps.map { gBild(gg, it.x * faktor, it.y * faktor) },
+                        ps.map { it.rund },
+                        true,
+                        pos,
+                    )
+                    if (treffer != null && treffer.abstand < KANTE_RADIUS_DP * dichte) {
+                        // Tipp auf den Rand: neuer Punkt
+                        val neu = gLokalSkizze(gg, treffer.punkt)
+                        viewModel.fuegeGebaeudePunktEin(gartenId, gg.id, treffer.segment + 1, neu.x, neu.y, ps[treffer.segment].rund)
+                        return
+                    }
+                }
+                if (gTrifft(gg, pos)) {
+                    viewModel.waehleGegenstandPunkt(gg.id, null) // Tipp ins Innere: nur den Punkt abwählen
+                    return
+                }
+            } else if (gGriffBei(gg, pos) != null || gTrifft(gg, pos)) {
+                return // Tipp auf den eigenen Gegenstand
+            }
+        }
         val fl = gewaehlteFlaeche
         if (fl != null) {
             // 1. Griff antippen: Punkt auswählen
@@ -621,7 +791,10 @@ fun GartenScreen(
                         ziehen = null
                         val sk = zuSkizze(pos)
                         val gr = gGriffBei(gg, pos)
-                        gZiehen = if (gr != null) {
+                        val gp = if (istGebaeude(gg)) gPunktBei(gg, pos) else null
+                        gZiehen = if (gp != null) {
+                            GZiehen(gg, GModus.PUNKT, 0, 0, sk, sk, gp.id)
+                        } else if (gr != null) {
                             GZiehen(gg, if (gr.drehen) GModus.DREHEN else GModus.GROESSE, gr.sx, gr.sy, sk, sk)
                         } else if (gTrifft(gg, pos)) {
                             GZiehen(gg, GModus.VERSCHIEBEN, 0, 0, sk, sk)
@@ -722,7 +895,16 @@ fun GartenScreen(
             val gz = gZiehen
             if (gz != null && bewegt) {
                 val fertig = gz.copy(aktuell = zuSkizze(pos))
-                viewModel.setzeGegenstandLage(gartenId, angepasst(fertig, einrasten, minGegenstand))
+                val ziehPunkt = fertig.punktId
+                if (fertig.modus == GModus.PUNKT && ziehPunkt != null) {
+                    val p = gpJeGegenstand[fertig.original.id]?.firstOrNull { it.id == ziehPunkt }
+                    if (p != null) {
+                        val d = lokaleVerschiebung(fertig)
+                        viewModel.verschiebeGebaeudePunkt(gartenId, p.id, p.x + d.x, p.y + d.y)
+                    }
+                } else {
+                    viewModel.setzeGegenstandLage(gartenId, angepasst(fertig, einrasten, minGegenstand))
+                }
                 gZiehen = fertig
                 ziehenFertig = true
             } else if (z != null && bewegt) {
@@ -840,6 +1022,17 @@ fun GartenScreen(
                     kannRueckgaengig = viewModel.anzahlRueckgaengig > 0,
                     gewaehlteFlaeche = gewaehlteFlaeche,
                     gegenstandGewaehlt = gewaehlterGegenstand != null,
+                    gebaeudePunkt = gewaehlterGebaeudePunkt,
+                    gebaeudePunktLoeschenMoeglich = (gewaehlterGegenstand?.let { gpJeGegenstand[it.id]?.size } ?: 0) > 3,
+                    onGebaeudePunktLoeschen = {
+                        val g = gewaehlterGegenstand
+                        val pu = gewaehlterGebaeudePunkt
+                        if (g != null && pu != null) viewModel.loescheGebaeudePunkt(gartenId, g.id, pu.id, pu.nr)
+                    },
+                    onGebaeudePunktRund = {
+                        val pu = gewaehlterGebaeudePunkt
+                        if (pu != null) viewModel.setzeGebaeudePunktRund(gartenId, pu.id, !pu.rund)
+                    },
                     platzieren = viewModel.platzieren,
                     gewaehlterPunkt = gewaehlterPunkt,
                     punktLoeschenMoeglich = gewaehltePunkte.size > 3,
@@ -920,16 +1113,32 @@ fun GartenScreen(
                         val inDerHandG = bewegt && gZiehen?.original?.id == gegenstand.id &&
                             gZiehen?.modus == GModus.VERSCHIEBEN
                         val imInfo = !bearbeiten && gegenstand.id == infoGegenstandId
-                        zeichneGegenstandBild(
-                            live,
-                            zuBildschirm(Offset(live.mitteX, live.mitteY)),
-                            faktor,
-                            dichte,
-                            inDerHandG,
-                            if (imInfo) achsenFarbe else if (inDerHandG) rahmenFarbe else null,
-                            (if (imInfo) 4f else 6f) * dichte,
-                            faktor * garten.massstab,
-                        )
+                        val umrissFarbe = if (imInfo) achsenFarbe else if (inDerHandG) rahmenFarbe else null
+                        val umrissDicke = (if (imInfo) 4f else 6f) * dichte
+                        if (istGebaeude(live)) {
+                            zeichneGebaeude(
+                                live,
+                                gPunkteLive(live),
+                                zuBildschirm(Offset(live.mitteX, live.mitteY)),
+                                faktor,
+                                dichte,
+                                inDerHandG,
+                                umrissFarbe,
+                                umrissDicke,
+                                faktor * garten.massstab,
+                            )
+                        } else {
+                            zeichneGegenstandBild(
+                                live,
+                                zuBildschirm(Offset(live.mitteX, live.mitteY)),
+                                faktor,
+                                dichte,
+                                inDerHandG,
+                                umrissFarbe,
+                                umrissDicke,
+                                faktor * garten.massstab,
+                            )
+                        }
                         if (blassG) drawContext.canvas.restore()
                         return
                     }
@@ -976,12 +1185,17 @@ fun GartenScreen(
                 // Fertige Flächen und Gegenstände: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
                 for (el in sichtbareElemente) zeichneElement(el)
 
-                // "Verdecktes zeigen": alles noch einmal in umgekehrter Reihenfolge und halbtransparent obenauf,
-                // so scheint Verdecktes durch (was oben liegt, ändert sich dadurch kaum).
+                // "Verdecktes zeigen": Jede Ebene wird noch einmal halbtransparent obenauf gezeichnet (von vorn nach
+                // hinten, damit hintere Ebenen oben liegen). Innerhalb der Ebene bleibt die Reihenfolge, deshalb
+                // scheint nur durch, was von einer weiter vorn liegenden Ebene verdeckt wird.
                 if (viewModel.verdecktZeigen && ebenen.size > 1) {
-                    drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
-                    for (el in sichtbareElemente.asReversed()) zeichneElement(el)
-                    drawContext.canvas.restore()
+                    val jeEbeneElemente = sichtbareElemente.groupBy { it.ebeneId }
+                    for (e in ebenen.asReversed().drop(1)) {
+                        val liste = jeEbeneElemente[e.id] ?: continue
+                        drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
+                        for (el in liste) zeichneElement(el)
+                        drawContext.canvas.restore()
+                    }
                 }
 
                 // Griffe der ausgewählten Fläche: runde Punkte als Kreis, Ecken als Quadrat
@@ -1033,31 +1247,60 @@ fun GartenScreen(
                 // Rahmen und Griffe des ausgewählten Gegenstands (immer ganz oben)
                 val ausgewaehlt = gewaehlterGegenstand?.let { gLive(it) }
                 if (bearbeiten && ausgewaehlt != null && zeichnung == null && formAuswahl == null && !viewModel.platzieren) {
-                    val w2 = ausgewaehlt.breite * faktor / 2f
-                    val h2 = ausgewaehlt.hoehe * faktor / 2f
-                    val ecken = listOf(
-                        gBild(ausgewaehlt, -w2, -h2),
-                        gBild(ausgewaehlt, w2, -h2),
-                        gBild(ausgewaehlt, w2, h2),
-                        gBild(ausgewaehlt, -w2, h2),
-                    )
-                    for (i in 0 until 4) {
-                        drawLine(
-                            rahmenFarbe,
-                            ecken[i],
-                            ecken[(i + 1) % 4],
-                            strokeWidth = 3f * dichte,
-                            cap = StrokeCap.Round,
+                    if (istGebaeude(ausgewaehlt)) {
+                        // Freies Gebäude: Umriss und Punktgriffe wie bei einer Fläche
+                        val ps = gPunkteLive(ausgewaehlt)
+                        if (ps.size >= 3) {
+                            val bildPs = ps.map { gBild(ausgewaehlt, it.x * faktor, it.y * faktor) }
+                            drawPath(
+                                kurvenPfad(bildPs, ps.map { it.rund }, geschlossen = true),
+                                rahmenFarbe,
+                                style = Stroke(width = 3f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
+                            )
+                            for ((i, p) in ps.withIndex()) {
+                                val mitte = bildPs[i]
+                                val gewaehlt = p.id == viewModel.auswahlGegenstandPunkt
+                                val r = (if (gewaehlt) 13f else 10f) * dichte
+                                if (p.rund) {
+                                    drawCircle(hintergrund, radius = r, center = mitte)
+                                    drawCircle(rahmenFarbe, radius = r, center = mitte, style = Stroke(width = 2.5f * dichte))
+                                    if (gewaehlt) drawCircle(rahmenFarbe, radius = r * 0.55f, center = mitte)
+                                } else {
+                                    val ecke = Offset(mitte.x - r, mitte.y - r)
+                                    drawRect(hintergrund, topLeft = ecke, size = Size(2f * r, 2f * r))
+                                    drawRect(rahmenFarbe, topLeft = ecke, size = Size(2f * r, 2f * r), style = Stroke(width = 2.5f * dichte))
+                                    if (gewaehlt) {
+                                        drawRect(
+                                            rahmenFarbe,
+                                            topLeft = Offset(mitte.x - r * 0.55f, mitte.y - r * 0.55f),
+                                            size = Size(1.1f * r, 1.1f * r),
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        val w2 = ausgewaehlt.breite * faktor / 2f
+                        val h2 = ausgewaehlt.hoehe * faktor / 2f
+                        val ecken = listOf(
+                            gBild(ausgewaehlt, -w2, -h2),
+                            gBild(ausgewaehlt, w2, -h2),
+                            gBild(ausgewaehlt, w2, h2),
+                            gBild(ausgewaehlt, -w2, h2),
                         )
+                        for (i in 0 until 4) {
+                            drawLine(
+                                rahmenFarbe,
+                                ecken[i],
+                                ecken[(i + 1) % 4],
+                                strokeWidth = 3f * dichte,
+                                cap = StrokeCap.Round,
+                            )
+                        }
                     }
-                    // Stiel zum Drehgriff
-                    drawLine(
-                        rahmenFarbe,
-                        gBild(ausgewaehlt, 0f, -h2),
-                        gBild(ausgewaehlt, 0f, -(h2 + 36f * dichte)),
-                        strokeWidth = 2f * dichte,
-                    )
                     for (gr in gGriffe(ausgewaehlt)) {
+                        val stiel = gr.stiel
+                        if (stiel != null) drawLine(rahmenFarbe, stiel, gr.pos, strokeWidth = 2f * dichte)
                         if (gr.drehen) {
                             drawCircle(hintergrund, radius = 11f * dichte, center = gr.pos)
                             drawCircle(rahmenFarbe, radius = 11f * dichte, center = gr.pos, style = Stroke(width = 2.5f * dichte))
@@ -1225,15 +1468,33 @@ fun GartenScreen(
                         if (infoG.name != null) {
                             Text(stringResource(gart.nameRes), style = MaterialTheme.typography.bodyMedium)
                         }
-                        Text(
-                            text = stringResource(
-                                R.string.masse_live,
-                                zahlText(infoG.breite / garten.massstab),
-                                zahlText(infoG.hoehe / garten.massstab),
-                            ),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(top = 6.dp),
-                        )
+                        val infoPunkte = gpJeGegenstand[infoG.id].orEmpty()
+                        if (istGebaeude(infoG) && infoPunkte.size >= 3) {
+                            val masse = flaechenMasse(
+                                kurvenPolylinie(infoPunkte.map { Offset(it.x, it.y) }, infoPunkte.map { it.rund }, true),
+                                garten.massstab,
+                            )
+                            Text(
+                                text = stringResource(
+                                    R.string.info_masse,
+                                    zahlText(masse.breite),
+                                    zahlText(masse.hoehe),
+                                    zahlText(masse.flaeche),
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
+                        } else {
+                            Text(
+                                text = stringResource(
+                                    R.string.masse_live,
+                                    zahlText(infoG.breite / garten.massstab),
+                                    zahlText(infoG.hoehe / garten.massstab),
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
+                        }
                     }
                 }
             }
@@ -1341,6 +1602,8 @@ fun GartenScreen(
                     onWaehleGegenstand = { viewModel.waehleGegenstand(it) },
                     verdecktZeigen = viewModel.verdecktZeigen,
                     onVerdecktSchalten = viewModel::schalteVerdecktZeigen,
+                    onEbenePlatz = { id, platz -> viewModel.setzeEbenePlatz(gartenId, id, platz) },
+                    onOrdneElemente = { id, ordnung -> viewModel.ordneElemente(gartenId, id, ordnung) },
                     onNeueEbene = { viewModel.legeEbeneAn(gartenId) },
                     onUmbenennen = { ebeneUmbenennenId = it },
                     onNachVorn = { viewModel.bewegeEbene(gartenId, it, 1) },
@@ -1434,6 +1697,16 @@ fun GartenScreen(
                         breite = art.breiteM * garten.massstab,
                         hoehe = art.hoeheM * garten.massstab,
                     ),
+                    if (art == GegenstandsArt.GEBAEUDE_FREI) {
+                        // Zu Beginn ein Rechteck aus vier Ecken, relativ zur Mitte
+                        val hb = art.breiteM * garten.massstab / 2f
+                        val hh = art.hoeheM * garten.massstab / 2f
+                        listOf(-hb to -hh, hb to -hh, hb to hh, -hb to hh).mapIndexed { nr, (px, py) ->
+                            Gegenstandspunkt(gegenstandId = 0, nr = nr, x = px, y = py, rund = false)
+                        }
+                    } else {
+                        emptyList()
+                    },
                 )
             },
             onAbbrechen = { platzOrt = null },
@@ -1499,6 +1772,7 @@ fun GartenScreen(
             formModus = formAuswahl != null,
             flaecheGewaehlt = gewaehlteFlaeche != null,
             gegenstandGewaehlt = gewaehlterGegenstand != null,
+            gebaeudeGewaehlt = gewaehlterGegenstand?.let { istGebaeude(it) } == true,
             platziert = viewModel.platzieren,
             onSchliessen = { hilfeDialog = false },
         )
@@ -1573,6 +1847,10 @@ private fun Werkzeugleiste(
     kannRueckgaengig: Boolean,
     gewaehlteFlaeche: Flaeche?,
     gegenstandGewaehlt: Boolean,
+    gebaeudePunkt: Gegenstandspunkt?,
+    gebaeudePunktLoeschenMoeglich: Boolean,
+    onGebaeudePunktLoeschen: () -> Unit,
+    onGebaeudePunktRund: () -> Unit,
     platzieren: Boolean,
     gewaehlterPunkt: Punkt?,
     punktLoeschenMoeglich: Boolean,
@@ -1619,8 +1897,17 @@ private fun Werkzeugleiste(
                 }
             } else if (gegenstandGewaehlt) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    KnopfUmriss(R.string.abwaehlen, onAbwaehlen, Modifier.weight(1f))
-                    KnopfUmriss(einrastenText, onSchalteEinrasten, Modifier.weight(1f))
+                    if (gebaeudePunkt != null) {
+                        KnopfUmriss(R.string.punkt_loeschen, onGebaeudePunktLoeschen, Modifier.weight(1f), enabled = gebaeudePunktLoeschenMoeglich)
+                        KnopfUmriss(
+                            if (gebaeudePunkt.rund) R.string.punkt_zu_ecke else R.string.punkt_zu_rund,
+                            onGebaeudePunktRund,
+                            Modifier.weight(1f),
+                        )
+                    } else {
+                        KnopfUmriss(R.string.abwaehlen, onAbwaehlen, Modifier.weight(1f))
+                        KnopfUmriss(einrastenText, onSchalteEinrasten, Modifier.weight(1f))
+                    }
                     KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1f), enabled = kannRueckgaengig)
                 }
             } else if (gewaehlteFlaeche != null) {
@@ -1744,6 +2031,7 @@ private fun HilfeDialog(
     formModus: Boolean,
     flaecheGewaehlt: Boolean,
     gegenstandGewaehlt: Boolean,
+    gebaeudeGewaehlt: Boolean,
     platziert: Boolean,
     onSchliessen: () -> Unit,
 ) {
@@ -1765,6 +2053,7 @@ private fun HilfeDialog(
                     if (platziert) Text(stringResource(R.string.hilfe_platzieren))
                     if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_gegenstand))
                     if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_schmal))
+                    if (gebaeudeGewaehlt) Text(stringResource(R.string.hilfe_gebaeude))
                     if (!zeichnet && !formModus && !flaecheGewaehlt && !platziert && !gegenstandGewaehlt) {
                         Text(stringResource(R.string.hilfe_werkzeuge))
                     }
@@ -2049,6 +2338,8 @@ private fun EbenenBereich(
     onWaehleGegenstand: (Long) -> Unit,
     verdecktZeigen: Boolean,
     onVerdecktSchalten: () -> Unit,
+    onEbenePlatz: (Long, Int) -> Unit,
+    onOrdneElemente: (Long, List<String>) -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2076,13 +2367,15 @@ private fun EbenenBereich(
                     onWaehleGegenstand = onWaehleGegenstand,
                     verdecktZeigen = verdecktZeigen,
                     onVerdecktSchalten = onVerdecktSchalten,
+                    onEbenePlatz = onEbenePlatz,
+                    onOrdneElemente = onOrdneElemente,
                     onNeueEbene = onNeueEbene,
                     onUmbenennen = onUmbenennen,
                     onNachVorn = onNachVorn,
                     onNachHinten = onNachHinten,
                     onLoeschen = onLoeschen,
                     onSicht = onSicht,
-                    modifier = Modifier.width(260.dp).heightIn(max = hoechstens),
+                    modifier = Modifier.width(284.dp).heightIn(max = hoechstens),
                 )
                 Spacer(modifier = Modifier.width(6.dp))
             }
@@ -2185,9 +2478,46 @@ private fun Ebenenleiste(
     }
 }
 
+/** Griff zum Ziehen (drei Striche). Meldet die Fingerbewegung nach oben, damit die Zeile mitwandern kann. */
+@Composable
+private fun ZiehGriff(
+    schluessel: String,
+    onStart: () -> Unit,
+    onZiehen: (Float) -> Unit,
+    onEnde: () -> Unit,
+) {
+    val start = rememberUpdatedState(onStart)
+    val ziehen = rememberUpdatedState(onZiehen)
+    val ende = rememberUpdatedState(onEnde)
+    Box(
+        modifier = Modifier
+            .size(width = 28.dp, height = 40.dp)
+            .pointerInput(schluessel) {
+                detectDragGestures(
+                    onDragStart = { start.value() },
+                    onDrag = { change, betrag ->
+                        change.consume()
+                        ziehen.value(betrag.y)
+                    },
+                    onDragEnd = { ende.value() },
+                    onDragCancel = { ende.value() },
+                )
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            "≡",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
 /**
  * Die ausgeklappte Liste: eine Zeile je Ebene (vorderste zuerst) mit Name, Anzahl, Auge zum
- * Ausblenden und Menü. Ein Pfeil klappt die Ebene auf und zeigt ihre Flächen.
+ * Ausblenden und Menü. Ein Pfeil klappt die Ebene auf und zeigt ihre Flächen und Gegenstände.
+ * Am Ziehgriff (≡) lassen sich Ebenen und, innerhalb einer Ebene, Flächen und Gegenstände
+ * halten und verschieben; das ändert die Reihenfolge (oben in der Liste = weiter vorn).
  */
 @Composable
 private fun EbenenListe(
@@ -2202,6 +2532,8 @@ private fun EbenenListe(
     onWaehleGegenstand: (Long) -> Unit,
     verdecktZeigen: Boolean,
     onVerdecktSchalten: () -> Unit,
+    onEbenePlatz: (Long, Int) -> Unit,
+    onOrdneElemente: (Long, List<String>) -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2215,6 +2547,86 @@ private fun EbenenListe(
     val vorneZuerst = ebenen.asReversed()
     val jeEbene = remember(flaechen) { flaechen.groupBy { it.ebeneId } }
     val jeEbeneG = remember(gegenstaende) { gegenstaende.groupBy { it.ebeneId } }
+    val haptik = LocalHapticFeedback.current
+    val ziehHintergrund = MaterialTheme.colorScheme.surfaceVariant
+
+    // Ziehen: Lage jeder Zeile (oben, Höhe) und die laufende Bewegung der gezogenen Zeile
+    val lagen = remember { mutableStateMapOf<String, Offset>() }
+    var ziehKey by remember { mutableStateOf<String?>(null) }
+    var ziehStart by remember { mutableFloatStateOf(0f) }
+    var ziehDy by remember { mutableFloatStateOf(0f) }
+
+    fun zeilenFuer(ebeneId: Long): List<ZeilenEintrag> =
+        (
+            jeEbene[ebeneId].orEmpty().map { ZeilenEintrag(it.reihenfolge, it, null) } +
+                jeEbeneG[ebeneId].orEmpty().map { ZeilenEintrag(it.reihenfolge, null, it) }
+            ).sortedByDescending { it.reihenfolge }
+
+    fun schluesselVon(z: ZeilenEintrag): String = z.flaeche?.let { "f" + it.id } ?: ("g" + (z.gegenstand?.id ?: 0L))
+
+    fun ebeneVon(key: String): Long? {
+        val id = key.drop(1).toLongOrNull() ?: return null
+        return if (key.startsWith("f")) {
+            flaechen.firstOrNull { it.id == id }?.ebeneId
+        } else {
+            gegenstaende.firstOrNull { it.id == id }?.ebeneId
+        }
+    }
+
+    fun mitteVon(key: String): Float {
+        val l = lagen[key] ?: return 0f
+        return l.x + l.y / 2f
+    }
+
+    /** Wie viele der anderen Zeilen liegen über der gezogenen Zeile (= neuer Platz von oben)? */
+    fun platzVon(peers: List<String>, key: String): Int {
+        val meineMitte = ziehStart + (lagen[key]?.y ?: 0f) / 2f + ziehDy
+        return peers.filter { it != key }.count { mitteVon(it) < meineMitte }
+    }
+
+    fun startZiehen(key: String) {
+        ziehKey = key
+        ziehDy = 0f
+        ziehStart = lagen[key]?.x ?: 0f
+        haptik.performHapticFeedback(HapticFeedbackType.LongPress)
+    }
+
+    fun endeZiehen() {
+        val key = ziehKey ?: return
+        if (key.startsWith("e")) {
+            val id = key.drop(1).toLongOrNull()
+            if (id != null) {
+                val peers = vorneZuerst.map { "e" + it.id }
+                val neuOben = platzVon(peers, key)
+                val neuerPlatz = (ebenen.size - 1) - neuOben
+                if (neuerPlatz != ebenen.indexOfFirst { it.id == id }) onEbenePlatz(id, neuerPlatz)
+            }
+        } else {
+            val ebeneId = ebeneVon(key)
+            if (ebeneId != null) {
+                val peers = zeilenFuer(ebeneId).map { schluesselVon(it) }
+                val neuOben = platzVon(peers, key)
+                val neu = peers.toMutableList()
+                neu.remove(key)
+                neu.add(neuOben.coerceIn(0, neu.size), key)
+                if (neu != peers) onOrdneElemente(ebeneId, neu.reversed())
+            }
+        }
+        ziehKey = null
+        ziehDy = 0f
+    }
+
+    fun Modifier.ziehbar(key: String): Modifier = this
+        .onGloballyPositioned {
+            val neu = Offset(it.positionInParent().y, it.size.height.toFloat())
+            if (ziehKey != key && lagen[key] != neu) lagen[key] = neu
+        }
+        .zIndex(if (ziehKey == key) 1f else 0f)
+        .graphicsLayer { translationY = if (ziehKey == key) ziehDy else 0f }
+        .then(
+            if (ziehKey == key) Modifier.background(ziehHintergrund, RoundedCornerShape(8.dp)) else Modifier,
+        )
+
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
@@ -2222,156 +2634,157 @@ private fun EbenenListe(
         tonalElevation = 4.dp,
         shadowElevation = 4.dp,
     ) {
-        LazyColumn(contentPadding = PaddingValues(6.dp)) {
-            item(key = "neu") {
-                TextButton(onClick = onNeueEbene, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.ebene_neu))
-                }
+        Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(6.dp)) {
+            TextButton(onClick = onNeueEbene, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.ebene_neu))
             }
-            item(key = "verdeckt") {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onVerdecktSchalten() }
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.verdecktes_zeigen),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f),
+                )
+                Switch(checked = verdecktZeigen, onCheckedChange = { onVerdecktSchalten() })
+            }
+            for (e in vorneZuerst) {
+                val nummer = ebenen.indexOfFirst { it.id == e.id } + 1
+                val anzahl = (jeEbene[e.id]?.size ?: 0) + (jeEbeneG[e.id]?.size ?: 0)
+                val aktiv = e.id == aktiveId
+                val offen = e.id in aufgeklappt
+                val ebenenKey = "e" + e.id
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onVerdecktSchalten() }
-                        .padding(horizontal = 12.dp, vertical = 4.dp),
+                        .ziehbar(ebenenKey)
+                        .background(
+                            if (aktiv) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
+                            RoundedCornerShape(8.dp),
+                        ),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
-                        text = stringResource(R.string.verdecktes_zeigen),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f),
+                    ZiehGriff(
+                        schluessel = ebenenKey,
+                        onStart = { startZiehen(ebenenKey) },
+                        onZiehen = { ziehDy += it },
+                        onEnde = { endeZiehen() },
                     )
-                    Switch(checked = verdecktZeigen, onCheckedChange = { onVerdecktSchalten() })
-                }
-            }
-            for (e in vorneZuerst) {
-                item(key = "e" + e.id) {
-                    val nummer = ebenen.indexOfFirst { it.id == e.id } + 1
-                    val anzahl = (jeEbene[e.id]?.size ?: 0) + (jeEbeneG[e.id]?.size ?: 0)
-                    val aktiv = e.id == aktiveId
-                    val offen = e.id in aufgeklappt
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(
-                                if (aktiv) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
-                                RoundedCornerShape(8.dp),
-                            ),
-                        verticalAlignment = Alignment.CenterVertically,
+                    IconButton(
+                        onClick = { aufgeklappt = if (offen) aufgeklappt - e.id else aufgeklappt + e.id },
+                        modifier = Modifier.size(32.dp),
                     ) {
-                        IconButton(
-                            onClick = { aufgeklappt = if (offen) aufgeklappt - e.id else aufgeklappt + e.id },
-                            modifier = Modifier.size(36.dp),
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_pfeil_runter),
-                                contentDescription = stringResource(R.string.ebene_aufklappen),
-                                modifier = Modifier.rotate(if (offen) 0f else -90f),
-                            )
-                        }
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .clickable { onWaehleEbene(e.id) }
-                                .padding(vertical = 4.dp),
-                        ) {
-                            Text(
-                                text = e.name ?: stringResource(R.string.ebene_nr, nummer),
-                                style = MaterialTheme.typography.bodyLarge,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                color = if (e.sicht == 2) {
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                                } else {
-                                    Color.Unspecified
+                        Icon(
+                            painter = painterResource(R.drawable.ic_pfeil_runter),
+                            contentDescription = stringResource(R.string.ebene_aufklappen),
+                            modifier = Modifier.rotate(if (offen) 0f else -90f),
+                        )
+                    }
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable { onWaehleEbene(e.id) }
+                            .padding(vertical = 4.dp),
+                    ) {
+                        Text(
+                            text = e.name ?: stringResource(R.string.ebene_nr, nummer),
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            color = if (e.sicht == 2) {
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            } else {
+                                Color.Unspecified
+                            },
+                        )
+                        Text(
+                            text = if (anzahl == 1) {
+                                stringResource(R.string.element_eins)
+                            } else {
+                                stringResource(R.string.elemente_n, anzahl)
+                            },
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
+                    IconButton(
+                        onClick = { onSicht(e.id, e.sicht) },
+                        modifier = Modifier.size(32.dp),
+                    ) {
+                        Icon(
+                            painter = painterResource(
+                                when (e.sicht) {
+                                    1 -> R.drawable.ic_halb_verborgen
+                                    2 -> R.drawable.ic_verborgen
+                                    else -> R.drawable.ic_sichtbar
                                 },
-                            )
-                            Text(
-                                text = if (anzahl == 1) {
-                                    stringResource(R.string.element_eins)
-                                } else {
-                                    stringResource(R.string.elemente_n, anzahl)
+                            ),
+                            contentDescription = stringResource(
+                                when (e.sicht) {
+                                    1 -> R.string.ebene_ausblenden
+                                    2 -> R.string.ebene_einblenden
+                                    else -> R.string.ebene_halbtransparent
                                 },
-                                style = MaterialTheme.typography.bodySmall,
-                            )
+                            ),
+                        )
+                    }
+                    Box {
+                        IconButton(onClick = { menueFuer = e.id }, modifier = Modifier.size(32.dp)) {
+                            Text("⋮", style = MaterialTheme.typography.titleLarge)
                         }
-                        IconButton(
-                            onClick = { onSicht(e.id, e.sicht) },
-                            modifier = Modifier.size(36.dp),
-                        ) {
-                            Icon(
-                                painter = painterResource(
-                                    when (e.sicht) {
-                                        1 -> R.drawable.ic_halb_verborgen
-                                        2 -> R.drawable.ic_verborgen
-                                        else -> R.drawable.ic_sichtbar
-                                    },
-                                ),
-                                contentDescription = stringResource(
-                                    when (e.sicht) {
-                                        1 -> R.string.ebene_ausblenden
-                                        2 -> R.string.ebene_einblenden
-                                        else -> R.string.ebene_halbtransparent
-                                    },
-                                ),
-                            )
-                        }
-                        Box {
-                            IconButton(onClick = { menueFuer = e.id }, modifier = Modifier.size(36.dp)) {
-                                Text("⋮", style = MaterialTheme.typography.titleLarge)
+                        DropdownMenu(expanded = menueFuer == e.id, onDismissRequest = { menueFuer = null }) {
+                            MenuePunkt(R.string.ebene_umbenennen) {
+                                menueFuer = null
+                                onUmbenennen(e.id)
                             }
-                            DropdownMenu(expanded = menueFuer == e.id, onDismissRequest = { menueFuer = null }) {
-                                MenuePunkt(R.string.ebene_umbenennen) {
+                            if (nummer < ebenen.size) {
+                                MenuePunkt(R.string.ebene_vor) {
                                     menueFuer = null
-                                    onUmbenennen(e.id)
+                                    onNachVorn(e.id)
                                 }
-                                if (nummer < ebenen.size) {
-                                    MenuePunkt(R.string.ebene_vor) {
-                                        menueFuer = null
-                                        onNachVorn(e.id)
-                                    }
+                            }
+                            if (nummer > 1) {
+                                MenuePunkt(R.string.ebene_zurueck) {
+                                    menueFuer = null
+                                    onNachHinten(e.id)
                                 }
-                                if (nummer > 1) {
-                                    MenuePunkt(R.string.ebene_zurueck) {
-                                        menueFuer = null
-                                        onNachHinten(e.id)
-                                    }
-                                }
-                                if (ebenen.size > 1) {
-                                    MenuePunkt(R.string.loeschen) {
-                                        menueFuer = null
-                                        onLoeschen(e.id)
-                                    }
+                            }
+                            if (ebenen.size > 1) {
+                                MenuePunkt(R.string.loeschen) {
+                                    menueFuer = null
+                                    onLoeschen(e.id)
                                 }
                             }
                         }
                     }
                 }
-                if (e.id in aufgeklappt) {
-                    val zeilen = (
-                        jeEbene[e.id].orEmpty().map { ZeilenEintrag(it.reihenfolge, it, null) } +
-                            jeEbeneG[e.id].orEmpty().map { ZeilenEintrag(it.reihenfolge, null, it) }
-                        ).sortedByDescending { it.reihenfolge }
-                    items(zeilen, key = { z -> z.flaeche?.let { "f" + it.id } ?: ("g" + (z.gegenstand?.id ?: 0L)) }) { zeile ->
+                if (offen) {
+                    for (zeile in zeilenFuer(e.id)) {
+                        val zeilenKey = schluesselVon(zeile)
                         val g = zeile.gegenstand
-                        if (g != null) {
-                            val gart = GegenstandsArt.vonSchluessel(g.art)
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 36.dp)
-                                    .background(
-                                        if (g.id == gewaehlterGegenstandId) {
-                                            MaterialTheme.colorScheme.tertiaryContainer
-                                        } else {
-                                            Color.Transparent
-                                        },
-                                        RoundedCornerShape(8.dp),
-                                    )
-                                    .clickable { onWaehleGegenstand(g.id) }
-                                    .padding(horizontal = 8.dp, vertical = 6.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
+                        val f = zeile.flaeche
+                        val gewaehlt = (g != null && g.id == gewaehlterGegenstandId) ||
+                            (f != null && f.id == gewaehlteFlaecheId)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 28.dp)
+                                .ziehbar(zeilenKey)
+                                .background(
+                                    if (gewaehlt) MaterialTheme.colorScheme.tertiaryContainer else Color.Transparent,
+                                    RoundedCornerShape(8.dp),
+                                )
+                                .clickable {
+                                    if (g != null) onWaehleGegenstand(g.id) else if (f != null) onWaehleFlaeche(f.id)
+                                }
+                                .padding(start = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (g != null) {
+                                val gart = GegenstandsArt.vonSchluessel(g.art)
                                 Box(
                                     modifier = Modifier
                                         .size(20.dp)
@@ -2382,34 +2795,26 @@ private fun EbenenListe(
                                     text = g.name ?: stringResource(gart.nameRes),
                                     style = MaterialTheme.typography.bodyMedium,
                                     maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.weight(1f),
+                                )
+                            } else if (f != null) {
+                                val art = Oberflaeche.vonSchluessel(f.oberflaeche)
+                                Farbfeld(art, f.farbe)
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(
+                                    text = f.name ?: stringResource(art.nameRes),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.weight(1f),
                                 )
                             }
-                            return@items
-                        }
-                        val f = zeile.flaeche ?: return@items
-                        val art = Oberflaeche.vonSchluessel(f.oberflaeche)
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 36.dp)
-                                .background(
-                                    if (f.id == gewaehlteFlaecheId) {
-                                        MaterialTheme.colorScheme.tertiaryContainer
-                                    } else {
-                                        Color.Transparent
-                                    },
-                                    RoundedCornerShape(8.dp),
-                                )
-                                .clickable { onWaehleFlaeche(f.id) }
-                                .padding(horizontal = 8.dp, vertical = 6.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Farbfeld(art, f.farbe)
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Text(
-                                text = f.name ?: stringResource(art.nameRes),
-                                style = MaterialTheme.typography.bodyMedium,
-                                maxLines = 1,
+                            ZiehGriff(
+                                schluessel = zeilenKey,
+                                onStart = { startZiehen(zeilenKey) },
+                                onZiehen = { ziehDy += it },
+                                onEnde = { endeZiehen() },
                             )
                         }
                     }

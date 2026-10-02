@@ -295,3 +295,8 @@ Als Nächstes:
 - Test von 3a3 (dreistufiges Auge, Namen, Liste schließen): alle 4 Tests in Ordnung.
 - Test von 3b (Gegenstände): alle 10 Tests in Ordnung, der Bau hat geklappt.
 - Teilschritt 3c als Vorschlag geliefert: Farbwahl (12 Felder) für Gegenstände und Flächen, Zaun/Hecke/Mauer/Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". Keine neue Datenbankversion. Noch nicht gebaut, nicht getestet.
+
+
+### 3c Testergebnis / 3b2
+- 3c: alles OK außer Dicke schmaler Gegenstände und Verdecktes zeigen (Formen gleicher Ebene).
+- 3b2 geliefert (ungebaut, ungetestet): Dicken-Griff, korrigiertes Verdecktes zeigen, Ziehgriffe für Reihenfolge, freies Gebäude.

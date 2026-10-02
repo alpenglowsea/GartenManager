@@ -292,3 +292,11 @@ Entwicklungsmodus: Die Datenbank wird bei Änderung neu angelegt (einmaliger Dat
 - **Verdecktes zeigen:** Schalter oben in der ausgeklappten Ebenenliste. Alles wird noch einmal in umgekehrter Reihenfolge halbtransparent obenauf gezeichnet, so scheint Verdecktes (zum Beispiel Bewässerung unter Rasen) durch. Wird nicht gespeichert (nach dem Neustart aus). Wirkt auch in der Ansicht.
 - **Datenbank:** keine Änderung (Version 5).
 - **Ungeprüft:** Alles. Nicht kompiliert, nicht am Gerät getestet.
+
+
+## 15. Stand 3b2 (geliefert, noch nicht gebaut/getestet)
+- Schmale Gegenstände (Zaun, Mauer, Bewässerung): Dicke über einen Stiel-Griff gegenüber dem Drehgriff.
+- „Verdecktes zeigen“ vergleicht nur Ebene gegen Ebene; Formen derselben Ebene scheinen nicht mehr durch.
+- Reihenfolge innerhalb einer Ebene entscheidet, was oben liegt; änderbar per Halten und Ziehen am „≡“-Griff (Ebenen und Elemente in der Ebenenliste).
+- Gebäude (freie Form): Eckpunkte wie bei Flächen (ziehen, einfügen, löschen, Ecke/rund), drehbar, Farbe, Duplizieren, Fläche in m².
+- Testergebnis 3c: Tests 1–6, 8–10 OK; Test 7 (Dicke) war nur bei Hecke möglich → in 3b2 behoben.
