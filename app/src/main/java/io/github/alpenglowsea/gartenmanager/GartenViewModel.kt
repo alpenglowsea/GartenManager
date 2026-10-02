@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
+import io.github.alpenglowsea.gartenmanager.daten.Gegenstand
 import io.github.alpenglowsea.gartenmanager.daten.Grundstueck
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.Punkt
@@ -111,6 +112,8 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun ebenen(gartenId: Long): Flow<List<Ebene>> = dao.ebenen(gartenId)
 
+    fun gegenstaende(gartenId: Long): Flow<List<Gegenstand>> = dao.gegenstaende(gartenId)
+
     /** Stellt sicher, dass der Garten mindestens eine Ebene hat (wird beim Öffnen aufgerufen). */
     fun sichereEbene(gartenId: Long) {
         viewModelScope.launch { sperre.withLock { dao.ebeneFuer(gartenId, null) } }
@@ -178,12 +181,36 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var auswahlPunkt by mutableStateOf<Long?>(null)
         private set
 
+    /** Ausgewählter Gegenstand (nur im Bearbeitungsmodus). */
+    var auswahlGegenstand by mutableStateOf<Long?>(null)
+        private set
+
+    /** Platzieren: Knopf "Gegenstand" gedrückt, jetzt auf die Stelle im Garten tippen. */
+    var platzieren by mutableStateOf(false)
+        private set
+
+    fun starteGegenstandPlatzieren() {
+        zeichnung = null
+        formAuswahl = null
+        waehleFlaeche(null)
+        platzieren = true
+    }
+
+    fun brichPlatzierenAb() {
+        platzieren = false
+    }
+
     /** Gerade angelegte Fläche, für die noch die Oberfläche gewählt wird (Dialog offen). */
     var neueFlaecheId by mutableStateOf<Long?>(null)
         private set
 
     // Rückgängig: Abbilder des Gartens vor jeder Änderung. Endet beim Verlassen des Bearbeitungsmodus.
-    private class Abbild(val ebenen: List<Ebene>, val flaechen: List<Flaeche>, val punkte: List<Punkt>)
+    private class Abbild(
+        val ebenen: List<Ebene>,
+        val flaechen: List<Flaeche>,
+        val punkte: List<Punkt>,
+        val gegenstaende: List<Gegenstand>,
+    )
 
     private val verlauf = mutableListOf<Abbild>()
     private val sperre = Mutex()
@@ -192,6 +219,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun starteZeichnung() {
         formAuswahl = null
+        platzieren = false
         zeichnung = emptyList()
         zeichnungRund = true
         waehleFlaeche(null)
@@ -199,6 +227,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun waehleForm(form: Form) {
         zeichnung = null
+        platzieren = false
         formAuswahl = form
         waehleFlaeche(null)
     }
@@ -232,11 +261,20 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     fun waehleFlaeche(id: Long?) {
         auswahlFlaeche = id
         auswahlPunkt = null
+        auswahlGegenstand = null
     }
 
     fun waehlePunkt(flaecheId: Long, punktId: Long) {
         auswahlFlaeche = flaecheId
         auswahlPunkt = punktId
+        auswahlGegenstand = null
+    }
+
+    /** Wählt einen Gegenstand aus (hebt die Auswahl von Fläche und Punkt auf). null = nichts ausgewählt. */
+    fun waehleGegenstand(id: Long?) {
+        auswahlFlaeche = null
+        auswahlPunkt = null
+        auswahlGegenstand = id
     }
 
     /**
@@ -246,7 +284,14 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     private fun aendere(gartenId: Long, block: suspend () -> Unit) {
         viewModelScope.launch {
             sperre.withLock {
-                verlauf.add(Abbild(dao.ebenenListe(gartenId), dao.flaechenListe(gartenId), dao.punkteDesGartens(gartenId)))
+                verlauf.add(
+                    Abbild(
+                        dao.ebenenListe(gartenId),
+                        dao.flaechenListe(gartenId),
+                        dao.punkteDesGartens(gartenId),
+                        dao.gegenstaendeListe(gartenId),
+                    ),
+                )
                 if (verlauf.size > MAX_VERLAUF) verlauf.removeAt(0)
                 anzahlRueckgaengig = verlauf.size
                 block()
@@ -346,6 +391,43 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.bewegeFlaecheInNachbarebene(gartenId, flaecheId, schritt) }
     }
 
+    // ---- Gegenstände (Teilschritt 3b) ----
+
+    /** Legt einen neuen Gegenstand in der aktiven Ebene an und wählt ihn aus. */
+    fun legeGegenstandAn(gartenId: Long, vorlage: Gegenstand) {
+        platzieren = false
+        aendere(gartenId) {
+            val id = dao.legeGegenstandAn(gartenId, aktiveEbeneId, vorlage, jetzt())
+            waehleGegenstand(id)
+        }
+    }
+
+    /** Speichert Lage, Größe und Drehung (ein Schritt für "Rückgängig"). */
+    fun setzeGegenstandLage(gartenId: Long, g: Gegenstand) {
+        aendere(gartenId) { dao.setzeGegenstandLage(g.id, g.mitteX, g.mitteY, g.breite, g.hoehe, g.drehung) }
+    }
+
+    fun benenneGegenstandUm(gartenId: Long, id: Long, name: String) {
+        aendere(gartenId) { dao.benenneGegenstandUm(id, name.trim().ifEmpty { null }) }
+    }
+
+    /** Dupliziert den Gegenstand, leicht versetzt, und wählt die Kopie aus. */
+    fun dupliziereGegenstand(gartenId: Long, id: Long, versatz: Float) {
+        aendere(gartenId) {
+            val neu = dao.dupliziereGegenstand(gartenId, id, versatz, versatz)
+            if (neu != null) waehleGegenstand(neu)
+        }
+    }
+
+    fun bewegeGegenstandInNachbarebene(gartenId: Long, id: Long, schritt: Int) {
+        aendere(gartenId) { dao.bewegeGegenstandInNachbarebene(gartenId, id, schritt) }
+    }
+
+    fun loescheGegenstand(gartenId: Long, id: Long) {
+        waehleGegenstand(null)
+        aendere(gartenId) { dao.loescheGegenstand(id) }
+    }
+
     fun loescheFlaeche(gartenId: Long, flaecheId: Long) {
         waehleFlaeche(null)
         aendere(gartenId) { dao.loescheFlaeche(flaecheId) }
@@ -358,14 +440,18 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
                 if (verlauf.isEmpty()) return@withLock
                 val abbild = verlauf.removeAt(verlauf.size - 1)
                 anzahlRueckgaengig = verlauf.size
-                dao.stelleWiederHer(gartenId, abbild.ebenen, abbild.flaechen, abbild.punkte)
+                dao.stelleWiederHer(gartenId, abbild.ebenen, abbild.flaechen, abbild.punkte, abbild.gegenstaende)
                 if (abbild.ebenen.none { it.id == aktiveEbeneId }) aktiveEbeneId = null
                 // Die Auswahl gilt nur weiter, wenn es die Fläche und den Punkt noch gibt.
-                val flaecheDa = abbild.flaechen.any { it.id == auswahlFlaeche }
-                if (!flaecheDa) {
-                    waehleFlaeche(null)
-                } else if (abbild.punkte.none { it.id == auswahlPunkt }) {
-                    auswahlPunkt = null
+                if (auswahlGegenstand != null) {
+                    if (abbild.gegenstaende.none { it.id == auswahlGegenstand }) auswahlGegenstand = null
+                } else {
+                    val flaecheDa = abbild.flaechen.any { it.id == auswahlFlaeche }
+                    if (!flaecheDa) {
+                        waehleFlaeche(null)
+                    } else if (abbild.punkte.none { it.id == auswahlPunkt }) {
+                        auswahlPunkt = null
+                    }
                 }
             }
         }
@@ -375,6 +461,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     fun beendeBearbeitung() {
         zeichnung = null
         formAuswahl = null
+        platzieren = false
         neueFlaecheId = null
         waehleFlaeche(null)
         viewModelScope.launch {

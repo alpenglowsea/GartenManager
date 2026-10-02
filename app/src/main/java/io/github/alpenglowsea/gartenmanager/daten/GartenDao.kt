@@ -142,6 +142,7 @@ abstract class GartenDao {
         if (inhaltBehalten) {
             val ziel = if (index > 0) liste[index - 1] else liste[index + 1]
             verschiebeFlaechenDerEbene(ebeneId, ziel.id)
+            verschiebeGegenstaendeDerEbene(ebeneId, ziel.id)
         }
         loescheEbeneZeile(ebeneId) // Was dann noch darin liegt, verschwindet mit (CASCADE).
     }
@@ -174,8 +175,94 @@ abstract class GartenDao {
     @Query("SELECT * FROM punkt WHERE flaecheId = :flaecheId ORDER BY nr")
     abstract suspend fun punkteListe(flaecheId: Long): List<Punkt>
 
-    @Query("SELECT COALESCE(MAX(reihenfolge), -1) FROM flaeche WHERE gartenId = :gartenId")
+    /** Höchste Reihenfolgenummer aller Flächen und Gegenstände (gemeinsamer Zähler). */
+    @Query(
+        "SELECT COALESCE(MAX(m), -1) FROM (SELECT reihenfolge AS m FROM flaeche WHERE gartenId = :gartenId " +
+            "UNION ALL SELECT reihenfolge AS m FROM gegenstand WHERE gartenId = :gartenId)",
+    )
     abstract suspend fun hoechsteReihenfolge(gartenId: Long): Int
+
+    // ---- Gegenstände ----
+
+    @Query("SELECT * FROM gegenstand WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract fun gegenstaende(gartenId: Long): Flow<List<Gegenstand>>
+
+    @Query("SELECT * FROM gegenstand WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract suspend fun gegenstaendeListe(gartenId: Long): List<Gegenstand>
+
+    @Query("SELECT * FROM gegenstand WHERE id = :id")
+    abstract suspend fun gegenstandMitId(id: Long): Gegenstand?
+
+    @Insert
+    abstract suspend fun fuegeGegenstandEin(gegenstand: Gegenstand): Long
+
+    @Insert
+    abstract suspend fun fuegeGegenstaendeEin(gegenstaende: List<Gegenstand>)
+
+    @Query("DELETE FROM gegenstand WHERE id = :id")
+    abstract suspend fun loescheGegenstand(id: Long)
+
+    @Query("DELETE FROM gegenstand WHERE gartenId = :gartenId")
+    abstract suspend fun loescheGegenstaendeDesGartens(gartenId: Long)
+
+    @Query(
+        "UPDATE gegenstand SET mitteX = :mitteX, mitteY = :mitteY, breite = :breite, hoehe = :hoehe, " +
+            "drehung = :drehung WHERE id = :id",
+    )
+    abstract suspend fun setzeGegenstandLage(
+        id: Long,
+        mitteX: Float,
+        mitteY: Float,
+        breite: Float,
+        hoehe: Float,
+        drehung: Float,
+    )
+
+    @Query("UPDATE gegenstand SET name = :name WHERE id = :id")
+    abstract suspend fun benenneGegenstandUm(id: Long, name: String?)
+
+    @Query("UPDATE gegenstand SET ebeneId = :ebeneId, reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeGegenstandEbene(id: Long, ebeneId: Long, reihenfolge: Int)
+
+    @Query("UPDATE gegenstand SET ebeneId = :nach WHERE ebeneId = :von")
+    abstract suspend fun verschiebeGegenstaendeDerEbene(von: Long, nach: Long)
+
+    /** Legt einen Gegenstand in der Ebene [ebeneId] ganz oben an (gibt es sie nicht: vorderste Ebene). */
+    @Transaction
+    open suspend fun legeGegenstandAn(gartenId: Long, ebeneId: Long?, vorlage: Gegenstand, jetzt: Long): Long {
+        val ziel = ebeneFuer(gartenId, ebeneId)
+        setzeEbeneSicht(ziel, 0)
+        val id = fuegeGegenstandEin(
+            vorlage.copy(id = 0, gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
+        )
+        beruehreGarten(gartenId, jetzt)
+        return id
+    }
+
+    /** Dupliziert einen Gegenstand (ganz oben, gleiche Ebene, um [dx]/[dy] versetzt). */
+    @Transaction
+    open suspend fun dupliziereGegenstand(gartenId: Long, gegenstandId: Long, dx: Float, dy: Float): Long? {
+        val g = gegenstandMitId(gegenstandId) ?: return null
+        return fuegeGegenstandEin(
+            g.copy(
+                id = 0,
+                mitteX = g.mitteX + dx,
+                mitteY = g.mitteY + dy,
+                reihenfolge = hoechsteReihenfolge(gartenId) + 1,
+            ),
+        )
+    }
+
+    /** Verschiebt einen Gegenstand in die Nachbarebene ([schritt] +1 = nach vorn, -1 = nach hinten). */
+    @Transaction
+    open suspend fun bewegeGegenstandInNachbarebene(gartenId: Long, gegenstandId: Long, schritt: Int) {
+        val g = gegenstandMitId(gegenstandId) ?: return
+        val liste = ebenenListe(gartenId)
+        val von = liste.indexOfFirst { it.id == g.ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        setzeGegenstandEbene(gegenstandId, liste[nach].id, hoechsteReihenfolge(gartenId) + 1)
+    }
 
     @Insert
     abstract suspend fun fuegeFlaecheEin(flaeche: Flaeche): Long
@@ -253,8 +340,8 @@ abstract class GartenDao {
     }
 
     /**
-     * Stellt den Zustand aller Ebenen, Flächen und Punkte eines Gartens aus einem Abbild wieder her.
-     * (Gegenstände kommen mit Teilschritt 3b dazu.)
+     * Stellt den Zustand aller Ebenen, Flächen, Punkte und Gegenstände eines Gartens aus einem
+     * Abbild wieder her.
      */
     @Transaction
     open suspend fun stelleWiederHer(
@@ -262,12 +349,15 @@ abstract class GartenDao {
         ebenen: List<Ebene>,
         flaechen: List<Flaeche>,
         punkte: List<Punkt>,
+        gegenstaende: List<Gegenstand>,
     ) {
-        loescheEbenenDesGartens(gartenId) // nimmt wegen CASCADE auch alle Flächen und Punkte mit
+        loescheEbenenDesGartens(gartenId) // nimmt wegen CASCADE auch alle Flächen, Punkte und Gegenstände mit
         loescheFlaechenDesGartens(gartenId)
+        loescheGegenstaendeDesGartens(gartenId)
         fuegeEbenenEin(ebenen)
         fuegeFlaechenEin(flaechen)
         fuegePunkteEin(punkte)
+        fuegeGegenstaendeEin(gegenstaende)
         beruehreGarten(gartenId, System.currentTimeMillis())
     }
 
@@ -309,6 +399,10 @@ abstract class GartenDao {
             fuegePunkteEin(
                 punkteListe(flaeche.id).map { it.copy(id = 0, flaecheId = neueFlaecheId) },
             )
+        }
+        for (g in gegenstaendeListe(id)) {
+            val ebeneZiel = neueEbenen[g.ebeneId] ?: ebeneFuer(kopieId, null)
+            fuegeGegenstandEin(g.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
         }
         return kopieId
     }

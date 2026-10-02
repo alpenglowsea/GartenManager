@@ -282,3 +282,10 @@ Als Nächstes:
 ### Nachtrag zu 3a2 (Testergebnis und Verfeinerungen)
 - Tests 1–7 von 3a2 alle bestanden.
 - Neu: Auge pro Ebene mit drei Stufen (sichtbar → halbtransparent → ausgeblendet), Ebenennamen zweizeilig, Ebenenliste schließt per Tipp daneben. Datenbank-Version 5 (Testgärten werden einmal gelöscht). Noch nicht gebaut/getestet.
+
+
+### Teilschritt 3b (Gegenstände, Kern) als Vorschlag geliefert
+- Katalog mit 35 Gegenständen, Platzieren per Tipp, Auswählen, Verschieben, Größe ändern mit Live-Maß, Drehen mit Einrasten, Menü, Karte, Rückgängig, Ebenenliste, Garten duplizieren. Das freie Gebäude wurde auf 3b2 verschoben.
+- Keine neue Datenbankversion gegenüber 3a3 (Version 5).
+- Fehler in 3a3 gefunden und behoben: Die Ebenenliste kannte die neue Parameterbezeichnung des Auges noch nicht, der Bau von 3a3 wäre fehlgeschlagen.
+- Noch nicht gebaut, nicht getestet.

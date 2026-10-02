@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gegenstände, Maßstab und Ebenen (Umsetzungsschritt 3)
 
-Stand: 02.10.2026, Version 0.6 (Antworten zu den Ebenen eingearbeitet, keine offenen Fragen; Teilschritt 3a2 gebaut und als Vorschlag geliefert)
+Stand: 02.10.2026, Version 0.7 (Teilschritt 3a2 getestet und in Ordnung, Teilschritt 3b als Vorschlag geliefert; das freie Gebäude wurde auf 3b2 verschoben)
 
 Dieses Dokument beschreibt, **wie Gegenstände (Häuser, Garagen, Autos, Gartenmöbel, Zäune, Bewässerung, Deko), ein Maßstab und eine Ebenenliste in den Garten kommen**, bevor Code entsteht. Pflanzen kommen in Schritt 4, nutzen aber dieselben Bedienweisen.
 
@@ -61,6 +61,8 @@ Die Bilder in `symbole-gegenstaende.png` sind **Skizzen von mir** (Detailgrad vo
 - **Freies Gebäude:** Unterschied zwischen "Haus (Rechteck)" und "Gebäude (freie Form)" bleibt. Das freie Gebäude muss **drehbar** sein (Drehgriff wie bei den anderen Gegenständen). **Entschieden**
 - **"Maßstab festlegen" entfällt.** Größen werden an den Griffen angepasst, nicht durch Zahleneingabe. Der Maßstab bleibt als Wert pro Garten gespeichert (Standard 10 Einheiten pro Meter), ist aber nicht einstellbar. **Entschieden**
 - **Ebenenleiste (neu beschrieben):** dezente Leiste am rechten Rand; jede Ebene ist ein Punkt, der Punkt der aktuellen Ebene ist leicht hervorgehoben; oben ein Pfeil nach oben, unten ein Pfeil nach unten, damit geht man durch die Ebenen; unter dem unteren Pfeil ein dezentes Auge, ein Tipp darauf öffnet die Liste aller Einträge, nach Ebene sortiert. Das Auge blendet **nicht** einzelne Elemente aus (die Spalte "Sichtbar" entfällt). **Entschieden**
+
+**Test von Teilschritt 3a2 (02.10.2026):** Alle sieben Tests bestanden. Wünsche daraus (eingebaut, geliefert als 3a3): dreistufiges Auge, zweizeilige Namen, Liste per Tipp daneben schließen.
 
 **Test von Teilschritt 3a (02.10.2026):** Lineale (nur im Bearbeitungsmodus, wandern mit, lesbar, Breite in Ordnung), Gitter (passt zu den Lineal-Zahlen, feine Unterteilung vorhanden), Ebenenleiste (Pfeile, einzelne Punkte, Auge mit Liste funktionieren), Fläche in m² plausibel, Spaten-Symbol gut. **In Ordnung.** Wünsche daraus:
 
@@ -208,8 +210,9 @@ Wie bei Schritt 2: Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHu
 |---|---|
 | 3a | **Maßstab und Ebenenliste:** Datenbankversion 3 (Garten bekommt den Maßstab, Fläche bekommt eine Farbspalte, gemeinsamer Reihenfolgenzähler, Tabellen Gegenstand und Gegenstandspunkt schon angelegt). Lineale oben und links im Bearbeitungsmodus (fester Nullpunkt), Gitter in Metern, Karte zeigt Maße und ungefähre Fläche in m². **Ebenenleiste am rechten Rand** (Punkte, Pfeile, Auge mit Liste), zunächst nur mit Flächen. Noch keine Gegenstände. |
 | 3a2 | **Überarbeitung von 3a (Ebenen als Gruppen), gebaut und als Vorschlag geliefert:** Datenbankversion 4 (Tabelle Ebene, Ebene bei Flächen und Gegenständen), aktive Ebene, Leiste mit einem Punkt je Ebene, ausklappbare Liste (Ebenen mit ihren Flächen, Neue Ebene, Umbenennen, Löschen mit Rückfrage, vor/zurück, Auge pro Ebene), "Eine Ebene nach vorn/hinten" im Flächenmenü, neue Flächen kommen in die aktive Ebene, Rückgängig und Garten duplizieren berücksichtigen Ebenen. |
-| 3b | **Gegenstände, Kern:** Knopf "Gegenstand", Katalog (alle Einträge außer den schmalen), Platzieren, Anzeige, Auswählen, Verschieben, **Größe ändern mit Maßanzeige live, Drehen**, Gebäude in freier Form, Menü (Name, Duplizieren, 90 Grad, vor/zurück, ganz nach hinten, Löschen), Karte, Rückgängig, Gegenstände erscheinen in der Ebenenliste, Duplizieren des Gartens kopiert sie mit. |
-| 3c | **Farbe, schmale Gegenstände, Verdecktes zeigen:** Farbauswahl (12 Felder) für Gegenstände **und Flächen** (Muster bleibt), Zaun, Hecke, Mauer und Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". |
+| 3b | **Gegenstände, Kern (gebaut, als Vorschlag geliefert, noch nicht getestet):** Knopf "Gegenstand", Katalog mit 35 Einträgen (alle außer den schmalen und dem freien Gebäude), Platzieren (erst Ort antippen, dann Katalog), Anzeige, Auswählen, Verschieben, **Größe ändern mit Maßanzeige live, Drehen (15°, Vibration bei 0/90/180/270)**, Menü per langem Tipp (Name, Duplizieren, 90° drehen, Eine Ebene nach vorn/hinten, Löschen), Karte in der Ansicht (Name, Art, Maße), Rückgängig, Gegenstände in der Ebenenliste, Duplizieren des Gartens kopiert sie mit. Keine neue Datenbankversion (die Tabellen gab es schon). |
+| 3b2 | **Gebäude in freier Form** (Punkte wie bei Flächen, drehbar). Aus 3b herausgenommen, weil der Gesten-Code sonst zu groß für einen Schritt wird und die Fehlersuche ohne Gerät schwer würde. |
+| 3c | **Farbe, schmale Gegenstände, Verdecktes zeigen** (die Farbe ist in der Datenbank schon vorbereitet, wählbar wird sie in 3c): Farbauswahl (12 Felder) für Gegenstände **und Flächen** (Muster bleibt), Zaun, Hecke, Mauer und Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". |
 | 3d | **Feinschliff** nach deinen Tests: Symbole verbessern, kleine Wünsche. |
 
 Wie lange das dauert, kann ich nicht seriös schätzen.
@@ -226,7 +229,7 @@ Wie lange das dauert, kann ich nicht seriös schätzen.
 
 **Fläche**: neue Spalte **Farbe** (Zahl, leer = Standardfarbe der Oberfläche). Ab 3a2 zusätzlich **Ebene**; die Reihenfolge gilt dann innerhalb der Ebene (gemeinsamer Zähler mit den Gegenständen derselben Ebene).
 
-Neue Tabelle **Gegenstand** (ab 3a angelegt, ab 3b benutzt):
+Neue Tabelle **Gegenstand** (ab 3a angelegt, ab 3b benutzt; Katalogschlüssel siehe `Gegenstaende.kt`):
 
 | Spalte | Bedeutung |
 |---|---|
@@ -260,3 +263,18 @@ Entwicklungsmodus: Die Datenbank wird bei Änderung neu angelegt (einmaliger Dat
 - **Farbe bei Flächen:** Eine gewählte Farbe verändert die Wirkung des Musters (kontrastarme Farben, zum Beispiel sehr dunkle). Die Ableitung von Rand und Muster aus der Farbe ist eine Näherung und braucht deinen Blick am Gerät.
 - **Zwei Geometrien:** Rechteckige Gegenstände und freie Gebäude werden verschieden bearbeitet (Griffe gegen Punkte). Das erhöht die Gesten-Komplexität, nutzt aber den bestehenden Flächencode.
 - **Ebenen als Gruppen:** Mehr Zustände (aktive Ebene, ausgeklappte Liste, Auswahl). Ich baue das schrittweise und teste in der Überarbeitung 3a2 nur die Ebenen, ohne Gegenstände. Datenbank wird noch einmal neu angelegt (Testgärten weg).
+
+
+---
+
+## 13. Umsetzung 3b: Was gebaut ist und wie es sich verhält (Stand der Lieferung)
+
+- **Katalog:** 35 Einträge in 6 Gruppen (Gebäude und Technik, Verkehr, Sitzen und Feiern, Spiel und Wasser, Garten, Deko). Standardgrößen in echten Metern, 10 Einheiten je Meter. Die Symbole zeichnet das Handy selbst (schlichte Draufsicht, Vorderseite oben).
+- **Platzieren:** Knopf "Gegenstand", Hinweis in der Leiste, Tipp auf die Stelle, Katalog, Tipp auf den Eintrag. Der Gegenstand kommt in die aktive Ebene und ist gleich ausgewählt.
+- **Auswählen:** Tipp auf den obersten Gegenstand oder die oberste Fläche an der Stelle. Tippen auf die eigene Fläche/Griffe lässt die Auswahl bestehen.
+- **Griffe:** Eckgriffe (Quadrate, Seitenverhältnis bleibt), Kantengriffe (kleiner, nur bei Kanten ab etwa 64 dp Länge auf dem Bildschirm, sonst zoomen), Drehgriff (Kreis am Stiel oberhalb). Berührfläche der Eckgriffe 14 bis 26 dp Radius je nach Größe, damit sich sehr kleine Gegenstände noch greifen lassen. Mindestgröße 0,1 m.
+- **Maßanzeige:** Beim Größe ändern steht "4,5 × 1,8 m", beim Drehen der Winkel, jeweils über dem Finger.
+- **Menü (langer Tipp):** Name ändern, Duplizieren (1 m versetzt), Um 90° drehen, Eine Ebene nach vorn/hinten, Löschen mit Rückfrage. "Ganz nach hinten" entfällt, weil das die Ebenen übernehmen. "Farbe ändern" kommt in 3c.
+- **Rückgängig, Ebenen, Garten duplizieren:** Gegenstände sind überall mit dabei.
+- **Noch nicht in 3b:** Farbwahl, schmale Gegenstände, freies Gebäude (3b2), Verdecktes zeigen (3c).
+- **Ungeprüft:** Alles. Der Code wurde nicht kompiliert und nicht am Gerät getestet.

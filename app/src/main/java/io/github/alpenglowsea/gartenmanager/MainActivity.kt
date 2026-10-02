@@ -42,6 +42,8 @@ class MainActivity : ComponentActivity() {
                         .collectAsState(initial = emptyList())
                     val ebenen by remember(gartenId) { viewModel.ebenen(gartenId) }
                         .collectAsState(initial = emptyList())
+                    val gegenstaende by remember(gartenId) { viewModel.gegenstaende(gartenId) }
+                        .collectAsState(initial = emptyList())
                     val punkte by remember(gartenId) { viewModel.punkte(gartenId) }
                         .collectAsState(initial = emptyList())
                     // Beim Betreten oder Verlassen des Bearbeitungsmodus: angefangene Zeichnung
@@ -54,6 +56,7 @@ class MainActivity : ComponentActivity() {
                         garten = offenerGarten,
                         flaechen = flaechen,
                         ebenen = ebenen,
+                        gegenstaende = gegenstaende,
                         punkte = punkte,
                         bearbeiten = bearbeiten,
                         viewModel = viewModel,
