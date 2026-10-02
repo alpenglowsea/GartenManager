@@ -72,7 +72,7 @@ Die Bilder in `symbole-gegenstaende.png` sind **Skizzen von mir** (Detailgrad vo
 - Eine **Ebene ist ein Behälter** für mehrere Flächen und Gegenstände. Neue Elemente kommen in die **aktive Ebene**. **Entschieden**
 - **"Nach vorn / Nach hinten" im Menü verschiebt das Element in die Nachbarebene.** Die Reihenfolge innerhalb einer Ebene ist erst einmal egal (neues Element liegt oben, kein Bedienelement dafür). Ein Punkt "In andere Ebene verschieben" ist deshalb nicht nötig. **Entschieden**
 - **Ebene löschen: es wird gefragt**, ob alle Elemente mitgelöscht oder in die Nachbarebene verschoben werden. Eine leere Ebene wird ohne Rückfrage gelöscht. Die letzte Ebene lässt sich nicht löschen. **Entschieden**
-- **Auge pro Ebene** in der ausgeklappten Liste zum Ausblenden der ganzen Ebene (gespeichert). Es sieht **anders aus** als das Auge an der Leiste (ausgefülltes Auge = sichtbar, geschlossenes Auge mit Wimpern = ausgeblendet). **Entschieden**
+- **Auge pro Ebene** in der ausgeklappten Liste zum Ausblenden der ganzen Ebene (gespeichert). Es hat **drei Stufen** und sieht anders aus als das Auge an der Leiste: ausgefülltes Auge = sichtbar, erster Tipp = halbtransparent (halb geschlossenes Auge, Ebene bleibt antippbar), zweiter Tipp = ganz ausgeblendet (geschlossenes Auge mit Wimpern), dritter Tipp = wieder sichtbar. **Entschieden**
 - Die **Punkte der Leiste sind neutral** gefärbt (aktive Ebene größer, mit Ring; ausgeblendete Ebene nur als Ring). **Entschieden**
 
 ---
@@ -186,7 +186,7 @@ Eine Ebene ist ein Behälter, in dem **mehrere Flächen und Gegenstände zusamme
 **Ausgeklappte Liste:**
 - Oben **"+ Neue Ebene"** (kommt direkt vor die aktive Ebene).
 - Eine Zeile je Ebene, vorderste zuerst: kleiner Pfeil zum Aufklappen (zeigt die **Flächen** der Ebene, Tipp darauf wählt sie aus, auch wenn sie verdeckt liegt), Name (oder "Ebene n") mit Anzahl der Elemente (Tipp macht die Ebene aktiv), **Auge zum Ausblenden** der ganzen Ebene, Menü **⋮** mit Umbenennen, Eine Ebene nach vorn, Eine Ebene nach hinten, Löschen.
-- Die aktive Ebene ist farbig hervorgehoben, ausgeblendete Ebenen sind abgeblendet beschriftet.
+- Die aktive Ebene ist farbig hervorgehoben, ausgeblendete Ebenen sind abgeblendet beschriftet; lange Namen laufen über zwei Zeilen; ein Tipp neben die ausgeklappte Liste schließt sie.
 
 **Menü einer Fläche (langer Tipp):** "Eine Ebene nach vorn" / "Eine Ebene nach hinten" verschiebt in die Nachbarebene (landet dort oben).
 
@@ -220,7 +220,7 @@ Wie lange das dauert, kann ich nicht seriös schätzen.
 
 ## 11. Was gespeichert wird (Datei 2 "Meine Daten")
 
-**Ebene** (neu in 3a2, gebaut): Nummer, Garten, Name (leer = "Ebene n"), Reihenfolge (höher = weiter vorn), ausgeblendet (ja/nein).
+**Ebene** (neu in 3a2, gebaut): Nummer, Garten, Name (leer = "Ebene n"), Reihenfolge (höher = weiter vorn), Sicht (0 sichtbar, 1 halbtransparent, 2 ausgeblendet; seit Datenbank-Version 5).
 
 **Garten**: neue Spalte **Maßstab** (Skizzeneinheiten pro Meter, Standard 10).
 

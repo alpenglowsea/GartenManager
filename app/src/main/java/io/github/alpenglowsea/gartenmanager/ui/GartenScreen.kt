@@ -73,6 +73,10 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.input.pointer.positionChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -160,7 +164,8 @@ fun GartenScreen(
 
     // Ebenen: gezeichnet wird von hinten nach vorn, ausgeblendete Ebenen werden übersprungen.
     val ebenenRang = remember(ebenen) { ebenen.withIndex().associate { it.value.id to it.index } }
-    val verborgeneEbenen = remember(ebenen) { ebenen.filter { it.ausgeblendet }.map { it.id }.toSet() }
+    val verborgeneEbenen = remember(ebenen) { ebenen.filter { it.sicht == 2 }.map { it.id }.toSet() }
+    val blasseEbenen = remember(ebenen) { ebenen.filter { it.sicht == 1 }.map { it.id }.toSet() }
     val geordneteFlaechen = remember(flaechen, ebenenRang) {
         flaechen.sortedWith(
             compareBy<Flaeche>({ ebenenRang[it.ebeneId] ?: -1 }, { it.reihenfolge }, { it.id }),
@@ -576,6 +581,8 @@ fun GartenScreen(
                     if (ihre.size < 3) continue
                     val bild = bildPunkte(flaeche, ihre)
                     val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
+                    val blass = flaeche.ebeneId in blasseEbenen
+                    if (blass) drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
                     val inDerHand = bewegt && ziehen?.punktId == null && ziehen?.flaecheId == flaeche.id
                     val art = Oberflaeche.vonSchluessel(flaeche.oberflaeche)
                     // Angefasste Fläche: Farbe heller und greller, damit man sieht, was man in der Hand hat
@@ -605,6 +612,7 @@ fun GartenScreen(
                             ),
                         )
                     }
+                    if (blass) drawContext.canvas.restore()
                 }
 
                 // Griffe der ausgewählten Fläche: runde Punkte als Kreis, Ecken als Quadrat
@@ -807,6 +815,15 @@ fun GartenScreen(
                 }
             }
 
+            if (bearbeiten && !zeichnet && ebenenOffen) {
+                // Unsichtbare Schicht: ein Tipp neben die Liste schließt sie wieder.
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .pointerInput(Unit) { detectTapGestures { ebenenOffen = false } },
+                )
+            }
+
             if (bearbeiten && !zeichnet) {
                 EbenenBereich(
                     ebenen = ebenen,
@@ -829,7 +846,7 @@ fun GartenScreen(
                             ebeneLoeschenId = id
                         }
                     },
-                    onAusgeblendet = { id, wert -> viewModel.schalteEbeneAusgeblendet(gartenId, id, wert) },
+                    onSicht = { id, aktuell -> viewModel.schalteEbeneSicht(gartenId, id, aktuell) },
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .fillMaxHeight()
@@ -1374,7 +1391,7 @@ private fun EbenenBereich(
     onNachVorn: (Long) -> Unit,
     onNachHinten: (Long) -> Unit,
     onLoeschen: (Long) -> Unit,
-    onAusgeblendet: (Long, Boolean) -> Unit,
+    onSicht: (Long, Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     BoxWithConstraints(modifier = modifier) {
@@ -1396,7 +1413,7 @@ private fun EbenenBereich(
                     onNachVorn = onNachVorn,
                     onNachHinten = onNachHinten,
                     onLoeschen = onLoeschen,
-                    onAusgeblendet = onAusgeblendet,
+                    onSicht = onSicht,
                     modifier = Modifier.width(260.dp).heightIn(max = hoechstens),
                 )
                 Spacer(modifier = Modifier.width(6.dp))
@@ -1468,10 +1485,11 @@ private fun Ebenenleiste(
                 ) {
                     Canvas(modifier = Modifier.size(26.dp)) {
                         val r = (if (aktiv) 8f else 6f) * density
-                        if (e.ausgeblendet) {
+                        if (e.sicht == 2) {
                             drawCircle(punktFarbe, radius = r, center = center, style = Stroke(width = 1.5f * density))
                         } else {
-                            drawCircle(if (aktiv) aktivFarbe else punktFarbe, radius = r, center = center)
+                            val grundFarbe = if (aktiv) aktivFarbe else punktFarbe
+                            drawCircle(if (e.sicht == 1) grundFarbe.copy(alpha = 0.45f) else grundFarbe, radius = r, center = center)
                         }
                         if (aktiv) {
                             drawCircle(ringFarbe, radius = 11f * density, center = center, style = Stroke(width = 2.5f * density))
@@ -1570,8 +1588,9 @@ private fun EbenenListe(
                             Text(
                                 text = e.name ?: stringResource(R.string.ebene_nr, nummer),
                                 style = MaterialTheme.typography.bodyLarge,
-                                maxLines = 1,
-                                color = if (e.ausgeblendet) {
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                color = if (e.sicht == 2) {
                                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                                 } else {
                                     Color.Unspecified
@@ -1587,15 +1606,23 @@ private fun EbenenListe(
                             )
                         }
                         IconButton(
-                            onClick = { onAusgeblendet(e.id, !e.ausgeblendet) },
+                            onClick = { onSicht(e.id, e.sicht) },
                             modifier = Modifier.size(36.dp),
                         ) {
                             Icon(
                                 painter = painterResource(
-                                    if (e.ausgeblendet) R.drawable.ic_verborgen else R.drawable.ic_sichtbar,
+                                    when (e.sicht) {
+                                        1 -> R.drawable.ic_halb_verborgen
+                                        2 -> R.drawable.ic_verborgen
+                                        else -> R.drawable.ic_sichtbar
+                                    },
                                 ),
                                 contentDescription = stringResource(
-                                    if (e.ausgeblendet) R.string.ebene_einblenden else R.string.ebene_ausblenden,
+                                    when (e.sicht) {
+                                        1 -> R.string.ebene_ausblenden
+                                        2 -> R.string.ebene_einblenden
+                                        else -> R.string.ebene_halbtransparent
+                                    },
                                 ),
                             )
                         }

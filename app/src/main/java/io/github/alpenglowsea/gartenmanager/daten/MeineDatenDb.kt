@@ -19,7 +19,7 @@ import androidx.room.RoomDatabase
         Grundstueck::class, Garten::class, Ebene::class, Flaeche::class, Punkt::class,
         Gegenstand::class, Gegenstandspunkt::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {

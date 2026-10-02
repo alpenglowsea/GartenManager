@@ -139,8 +139,9 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.benenneEbeneUm(ebeneId, name.trim().ifEmpty { null }) }
     }
 
-    fun schalteEbeneAusgeblendet(gartenId: Long, ebeneId: Long, ausgeblendet: Boolean) {
-        aendere(gartenId) { dao.setzeEbeneAusgeblendet(ebeneId, ausgeblendet) }
+    /** Reihum: sichtbar (0) → halbtransparent (1) → ausgeblendet (2) → sichtbar. */
+    fun schalteEbeneSicht(gartenId: Long, ebeneId: Long, aktuell: Int) {
+        aendere(gartenId) { dao.setzeEbeneSicht(ebeneId, (aktuell + 1) % 3) }
     }
 
     fun bewegeEbene(gartenId: Long, ebeneId: Long, schritt: Int) {

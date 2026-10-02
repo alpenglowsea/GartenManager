@@ -77,8 +77,8 @@ abstract class GartenDao {
     @Query("UPDATE ebene SET name = :name WHERE id = :id")
     abstract suspend fun benenneEbeneUm(id: Long, name: String?)
 
-    @Query("UPDATE ebene SET ausgeblendet = :ausgeblendet WHERE id = :id")
-    abstract suspend fun setzeEbeneAusgeblendet(id: Long, ausgeblendet: Boolean)
+    @Query("UPDATE ebene SET sicht = :sicht WHERE id = :id")
+    abstract suspend fun setzeEbeneSicht(id: Long, sicht: Int)
 
     @Query("UPDATE ebene SET reihenfolge = :reihenfolge WHERE id = :id")
     abstract suspend fun setzeEbeneReihenfolge(id: Long, reihenfolge: Int)
@@ -278,7 +278,7 @@ abstract class GartenDao {
     @Transaction
     open suspend fun legeFlaecheAn(gartenId: Long, ebeneId: Long?, punkte: List<Punkt>, jetzt: Long): Long {
         val ziel = ebeneFuer(gartenId, ebeneId)
-        setzeEbeneAusgeblendet(ziel, false) // Wer in eine Ebene zeichnet, soll das Ergebnis auch sehen.
+        setzeEbeneSicht(ziel, 0) // Wer in eine Ebene zeichnet, soll das Ergebnis auch sehen.
         val flaecheId = fuegeFlaecheEin(
             Flaeche(gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
         )

@@ -46,8 +46,8 @@ data class Garten(
 /**
  * Eine Ebene ist ein Behälter für mehrere Flächen und Gegenstände (Teilschritt 3a2). Die
  * Ebenen werden von hinten nach vorn gezeichnet; [reihenfolge] bestimmt den Platz (höhere
- * Zahl = weiter vorn). [name] leer = "Ebene n". [ausgeblendet]: die ganze Ebene wird weder
- * gezeichnet noch angetippt. Wird der Garten gelöscht, verschwinden auch seine Ebenen.
+ * Zahl = weiter vorn). [name] leer = "Ebene n". [sicht]: 0 = sichtbar, 1 = halbtransparent
+ * (noch antippbar), 2 = ausgeblendet (weder gezeichnet noch angetippt). Wird der Garten gelöscht, verschwinden auch seine Ebenen.
  */
 @Entity(
     tableName = "ebene",
@@ -66,7 +66,7 @@ data class Ebene(
     val gartenId: Long,
     val name: String? = null,
     val reihenfolge: Int = 0,
-    val ausgeblendet: Boolean = false,
+    val sicht: Int = 0,
 )
 
 /**
