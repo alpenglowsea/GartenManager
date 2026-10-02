@@ -64,8 +64,8 @@
     <string name="menue_oberflaeche">Oberfläche ändern</string>
     <string name="flaeche_ohne_name">Ohne Namen</string>
     <string name="menue_name_aendern">Name ändern</string>
-    <string name="menue_nach_vorn">Nach vorn</string>
-    <string name="menue_nach_hinten">Nach hinten</string>
+    <string name="menue_nach_vorn">Eine Ebene nach vorn</string>
+    <string name="menue_nach_hinten">Eine Ebene nach hinten</string>
     <string name="abwaehlen">Abwählen</string>
     <string name="punkt_loeschen">Punkt löschen</string>
     <string name="punkt_zu_ecke">Entrunden</string>
@@ -95,7 +95,21 @@
     <string name="ebene_nr">Ebene %1$d</string>
     <string name="ebene_nach_vorn">Eine Ebene weiter nach vorn</string>
     <string name="ebene_nach_hinten">Eine Ebene weiter nach hinten</string>
-    <string name="ebenen_liste_oeffnen">Liste aller Ebenen öffnen</string>
+    <string name="ebenen_liste_oeffnen">Liste der Ebenen ein- oder ausklappen</string>
     <string name="info_masse">ca. %3$s m² · %1$s × %2$s m</string>
-    <string name="hilfe_ebenen">Am oberen und linken Rand zeigen die Lineale Meter. Rechts zeigt die Ebenenleiste jede Fläche als Punkt, ganz oben die vorderste. Der hervorgehobene Punkt ist die ausgewählte Fläche. Mit den Pfeilen wechselst du von Ebene zu Ebene, ein Tipp auf einen Punkt springt direkt dorthin, das Auge öffnet die Liste aller Ebenen.</string>
+    <string name="hilfe_ebenen">Am oberen und linken Rand zeigen die Lineale Meter. Rechts zeigt die Ebenenleiste jede Ebene als Punkt, ganz oben die vorderste. Eine Ebene ist ein Behälter für mehrere Flächen. Der hervorgehobene Punkt ist die aktive Ebene: Neue Flächen kommen dort hinein. Die Pfeile wechseln die Ebene, ein Tipp auf einen Punkt springt direkt dorthin. Das Auge klappt die Liste der Ebenen aus. Dort kannst du Ebenen anlegen, umbenennen, verschieben, löschen und ausblenden und mit dem kleinen Pfeil ihre Flächen zeigen. Im Menü einer Fläche (langer Tipp) schiebt „Eine Ebene nach vorn“ oder „nach hinten“ die Fläche in die Nachbarebene.</string>
+    <string name="ebene_neu">+ Neue Ebene</string>
+    <string name="ebene_umbenennen">Umbenennen</string>
+    <string name="ebene_vor">Eine Ebene nach vorn</string>
+    <string name="ebene_zurueck">Eine Ebene nach hinten</string>
+    <string name="ebene_name_titel">Ebene umbenennen</string>
+    <string name="ebene_loeschen_titel">Ebene löschen?</string>
+    <string name="ebene_loeschen_text">Die Ebene enthält %1$d Elemente. Was soll damit geschehen?</string>
+    <string name="ebene_inhalt_verschieben">In Nachbarebene verschieben</string>
+    <string name="ebene_inhalt_loeschen">Alle Elemente mitlöschen</string>
+    <string name="elemente_n">%1$d Elemente</string>
+    <string name="element_eins">1 Element</string>
+    <string name="ebene_ausblenden">Ebene ausblenden</string>
+    <string name="ebene_einblenden">Ebene einblenden</string>
+    <string name="ebene_aufklappen">Flächen der Ebene zeigen</string>
 </resources>

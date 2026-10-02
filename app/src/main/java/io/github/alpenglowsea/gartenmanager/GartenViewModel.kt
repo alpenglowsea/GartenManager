@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Grundstueck
@@ -108,6 +109,50 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun flaechen(gartenId: Long): Flow<List<Flaeche>> = dao.flaechen(gartenId)
 
+    fun ebenen(gartenId: Long): Flow<List<Ebene>> = dao.ebenen(gartenId)
+
+    /** Stellt sicher, dass der Garten mindestens eine Ebene hat (wird beim Öffnen aufgerufen). */
+    fun sichereEbene(gartenId: Long) {
+        viewModelScope.launch { sperre.withLock { dao.ebeneFuer(gartenId, null) } }
+    }
+
+    /** Die aktive Ebene: Neue Flächen kommen dort hinein. null = die vorderste. */
+    var aktiveEbeneId by mutableStateOf<Long?>(null)
+        private set
+
+    /** Ebene aktiv schalten, ohne die Auswahl zu ändern (wird bei Auswahl einer Fläche genutzt). */
+    fun setzeAktiveEbene(id: Long?) {
+        aktiveEbeneId = id
+    }
+
+    /** Ebene aktiv schalten (Pfeil oder Punkt in der Leiste). Die Auswahl wird aufgehoben. */
+    fun waehleEbene(id: Long) {
+        aktiveEbeneId = id
+        waehleFlaeche(null)
+    }
+
+    fun legeEbeneAn(gartenId: Long) {
+        aendere(gartenId) { aktiveEbeneId = dao.legeEbeneAn(gartenId, aktiveEbeneId) }
+    }
+
+    fun benenneEbeneUm(gartenId: Long, ebeneId: Long, name: String) {
+        aendere(gartenId) { dao.benenneEbeneUm(ebeneId, name.trim().ifEmpty { null }) }
+    }
+
+    fun schalteEbeneAusgeblendet(gartenId: Long, ebeneId: Long, ausgeblendet: Boolean) {
+        aendere(gartenId) { dao.setzeEbeneAusgeblendet(ebeneId, ausgeblendet) }
+    }
+
+    fun bewegeEbene(gartenId: Long, ebeneId: Long, schritt: Int) {
+        aendere(gartenId) { dao.bewegeEbene(gartenId, ebeneId, schritt) }
+    }
+
+    fun loescheEbene(gartenId: Long, ebeneId: Long, inhaltBehalten: Boolean) {
+        if (!inhaltBehalten) waehleFlaeche(null)
+        if (aktiveEbeneId == ebeneId) aktiveEbeneId = null
+        aendere(gartenId) { dao.loescheEbene(gartenId, ebeneId, inhaltBehalten) }
+    }
+
     fun punkte(gartenId: Long): Flow<List<Punkt>> = dao.punkte(gartenId)
 
     /** Die gerade angefangene Fläche (Punkte in Skizzenkoordinaten). null = es wird nicht gezeichnet. */
@@ -137,7 +182,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         private set
 
     // Rückgängig: Abbilder des Gartens vor jeder Änderung. Endet beim Verlassen des Bearbeitungsmodus.
-    private class Abbild(val flaechen: List<Flaeche>, val punkte: List<Punkt>)
+    private class Abbild(val ebenen: List<Ebene>, val flaechen: List<Flaeche>, val punkte: List<Punkt>)
 
     private val verlauf = mutableListOf<Abbild>()
     private val sperre = Mutex()
@@ -200,7 +245,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     private fun aendere(gartenId: Long, block: suspend () -> Unit) {
         viewModelScope.launch {
             sperre.withLock {
-                verlauf.add(Abbild(dao.flaechenListe(gartenId), dao.punkteDesGartens(gartenId)))
+                verlauf.add(Abbild(dao.ebenenListe(gartenId), dao.flaechenListe(gartenId), dao.punkteDesGartens(gartenId)))
                 if (verlauf.size > MAX_VERLAUF) verlauf.removeAt(0)
                 anzahlRueckgaengig = verlauf.size
                 block()
@@ -229,6 +274,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) {
             val id = dao.legeFlaecheAn(
                 gartenId,
+                aktiveEbeneId,
                 punkte.mapIndexed { nr, o -> Punkt(flaecheId = 0, nr = nr, x = o.x, y = o.y, rund = rund[nr]) },
                 jetzt(),
             )
@@ -294,9 +340,9 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.benenneFlaecheUm(flaecheId, name) }
     }
 
-    /** schritt = +1: eine Ebene nach vorn (oben), -1: eine Ebene nach hinten. */
-    fun bewegeFlaecheInReihenfolge(gartenId: Long, flaecheId: Long, schritt: Int) {
-        aendere(gartenId) { dao.bewegeInReihenfolge(gartenId, flaecheId, schritt) }
+    /** schritt = +1: in die Ebene davor (nach vorn), -1: in die Ebene dahinter (nach hinten). */
+    fun bewegeFlaecheInNachbarebene(gartenId: Long, flaecheId: Long, schritt: Int) {
+        aendere(gartenId) { dao.bewegeFlaecheInNachbarebene(gartenId, flaecheId, schritt) }
     }
 
     fun loescheFlaeche(gartenId: Long, flaecheId: Long) {
@@ -311,7 +357,8 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
                 if (verlauf.isEmpty()) return@withLock
                 val abbild = verlauf.removeAt(verlauf.size - 1)
                 anzahlRueckgaengig = verlauf.size
-                dao.stelleWiederHer(gartenId, abbild.flaechen, abbild.punkte)
+                dao.stelleWiederHer(gartenId, abbild.ebenen, abbild.flaechen, abbild.punkte)
+                if (abbild.ebenen.none { it.id == aktiveEbeneId }) aktiveEbeneId = null
                 // Die Auswahl gilt nur weiter, wenn es die Fläche und den Punkt noch gibt.
                 val flaecheDa = abbild.flaechen.any { it.id == auswahlFlaeche }
                 if (!flaecheDa) {

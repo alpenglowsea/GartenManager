@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,6 +58,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.lerp
@@ -82,6 +83,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.GartenViewModel
 import io.github.alpenglowsea.gartenmanager.R
+import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Punkt
@@ -123,6 +125,7 @@ private data class Ziehen(
 fun GartenScreen(
     garten: Garten,
     flaechen: List<Flaeche>,
+    ebenen: List<Ebene>,
     punkte: List<Punkt>,
     bearbeiten: Boolean,
     viewModel: GartenViewModel,
@@ -155,6 +158,25 @@ fun GartenScreen(
     val gewaehltePunkte = gewaehlteFlaeche?.let { punkteJeFlaeche[it.id] }.orEmpty()
     val gewaehlterPunkt = gewaehltePunkte.firstOrNull { it.id == viewModel.auswahlPunkt }
 
+    // Ebenen: gezeichnet wird von hinten nach vorn, ausgeblendete Ebenen werden übersprungen.
+    val ebenenRang = remember(ebenen) { ebenen.withIndex().associate { it.value.id to it.index } }
+    val verborgeneEbenen = remember(ebenen) { ebenen.filter { it.ausgeblendet }.map { it.id }.toSet() }
+    val geordneteFlaechen = remember(flaechen, ebenenRang) {
+        flaechen.sortedWith(
+            compareBy<Flaeche>({ ebenenRang[it.ebeneId] ?: -1 }, { it.reihenfolge }, { it.id }),
+        )
+    }
+    val sichtbareFlaechen = remember(geordneteFlaechen, verborgeneEbenen) {
+        geordneteFlaechen.filter { it.ebeneId !in verborgeneEbenen }
+    }
+    // Aktive Ebene: die der ausgewählten Fläche, sonst die zuletzt gewählte, sonst die vorderste.
+    val aktiveEbeneId: Long? = gewaehlteFlaeche?.ebeneId
+        ?: viewModel.aktiveEbeneId?.takeIf { id -> ebenen.any { it.id == id } }
+        ?: ebenen.lastOrNull()?.id
+    LaunchedEffect(gewaehlteFlaeche?.id, gewaehlteFlaeche?.ebeneId) {
+        gewaehlteFlaeche?.let { viewModel.setzeAktiveEbene(it.ebeneId) }
+    }
+
     // Zustand der Gesten
     var zeigerPos by remember { mutableStateOf<Offset?>(null) } // Finger beim Zeichnen/Aufziehen (Bildschirm)
     var formStart by remember { mutableStateOf<Offset?>(null) } // Startpunkt einer aufgezogenen Form (Skizze)
@@ -174,7 +196,9 @@ fun GartenScreen(
     // In der Ansicht angetippte Fläche (zeigt Name und Oberfläche)
     var infoFlaecheId by remember { mutableStateOf<Long?>(null) }
     // Liste aller Ebenen (Auge in der Ebenenleiste)
-    var ebenenListe by remember { mutableStateOf(false) }
+    var ebenenOffen by remember { mutableStateOf(false) }
+    var ebeneUmbenennenId by remember { mutableStateOf<Long?>(null) }
+    var ebeneLoeschenId by remember { mutableStateOf<Long?>(null) }
     val linealPinsel = remember { android.graphics.Paint().apply { isAntiAlias = true } }
 
     val faktor = zoom * dichte
@@ -265,7 +289,7 @@ fun GartenScreen(
 
     /** Die oberste Fläche unter dem Finger (oder null). */
     fun flaecheBei(pos: Offset): Flaeche? {
-        for (kandidat in flaechen.asReversed()) {
+        for (kandidat in sichtbareFlaechen.asReversed()) {
             val ihre = punkteJeFlaeche[kandidat.id] ?: continue
             if (ihre.size < 3) continue
             val poly = kurvenPolylinie(bildPunkte(kandidat, ihre), ihre.map { it.rund }, true)
@@ -547,7 +571,7 @@ fun GartenScreen(
                 zeichneGitter(zoom, dichte, garten.massstab, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
 
                 // Fertige Flächen: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
-                for (flaeche in flaechen) {
+                for (flaeche in sichtbareFlaechen) {
                     val ihre = punkteJeFlaeche[flaeche.id] ?: continue
                     if (ihre.size < 3) continue
                     val bild = bildPunkte(flaeche, ihre)
@@ -761,11 +785,11 @@ fun GartenScreen(
                         }
                         MenuePunkt(R.string.menue_nach_vorn) {
                             flaechenMenue = null
-                            viewModel.bewegeFlaecheInReihenfolge(gartenId, gewaehlteFlaeche.id, 1)
+                            viewModel.bewegeFlaecheInNachbarebene(gartenId, gewaehlteFlaeche.id, 1)
                         }
                         MenuePunkt(R.string.menue_nach_hinten) {
                             flaechenMenue = null
-                            viewModel.bewegeFlaecheInReihenfolge(gartenId, gewaehlteFlaeche.id, -1)
+                            viewModel.bewegeFlaecheInNachbarebene(gartenId, gewaehlteFlaeche.id, -1)
                         }
                         MenuePunkt(R.string.alle_rund) {
                             flaechenMenue = null
@@ -784,11 +808,28 @@ fun GartenScreen(
             }
 
             if (bearbeiten && !zeichnet) {
-                Ebenenleiste(
+                EbenenBereich(
+                    ebenen = ebenen,
                     flaechen = flaechen,
-                    gewaehltId = viewModel.auswahlFlaeche,
-                    onWahl = { viewModel.waehleFlaeche(it) },
-                    onListe = { ebenenListe = true },
+                    aktiveId = aktiveEbeneId,
+                    gewaehlteFlaecheId = viewModel.auswahlFlaeche,
+                    offen = ebenenOffen,
+                    onSchalteOffen = { ebenenOffen = !ebenenOffen },
+                    onWaehleEbene = { viewModel.waehleEbene(it) },
+                    onWaehleFlaeche = { viewModel.waehleFlaeche(it) },
+                    onNeueEbene = { viewModel.legeEbeneAn(gartenId) },
+                    onUmbenennen = { ebeneUmbenennenId = it },
+                    onNachVorn = { viewModel.bewegeEbene(gartenId, it, 1) },
+                    onNachHinten = { viewModel.bewegeEbene(gartenId, it, -1) },
+                    onLoeschen = { id ->
+                        // Eine leere Ebene wird gleich gelöscht, sonst wird gefragt, was mit dem Inhalt geschieht.
+                        if (flaechen.none { it.ebeneId == id }) {
+                            viewModel.loescheEbene(gartenId, id, true)
+                        } else {
+                            ebeneLoeschenId = id
+                        }
+                    },
+                    onAusgeblendet = { id, wert -> viewModel.schalteEbeneAusgeblendet(gartenId, id, wert) },
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .fillMaxHeight()
@@ -809,15 +850,47 @@ fun GartenScreen(
         }
     }
 
-    if (ebenenListe) {
-        EbenenListeDialog(
-            flaechen = flaechen,
-            gewaehltId = viewModel.auswahlFlaeche,
-            onWahl = {
-                ebenenListe = false
-                viewModel.waehleFlaeche(it)
+    val ebeneUmbenennen = ebenen.firstOrNull { it.id == ebeneUmbenennenId }
+    if (ebeneUmbenennen != null) {
+        NameDialog(
+            titel = stringResource(R.string.ebene_name_titel),
+            startwert = ebeneUmbenennen.name.orEmpty(),
+            bestaetigenText = stringResource(R.string.speichern),
+            onBestaetigt = { name ->
+                ebeneUmbenennenId = null
+                viewModel.benenneEbeneUm(gartenId, ebeneUmbenennen.id, name)
             },
-            onSchliessen = { ebenenListe = false },
+            onAbbruch = { ebeneUmbenennenId = null },
+        )
+    }
+    val ebeneLoeschen = ebenen.firstOrNull { it.id == ebeneLoeschenId }
+    if (ebeneLoeschen != null) {
+        val anzahlDrin = flaechen.count { it.ebeneId == ebeneLoeschen.id }
+        AlertDialog(
+            onDismissRequest = { ebeneLoeschenId = null },
+            title = { Text(stringResource(R.string.ebene_loeschen_titel)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text(stringResource(R.string.ebene_loeschen_text, anzahlDrin))
+                    Button(
+                        onClick = {
+                            ebeneLoeschenId = null
+                            viewModel.loescheEbene(gartenId, ebeneLoeschen.id, true)
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) { Text(stringResource(R.string.ebene_inhalt_verschieben)) }
+                    OutlinedButton(
+                        onClick = {
+                            ebeneLoeschenId = null
+                            viewModel.loescheEbene(gartenId, ebeneLoeschen.id, false)
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) { Text(stringResource(R.string.ebene_inhalt_loeschen)) }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { ebeneLoeschenId = null }) { Text(stringResource(R.string.abbrechen)) }
+            },
         )
     }
     if (formenDialog) {
@@ -1282,146 +1355,312 @@ private fun DrawScope.zeichneLineale(
 }
 
 /**
- * Dezente Ebenenleiste am rechten Rand: Pfeil nach vorn, ein Punkt je Ebene (ganz oben die
- * vorderste), Pfeil nach hinten, darunter das Auge für die Liste aller Ebenen. Der Punkt der
- * ausgewählten Fläche ist hervorgehoben. [flaechen] ist von hinten nach vorn sortiert.
+ * Ebenenbereich am rechten Rand: die schmale Leiste (ein Punkt je Ebene, Pfeile, Auge) und, wenn
+ * das Auge angetippt wurde, direkt daneben die ausgeklappte Liste der Ebenen mit ihren Flächen.
+ * [ebenen] ist von hinten nach vorn sortiert. Eine Ebene ist ein Behälter für mehrere Flächen.
+ */
+@Composable
+private fun EbenenBereich(
+    ebenen: List<Ebene>,
+    flaechen: List<Flaeche>,
+    aktiveId: Long?,
+    gewaehlteFlaecheId: Long?,
+    offen: Boolean,
+    onSchalteOffen: () -> Unit,
+    onWaehleEbene: (Long) -> Unit,
+    onWaehleFlaeche: (Long) -> Unit,
+    onNeueEbene: () -> Unit,
+    onUmbenennen: (Long) -> Unit,
+    onNachVorn: (Long) -> Unit,
+    onNachHinten: (Long) -> Unit,
+    onLoeschen: (Long) -> Unit,
+    onAusgeblendet: (Long, Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BoxWithConstraints(modifier = modifier) {
+        val hoechstens = maxHeight
+        Row(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (offen) {
+                EbenenListe(
+                    ebenen = ebenen,
+                    flaechen = flaechen,
+                    aktiveId = aktiveId,
+                    gewaehlteFlaecheId = gewaehlteFlaecheId,
+                    onWaehleEbene = onWaehleEbene,
+                    onWaehleFlaeche = onWaehleFlaeche,
+                    onNeueEbene = onNeueEbene,
+                    onUmbenennen = onUmbenennen,
+                    onNachVorn = onNachVorn,
+                    onNachHinten = onNachHinten,
+                    onLoeschen = onLoeschen,
+                    onAusgeblendet = onAusgeblendet,
+                    modifier = Modifier.width(260.dp).heightIn(max = hoechstens),
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+            }
+            Ebenenleiste(
+                ebenen = ebenen,
+                aktiveId = aktiveId,
+                onWahl = onWaehleEbene,
+                onListe = onSchalteOffen,
+                maxHoehe = hoechstens,
+            )
+        }
+    }
+}
+
+/**
+ * Dezente Ebenenleiste: Pfeil nach vorn, ein Punkt je Ebene (ganz oben die vorderste), Pfeil nach
+ * hinten, darunter das Auge für die Liste. Der Punkt der aktiven Ebene ist hervorgehoben,
+ * ausgeblendete Ebenen sind nur ein Ring.
  */
 @Composable
 private fun Ebenenleiste(
-    flaechen: List<Flaeche>,
-    gewaehltId: Long?,
+    ebenen: List<Ebene>,
+    aktiveId: Long?,
     onWahl: (Long) -> Unit,
     onListe: () -> Unit,
-    modifier: Modifier = Modifier,
+    maxHoehe: androidx.compose.ui.unit.Dp,
 ) {
-    val anzahl = flaechen.size
-    val index = flaechen.indexOfFirst { it.id == gewaehltId }
+    val anzahl = ebenen.size
+    val index = ebenen.indexOfFirst { it.id == aktiveId }
     val ringFarbe = MaterialTheme.colorScheme.tertiary
-    BoxWithConstraints(modifier = modifier, contentAlignment = Alignment.CenterEnd) {
-        val platz = ((maxHeight - 136.dp) / 30.dp).toInt().coerceAtLeast(1)
-        val sichtbar = minOf(anzahl, platz)
-        // Passen nicht alle Punkte hin, wandert der Ausschnitt mit der Auswahl mit.
-        val oberster = when {
-            anzahl <= platz -> anzahl - 1
-            index >= 0 -> (index + platz / 2).coerceIn(platz - 1, anzahl - 1)
-            else -> anzahl - 1
-        }
-        Surface(
-            shape = RoundedCornerShape(20.dp),
-            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
-            tonalElevation = 2.dp,
+    val punktFarbe = MaterialTheme.colorScheme.outline
+    val aktivFarbe = MaterialTheme.colorScheme.primary
+    val platz = ((maxHoehe - 136.dp) / 30.dp).toInt().coerceAtLeast(1)
+    val sichtbar = minOf(anzahl, platz)
+    // Passen nicht alle Punkte hin, wandert der Ausschnitt mit der aktiven Ebene mit.
+    val oberster = when {
+        anzahl <= platz -> anzahl - 1
+        index >= 0 -> (index + platz / 2).coerceIn(platz - 1, anzahl - 1)
+        else -> anzahl - 1
+    }
+    Surface(
+        shape = RoundedCornerShape(20.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+        tonalElevation = 2.dp,
+    ) {
+        Column(
+            modifier = Modifier.padding(vertical = 6.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier.padding(vertical = 6.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+            IconButton(
+                onClick = { if (index in 0 until anzahl - 1) onWahl(ebenen[index + 1].id) },
+                enabled = index in 0 until anzahl - 1,
+                modifier = Modifier.size(40.dp),
             ) {
-                IconButton(
-                    onClick = {
-                        if (index < 0) flaechen.lastOrNull()?.let { onWahl(it.id) } else onWahl(flaechen[index + 1].id)
-                    },
-                    enabled = anzahl > 0 && (index < 0 || index < anzahl - 1),
-                    modifier = Modifier.size(40.dp),
+                Icon(
+                    painter = painterResource(R.drawable.ic_pfeil_hoch),
+                    contentDescription = stringResource(R.string.ebene_nach_vorn),
+                )
+            }
+            for (i in oberster downTo (oberster - sichtbar + 1)) {
+                val e = ebenen[i]
+                val aktiv = e.id == aktiveId
+                Box(
+                    modifier = Modifier
+                        .size(width = 40.dp, height = 30.dp)
+                        .clickable { onWahl(e.id) },
+                    contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_pfeil_hoch),
-                        contentDescription = stringResource(R.string.ebene_nach_vorn),
-                    )
-                }
-                for (i in oberster downTo (oberster - sichtbar + 1)) {
-                    val f = flaechen[i]
-                    val art = Oberflaeche.vonSchluessel(f.oberflaeche)
-                    val gewaehlt = f.id == gewaehltId
-                    Box(
-                        modifier = Modifier
-                            .size(width = 40.dp, height = 30.dp)
-                            .clickable { onWahl(f.id) },
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Canvas(modifier = Modifier.size(26.dp)) {
-                            val r = (if (gewaehlt) 9f else 6f) * density
-                            drawCircle(art.fuellung, radius = r, center = center)
-                            drawCircle(art.rand, radius = r, center = center, style = Stroke(width = 1.5f * density))
-                            if (gewaehlt) {
-                                drawCircle(ringFarbe, radius = 11f * density, center = center, style = Stroke(width = 2.5f * density))
-                            }
+                    Canvas(modifier = Modifier.size(26.dp)) {
+                        val r = (if (aktiv) 8f else 6f) * density
+                        if (e.ausgeblendet) {
+                            drawCircle(punktFarbe, radius = r, center = center, style = Stroke(width = 1.5f * density))
+                        } else {
+                            drawCircle(if (aktiv) aktivFarbe else punktFarbe, radius = r, center = center)
+                        }
+                        if (aktiv) {
+                            drawCircle(ringFarbe, radius = 11f * density, center = center, style = Stroke(width = 2.5f * density))
                         }
                     }
                 }
-                IconButton(
-                    onClick = {
-                        if (index < 0) flaechen.firstOrNull()?.let { onWahl(it.id) } else onWahl(flaechen[index - 1].id)
-                    },
-                    enabled = anzahl > 0 && (index < 0 || index > 0),
-                    modifier = Modifier.size(40.dp),
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_pfeil_runter),
-                        contentDescription = stringResource(R.string.ebene_nach_hinten),
-                    )
-                }
-                IconButton(onClick = onListe, modifier = Modifier.size(40.dp)) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_auge),
-                        contentDescription = stringResource(R.string.ebenen_liste_oeffnen),
-                    )
-                }
+            }
+            IconButton(
+                onClick = { if (index > 0) onWahl(ebenen[index - 1].id) },
+                enabled = index > 0,
+                modifier = Modifier.size(40.dp),
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_pfeil_runter),
+                    contentDescription = stringResource(R.string.ebene_nach_hinten),
+                )
+            }
+            IconButton(onClick = onListe, modifier = Modifier.size(40.dp)) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_auge),
+                    contentDescription = stringResource(R.string.ebenen_liste_oeffnen),
+                )
             }
         }
     }
 }
 
-/** Liste aller Ebenen, vorderste zuerst. Ein Tipp wählt die Fläche aus (auch wenn sie verdeckt liegt). */
+/**
+ * Die ausgeklappte Liste: eine Zeile je Ebene (vorderste zuerst) mit Name, Anzahl, Auge zum
+ * Ausblenden und Menü. Ein Pfeil klappt die Ebene auf und zeigt ihre Flächen.
+ */
 @Composable
-private fun EbenenListeDialog(
+private fun EbenenListe(
+    ebenen: List<Ebene>,
     flaechen: List<Flaeche>,
-    gewaehltId: Long?,
-    onWahl: (Long) -> Unit,
-    onSchliessen: () -> Unit,
+    aktiveId: Long?,
+    gewaehlteFlaecheId: Long?,
+    onWaehleEbene: (Long) -> Unit,
+    onWaehleFlaeche: (Long) -> Unit,
+    onNeueEbene: () -> Unit,
+    onUmbenennen: (Long) -> Unit,
+    onNachVorn: (Long) -> Unit,
+    onNachHinten: (Long) -> Unit,
+    onLoeschen: (Long) -> Unit,
+    onAusgeblendet: (Long, Boolean) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val vorneZuerst = flaechen.asReversed()
-    AlertDialog(
-        onDismissRequest = onSchliessen,
-        title = { Text(stringResource(R.string.ebenen_titel)) },
-        text = {
-            if (vorneZuerst.isEmpty()) {
-                Text(stringResource(R.string.ebenen_leer))
-            } else {
-                LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
-                    itemsIndexed(vorneZuerst) { position, f ->
+    var aufgeklappt by remember { mutableStateOf(setOf<Long>()) }
+    var menueFuer by remember { mutableStateOf<Long?>(null) }
+    val vorneZuerst = ebenen.asReversed()
+    val jeEbene = remember(flaechen) { flaechen.groupBy { it.ebeneId } }
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f),
+        tonalElevation = 4.dp,
+        shadowElevation = 4.dp,
+    ) {
+        LazyColumn(contentPadding = PaddingValues(6.dp)) {
+            item(key = "neu") {
+                TextButton(onClick = onNeueEbene, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.ebene_neu))
+                }
+            }
+            for (e in vorneZuerst) {
+                item(key = "e" + e.id) {
+                    val nummer = ebenen.indexOfFirst { it.id == e.id } + 1
+                    val anzahl = jeEbene[e.id]?.size ?: 0
+                    val aktiv = e.id == aktiveId
+                    val offen = e.id in aufgeklappt
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                if (aktiv) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
+                                RoundedCornerShape(8.dp),
+                            ),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        IconButton(
+                            onClick = { aufgeklappt = if (offen) aufgeklappt - e.id else aufgeklappt + e.id },
+                            modifier = Modifier.size(36.dp),
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_pfeil_runter),
+                                contentDescription = stringResource(R.string.ebene_aufklappen),
+                                modifier = Modifier.rotate(if (offen) 0f else -90f),
+                            )
+                        }
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable { onWaehleEbene(e.id) }
+                                .padding(vertical = 4.dp),
+                        ) {
+                            Text(
+                                text = e.name ?: stringResource(R.string.ebene_nr, nummer),
+                                style = MaterialTheme.typography.bodyLarge,
+                                maxLines = 1,
+                                color = if (e.ausgeblendet) {
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                                } else {
+                                    Color.Unspecified
+                                },
+                            )
+                            Text(
+                                text = if (anzahl == 1) {
+                                    stringResource(R.string.element_eins)
+                                } else {
+                                    stringResource(R.string.elemente_n, anzahl)
+                                },
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
+                        IconButton(
+                            onClick = { onAusgeblendet(e.id, !e.ausgeblendet) },
+                            modifier = Modifier.size(36.dp),
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    if (e.ausgeblendet) R.drawable.ic_verborgen else R.drawable.ic_sichtbar,
+                                ),
+                                contentDescription = stringResource(
+                                    if (e.ausgeblendet) R.string.ebene_einblenden else R.string.ebene_ausblenden,
+                                ),
+                            )
+                        }
+                        Box {
+                            IconButton(onClick = { menueFuer = e.id }, modifier = Modifier.size(36.dp)) {
+                                Text("⋮", style = MaterialTheme.typography.titleLarge)
+                            }
+                            DropdownMenu(expanded = menueFuer == e.id, onDismissRequest = { menueFuer = null }) {
+                                MenuePunkt(R.string.ebene_umbenennen) {
+                                    menueFuer = null
+                                    onUmbenennen(e.id)
+                                }
+                                if (nummer < ebenen.size) {
+                                    MenuePunkt(R.string.ebene_vor) {
+                                        menueFuer = null
+                                        onNachVorn(e.id)
+                                    }
+                                }
+                                if (nummer > 1) {
+                                    MenuePunkt(R.string.ebene_zurueck) {
+                                        menueFuer = null
+                                        onNachHinten(e.id)
+                                    }
+                                }
+                                if (ebenen.size > 1) {
+                                    MenuePunkt(R.string.loeschen) {
+                                        menueFuer = null
+                                        onLoeschen(e.id)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (e.id in aufgeklappt) {
+                    val ihre = jeEbene[e.id].orEmpty().sortedByDescending { it.reihenfolge }
+                    items(ihre, key = { "f" + it.id }) { f ->
                         val art = Oberflaeche.vonSchluessel(f.oberflaeche)
-                        val gewaehlt = f.id == gewaehltId
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .padding(start = 36.dp)
                                 .background(
-                                    if (gewaehlt) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
+                                    if (f.id == gewaehlteFlaecheId) {
+                                        MaterialTheme.colorScheme.tertiaryContainer
+                                    } else {
+                                        Color.Transparent
+                                    },
                                     RoundedCornerShape(8.dp),
                                 )
-                                .clickable { onWahl(f.id) }
-                                .padding(horizontal = 8.dp, vertical = 8.dp),
+                                .clickable { onWaehleFlaeche(f.id) }
+                                .padding(horizontal = 8.dp, vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Farbfeld(art)
                             Spacer(modifier = Modifier.width(10.dp))
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = f.name ?: stringResource(R.string.flaeche_ohne_name),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    maxLines = 1,
-                                )
-                                Text(stringResource(art.nameRes), style = MaterialTheme.typography.bodySmall)
-                            }
                             Text(
-                                stringResource(R.string.ebene_nr, vorneZuerst.size - position),
+                                text = f.name ?: stringResource(art.nameRes),
                                 style = MaterialTheme.typography.bodyMedium,
+                                maxLines = 1,
                             )
                         }
                     }
                 }
             }
-        },
-        confirmButton = {
-            TextButton(onClick = onSchliessen) { Text(stringResource(R.string.ok)) }
-        },
-    )
+        }
+    }
 }

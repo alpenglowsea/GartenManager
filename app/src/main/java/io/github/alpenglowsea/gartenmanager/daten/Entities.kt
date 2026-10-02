@@ -44,6 +44,32 @@ data class Garten(
 )
 
 /**
+ * Eine Ebene ist ein Behälter für mehrere Flächen und Gegenstände (Teilschritt 3a2). Die
+ * Ebenen werden von hinten nach vorn gezeichnet; [reihenfolge] bestimmt den Platz (höhere
+ * Zahl = weiter vorn). [name] leer = "Ebene n". [ausgeblendet]: die ganze Ebene wird weder
+ * gezeichnet noch angetippt. Wird der Garten gelöscht, verschwinden auch seine Ebenen.
+ */
+@Entity(
+    tableName = "ebene",
+    foreignKeys = [
+        ForeignKey(
+            entity = Garten::class,
+            parentColumns = ["id"],
+            childColumns = ["gartenId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("gartenId")],
+)
+data class Ebene(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val gartenId: Long,
+    val name: String? = null,
+    val reihenfolge: Int = 0,
+    val ausgeblendet: Boolean = false,
+)
+
+/**
  * Eine gezeichnete Fläche (Beet, Rasen, Terrasse, ...). Wird der Garten gelöscht,
  * verschwinden auch seine Flächen (CASCADE). Wer oben liegt, bestimmt [reihenfolge]
  * (höhere Zahl = weiter oben). [oberflaeche] ist ein Schlüssel wie "gras"; das
@@ -58,12 +84,19 @@ data class Garten(
             childColumns = ["gartenId"],
             onDelete = ForeignKey.CASCADE,
         ),
+        ForeignKey(
+            entity = Ebene::class,
+            parentColumns = ["id"],
+            childColumns = ["ebeneId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index("gartenId")],
+    indices = [Index("gartenId"), Index("ebeneId")],
 )
 data class Flaeche(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val gartenId: Long,
+    val ebeneId: Long,
     val name: String? = null,
     val oberflaeche: String = "gras",
     val reihenfolge: Int = 0,
@@ -113,12 +146,19 @@ data class Punkt(
             childColumns = ["gartenId"],
             onDelete = ForeignKey.CASCADE,
         ),
+        ForeignKey(
+            entity = Ebene::class,
+            parentColumns = ["id"],
+            childColumns = ["ebeneId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index("gartenId")],
+    indices = [Index("gartenId"), Index("ebeneId")],
 )
 data class Gegenstand(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val gartenId: Long,
+    val ebeneId: Long,
     val art: String,
     val name: String? = null,
     val mitteX: Float = 0f,

@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gegenstände, Maßstab und Ebenen (Umsetzungsschritt 3)
 
-Stand: 02.10.2026, Version 0.4 (dritte Runde vom 02.10.2026 eingearbeitet, keine offenen Fragen; Teilschritt 3a gebaut und als Vorschlag geliefert)
+Stand: 02.10.2026, Version 0.6 (Antworten zu den Ebenen eingearbeitet, keine offenen Fragen; Teilschritt 3a2 gebaut und als Vorschlag geliefert)
 
 Dieses Dokument beschreibt, **wie Gegenstände (Häuser, Garagen, Autos, Gartenmöbel, Zäune, Bewässerung, Deko), ein Maßstab und eine Ebenenliste in den Garten kommen**, bevor Code entsteht. Pflanzen kommen in Schritt 4, nutzen aber dieselben Bedienweisen.
 
@@ -61,6 +61,19 @@ Die Bilder in `symbole-gegenstaende.png` sind **Skizzen von mir** (Detailgrad vo
 - **Freies Gebäude:** Unterschied zwischen "Haus (Rechteck)" und "Gebäude (freie Form)" bleibt. Das freie Gebäude muss **drehbar** sein (Drehgriff wie bei den anderen Gegenständen). **Entschieden**
 - **"Maßstab festlegen" entfällt.** Größen werden an den Griffen angepasst, nicht durch Zahleneingabe. Der Maßstab bleibt als Wert pro Garten gespeichert (Standard 10 Einheiten pro Meter), ist aber nicht einstellbar. **Entschieden**
 - **Ebenenleiste (neu beschrieben):** dezente Leiste am rechten Rand; jede Ebene ist ein Punkt, der Punkt der aktuellen Ebene ist leicht hervorgehoben; oben ein Pfeil nach oben, unten ein Pfeil nach unten, damit geht man durch die Ebenen; unter dem unteren Pfeil ein dezentes Auge, ein Tipp darauf öffnet die Liste aller Einträge, nach Ebene sortiert. Das Auge blendet **nicht** einzelne Elemente aus (die Spalte "Sichtbar" entfällt). **Entschieden**
+
+**Test von Teilschritt 3a (02.10.2026):** Lineale (nur im Bearbeitungsmodus, wandern mit, lesbar, Breite in Ordnung), Gitter (passt zu den Lineal-Zahlen, feine Unterteilung vorhanden), Ebenenleiste (Pfeile, einzelne Punkte, Auge mit Liste funktionieren), Fläche in m² plausibel, Spaten-Symbol gut. **In Ordnung.** Wünsche daraus:
+
+- **Die Liste aller Ebenen soll sich ausklappen** (an der Leiste), statt ein eigenes Fenster zu öffnen. **Entschieden**
+- **Mehrere Flächen sollen in einer Ebene liegen können.** Bisher macht jede Fläche eine eigene Ebene auf und lässt sich mit "Nach vorn/hinten" nur in eine eigene Ebene verschieben. **Gewünscht**, Umsetzung siehe Abschnitt 8 (Vorschlag, Rückfragen in Abschnitt 9)
+
+**Vierte Runde (02.10.2026, Ebenen als Gruppen):**
+
+- Eine **Ebene ist ein Behälter** für mehrere Flächen und Gegenstände. Neue Elemente kommen in die **aktive Ebene**. **Entschieden**
+- **"Nach vorn / Nach hinten" im Menü verschiebt das Element in die Nachbarebene.** Die Reihenfolge innerhalb einer Ebene ist erst einmal egal (neues Element liegt oben, kein Bedienelement dafür). Ein Punkt "In andere Ebene verschieben" ist deshalb nicht nötig. **Entschieden**
+- **Ebene löschen: es wird gefragt**, ob alle Elemente mitgelöscht oder in die Nachbarebene verschoben werden. Eine leere Ebene wird ohne Rückfrage gelöscht. Die letzte Ebene lässt sich nicht löschen. **Entschieden**
+- **Auge pro Ebene** in der ausgeklappten Liste zum Ausblenden der ganzen Ebene (gespeichert). Es sieht **anders aus** als das Auge an der Leiste (ausgefülltes Auge = sichtbar, geschlossenes Auge mit Wimpern = ausgeblendet). **Entschieden**
+- Die **Punkte der Leiste sind neutral** gefärbt (aktive Ebene größer, mit Ring; ausgeblendete Ebene nur als Ring). **Entschieden**
 
 ---
 
@@ -156,21 +169,34 @@ Flächen und Gegenstände (später Pflanzen) haben **eine gemeinsame Reihenfolge
 
 Technisch bekommen Flächen und Gegenstände ihre Reihenfolgenummern aus **einem gemeinsamen Zähler pro Garten**, damit es keine Doppelten gibt.
 
-### 8.2 Ebenenleiste (Entschieden, Teilschritt 3a gebaut)
+### 8.2 Ebenen als Gruppen (Entschieden, Teilschritt 3a2 gebaut)
 
-- Nur im Bearbeitungsmodus, **am rechten Fensterrand** (die Lineale sind oben und links). Während man eine Fläche oder Form zeichnet, ist sie ausgeblendet.
-- **Dezent:** schmale, halbtransparente Leiste. **Jede Ebene ist ein Punkt** (in der Farbe der Oberfläche), ganz oben die vorderste. Der Punkt der ausgewählten Ebene ist größer und hat einen Ring.
-- **Pfeil nach oben** (am oberen Rand) wählt die nächste Ebene weiter vorn, **Pfeil nach unten** (am unteren Rand) die nächste weiter hinten. Ist nichts ausgewählt, wählt der Pfeil nach oben die vorderste, der nach unten die hinterste. Ein Tipp auf einen Punkt springt direkt zu dieser Ebene.
-- **Auge** (unter dem Pfeil nach unten): öffnet die **Liste aller Einträge, vorderste zuerst**, mit Farbfeld, Name, Oberfläche und Ebenennummer. Ein Tipp wählt den Eintrag aus (auch wenn er unter einer Fläche liegt).
-- Bei sehr vielen Ebenen zeigt die Leiste nur so viele Punkte, wie hineinpassen, der Ausschnitt wandert mit der Auswahl mit.
-- Die Ebenen werden **nicht** durch Ziehen oder in der Leiste umsortiert, sondern wie bisher im Flächenmenü (Nach vorn, Nach hinten). Umsortieren per Ziehen in der Liste wäre später möglich.
-- **Verdecktes zeigen:** Ein Schalter zeichnet alles, was unter einer Fläche liegt, zusätzlich halbtransparent obenauf (zum Beispiel die Bewässerung unter dem Rasen). Nur eine Ansichtsfunktion, ändert keine Reihenfolge. **Entschieden**, Umsetzung in 3c, wenn die Bewässerung kommt.
+Eine Ebene ist ein Behälter, in dem **mehrere Flächen und Gegenstände zusammen liegen**, so wie Ebenen in Photoshop. Beispiele: Ebene "Rasen und Beete", Ebene "Gebäude", Ebene "Bewässerung" (unter allem).
+
+- **Zeichenreihenfolge:** Die Ebenen werden von hinten nach vorn gezeichnet. Innerhalb einer Ebene liegt das zuletzt angelegte Element oben (ohne Bedienelement zum Ändern).
+- **Aktive Ebene:** die in der Leiste hervorgehobene. Wählt man ein Element an, wird seine Ebene aktiv. **Neue Flächen und Gegenstände landen in der aktiven Ebene.** Zeichnet man in eine ausgeblendete Ebene, wird sie wieder eingeblendet.
+- Jeder Garten hat **mindestens eine Ebene** ("Ebene 1", wird beim ersten Öffnen angelegt).
+
+**Ebenenleiste (rechter Rand, nur im Bearbeitungsmodus, nicht beim Zeichnen):**
+- Jeder **Punkt ist eine Ebene**, ganz oben die vorderste. Die aktive Ebene ist größer und hat einen Ring, ausgeblendete Ebenen sind nur ein Ring. Punkte sind neutral gefärbt.
+- **Pfeile** wechseln die aktive Ebene (nach vorn, nach hinten), ein Tipp auf einen Punkt springt direkt zu dieser Ebene. Dabei wird die Auswahl aufgehoben.
+- **Auge:** klappt die **Liste** direkt neben der Leiste aus und wieder ein.
+- Bei sehr vielen Ebenen zeigt die Leiste nur so viele Punkte, wie hineinpassen, der Ausschnitt wandert mit der aktiven Ebene.
+
+**Ausgeklappte Liste:**
+- Oben **"+ Neue Ebene"** (kommt direkt vor die aktive Ebene).
+- Eine Zeile je Ebene, vorderste zuerst: kleiner Pfeil zum Aufklappen (zeigt die **Flächen** der Ebene, Tipp darauf wählt sie aus, auch wenn sie verdeckt liegt), Name (oder "Ebene n") mit Anzahl der Elemente (Tipp macht die Ebene aktiv), **Auge zum Ausblenden** der ganzen Ebene, Menü **⋮** mit Umbenennen, Eine Ebene nach vorn, Eine Ebene nach hinten, Löschen.
+- Die aktive Ebene ist farbig hervorgehoben, ausgeblendete Ebenen sind abgeblendet beschriftet.
+
+**Menü einer Fläche (langer Tipp):** "Eine Ebene nach vorn" / "Eine Ebene nach hinten" verschiebt in die Nachbarebene (landet dort oben).
+
+**Verdecktes zeigen:** Ein Schalter zeichnet alles, was von darüberliegenden Ebenen verdeckt ist, zusätzlich halbtransparent obenauf (zum Beispiel die Bewässerung unter dem Rasen). Nur eine Ansichtsfunktion. **Entschieden**, Umsetzung in 3c.
 
 ---
 
 ## 9. Rückfragen
 
-Keine offenen Fragen mehr. Alles Entschiedene steht in Abschnitt 2.
+Keine offenen Fragen. Alles Entschiedene steht in Abschnitt 2.
 
 ---
 
@@ -181,6 +207,7 @@ Wie bei Schritt 2: Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHu
 | Schritt | Ergebnis auf dem Handy |
 |---|---|
 | 3a | **Maßstab und Ebenenliste:** Datenbankversion 3 (Garten bekommt den Maßstab, Fläche bekommt eine Farbspalte, gemeinsamer Reihenfolgenzähler, Tabellen Gegenstand und Gegenstandspunkt schon angelegt). Lineale oben und links im Bearbeitungsmodus (fester Nullpunkt), Gitter in Metern, Karte zeigt Maße und ungefähre Fläche in m². **Ebenenleiste am rechten Rand** (Punkte, Pfeile, Auge mit Liste), zunächst nur mit Flächen. Noch keine Gegenstände. |
+| 3a2 | **Überarbeitung von 3a (Ebenen als Gruppen), gebaut und als Vorschlag geliefert:** Datenbankversion 4 (Tabelle Ebene, Ebene bei Flächen und Gegenständen), aktive Ebene, Leiste mit einem Punkt je Ebene, ausklappbare Liste (Ebenen mit ihren Flächen, Neue Ebene, Umbenennen, Löschen mit Rückfrage, vor/zurück, Auge pro Ebene), "Eine Ebene nach vorn/hinten" im Flächenmenü, neue Flächen kommen in die aktive Ebene, Rückgängig und Garten duplizieren berücksichtigen Ebenen. |
 | 3b | **Gegenstände, Kern:** Knopf "Gegenstand", Katalog (alle Einträge außer den schmalen), Platzieren, Anzeige, Auswählen, Verschieben, **Größe ändern mit Maßanzeige live, Drehen**, Gebäude in freier Form, Menü (Name, Duplizieren, 90 Grad, vor/zurück, ganz nach hinten, Löschen), Karte, Rückgängig, Gegenstände erscheinen in der Ebenenliste, Duplizieren des Gartens kopiert sie mit. |
 | 3c | **Farbe, schmale Gegenstände, Verdecktes zeigen:** Farbauswahl (12 Felder) für Gegenstände **und Flächen** (Muster bleibt), Zaun, Hecke, Mauer und Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". |
 | 3d | **Feinschliff** nach deinen Tests: Symbole verbessern, kleine Wünsche. |
@@ -193,9 +220,11 @@ Wie lange das dauert, kann ich nicht seriös schätzen.
 
 ## 11. Was gespeichert wird (Datei 2 "Meine Daten")
 
+**Ebene** (neu in 3a2, gebaut): Nummer, Garten, Name (leer = "Ebene n"), Reihenfolge (höher = weiter vorn), ausgeblendet (ja/nein).
+
 **Garten**: neue Spalte **Maßstab** (Skizzeneinheiten pro Meter, Standard 10).
 
-**Fläche**: neue Spalte **Farbe** (Zahl, leer = Standardfarbe der Oberfläche). Die Reihenfolge kommt künftig aus dem gemeinsamen Zähler.
+**Fläche**: neue Spalte **Farbe** (Zahl, leer = Standardfarbe der Oberfläche). Ab 3a2 zusätzlich **Ebene**; die Reihenfolge gilt dann innerhalb der Ebene (gemeinsamer Zähler mit den Gegenständen derselben Ebene).
 
 Neue Tabelle **Gegenstand** (ab 3a angelegt, ab 3b benutzt):
 
@@ -209,7 +238,8 @@ Neue Tabelle **Gegenstand** (ab 3a angelegt, ab 3b benutzt):
 | Breite, Höhe | Größe in Skizzeneinheiten (vor der Drehung); bei freien Gebäuden ungenutzt |
 | Drehung | Grad |
 | Farbe | Hauptfarbe als Zahl, leer = Standard |
-| Reihenfolge | gemeinsame Reihenfolge mit den Flächen |
+| Ebene | in welcher Ebene er liegt (ab 3a2) |
+| Reihenfolge | Reihenfolge innerhalb der Ebene, gemeinsamer Zähler mit den Flächen |
 
 Neue Tabelle **Gegenstandspunkt** (nur für freie Gebäude, Lage relativ zur Mitte, vor der Drehung): Gegenstand, Nummer, X, Y, Art (Ecke oder rund), gleicher Aufbau wie die Punkte der Flächen.
 
@@ -229,3 +259,4 @@ Entwicklungsmodus: Die Datenbank wird bei Änderung neu angelegt (einmaliger Dat
 - **Leistung:** Bei einigen Dutzend Elementen erwarte ich keine Probleme. Muster in Hecke/Zaun wiederholen sich entlang langer Gegenstände, bei sehr langen vielen Stücken könnte es ruckeln (Schätzung, ungetestet).
 - **Farbe bei Flächen:** Eine gewählte Farbe verändert die Wirkung des Musters (kontrastarme Farben, zum Beispiel sehr dunkle). Die Ableitung von Rand und Muster aus der Farbe ist eine Näherung und braucht deinen Blick am Gerät.
 - **Zwei Geometrien:** Rechteckige Gegenstände und freie Gebäude werden verschieden bearbeitet (Griffe gegen Punkte). Das erhöht die Gesten-Komplexität, nutzt aber den bestehenden Flächencode.
+- **Ebenen als Gruppen:** Mehr Zustände (aktive Ebene, ausgeklappte Liste, Auswahl). Ich baue das schrittweise und teste in der Überarbeitung 3a2 nur die Ebenen, ohne Gegenstände. Datenbank wird noch einmal neu angelegt (Testgärten weg).

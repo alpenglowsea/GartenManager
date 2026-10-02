@@ -54,6 +54,111 @@ abstract class GartenDao {
 
     // ---- Flaechen und Punkte ----
 
+    // ---- Ebenen (Behälter für Flächen und Gegenstände) ----
+
+    @Query("SELECT * FROM ebene WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract fun ebenen(gartenId: Long): Flow<List<Ebene>>
+
+    @Query("SELECT * FROM ebene WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract suspend fun ebenenListe(gartenId: Long): List<Ebene>
+
+    @Insert
+    abstract suspend fun fuegeEbeneEin(ebene: Ebene): Long
+
+    @Insert
+    abstract suspend fun fuegeEbenenEin(ebenen: List<Ebene>)
+
+    @Query("DELETE FROM ebene WHERE gartenId = :gartenId")
+    abstract suspend fun loescheEbenenDesGartens(gartenId: Long)
+
+    @Query("DELETE FROM ebene WHERE id = :id")
+    abstract suspend fun loescheEbeneZeile(id: Long)
+
+    @Query("UPDATE ebene SET name = :name WHERE id = :id")
+    abstract suspend fun benenneEbeneUm(id: Long, name: String?)
+
+    @Query("UPDATE ebene SET ausgeblendet = :ausgeblendet WHERE id = :id")
+    abstract suspend fun setzeEbeneAusgeblendet(id: Long, ausgeblendet: Boolean)
+
+    @Query("UPDATE ebene SET reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeEbeneReihenfolge(id: Long, reihenfolge: Int)
+
+    @Query("UPDATE ebene SET reihenfolge = reihenfolge + 1 WHERE gartenId = :gartenId AND reihenfolge > :ueber")
+    abstract suspend fun schiebeEbenenNach(gartenId: Long, ueber: Int)
+
+    @Query("UPDATE flaeche SET ebeneId = :nach WHERE ebeneId = :von")
+    abstract suspend fun verschiebeFlaechenDerEbene(von: Long, nach: Long)
+
+    @Query("SELECT * FROM flaeche WHERE id = :id")
+    abstract suspend fun flaecheMitId(id: Long): Flaeche?
+
+    @Query("UPDATE flaeche SET ebeneId = :ebeneId, reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeFlaecheEbene(id: Long, ebeneId: Long, reihenfolge: Int)
+
+    /**
+     * Gibt die gewünschte Ebene zurück, wenn es sie in diesem Garten gibt. Sonst die vorderste.
+     * Hat der Garten noch gar keine Ebene, wird die erste angelegt.
+     */
+    @Transaction
+    open suspend fun ebeneFuer(gartenId: Long, gewuenscht: Long?): Long {
+        val liste = ebenenListe(gartenId)
+        if (gewuenscht != null && liste.any { it.id == gewuenscht }) return gewuenscht
+        if (liste.isNotEmpty()) return liste.last().id
+        return fuegeEbeneEin(Ebene(gartenId = gartenId, reihenfolge = 0))
+    }
+
+    /** Legt eine neue, leere Ebene direkt über [ueber] an (oder ganz vorn, wenn [ueber] fehlt). */
+    @Transaction
+    open suspend fun legeEbeneAn(gartenId: Long, ueber: Long?): Long {
+        val liste = ebenenListe(gartenId)
+        val bezug = liste.firstOrNull { it.id == ueber } ?: liste.lastOrNull()
+        val neueNummer = if (bezug == null) 0 else bezug.reihenfolge + 1
+        if (bezug != null) schiebeEbenenNach(gartenId, bezug.reihenfolge)
+        return fuegeEbeneEin(Ebene(gartenId = gartenId, reihenfolge = neueNummer))
+    }
+
+    /** Verschiebt eine Ebene um [schritt] Plätze (+1 = weiter nach vorn). */
+    @Transaction
+    open suspend fun bewegeEbene(gartenId: Long, ebeneId: Long, schritt: Int) {
+        val liste = ebenenListe(gartenId).toMutableList()
+        val von = liste.indexOfFirst { it.id == ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        val e = liste.removeAt(von)
+        liste.add(nach, e)
+        liste.forEachIndexed { index, eb -> setzeEbeneReihenfolge(eb.id, index) }
+    }
+
+    /**
+     * Löscht eine Ebene, aber nie die letzte. Mit [inhaltBehalten] wandern ihre Flächen in die
+     * Ebene dahinter (bei der hintersten in die davor), sonst werden sie mitgelöscht.
+     */
+    @Transaction
+    open suspend fun loescheEbene(gartenId: Long, ebeneId: Long, inhaltBehalten: Boolean) {
+        val liste = ebenenListe(gartenId)
+        if (liste.size <= 1) return
+        val index = liste.indexOfFirst { it.id == ebeneId }
+        if (index < 0) return
+        if (inhaltBehalten) {
+            val ziel = if (index > 0) liste[index - 1] else liste[index + 1]
+            verschiebeFlaechenDerEbene(ebeneId, ziel.id)
+        }
+        loescheEbeneZeile(ebeneId) // Was dann noch darin liegt, verschwindet mit (CASCADE).
+    }
+
+    /** Verschiebt eine Fläche in die Nachbarebene ([schritt] +1 = nach vorn, -1 = nach hinten). */
+    @Transaction
+    open suspend fun bewegeFlaecheInNachbarebene(gartenId: Long, flaecheId: Long, schritt: Int) {
+        val flaeche = flaecheMitId(flaecheId) ?: return
+        val liste = ebenenListe(gartenId)
+        val von = liste.indexOfFirst { it.id == flaeche.ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        setzeFlaecheEbene(flaecheId, liste[nach].id, hoechsteReihenfolge(gartenId) + 1)
+    }
+
+    // ---- Flaechen und Punkte ----
+
     @Query("SELECT * FROM flaeche WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
     abstract fun flaechen(gartenId: Long): Flow<List<Flaeche>>
 
@@ -147,32 +252,35 @@ abstract class GartenDao {
         schliesseLuecke(flaecheId, nr)
     }
 
-    /** Verschiebt eine Fläche um [schritt] Plätze in der Reihenfolge (+1 = weiter nach oben). */
+    /**
+     * Stellt den Zustand aller Ebenen, Flächen und Punkte eines Gartens aus einem Abbild wieder her.
+     * (Gegenstände kommen mit Teilschritt 3b dazu.)
+     */
     @Transaction
-    open suspend fun bewegeInReihenfolge(gartenId: Long, flaecheId: Long, schritt: Int) {
-        val liste = flaechenListe(gartenId).toMutableList()
-        val von = liste.indexOfFirst { it.id == flaecheId }
-        val nach = von + schritt
-        if (von < 0 || nach < 0 || nach >= liste.size) return
-        val f = liste.removeAt(von)
-        liste.add(nach, f)
-        liste.forEachIndexed { index, fl -> setzeReihenfolge(fl.id, index) }
-    }
-
-    /** Stellt den Zustand aller Flächen und Punkte eines Gartens aus einem Abbild wieder her. */
-    @Transaction
-    open suspend fun stelleWiederHer(gartenId: Long, flaechen: List<Flaeche>, punkte: List<Punkt>) {
+    open suspend fun stelleWiederHer(
+        gartenId: Long,
+        ebenen: List<Ebene>,
+        flaechen: List<Flaeche>,
+        punkte: List<Punkt>,
+    ) {
+        loescheEbenenDesGartens(gartenId) // nimmt wegen CASCADE auch alle Flächen und Punkte mit
         loescheFlaechenDesGartens(gartenId)
+        fuegeEbenenEin(ebenen)
         fuegeFlaechenEin(flaechen)
         fuegePunkteEin(punkte)
         beruehreGarten(gartenId, System.currentTimeMillis())
     }
 
-    /** Legt eine neue Fläche ganz oben an. Die Punkte kommen mit flaecheId = 0 herein. */
+    /**
+     * Legt eine neue Fläche in der Ebene [ebeneId] ganz oben an (gibt es sie nicht, in der
+     * vordersten Ebene). Die Punkte kommen mit flaecheId = 0 herein.
+     */
     @Transaction
-    open suspend fun legeFlaecheAn(gartenId: Long, punkte: List<Punkt>, jetzt: Long): Long {
+    open suspend fun legeFlaecheAn(gartenId: Long, ebeneId: Long?, punkte: List<Punkt>, jetzt: Long): Long {
+        val ziel = ebeneFuer(gartenId, ebeneId)
+        setzeEbeneAusgeblendet(ziel, false) // Wer in eine Ebene zeichnet, soll das Ergebnis auch sehen.
         val flaecheId = fuegeFlaecheEin(
-            Flaeche(gartenId = gartenId, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
+            Flaeche(gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
         )
         fuegePunkteEin(punkte.map { it.copy(flaecheId = flaecheId) })
         beruehreGarten(gartenId, jetzt)
@@ -190,8 +298,14 @@ abstract class GartenDao {
             geaendertAm = jetzt,
         )
         val kopieId = fuegeGartenEin(kopie)
+        // Ebenen zuerst kopieren und merken, welche alte Ebene zu welcher neuen gehört.
+        val neueEbenen = HashMap<Long, Long>()
+        for (ebene in ebenenListe(id)) {
+            neueEbenen[ebene.id] = fuegeEbeneEin(ebene.copy(id = 0, gartenId = kopieId))
+        }
         for (flaeche in flaechenListe(id)) {
-            val neueFlaecheId = fuegeFlaecheEin(flaeche.copy(id = 0, gartenId = kopieId))
+            val ebeneZiel = neueEbenen[flaeche.ebeneId] ?: ebeneFuer(kopieId, null)
+            val neueFlaecheId = fuegeFlaecheEin(flaeche.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
             fuegePunkteEin(
                 punkteListe(flaeche.id).map { it.copy(id = 0, flaecheId = neueFlaecheId) },
             )

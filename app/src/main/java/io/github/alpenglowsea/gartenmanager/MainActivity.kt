@@ -40,15 +40,20 @@ class MainActivity : ComponentActivity() {
                     val gartenId = offenerGarten.id
                     val flaechen by remember(gartenId) { viewModel.flaechen(gartenId) }
                         .collectAsState(initial = emptyList())
+                    val ebenen by remember(gartenId) { viewModel.ebenen(gartenId) }
+                        .collectAsState(initial = emptyList())
                     val punkte by remember(gartenId) { viewModel.punkte(gartenId) }
                         .collectAsState(initial = emptyList())
                     // Beim Betreten oder Verlassen des Bearbeitungsmodus: angefangene Zeichnung
                     // und Rückgängig-Verlauf zurücksetzen.
                     LaunchedEffect(bearbeiten, gartenId) { viewModel.beendeBearbeitung() }
+                    // Jeder Garten hat mindestens eine Ebene.
+                    LaunchedEffect(gartenId) { viewModel.sichereEbene(gartenId) }
 
                     GartenScreen(
                         garten = offenerGarten,
                         flaechen = flaechen,
+                        ebenen = ebenen,
                         punkte = punkte,
                         bearbeiten = bearbeiten,
                         viewModel = viewModel,

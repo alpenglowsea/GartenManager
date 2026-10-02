@@ -16,10 +16,10 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [
-        Grundstueck::class, Garten::class, Flaeche::class, Punkt::class,
+        Grundstueck::class, Garten::class, Ebene::class, Flaeche::class, Punkt::class,
         Gegenstand::class, Gegenstandspunkt::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
