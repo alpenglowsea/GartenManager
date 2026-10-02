@@ -4,6 +4,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -20,6 +21,7 @@ enum class GegenstandsGruppe(val nameRes: Int) {
     SPIEL(R.string.gruppe_spiel),
     GARTEN(R.string.gruppe_garten),
     DEKO(R.string.gruppe_deko),
+    ZAUN(R.string.gruppe_zaun),
 }
 
 /**
@@ -77,6 +79,12 @@ enum class GegenstandsArt(
     STATUE("statue", R.string.gg_statue, GegenstandsGruppe.DEKO, 0.5f, 0.5f, 0xFFB8B8B2),
     VOGELBAD("vogelbad", R.string.gg_vogelbad, GegenstandsGruppe.DEKO, 0.5f, 0.5f, 0xFFA9A9A3),
     LATERNE("laterne", R.string.gg_laterne, GegenstandsGruppe.DEKO, 0.3f, 0.3f, 0xFF3D3D3D),
+
+    // Schmale Gegenstände: Breite = Länge, Höhe = Dicke. Das Muster wiederholt sich entlang der Länge.
+    ZAUN("zaun", R.string.gg_zaun, GegenstandsGruppe.ZAUN, 5f, 0.1f, 0xFF9C7A54),
+    HECKE("hecke", R.string.gg_hecke, GegenstandsGruppe.ZAUN, 4f, 0.6f, 0xFF5FA05A),
+    MAUER("mauer", R.string.gg_mauer, GegenstandsGruppe.ZAUN, 4f, 0.3f, 0xFFA8A8A2),
+    BEWAESSERUNG("bewaesserung", R.string.gg_bewaesserung, GegenstandsGruppe.ZAUN, 5f, 0.1f, 0xFF3B7FBF),
     ;
 
     /** Standardfarbe der Hauptfläche. */
@@ -96,7 +104,14 @@ enum class GegenstandsArt(
  * sind selbst entworfen und bewusst schlicht; sie lassen sich später verfeinern, ohne die
  * Datenbank zu ändern.
  */
-fun DrawScope.zeichneGegenstand(art: GegenstandsArt, breite: Float, hoehe: Float, haupt: Color, dichte: Float) {
+fun DrawScope.zeichneGegenstand(
+    art: GegenstandsArt,
+    breite: Float,
+    hoehe: Float,
+    haupt: Color,
+    dichte: Float,
+    pixelProMeter: Float = 0f,
+) {
     val b = breite
     val h = hoehe
     val rand = lerp(haupt, Color.Black, 0.45f)
@@ -346,6 +361,85 @@ fun DrawScope.zeichneGegenstand(art: GegenstandsArt, breite: Float, hoehe: Float
         GegenstandsArt.LATERNE -> {
             oval(0f, 0f, 1f, 1f, haupt)
             oval(0.28f, 0.28f, 0.44f, 0.44f, Color(0xFFFFE27A), umriss = false)
+        }
+        GegenstandsArt.ZAUN -> {
+            // Latten dicht an dicht, alle 1 m ein Pfosten
+            val meter = if (pixelProMeter > 0f) pixelProMeter else b / art.breiteM
+            rechteck(0f, 0f, 1f, 1f, haupt, 0f)
+            if (b / meter <= 400f) {
+                val latte = meter / 6f
+                if (latte >= 2f * dichte && b / latte <= 1500f) {
+                    var x = latte
+                    while (x < b) {
+                        drawLine(hell.copy(alpha = 0.7f), Offset(x, 0f), Offset(x, h), strokeWidth = strich * 0.7f)
+                        x += latte
+                    }
+                }
+                var x = 0f
+                val pfosten = maxOf(h * 1.5f, 3f * dichte)
+                while (x <= b + 0.01f) {
+                    drawRect(rand, Offset(x - pfosten / 2f, h / 2f - pfosten / 2f), Size(pfosten, pfosten))
+                    x += meter
+                }
+            }
+        }
+        GegenstandsArt.HECKE -> {
+            // Rundliche Büsche nebeneinander in zwei Grüntönen
+            rechteck(0f, 0f, 1f, 1f, dunkel, 0.45f, umriss = false)
+            val busch = maxOf(h * 0.9f, 2f * dichte)
+            if (b / busch <= 800f) {
+                var x = busch / 2f
+                var i = 0
+                while (x < b) {
+                    drawCircle(if (i % 2 == 0) haupt else hell, radius = h * 0.46f, center = Offset(x, h / 2f))
+                    x += busch
+                    i++
+                }
+            }
+            rechteck(0f, 0f, 1f, 1f, Color.Transparent, 0.45f)
+        }
+        GegenstandsArt.MAUER -> {
+            // Steine: senkrechte Fugen, bei dickeren Mauern zusätzlich eine Lagerfuge in der Mitte
+            rechteck(0f, 0f, 1f, 1f, haupt, 0f)
+            val stein = maxOf(h * 2.2f, 4f * dichte)
+            if (b / stein <= 800f) {
+                var x = stein
+                var i = 0
+                while (x < b) {
+                    if (h > 8f * dichte) {
+                        val oben = i % 2 == 0
+                        drawLine(rand, Offset(x, if (oben) 0f else h / 2f), Offset(x, if (oben) h / 2f else h), strokeWidth = strich * 0.8f)
+                        drawLine(rand, Offset(x - stein / 2f, if (oben) h / 2f else 0f), Offset(x - stein / 2f, if (oben) h else h / 2f), strokeWidth = strich * 0.8f)
+                    } else {
+                        drawLine(rand, Offset(x, 0f), Offset(x, h), strokeWidth = strich * 0.8f)
+                    }
+                    x += stein
+                    i++
+                }
+                if (h > 8f * dichte) drawLine(rand, Offset(0f, h / 2f), Offset(b, h / 2f), strokeWidth = strich * 0.8f)
+            }
+        }
+        GegenstandsArt.BEWAESSERUNG -> {
+            // Gestrichelte Leitung, alle 2 m ein Regner
+            val meter = if (pixelProMeter > 0f) pixelProMeter else b / art.breiteM
+            val dicke = maxOf(strich * 1.4f, h * 0.6f)
+            val strichLaenge = maxOf(meter / 6f, 3f * dichte)
+            drawLine(
+                haupt,
+                Offset(0f, h / 2f),
+                Offset(b, h / 2f),
+                strokeWidth = dicke,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(strichLaenge, strichLaenge * 0.6f)),
+            )
+            if (b / (2f * meter) <= 300f) {
+                val regner = maxOf(h * 1.6f, 3.5f * dichte)
+                var x = meter
+                while (x < b) {
+                    drawCircle(wasser, radius = regner, center = Offset(x, h / 2f))
+                    drawCircle(rand, radius = regner, center = Offset(x, h / 2f), style = Stroke(strich))
+                    x += 2f * meter
+                }
+            }
         }
     }
 }

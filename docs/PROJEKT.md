@@ -289,3 +289,9 @@ Als Nächstes:
 - Keine neue Datenbankversion gegenüber 3a3 (Version 5).
 - Fehler in 3a3 gefunden und behoben: Die Ebenenliste kannte die neue Parameterbezeichnung des Auges noch nicht, der Bau von 3a3 wäre fehlgeschlagen.
 - Noch nicht gebaut, nicht getestet.
+
+
+### Tests und Teilschritt 3c
+- Test von 3a3 (dreistufiges Auge, Namen, Liste schließen): alle 4 Tests in Ordnung.
+- Test von 3b (Gegenstände): alle 10 Tests in Ordnung, der Bau hat geklappt.
+- Teilschritt 3c als Vorschlag geliefert: Farbwahl (12 Felder) für Gegenstände und Flächen, Zaun/Hecke/Mauer/Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". Keine neue Datenbankversion. Noch nicht gebaut, nicht getestet.

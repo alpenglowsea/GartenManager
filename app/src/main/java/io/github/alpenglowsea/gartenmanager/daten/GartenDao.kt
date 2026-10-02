@@ -218,6 +218,12 @@ abstract class GartenDao {
         drehung: Float,
     )
 
+    @Query("UPDATE gegenstand SET farbe = :farbe WHERE id = :id")
+    abstract suspend fun setzeGegenstandFarbe(id: Long, farbe: Int?)
+
+    @Query("UPDATE flaeche SET farbe = :farbe WHERE id = :id")
+    abstract suspend fun setzeFlaecheFarbe(id: Long, farbe: Int?)
+
     @Query("UPDATE gegenstand SET name = :name WHERE id = :id")
     abstract suspend fun benenneGegenstandUm(id: Long, name: String?)
 

@@ -42,6 +42,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -215,6 +216,7 @@ private fun DrawScope.zeichneGegenstandBild(
     inDerHand: Boolean,
     umriss: Color?,
     umrissBreite: Float,
+    pixelProMeter: Float,
 ) {
     val art = GegenstandsArt.vonSchluessel(g.art)
     val haupt = g.farbe?.let { Color(it) } ?: art.farbe
@@ -225,7 +227,7 @@ private fun DrawScope.zeichneGegenstandBild(
         rotate(g.drehung, Offset.Zero)
         translate(-w / 2f, -h / 2f)
     }) {
-        zeichneGegenstand(art, w, h, if (inDerHand) lerp(haupt, Color.White, 0.35f) else haupt, dichte)
+        zeichneGegenstand(art, w, h, if (inDerHand) lerp(haupt, Color.White, 0.35f) else haupt, dichte, pixelProMeter)
         if (inDerHand) drawRect(Color.White.copy(alpha = 0.2f), size = Size(w, h))
         if (umriss != null) drawRect(umriss, size = Size(w, h), style = Stroke(width = umrissBreite))
     }
@@ -337,6 +339,8 @@ fun GartenScreen(
     // Flächenmenü (langer Tipp auf eine Fläche): Stelle des Fingers, sonst null
     var flaechenMenue by remember { mutableStateOf<Offset?>(null) }
     var oberflaecheDialog by remember { mutableStateOf(false) }
+    var flaechenFarbeDialog by remember { mutableStateOf(false) }
+    var gFarbeDialog by remember { mutableStateOf(false) }
     // In der Ansicht angetippte Fläche (zeigt Name und Oberfläche)
     var infoFlaecheId by remember { mutableStateOf<Long?>(null) }
     // Liste aller Ebenen (Auge in der Ebenenleiste)
@@ -461,6 +465,21 @@ fun GartenScreen(
         val h = g.hoehe * faktor
         val eckRadius = (minOf(w, h) * 0.35f).coerceIn(14f * dichte, 26f * dichte)
         val liste = mutableListOf<GriffInfo>()
+        if (minOf(w, h) < 40f * dichte) {
+            // Schmaler Gegenstand (Zaun, Hecke, ...): nur Griffe an den Enden der langen Seite, damit die
+            // Mitte zum Verschieben frei bleibt. Die Dicke ändert man nach dem Hineinzoomen.
+            val laenge = maxOf(w, h)
+            val rad = (laenge * 0.3f).coerceIn(12f * dichte, 22f * dichte)
+            if (w >= h) {
+                liste.add(GriffInfo(-1, 0, false, gBild(g, -w / 2f, 0f), rad))
+                liste.add(GriffInfo(1, 0, false, gBild(g, w / 2f, 0f), rad))
+            } else {
+                liste.add(GriffInfo(0, -1, false, gBild(g, 0f, -h / 2f), rad))
+                liste.add(GriffInfo(0, 1, false, gBild(g, 0f, h / 2f), rad))
+            }
+            liste.add(GriffInfo(0, 0, true, gBild(g, 0f, -(h / 2f + 36f * dichte)), 24f * dichte))
+            return liste
+        }
         for (sx in -1..1) {
             for (sy in -1..1) {
                 if (sx == 0 && sy == 0) continue
@@ -892,7 +911,7 @@ fun GartenScreen(
                 zeichneGitter(zoom, dichte, garten.massstab, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
 
                 // Fertige Flächen: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
-                for (el in sichtbareElemente) {
+                fun zeichneElement(el: Element) {
                     val gegenstand = el.gegenstand
                     if (gegenstand != null) {
                         val live = gLive(gegenstand)
@@ -909,13 +928,14 @@ fun GartenScreen(
                             inDerHandG,
                             if (imInfo) achsenFarbe else if (inDerHandG) rahmenFarbe else null,
                             (if (imInfo) 4f else 6f) * dichte,
+                            faktor * garten.massstab,
                         )
                         if (blassG) drawContext.canvas.restore()
-                        continue
+                        return
                     }
-                    val flaeche = el.flaeche ?: continue
-                    val ihre = punkteJeFlaeche[flaeche.id] ?: continue
-                    if (ihre.size < 3) continue
+                    val flaeche = el.flaeche ?: return
+                    val ihre = punkteJeFlaeche[flaeche.id] ?: return
+                    if (ihre.size < 3) return
                     val bild = bildPunkte(flaeche, ihre)
                     val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
                     val blass = flaeche.ebeneId in blasseEbenen
@@ -923,12 +943,13 @@ fun GartenScreen(
                     val inDerHand = bewegt && ziehen?.punktId == null && ziehen?.flaecheId == flaeche.id
                     val art = Oberflaeche.vonSchluessel(flaeche.oberflaeche)
                     // Angefasste Fläche: Farbe heller und greller, damit man sieht, was man in der Hand hat
-                    drawPath(pfad, if (inDerHand) lerp(art.fuellung, Color.White, 0.45f) else art.fuellung)
-                    zeichneMuster(art, pfad, bild, faktor, dichte)
+                    val aus = art.aussehen(flaeche.farbe)
+                    drawPath(pfad, if (inDerHand) lerp(aus.fuellung, Color.White, 0.45f) else aus.fuellung)
+                    zeichneMuster(art, pfad, bild, faktor, dichte, aus.muster)
                     if (inDerHand) drawPath(pfad, Color.White.copy(alpha = 0.2f))
                     drawPath(
                         pfad,
-                        art.rand,
+                        aus.rand,
                         style = Stroke(width = 2f * dichte, cap = StrokeCap.Round, join = StrokeJoin.Round),
                     )
                     if (!bearbeiten && flaeche.id == infoFlaecheId) {
@@ -950,6 +971,17 @@ fun GartenScreen(
                         )
                     }
                     if (blass) drawContext.canvas.restore()
+                }
+
+                // Fertige Flächen und Gegenstände: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
+                for (el in sichtbareElemente) zeichneElement(el)
+
+                // "Verdecktes zeigen": alles noch einmal in umgekehrter Reihenfolge und halbtransparent obenauf,
+                // so scheint Verdecktes durch (was oben liegt, ändert sich dadurch kaum).
+                if (viewModel.verdecktZeigen && ebenen.size > 1) {
+                    drawContext.canvas.saveLayer(Rect(Offset.Zero, size), Paint().apply { alpha = 0.35f })
+                    for (el in sichtbareElemente.asReversed()) zeichneElement(el)
+                    drawContext.canvas.restore()
                 }
 
                 // Griffe der ausgewählten Fläche: runde Punkte als Kreis, Ecken als Quadrat
@@ -1151,7 +1183,7 @@ fun GartenScreen(
                             modifier = Modifier.padding(top = 8.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Farbfeld(art)
+                            Farbfeld(art, info.farbe)
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(stringResource(art.nameRes), style = MaterialTheme.typography.bodyMedium)
                         }
@@ -1214,6 +1246,10 @@ fun GartenScreen(
                             gegenstandMenue = null
                             gNamenDialog = true
                         }
+                        MenuePunkt(R.string.menue_farbe) {
+                            gegenstandMenue = null
+                            gFarbeDialog = true
+                        }
                         MenuePunkt(R.string.menue_duplizieren) {
                             gegenstandMenue = null
                             viewModel.dupliziereGegenstand(gartenId, gewaehlterGegenstand.id, garten.massstab)
@@ -1252,6 +1288,10 @@ fun GartenScreen(
                         MenuePunkt(R.string.menue_oberflaeche) {
                             flaechenMenue = null
                             oberflaecheDialog = true
+                        }
+                        MenuePunkt(R.string.menue_farbe) {
+                            flaechenMenue = null
+                            flaechenFarbeDialog = true
                         }
                         MenuePunkt(R.string.menue_nach_vorn) {
                             flaechenMenue = null
@@ -1299,6 +1339,8 @@ fun GartenScreen(
                     onWaehleEbene = { viewModel.waehleEbene(it) },
                     onWaehleFlaeche = { viewModel.waehleFlaeche(it) },
                     onWaehleGegenstand = { viewModel.waehleGegenstand(it) },
+                    verdecktZeigen = viewModel.verdecktZeigen,
+                    onVerdecktSchalten = viewModel::schalteVerdecktZeigen,
                     onNeueEbene = { viewModel.legeEbeneAn(gartenId) },
                     onUmbenennen = { ebeneUmbenennenId = it },
                     onNachVorn = { viewModel.bewegeEbene(gartenId, it, 1) },
@@ -1395,6 +1437,26 @@ fun GartenScreen(
                 )
             },
             onAbbrechen = { platzOrt = null },
+        )
+    }
+    if (flaechenFarbeDialog && gewaehlteFlaeche != null) {
+        FarbDialog(
+            aktuell = gewaehlteFlaeche.farbe,
+            onWahl = { farbe ->
+                flaechenFarbeDialog = false
+                viewModel.setzeFlaechenFarbe(gartenId, gewaehlteFlaeche.id, farbe)
+            },
+            onAbbrechen = { flaechenFarbeDialog = false },
+        )
+    }
+    if (gFarbeDialog && gewaehlterGegenstand != null) {
+        FarbDialog(
+            aktuell = gewaehlterGegenstand.farbe,
+            onWahl = { farbe ->
+                gFarbeDialog = false
+                viewModel.setzeGegenstandFarbe(gartenId, gewaehlterGegenstand.id, farbe)
+            },
+            onAbbrechen = { gFarbeDialog = false },
         )
     }
     if (gNamenDialog && gewaehlterGegenstand != null) {
@@ -1637,8 +1699,10 @@ private fun KatalogFeld(art: GegenstandsArt, onWahl: (GegenstandsArt) -> Unit, m
             val skala = size.minDimension / maxOf(art.breiteM, art.hoeheM)
             val w = art.breiteM * skala
             val h = art.hoeheM * skala
-            translate((size.width - w) / 2f, (size.height - h) / 2f) {
-                zeichneGegenstand(art, w, h, art.farbe, dichte)
+            // Sehr schmale Gegenstände (Zaun, ...) werden in der Vorschau etwas dicker gezeichnet.
+            val hVorschau = maxOf(h, 10f * dichte)
+            translate((size.width - w) / 2f, (size.height - hVorschau) / 2f) {
+                zeichneGegenstand(art, w, hVorschau, art.farbe, dichte, skala)
             }
         }
         Text(
@@ -1700,6 +1764,7 @@ private fun HilfeDialog(
                     if (flaecheGewaehlt) Text(stringResource(R.string.hilfe_auswahl))
                     if (platziert) Text(stringResource(R.string.hilfe_platzieren))
                     if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_gegenstand))
+                    if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_schmal))
                     if (!zeichnet && !formModus && !flaecheGewaehlt && !platziert && !gegenstandGewaehlt) {
                         Text(stringResource(R.string.hilfe_werkzeuge))
                     }
@@ -1982,6 +2047,8 @@ private fun EbenenBereich(
     onWaehleEbene: (Long) -> Unit,
     onWaehleFlaeche: (Long) -> Unit,
     onWaehleGegenstand: (Long) -> Unit,
+    verdecktZeigen: Boolean,
+    onVerdecktSchalten: () -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2007,6 +2074,8 @@ private fun EbenenBereich(
                     onWaehleEbene = onWaehleEbene,
                     onWaehleFlaeche = onWaehleFlaeche,
                     onWaehleGegenstand = onWaehleGegenstand,
+                    verdecktZeigen = verdecktZeigen,
+                    onVerdecktSchalten = onVerdecktSchalten,
                     onNeueEbene = onNeueEbene,
                     onUmbenennen = onUmbenennen,
                     onNachVorn = onNachVorn,
@@ -2131,6 +2200,8 @@ private fun EbenenListe(
     onWaehleEbene: (Long) -> Unit,
     onWaehleFlaeche: (Long) -> Unit,
     onWaehleGegenstand: (Long) -> Unit,
+    verdecktZeigen: Boolean,
+    onVerdecktSchalten: () -> Unit,
     onNeueEbene: () -> Unit,
     onUmbenennen: (Long) -> Unit,
     onNachVorn: (Long) -> Unit,
@@ -2155,6 +2226,22 @@ private fun EbenenListe(
             item(key = "neu") {
                 TextButton(onClick = onNeueEbene, modifier = Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.ebene_neu))
+                }
+            }
+            item(key = "verdeckt") {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onVerdecktSchalten() }
+                        .padding(horizontal = 12.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.verdecktes_zeigen),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(checked = verdecktZeigen, onCheckedChange = { onVerdecktSchalten() })
                 }
             }
             for (e in vorneZuerst) {
@@ -2317,7 +2404,7 @@ private fun EbenenListe(
                                 .padding(horizontal = 8.dp, vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Farbfeld(art)
+                            Farbfeld(art, f.farbe)
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = f.name ?: stringResource(art.nameRes),

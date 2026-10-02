@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,12 +64,27 @@ enum class Oberflaeche(
     }
 }
 
-/** Kleines Farbfeld als Vorschau einer Oberfläche. */
+/** Füllung, Rand und Musterfarbe einer Fläche. */
+data class Aussehen(val fuellung: Color, val rand: Color, val muster: Color)
+
+/**
+ * Das Aussehen einer Oberfläche. Mit gewählter [farbe] bekommt die Fläche diese Füllung; Rand und
+ * Muster werden daraus abgeleitet (dunkler, bei Wasser heller), damit das Muster erkennbar bleibt.
+ */
+fun Oberflaeche.aussehen(farbe: Int?): Aussehen {
+    if (farbe == null) return Aussehen(fuellung, rand, muster)
+    val f = Color(farbe)
+    val m = if (this == Oberflaeche.WASSER) lerp(f, Color.White, 0.8f) else lerp(f, Color.Black, 0.25f)
+    return Aussehen(f, lerp(f, Color.Black, 0.4f), m)
+}
+
+/** Kleines Farbfeld als Vorschau einer Oberfläche (mit gewählter Farbe, falls vorhanden). */
 @Composable
-fun Farbfeld(art: Oberflaeche) {
+fun Farbfeld(art: Oberflaeche, farbe: Int? = null) {
     val form = RoundedCornerShape(6.dp)
+    val aus = art.aussehen(farbe)
     androidx.compose.foundation.layout.Box(
-        modifier = Modifier.size(28.dp).background(art.fuellung, form).border(2.dp, art.rand, form),
+        modifier = Modifier.size(28.dp).background(aus.fuellung, form).border(2.dp, aus.rand, form),
     )
 }
 
@@ -126,7 +142,14 @@ private fun zufall(i: Int, j: Int, k: Int): Float {
  * Fläche (Bezugspunkt ist ihr erster Punkt), wandert also beim Verschieben mit. Ist es auf dem
  * Bildschirm zu klein oder zu dicht, wird es weggelassen (nur Farbe).
  */
-fun DrawScope.zeichneMuster(art: Oberflaeche, pfad: Path, bild: List<Offset>, faktor: Float, dichte: Float) {
+fun DrawScope.zeichneMuster(
+    art: Oberflaeche,
+    pfad: Path,
+    bild: List<Offset>,
+    faktor: Float,
+    dichte: Float,
+    musterFarbe: Color = art.muster,
+) {
     val zelle = MUSTER_ZELLE * faktor
     if (zelle < 9f * dichte || bild.isEmpty()) return
     val minX = bild.minOf { it.x } - zelle
@@ -139,7 +162,7 @@ fun DrawScope.zeichneMuster(art: Oberflaeche, pfad: Path, bild: List<Offset>, fa
     val i1 = floor((maxX - anker.x) / zelle).toInt()
     val j0 = floor((minY - anker.y) / zelle).toInt()
     val j1 = floor((maxY - anker.y) / zelle).toInt()
-    val farbe = art.muster
+    val farbe = musterFarbe
     val strich = 1.5f * dichte
 
     clipPath(pfad) {

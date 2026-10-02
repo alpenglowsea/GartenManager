@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gegenstände, Maßstab und Ebenen (Umsetzungsschritt 3)
 
-Stand: 02.10.2026, Version 0.7 (Teilschritt 3a2 getestet und in Ordnung, Teilschritt 3b als Vorschlag geliefert; das freie Gebäude wurde auf 3b2 verschoben)
+Stand: 02.10.2026, Version 0.8 (3a2, 3a3 und 3b getestet und in Ordnung; Teilschritt 3c als Vorschlag geliefert; das freie Gebäude (3b2) kommt als Nächstes)
 
 Dieses Dokument beschreibt, **wie Gegenstände (Häuser, Garagen, Autos, Gartenmöbel, Zäune, Bewässerung, Deko), ein Maßstab und eine Ebenenliste in den Garten kommen**, bevor Code entsteht. Pflanzen kommen in Schritt 4, nutzen aber dieselben Bedienweisen.
 
@@ -210,9 +210,9 @@ Wie bei Schritt 2: Jeder Teilschritt ist eine eigene Lieferung. Du pushst, GitHu
 |---|---|
 | 3a | **Maßstab und Ebenenliste:** Datenbankversion 3 (Garten bekommt den Maßstab, Fläche bekommt eine Farbspalte, gemeinsamer Reihenfolgenzähler, Tabellen Gegenstand und Gegenstandspunkt schon angelegt). Lineale oben und links im Bearbeitungsmodus (fester Nullpunkt), Gitter in Metern, Karte zeigt Maße und ungefähre Fläche in m². **Ebenenleiste am rechten Rand** (Punkte, Pfeile, Auge mit Liste), zunächst nur mit Flächen. Noch keine Gegenstände. |
 | 3a2 | **Überarbeitung von 3a (Ebenen als Gruppen), gebaut und als Vorschlag geliefert:** Datenbankversion 4 (Tabelle Ebene, Ebene bei Flächen und Gegenständen), aktive Ebene, Leiste mit einem Punkt je Ebene, ausklappbare Liste (Ebenen mit ihren Flächen, Neue Ebene, Umbenennen, Löschen mit Rückfrage, vor/zurück, Auge pro Ebene), "Eine Ebene nach vorn/hinten" im Flächenmenü, neue Flächen kommen in die aktive Ebene, Rückgängig und Garten duplizieren berücksichtigen Ebenen. |
-| 3b | **Gegenstände, Kern (gebaut, als Vorschlag geliefert, noch nicht getestet):** Knopf "Gegenstand", Katalog mit 35 Einträgen (alle außer den schmalen und dem freien Gebäude), Platzieren (erst Ort antippen, dann Katalog), Anzeige, Auswählen, Verschieben, **Größe ändern mit Maßanzeige live, Drehen (15°, Vibration bei 0/90/180/270)**, Menü per langem Tipp (Name, Duplizieren, 90° drehen, Eine Ebene nach vorn/hinten, Löschen), Karte in der Ansicht (Name, Art, Maße), Rückgängig, Gegenstände in der Ebenenliste, Duplizieren des Gartens kopiert sie mit. Keine neue Datenbankversion (die Tabellen gab es schon). |
+| 3b | **Gegenstände, Kern (getestet am 02.10.2026, alle 10 Tests in Ordnung):** Knopf "Gegenstand", Katalog mit 35 Einträgen (alle außer den schmalen und dem freien Gebäude), Platzieren (erst Ort antippen, dann Katalog), Anzeige, Auswählen, Verschieben, **Größe ändern mit Maßanzeige live, Drehen (15°, Vibration bei 0/90/180/270)**, Menü per langem Tipp (Name, Duplizieren, 90° drehen, Eine Ebene nach vorn/hinten, Löschen), Karte in der Ansicht (Name, Art, Maße), Rückgängig, Gegenstände in der Ebenenliste, Duplizieren des Gartens kopiert sie mit. Keine neue Datenbankversion (die Tabellen gab es schon). |
 | 3b2 | **Gebäude in freier Form** (Punkte wie bei Flächen, drehbar). Aus 3b herausgenommen, weil der Gesten-Code sonst zu groß für einen Schritt wird und die Fehlersuche ohne Gerät schwer würde. |
-| 3c | **Farbe, schmale Gegenstände, Verdecktes zeigen** (die Farbe ist in der Datenbank schon vorbereitet, wählbar wird sie in 3c): Farbauswahl (12 Felder) für Gegenstände **und Flächen** (Muster bleibt), Zaun, Hecke, Mauer und Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". |
+| 3c | **Farbe, schmale Gegenstände, Verdecktes zeigen (gebaut, als Vorschlag geliefert, noch nicht getestet):** Farbauswahl (12 Felder) für Gegenstände **und Flächen** (Muster bleibt), Zaun, Hecke, Mauer und Bewässerung mit sich wiederholendem Muster, Schalter "Verdecktes zeigen". |
 | 3d | **Feinschliff** nach deinen Tests: Symbole verbessern, kleine Wünsche. |
 
 Wie lange das dauert, kann ich nicht seriös schätzen.
@@ -278,3 +278,17 @@ Entwicklungsmodus: Die Datenbank wird bei Änderung neu angelegt (einmaliger Dat
 - **Rückgängig, Ebenen, Garten duplizieren:** Gegenstände sind überall mit dabei.
 - **Noch nicht in 3b:** Farbwahl, schmale Gegenstände, freies Gebäude (3b2), Verdecktes zeigen (3c).
 - **Ungeprüft:** Alles. Der Code wurde nicht kompiliert und nicht am Gerät getestet.
+
+
+---
+
+## 14. Umsetzung 3c: Was gebaut ist und wie es sich verhält (Stand der Lieferung)
+
+- **Farbe ändern:** Menü (langer Tipp) bei Gegenständen und bei Flächen. Dialog mit 12 festen Farbfeldern (Rot, Orange, Gelb, Hellgrün, Dunkelgrün, Türkis, Hellblau, Dunkelblau, Violett, Rosa, Braun, Grau) und "Standardfarbe". Die aktuelle Farbe hat einen dicken Rand. Weiß und Schwarz gibt es bewusst nicht (12 Felder), das lässt sich ändern.
+- **Flächen mit Farbe:** Die Füllung nimmt die Farbe an, Rand und Muster werden daraus abgeleitet (Rand und Muster dunkler, bei Wasser das Muster heller). Beim Wechsel der Oberfläche bleibt die gewählte Farbe, "Standardfarbe" setzt sie zurück. Das Farbfeld in Ebenenliste und Karte zeigt die gewählte Farbe.
+- **Gegenstände mit Farbe:** Die Hauptfarbe wird ersetzt, Rand und Details leitet das Symbol selbst daraus ab.
+- **Schmale Gegenstände:** Zaun (5 × 0,1 m), Hecke (4 × 0,6 m), Mauer (4 × 0,3 m), Bewässerung (5 × 0,1 m), Gruppe "Zaun, Hecke, Technik". Das Muster wiederholt sich: Zaun mit Latten und einem Pfosten je Meter, Hecke mit Büschen, Mauer mit Steinfugen, Bewässerung als gestrichelte Leitung mit einem Regner alle 2 m. Breite ist die Länge, Höhe die Dicke.
+- **Griffe bei schmalen Gegenständen:** Ist ein Gegenstand auf dem Bildschirm schmaler als etwa 40 dp, gibt es nur die zwei Griffe an den Enden der langen Seite (Länge) und den Drehgriff. So bleibt die Mitte zum Verschieben frei. Die Dicke ändert man nach dem Hineinzoomen. **Vorschlag, am Gerät zu prüfen.**
+- **Verdecktes zeigen:** Schalter oben in der ausgeklappten Ebenenliste. Alles wird noch einmal in umgekehrter Reihenfolge halbtransparent obenauf gezeichnet, so scheint Verdecktes (zum Beispiel Bewässerung unter Rasen) durch. Wird nicht gespeichert (nach dem Neustart aus). Wirkt auch in der Ansicht.
+- **Datenbank:** keine Änderung (Version 5).
+- **Ungeprüft:** Alles. Nicht kompiliert, nicht am Gerät getestet.

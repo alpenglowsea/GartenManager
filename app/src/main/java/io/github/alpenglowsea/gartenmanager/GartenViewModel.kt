@@ -407,6 +407,22 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.setzeGegenstandLage(g.id, g.mitteX, g.mitteY, g.breite, g.hoehe, g.drehung) }
     }
 
+    fun setzeGegenstandFarbe(gartenId: Long, id: Long, farbe: Int?) {
+        aendere(gartenId) { dao.setzeGegenstandFarbe(id, farbe) }
+    }
+
+    fun setzeFlaechenFarbe(gartenId: Long, id: Long, farbe: Int?) {
+        aendere(gartenId) { dao.setzeFlaecheFarbe(id, farbe) }
+    }
+
+    /** "Verdecktes zeigen": Was hinter anderem liegt, scheint halbtransparent durch (nur Ansicht, nicht gespeichert). */
+    var verdecktZeigen by mutableStateOf(false)
+        private set
+
+    fun schalteVerdecktZeigen() {
+        verdecktZeigen = !verdecktZeigen
+    }
+
     fun benenneGegenstandUm(gartenId: Long, id: Long, name: String) {
         aendere(gartenId) { dao.benenneGegenstandUm(id, name.trim().ifEmpty { null }) }
     }
