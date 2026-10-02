@@ -10,6 +10,13 @@ import androidx.compose.foundation.gestures.calculatePan
 import androidx.compose.foundation.gestures.calculateZoom
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,11 +60,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerInputScope
@@ -76,7 +86,11 @@ import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Punkt
 import kotlinx.coroutines.delay
+import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.floor
+import kotlin.math.roundToInt
 
 private const val ZOOM_MIN = 0.1f
 private const val ZOOM_MAX = 10f
@@ -159,6 +173,9 @@ fun GartenScreen(
     var oberflaecheDialog by remember { mutableStateOf(false) }
     // In der Ansicht angetippte Fläche (zeigt Name und Oberfläche)
     var infoFlaecheId by remember { mutableStateOf<Long?>(null) }
+    // Liste aller Ebenen (Auge in der Ebenenleiste)
+    var ebenenListe by remember { mutableStateOf(false) }
+    val linealPinsel = remember { android.graphics.Paint().apply { isAntiAlias = true } }
 
     val faktor = zoom * dichte
     fun zuSkizze(bild: Offset) = Offset((bild.x - verschiebungX) / faktor, (bild.y - verschiebungY) / faktor)
@@ -492,6 +509,9 @@ fun GartenScreen(
         val gitterFarbe = MaterialTheme.colorScheme.outlineVariant
         val achsenFarbe = MaterialTheme.colorScheme.primary
         val rahmenFarbe = MaterialTheme.colorScheme.tertiary
+        val linealHintergrund = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+        val linealLinie = MaterialTheme.colorScheme.outline
+        val linealText = MaterialTheme.colorScheme.onSurfaceVariant
 
         Box(
             modifier = Modifier
@@ -524,7 +544,7 @@ fun GartenScreen(
                         )
                     },
             ) {
-                zeichneGitter(zoom, dichte, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
+                zeichneGitter(zoom, dichte, garten.massstab, Offset(verschiebungX, verschiebungY), gitterFarbe, achsenFarbe)
 
                 // Fertige Flächen: die mit der höheren Reihenfolge liegen oben (sind schon sortiert).
                 for (flaeche in flaechen) {
@@ -533,15 +553,11 @@ fun GartenScreen(
                     val bild = bildPunkte(flaeche, ihre)
                     val pfad = kurvenPfad(bild, ihre.map { it.rund }, geschlossen = true)
                     val inDerHand = bewegt && ziehen?.punktId == null && ziehen?.flaecheId == flaeche.id
-                    if (inDerHand) {
-                        // Schatten: die Fläche wirkt angehoben
-                        translate(left = 4f * dichte, top = 7f * dichte) {
-                            drawPath(pfad, Color.Black.copy(alpha = 0.3f))
-                        }
-                    }
                     val art = Oberflaeche.vonSchluessel(flaeche.oberflaeche)
-                    drawPath(pfad, art.fuellung)
+                    // Angefasste Fläche: Farbe heller und greller, damit man sieht, was man in der Hand hat
+                    drawPath(pfad, if (inDerHand) lerp(art.fuellung, Color.White, 0.45f) else art.fuellung)
                     zeichneMuster(art, pfad, bild, faktor, dichte)
+                    if (inDerHand) drawPath(pfad, Color.White.copy(alpha = 0.2f))
                     drawPath(
                         pfad,
                         art.rand,
@@ -673,6 +689,19 @@ fun GartenScreen(
                         )
                     }
                 }
+
+                if (bearbeiten) {
+                    zeichneLineale(
+                        zoom = zoom,
+                        dichte = dichte,
+                        massstab = garten.massstab,
+                        verschiebung = Offset(verschiebungX, verschiebungY),
+                        hintergrund = linealHintergrund,
+                        linie = linealLinie,
+                        textFarbe = linealText,
+                        pinsel = linealPinsel,
+                    )
+                }
             }
 
             val info = flaechen.firstOrNull { it.id == infoFlaecheId }
@@ -696,6 +725,23 @@ fun GartenScreen(
                             Farbfeld(art)
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(stringResource(art.nameRes), style = MaterialTheme.typography.bodyMedium)
+                        }
+                        val ihre = punkteJeFlaeche[info.id].orEmpty()
+                        if (ihre.size >= 3) {
+                            val masse = flaechenMasse(
+                                kurvenPolylinie(ihre.map { Offset(it.x, it.y) }, ihre.map { it.rund }, true),
+                                garten.massstab,
+                            )
+                            Text(
+                                text = stringResource(
+                                    R.string.info_masse,
+                                    zahlText(masse.breite),
+                                    zahlText(masse.hoehe),
+                                    zahlText(masse.flaeche),
+                                ),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(top = 6.dp),
+                            )
                         }
                     }
                 }
@@ -737,6 +783,19 @@ fun GartenScreen(
                 }
             }
 
+            if (bearbeiten && !zeichnet) {
+                Ebenenleiste(
+                    flaechen = flaechen,
+                    gewaehltId = viewModel.auswahlFlaeche,
+                    onWahl = { viewModel.waehleFlaeche(it) },
+                    onListe = { ebenenListe = true },
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .fillMaxHeight()
+                        .padding(top = 32.dp, bottom = 84.dp, end = 8.dp),
+                )
+            }
+
             FilledTonalButton(
                 onClick = {
                     zoom = 1f
@@ -750,6 +809,17 @@ fun GartenScreen(
         }
     }
 
+    if (ebenenListe) {
+        EbenenListeDialog(
+            flaechen = flaechen,
+            gewaehltId = viewModel.auswahlFlaeche,
+            onWahl = {
+                ebenenListe = false
+                viewModel.waehleFlaeche(it)
+            },
+            onSchliessen = { ebenenListe = false },
+        )
+    }
     if (formenDialog) {
         FormenDialog(
             onWahl = { form ->
@@ -950,6 +1020,7 @@ private fun HilfeDialog(
                     if (formModus) Text(stringResource(R.string.hilfe_form))
                     if (flaecheGewaehlt) Text(stringResource(R.string.hilfe_auswahl))
                     if (!zeichnet && !formModus && !flaecheGewaehlt) Text(stringResource(R.string.hilfe_werkzeuge))
+                    if (!zeichnet && !formModus) Text(stringResource(R.string.hilfe_ebenen))
                 }
             }
         },
@@ -1038,35 +1109,93 @@ private suspend fun PointerInputScope.gartenGesten(
     }
 }
 
+/** Schritte für Gitter und Lineale in Metern (1, 2, 5 je Zehnerpotenz). */
+private val NETZ_METER = floatArrayOf(0.1f, 0.2f, 0.5f, 1f, 2f, 5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f)
+
+/** Kleinster Schritt, der auf dem Bildschirm mindestens [mindestPx] breit ist. */
+private fun netzIndex(pixelProMeter: Float, mindestPx: Float): Int {
+    for (i in NETZ_METER.indices) if (NETZ_METER[i] * pixelProMeter >= mindestPx) return i
+    return NETZ_METER.lastIndex
+}
+
+/** In wie viele kleine Teile ein Schritt geteilt wird (bei 2er-Schritten vier, sonst fünf). */
+private fun netzTeilung(index: Int): Int = if (index % 3 == 1) 4 else 5
+
+private fun zahlText(v: Float): String =
+    if (v >= 100f) String.format(Locale.getDefault(), "%.0f", v) else String.format(Locale.getDefault(), "%.1f", v)
+
+private fun meterText(v: Float): String =
+    if (abs(v - v.roundToInt()) < 0.001f) v.roundToInt().toString() else String.format(Locale.getDefault(), "%.1f", v)
+
+/** Breite, Höhe und ungefähre Fläche einer Fläche in Metern (Näherung über den Umriss). */
+private data class FlaechenMasse(val breite: Float, val hoehe: Float, val flaeche: Float)
+
+private fun flaechenMasse(umriss: List<Offset>, einheitenProMeter: Float): FlaechenMasse {
+    if (umriss.size < 3) return FlaechenMasse(0f, 0f, 0f)
+    var minX = umriss[0].x
+    var maxX = minX
+    var minY = umriss[0].y
+    var maxY = minY
+    var summe = 0f
+    for (i in umriss.indices) {
+        val a = umriss[i]
+        val b = umriss[(i + 1) % umriss.size]
+        if (a.x < minX) minX = a.x
+        if (a.x > maxX) maxX = a.x
+        if (a.y < minY) minY = a.y
+        if (a.y > maxY) maxY = a.y
+        summe += a.x * b.y - b.x * a.y
+    }
+    val m = einheitenProMeter
+    return FlaechenMasse((maxX - minX) / m, (maxY - minY) / m, abs(summe) / 2f / (m * m))
+}
+
 /**
- * Zeichnet ein Hilfsgitter, damit man Zoomen und Verschieben sieht, und den
- * Nullpunkt als Kreuz. Der Abstand der Gitterlinien springt in Zehnerschritten,
- * sodass die Linien auf dem Bildschirm nie zu dicht liegen.
+ * Zeichnet ein Hilfsgitter in Metern und den Nullpunkt als Kreuz. Die großen Linien liegen
+ * auf runden Metern (1, 2, 5, 10, ... je nach Zoom), dazwischen liegen feine Linien.
  */
 private fun DrawScope.zeichneGitter(
     zoom: Float,
     dichte: Float,
+    massstab: Float,
     verschiebung: Offset,
     gitterFarbe: Color,
     achsenFarbe: Color,
 ) {
-    val pixelProEinheit = zoom * dichte
-    // Kleinster Abstand (100 * 10^n Einheiten), der auf dem Bildschirm mindestens ~48 dp beträgt.
-    var abstand = 100f
-    while (abstand * pixelProEinheit < 48f * dichte) abstand *= 10f
-    while (abstand / 10f * pixelProEinheit >= 48f * dichte) abstand /= 10f
-    val schritt = abstand * pixelProEinheit
+    val pixelProMeter = zoom * dichte * massstab
+    val index = netzIndex(pixelProMeter, 56f * dichte)
+    val teilung = netzTeilung(index)
+    val gross = NETZ_METER[index] * pixelProMeter
+    val klein = gross / teilung
 
-    val ersteX = floor(-verschiebung.x / schritt).toInt()
-    val letzteX = floor((size.width - verschiebung.x) / schritt).toInt() + 1
+    if (klein >= 10f * dichte) {
+        val fein = gitterFarbe.copy(alpha = 0.4f)
+        val ersteX = floor(-verschiebung.x / klein).toInt()
+        val letzteX = floor((size.width - verschiebung.x) / klein).toInt() + 1
+        for (i in ersteX..letzteX) {
+            if (i.mod(teilung) == 0) continue
+            val x = verschiebung.x + i * klein
+            drawLine(fein, Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)
+        }
+        val ersteY = floor(-verschiebung.y / klein).toInt()
+        val letzteY = floor((size.height - verschiebung.y) / klein).toInt() + 1
+        for (i in ersteY..letzteY) {
+            if (i.mod(teilung) == 0) continue
+            val y = verschiebung.y + i * klein
+            drawLine(fein, Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)
+        }
+    }
+
+    val ersteX = floor(-verschiebung.x / gross).toInt()
+    val letzteX = floor((size.width - verschiebung.x) / gross).toInt() + 1
     for (i in ersteX..letzteX) {
-        val x = verschiebung.x + i * schritt
+        val x = verschiebung.x + i * gross
         drawLine(gitterFarbe, Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)
     }
-    val ersteY = floor(-verschiebung.y / schritt).toInt()
-    val letzteY = floor((size.height - verschiebung.y) / schritt).toInt() + 1
+    val ersteY = floor(-verschiebung.y / gross).toInt()
+    val letzteY = floor((size.height - verschiebung.y) / gross).toInt() + 1
     for (i in ersteY..letzteY) {
-        val y = verschiebung.y + i * schritt
+        val y = verschiebung.y + i * gross
         drawLine(gitterFarbe, Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)
     }
 
@@ -1075,4 +1204,224 @@ private fun DrawScope.zeichneGitter(
     drawLine(achsenFarbe, Offset(verschiebung.x - arm, verschiebung.y), Offset(verschiebung.x + arm, verschiebung.y), strokeWidth = 3f)
     drawLine(achsenFarbe, Offset(verschiebung.x, verschiebung.y - arm), Offset(verschiebung.x, verschiebung.y + arm), strokeWidth = 3f)
     drawCircle(achsenFarbe, radius = arm, center = verschiebung, style = Stroke(width = 2f))
+}
+
+/**
+ * Lineale am oberen und linken Rand (nur im Bearbeitungsmodus). Sie zeigen Meter ab dem
+ * festen Nullpunkt und passen ihre Teilung dem Zoom an. [pinsel] ist nur ein wiederverwendeter
+ * Textpinsel.
+ */
+private fun DrawScope.zeichneLineale(
+    zoom: Float,
+    dichte: Float,
+    massstab: Float,
+    verschiebung: Offset,
+    hintergrund: Color,
+    linie: Color,
+    textFarbe: Color,
+    pinsel: android.graphics.Paint,
+) {
+    val rand = 4f * dichte // der Rahmen des Bearbeitungsmodus liegt innen am Rand
+    val dicke = 22f * dichte
+    val kante = rand + dicke
+    val pixelProMeter = zoom * dichte * massstab
+    val index = netzIndex(pixelProMeter, 56f * dichte)
+    val teilung = netzTeilung(index)
+    val kleinMeter = NETZ_METER[index] / teilung
+    val klein = kleinMeter * pixelProMeter
+
+    drawRect(hintergrund, Offset(rand, rand), Size(size.width - rand, dicke))
+    drawRect(hintergrund, Offset(rand, kante), Size(dicke, size.height - kante))
+    drawLine(linie, Offset(rand, kante), Offset(size.width, kante), strokeWidth = 1f)
+    drawLine(linie, Offset(kante, rand), Offset(kante, size.height), strokeWidth = 1f)
+
+    pinsel.color = textFarbe.toArgb()
+    pinsel.textSize = 10f * dichte
+
+    // Waagerecht
+    var i = floor((kante - verschiebung.x) / klein).toInt()
+    val letzteX = ceil((size.width - verschiebung.x) / klein).toInt()
+    while (i <= letzteX) {
+        val x = verschiebung.x + i * klein
+        if (x >= kante) {
+            val gross = i.mod(teilung) == 0
+            val laenge = (if (gross) 10f else 5f) * dichte
+            drawLine(linie, Offset(x, kante - laenge), Offset(x, kante), strokeWidth = 1f)
+            if (gross) {
+                val text = meterText(i * kleinMeter)
+                drawIntoCanvas { it.nativeCanvas.drawText(text, x + 3f * dichte, rand + 11f * dichte, pinsel) }
+            }
+        }
+        i++
+    }
+    // Senkrecht (Beschriftung liegt auf der Seite)
+    var j = floor((kante - verschiebung.y) / klein).toInt()
+    val letzteY = ceil((size.height - verschiebung.y) / klein).toInt()
+    while (j <= letzteY) {
+        val y = verschiebung.y + j * klein
+        if (y >= kante) {
+            val gross = j.mod(teilung) == 0
+            val laenge = (if (gross) 10f else 5f) * dichte
+            drawLine(linie, Offset(kante - laenge, y), Offset(kante, y), strokeWidth = 1f)
+            if (gross) {
+                val text = meterText(j * kleinMeter)
+                drawIntoCanvas {
+                    val c = it.nativeCanvas
+                    c.save()
+                    c.translate(rand + 11f * dichte, y - 3f * dichte)
+                    c.rotate(-90f)
+                    c.drawText(text, 0f, 0f, pinsel)
+                    c.restore()
+                }
+            }
+        }
+        j++
+    }
+    // Ecke mit Einheit
+    drawIntoCanvas { it.nativeCanvas.drawText("m", rand + 6f * dichte, rand + 15f * dichte, pinsel) }
+}
+
+/**
+ * Dezente Ebenenleiste am rechten Rand: Pfeil nach vorn, ein Punkt je Ebene (ganz oben die
+ * vorderste), Pfeil nach hinten, darunter das Auge für die Liste aller Ebenen. Der Punkt der
+ * ausgewählten Fläche ist hervorgehoben. [flaechen] ist von hinten nach vorn sortiert.
+ */
+@Composable
+private fun Ebenenleiste(
+    flaechen: List<Flaeche>,
+    gewaehltId: Long?,
+    onWahl: (Long) -> Unit,
+    onListe: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val anzahl = flaechen.size
+    val index = flaechen.indexOfFirst { it.id == gewaehltId }
+    val ringFarbe = MaterialTheme.colorScheme.tertiary
+    BoxWithConstraints(modifier = modifier, contentAlignment = Alignment.CenterEnd) {
+        val platz = ((maxHeight - 136.dp) / 30.dp).toInt().coerceAtLeast(1)
+        val sichtbar = minOf(anzahl, platz)
+        // Passen nicht alle Punkte hin, wandert der Ausschnitt mit der Auswahl mit.
+        val oberster = when {
+            anzahl <= platz -> anzahl - 1
+            index >= 0 -> (index + platz / 2).coerceIn(platz - 1, anzahl - 1)
+            else -> anzahl - 1
+        }
+        Surface(
+            shape = RoundedCornerShape(20.dp),
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+            tonalElevation = 2.dp,
+        ) {
+            Column(
+                modifier = Modifier.padding(vertical = 6.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                IconButton(
+                    onClick = {
+                        if (index < 0) flaechen.lastOrNull()?.let { onWahl(it.id) } else onWahl(flaechen[index + 1].id)
+                    },
+                    enabled = anzahl > 0 && (index < 0 || index < anzahl - 1),
+                    modifier = Modifier.size(40.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_pfeil_hoch),
+                        contentDescription = stringResource(R.string.ebene_nach_vorn),
+                    )
+                }
+                for (i in oberster downTo (oberster - sichtbar + 1)) {
+                    val f = flaechen[i]
+                    val art = Oberflaeche.vonSchluessel(f.oberflaeche)
+                    val gewaehlt = f.id == gewaehltId
+                    Box(
+                        modifier = Modifier
+                            .size(width = 40.dp, height = 30.dp)
+                            .clickable { onWahl(f.id) },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Canvas(modifier = Modifier.size(26.dp)) {
+                            val r = (if (gewaehlt) 9f else 6f) * density
+                            drawCircle(art.fuellung, radius = r, center = center)
+                            drawCircle(art.rand, radius = r, center = center, style = Stroke(width = 1.5f * density))
+                            if (gewaehlt) {
+                                drawCircle(ringFarbe, radius = 11f * density, center = center, style = Stroke(width = 2.5f * density))
+                            }
+                        }
+                    }
+                }
+                IconButton(
+                    onClick = {
+                        if (index < 0) flaechen.firstOrNull()?.let { onWahl(it.id) } else onWahl(flaechen[index - 1].id)
+                    },
+                    enabled = anzahl > 0 && (index < 0 || index > 0),
+                    modifier = Modifier.size(40.dp),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_pfeil_runter),
+                        contentDescription = stringResource(R.string.ebene_nach_hinten),
+                    )
+                }
+                IconButton(onClick = onListe, modifier = Modifier.size(40.dp)) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_auge),
+                        contentDescription = stringResource(R.string.ebenen_liste_oeffnen),
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** Liste aller Ebenen, vorderste zuerst. Ein Tipp wählt die Fläche aus (auch wenn sie verdeckt liegt). */
+@Composable
+private fun EbenenListeDialog(
+    flaechen: List<Flaeche>,
+    gewaehltId: Long?,
+    onWahl: (Long) -> Unit,
+    onSchliessen: () -> Unit,
+) {
+    val vorneZuerst = flaechen.asReversed()
+    AlertDialog(
+        onDismissRequest = onSchliessen,
+        title = { Text(stringResource(R.string.ebenen_titel)) },
+        text = {
+            if (vorneZuerst.isEmpty()) {
+                Text(stringResource(R.string.ebenen_leer))
+            } else {
+                LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
+                    itemsIndexed(vorneZuerst) { position, f ->
+                        val art = Oberflaeche.vonSchluessel(f.oberflaeche)
+                        val gewaehlt = f.id == gewaehltId
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    if (gewaehlt) MaterialTheme.colorScheme.primaryContainer else Color.Transparent,
+                                    RoundedCornerShape(8.dp),
+                                )
+                                .clickable { onWahl(f.id) }
+                                .padding(horizontal = 8.dp, vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Farbfeld(art)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = f.name ?: stringResource(R.string.flaeche_ohne_name),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    maxLines = 1,
+                                )
+                                Text(stringResource(art.nameRes), style = MaterialTheme.typography.bodySmall)
+                            }
+                            Text(
+                                stringResource(R.string.ebene_nr, vorneZuerst.size - position),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onSchliessen) { Text(stringResource(R.string.ok)) }
+        },
+    )
 }

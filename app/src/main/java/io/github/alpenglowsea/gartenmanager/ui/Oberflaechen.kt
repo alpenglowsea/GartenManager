@@ -48,12 +48,12 @@ enum class Oberflaeche(
 ) {
     GRAS("gras", R.string.ofl_gras, Color(0xFF9CCC65), Color(0xFF558B2F), Color(0xFF689F38)),
     ERDE("erde", R.string.ofl_erde, Color(0xFF8D6E63), Color(0xFF4E342E), Color(0xFF5D4037)),
-    KIES("kies", R.string.ofl_kies, Color(0xFFC4C4C4), Color(0xFF757575), Color(0xFF9E9E9E)),
-    PFLASTER("pflaster", R.string.ofl_pflaster, Color(0xFFA7A29B), Color(0xFF5F5B56), Color(0xFF6D6A66)),
+    KIES("kies", R.string.ofl_kies, Color(0xFFE3E3E0), Color(0xFF8A8A86), Color(0xFFB0B0AB)),
+    PFLASTER("pflaster", R.string.ofl_pflaster, Color(0xFFB9A29E), Color(0xFF6D5A57), Color(0xFF7A6562)),
     HOLZ("holz", R.string.ofl_holz, Color(0xFFCFA06A), Color(0xFF7B5127), Color(0xFF8D5E2E)),
     SAND("sand", R.string.ofl_sand, Color(0xFFEAD9A8), Color(0xFFA38B50), Color(0xFFC9B27C)),
     WASSER("wasser", R.string.ofl_wasser, Color(0xFF64B5F6), Color(0xFF1565C0), Color(0xFFE3F2FD)),
-    BETON("beton", R.string.ofl_beton, Color(0xFFB4B9BC), Color(0xFF666B6E), Color(0xFF8A9094)),
+    BETON("beton", R.string.ofl_beton, Color(0xFF6F7478), Color(0xFF3F4346), Color(0xFF565B5F)),
     ;
 
     companion object {

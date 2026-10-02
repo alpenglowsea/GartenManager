@@ -1,6 +1,6 @@
 # GartenManager: Konzept Gartenplan (Umsetzungsschritt 2)
 
-Stand: 30.09.2026, Version 0.10 (Oberflächen mit Farben und Mustern; Info per Tipp in der Ansicht)
+Stand: 30.09.2026, Version 0.11 (Oberflächen mit Farben und Mustern; Info per Tipp in der Ansicht; Nachbesserungen 02.10.2026)
 
 Dieses Dokument beschreibt, **wie das Zeichnen des Gartens aussehen und funktionieren soll**, bevor Code entsteht. Es geht nur um Gärten und Flächen. Gegenstände (Häuser, Schuppen, Autos) und Pflanzen kommen in späteren Schritten dazu.
 
@@ -19,7 +19,7 @@ Kennzeichnung wie in PROJEKT.md: **Entschieden**, **Vorschlag**, **Offen**, **Ni
 - **Zwei Betriebsarten pro Garten: Ansicht (Standard, nur Betrachten) und Bearbeiten.**
 - Alles bleibt auf dem Handy gespeichert.
 
-**Entsteht noch nicht:** Gegenstände, Pflanzen, Pflegekalender, Backup, Maßstab mit Metern. Es bleibt bei einer Skizze ohne Meterangaben (**Entschieden**).
+**Entsteht noch nicht:** Gegenstände, Pflanzen, Pflegekalender, Backup, Maßstab mit Metern. Dieser war ursprünglich ausgeschlossen, wird aber mit Schritt 3 eingeführt (**Entschieden 02.10.2026**, siehe GEGENSTAENDE.md).
 
 ---
 
@@ -94,7 +94,7 @@ Ein Garten wird nicht ständig umgebaut. Meist will man ihn nur ansehen, Pflanze
 - **Punkt verschieben:** Griff mit dem Finger ziehen. Die Ausrichtungshilfe (Einrasten) hilft dabei waagerecht und senkrecht zu den beiden Nachbarpunkten. Ziehen wird beim Loslassen gespeichert.
 - **Punkt hinzufügen:** auf den Rand der ausgewählten Fläche tippen, dort entsteht ein neuer Punkt, der gleich ausgewählt ist. Er übernimmt "rund" oder "Ecke" vom Punkt davor (so bleibt ein Rechteck eckig und ein Kreis rund). **Entschieden**
 - **Punkt löschen:** Griff antippen, dann "Punkt löschen". Eine Fläche behält mindestens drei Punkte.
-- **Rund oder Ecke:** Griff antippen, dann "Zu Ecke" beziehungsweise "Zu rund". Für die ganze Fläche geht das über das Menü "Fläche" ("Alle Punkte rund / eckig"). **Entschieden**
+- **Rund oder Ecke:** Griff antippen, dann "Entrunden" (Ecke) beziehungsweise "Abrunden" (rund). Für die ganze Fläche geht das über das Menü "Fläche" ("Alle Punkte rund / eckig"). **Entschieden**
 - **Fläche verschieben:** die ausgewählte Fläche selbst ziehen.
 - **Flächenmenü per langem Tipp. Entschieden** (30.09.2026): Wer den Finger lange ruhig auf eine Fläche hält, wählt sie aus und öffnet an der Fingerstelle ihr Menü: Name ändern, Nach vorn, Nach hinten (jeweils eine Ebene), Alle Punkte rund, Alle Punkte eckig, Löschen (mit Rückfrage). "Oberfläche ändern" kommt mit 2d. Der Knopf "Fläche" in der Werkzeugleiste entfällt; dort steht bei ausgewählter Fläche stattdessen "Abwählen" und "Einrasten an/aus".
 - **Rückmeldung beim Verschieben einer Fläche. Entschieden** (30.09.2026): Sobald die Fläche "an der Hand" ist, gibt es ein kurzes Vibrieren, die Fläche bekommt einen Schatten und einen dickeren Rahmen.
@@ -171,7 +171,7 @@ Wie in DATENMODELL.md beschrieben, liegen alle Gartendaten in der Datei, die bei
 | X und Y | Lage auf der Zeichenfläche |
 | Art | Ecke oder rund |
 
-**Koordinaten ohne Meter:** X und Y sind Zahlen auf einer unendlichen Zeichenfläche in "Skizzeneinheiten". Sie haben keine feste Bedeutung wie Meter. Das passt zu deiner Vorgabe, dass es eine Skizze ist. Sollte später ein optionaler Maßstab gewünscht sein, ist er nachrüstbar, ohne bestehende Gärten kaputtzumachen.
+**Koordinaten (ursprünglich ohne Meter, ab Schritt 3 mit Maßstab pro Garten):** X und Y sind Zahlen auf einer unendlichen Zeichenfläche in "Skizzeneinheiten". Sie haben keine feste Bedeutung wie Meter. Das passt zu deiner Vorgabe, dass es eine Skizze ist. Sollte später ein optionaler Maßstab gewünscht sein, ist er nachrüstbar, ohne bestehende Gärten kaputtzumachen.
 
 **Löschen:** Wird ein Garten gelöscht, verschwinden automatisch seine Flächen und Punkte. Wird eine Fläche gelöscht, verschwinden ihre Punkte. Beim Löschen eines Grundstücks gilt, was der Nutzer gewählt hat (Gärten behalten oder mitlöschen).
 
@@ -214,3 +214,9 @@ d) Oberflächenliste wie in 3.5: **Entschieden.** Weiteres über Objekte, späte
 e) Grundstück als optionale Gruppe von Gärten: **Entschieden.**
 
 **Noch offen (klein):** Soll ein Grundstück später eine **Übersicht** bekommen, die zeigt, wie die Abschnitte zueinander liegen? Dieses Konzept baut sie nicht. Ein Grundstück ist erstmal nur eine Gruppe in der Liste. Ich würde erst nach dem Testen entscheiden, ob die Übersicht gebraucht wird. Der Aufbau hier schließt sie nicht aus.
+
+### Für später notiert (02.10.2026)
+
+- **Ebenenanzeige:** Nach mehrmaligem Nach-vorn/Nach-hinten sieht man nicht mehr, auf welcher Ebene eine Fläche liegt. Zwei Möglichkeiten: Ebenenliste am Fensterrand (wie bei Photoshop) oder eine Anzeige an der ausgewählten Fläche. **Noch nicht entschieden**, kommt erst bei Gegenständen und Pflanzen (Schritt 3), weil die Ebenen dann alle Elemente betreffen.
+- **Piktogramm:** Das Spaten-Symbol wird durch ein eigenes Piktogramm des Projektinhabers ersetzt.
+- **Hervorhebung beim Verschieben:** Statt Schatten wird die Fläche heller und greller (entschieden 02.10.2026). Bei sehr hellen Oberflächen (Kies) fällt das Aufhellen schwächer aus.

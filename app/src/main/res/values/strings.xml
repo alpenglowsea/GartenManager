@@ -51,7 +51,7 @@
     <string name="hilfe_werkzeuge">„Zeichnen“ legt eine Fläche Punkt für Punkt an. „Form“ bietet Rechteck, Kreis und weitere Formen zum Aufziehen. Tippe auf eine Fläche, um sie auszuwählen und zu verändern.</string>
     <string name="hilfe_zeichnen">Fläche zeichnen: Lege den Finger auf die Stelle, verschiebe ihn bei Bedarf und lass los, um den Punkt zu setzen. Die Fläche bleibt offen. Ab drei Punkten erscheint ein Ring um den ersten Punkt; ein Tipp darauf schließt die Fläche, danach wählst du ihre Oberfläche. „Einrasten“ richtet neue Punkte waagerecht, senkrecht oder im rechten Winkel aus (gestrichelte Hilfslinien). „Alle Punkte eckig“ macht aus der Kurve ein Vieleck.</string>
     <string name="hilfe_form">Form: Ziehe die Form mit einem Finger von einer Ecke zur gegenüberliegenden auf. Quadrat, Kreis und Vielecke werden immer in ein Quadrat gezogen. Mit einem zweiten Finger brichst du das Aufziehen ab.</string>
-    <string name="hilfe_auswahl">Ausgewählte Fläche: Ziehe einen Punkt, um die Form zu verändern. Tippe auf den Rand, um einen Punkt hinzuzufügen. Tippe auf einen Punkt, um ihn auszuwählen; dann kannst du ihn löschen oder zwischen rund (Kreis) und eckig (Quadrat) umschalten. Ziehe die Fläche selbst, um sie zu verschieben. Halte den Finger lange auf eine Fläche, dann öffnet sich ihr Menü (Name ändern, Oberfläche ändern, Reihenfolge, alle Punkte rund oder eckig, Löschen). Ein Tipp neben die Fläche hebt die Auswahl auf.</string>
+    <string name="hilfe_auswahl">Ausgewählte Fläche: Ziehe einen Punkt, um die Form zu verändern. Tippe auf den Rand, um einen Punkt hinzuzufügen. Tippe auf einen Punkt, um ihn auszuwählen; dann kannst du ihn löschen oder mit „Abrunden“ (Kreis) und „Entrunden“ (Quadrat, Ecke) umschalten. Ziehe die Fläche selbst, um sie zu verschieben. Halte den Finger lange auf eine Fläche, dann öffnet sich ihr Menü (Name ändern, Oberfläche ändern, Reihenfolge, alle Punkte rund oder eckig, Löschen). Ein Tipp neben die Fläche hebt die Auswahl auf.</string>
     <string name="ofl_gras">Gras</string>
     <string name="ofl_erde">Erde</string>
     <string name="ofl_kies">Kies</string>
@@ -68,8 +68,8 @@
     <string name="menue_nach_hinten">Nach hinten</string>
     <string name="abwaehlen">Abwählen</string>
     <string name="punkt_loeschen">Punkt löschen</string>
-    <string name="punkt_zu_ecke">Zu Ecke</string>
-    <string name="punkt_zu_rund">Zu rund</string>
+    <string name="punkt_zu_ecke">Entrunden</string>
+    <string name="punkt_zu_rund">Abrunden</string>
     <string name="flaeche_name_titel">Name der Fläche</string>
     <string name="flaeche_loeschen_titel">Fläche löschen?</string>
     <string name="flaeche_loeschen_text">Die Fläche wird gelöscht. Mit „Rückgängig“ holst du sie zurück, solange du im Bearbeitungsmodus bleibst.</string>
@@ -90,4 +90,12 @@
     <string name="form_sechseck">Sechseck</string>
     <string name="form_achteck">Achteck</string>
     <string name="ansicht_zuruecksetzen">Ansicht zurücksetzen</string>
+    <string name="ebenen_titel">Ebenen</string>
+    <string name="ebenen_leer">Noch keine Flächen vorhanden.</string>
+    <string name="ebene_nr">Ebene %1$d</string>
+    <string name="ebene_nach_vorn">Eine Ebene weiter nach vorn</string>
+    <string name="ebene_nach_hinten">Eine Ebene weiter nach hinten</string>
+    <string name="ebenen_liste_oeffnen">Liste aller Ebenen öffnen</string>
+    <string name="info_masse">ca. %3$s m² · %1$s × %2$s m</string>
+    <string name="hilfe_ebenen">Am oberen und linken Rand zeigen die Lineale Meter. Rechts zeigt die Ebenenleiste jede Fläche als Punkt, ganz oben die vorderste. Der hervorgehobene Punkt ist die ausgewählte Fläche. Mit den Pfeilen wechselst du von Ebene zu Ebene, ein Tipp auf einen Punkt springt direkt dorthin, das Auge öffnet die Liste aller Ebenen.</string>
 </resources>
