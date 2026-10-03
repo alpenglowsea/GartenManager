@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,12 +49,12 @@ enum class Oberflaeche(
 ) {
     GRAS("gras", R.string.ofl_gras, Color(0xFF9CCC65), Color(0xFF558B2F), Color(0xFF689F38)),
     ERDE("erde", R.string.ofl_erde, Color(0xFF8D6E63), Color(0xFF4E342E), Color(0xFF5D4037)),
-    KIES("kies", R.string.ofl_kies, Color(0xFFC4C4C4), Color(0xFF757575), Color(0xFF9E9E9E)),
-    PFLASTER("pflaster", R.string.ofl_pflaster, Color(0xFFA7A29B), Color(0xFF5F5B56), Color(0xFF6D6A66)),
+    KIES("kies", R.string.ofl_kies, Color(0xFFE3E3E0), Color(0xFF8A8A86), Color(0xFFB0B0AB)),
+    PFLASTER("pflaster", R.string.ofl_pflaster, Color(0xFFB9A29E), Color(0xFF6D5A57), Color(0xFF7A6562)),
     HOLZ("holz", R.string.ofl_holz, Color(0xFFCFA06A), Color(0xFF7B5127), Color(0xFF8D5E2E)),
     SAND("sand", R.string.ofl_sand, Color(0xFFEAD9A8), Color(0xFFA38B50), Color(0xFFC9B27C)),
     WASSER("wasser", R.string.ofl_wasser, Color(0xFF64B5F6), Color(0xFF1565C0), Color(0xFFE3F2FD)),
-    BETON("beton", R.string.ofl_beton, Color(0xFFB4B9BC), Color(0xFF666B6E), Color(0xFF8A9094)),
+    BETON("beton", R.string.ofl_beton, Color(0xFF6F7478), Color(0xFF3F4346), Color(0xFF565B5F)),
     ;
 
     companion object {
@@ -63,12 +64,27 @@ enum class Oberflaeche(
     }
 }
 
-/** Kleines Farbfeld als Vorschau einer Oberfläche. */
+/** Füllung, Rand und Musterfarbe einer Fläche. */
+data class Aussehen(val fuellung: Color, val rand: Color, val muster: Color)
+
+/**
+ * Das Aussehen einer Oberfläche. Mit gewählter [farbe] bekommt die Fläche diese Füllung; Rand und
+ * Muster werden daraus abgeleitet (dunkler, bei Wasser heller), damit das Muster erkennbar bleibt.
+ */
+fun Oberflaeche.aussehen(farbe: Int?): Aussehen {
+    if (farbe == null) return Aussehen(fuellung, rand, muster)
+    val f = Color(farbe)
+    val m = if (this == Oberflaeche.WASSER) lerp(f, Color.White, 0.8f) else lerp(f, Color.Black, 0.25f)
+    return Aussehen(f, lerp(f, Color.Black, 0.4f), m)
+}
+
+/** Kleines Farbfeld als Vorschau einer Oberfläche (mit gewählter Farbe, falls vorhanden). */
 @Composable
-fun Farbfeld(art: Oberflaeche) {
+fun Farbfeld(art: Oberflaeche, farbe: Int? = null) {
     val form = RoundedCornerShape(6.dp)
+    val aus = art.aussehen(farbe)
     androidx.compose.foundation.layout.Box(
-        modifier = Modifier.size(28.dp).background(art.fuellung, form).border(2.dp, art.rand, form),
+        modifier = Modifier.size(28.dp).background(aus.fuellung, form).border(2.dp, aus.rand, form),
     )
 }
 
@@ -126,7 +142,14 @@ private fun zufall(i: Int, j: Int, k: Int): Float {
  * Fläche (Bezugspunkt ist ihr erster Punkt), wandert also beim Verschieben mit. Ist es auf dem
  * Bildschirm zu klein oder zu dicht, wird es weggelassen (nur Farbe).
  */
-fun DrawScope.zeichneMuster(art: Oberflaeche, pfad: Path, bild: List<Offset>, faktor: Float, dichte: Float) {
+fun DrawScope.zeichneMuster(
+    art: Oberflaeche,
+    pfad: Path,
+    bild: List<Offset>,
+    faktor: Float,
+    dichte: Float,
+    musterFarbe: Color = art.muster,
+) {
     val zelle = MUSTER_ZELLE * faktor
     if (zelle < 9f * dichte || bild.isEmpty()) return
     val minX = bild.minOf { it.x } - zelle
@@ -139,7 +162,7 @@ fun DrawScope.zeichneMuster(art: Oberflaeche, pfad: Path, bild: List<Offset>, fa
     val i1 = floor((maxX - anker.x) / zelle).toInt()
     val j0 = floor((minY - anker.y) / zelle).toInt()
     val j1 = floor((maxY - anker.y) / zelle).toInt()
-    val farbe = art.muster
+    val farbe = musterFarbe
     val strich = 1.5f * dichte
 
     clipPath(pfad) {

@@ -39,6 +39,34 @@ data class Garten(
     val ansichtZoom: Float = 1f,
     val ansichtX: Float = 0f,
     val ansichtY: Float = 0f,
+    // Maßstab: so viele Skizzeneinheiten sind ein Meter (kommt mit Teilschritt 3a)
+    val massstab: Float = 10f,
+)
+
+/**
+ * Eine Ebene ist ein Behälter für mehrere Flächen und Gegenstände (Teilschritt 3a2). Die
+ * Ebenen werden von hinten nach vorn gezeichnet; [reihenfolge] bestimmt den Platz (höhere
+ * Zahl = weiter vorn). [name] leer = "Ebene n". [sicht]: 0 = sichtbar, 1 = halbtransparent
+ * (noch antippbar), 2 = ausgeblendet (weder gezeichnet noch angetippt). Wird der Garten gelöscht, verschwinden auch seine Ebenen.
+ */
+@Entity(
+    tableName = "ebene",
+    foreignKeys = [
+        ForeignKey(
+            entity = Garten::class,
+            parentColumns = ["id"],
+            childColumns = ["gartenId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("gartenId")],
+)
+data class Ebene(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val gartenId: Long,
+    val name: String? = null,
+    val reihenfolge: Int = 0,
+    val sicht: Int = 0,
 )
 
 /**
@@ -56,15 +84,24 @@ data class Garten(
             childColumns = ["gartenId"],
             onDelete = ForeignKey.CASCADE,
         ),
+        ForeignKey(
+            entity = Ebene::class,
+            parentColumns = ["id"],
+            childColumns = ["ebeneId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index("gartenId")],
+    indices = [Index("gartenId"), Index("ebeneId")],
 )
 data class Flaeche(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val gartenId: Long,
+    val ebeneId: Long,
     val name: String? = null,
     val oberflaeche: String = "gras",
     val reihenfolge: Int = 0,
+    // Gewählte Farbe (ARGB als Zahl); leer = Standardfarbe der Oberfläche (Einsatz ab Teilschritt 3c)
+    val farbe: Int? = null,
 )
 
 /**
@@ -87,6 +124,71 @@ data class Flaeche(
 data class Punkt(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val flaecheId: Long,
+    val nr: Int,
+    val x: Float,
+    val y: Float,
+    val rund: Boolean = true,
+)
+
+/**
+ * Ein Gegenstand (Haus, Auto, Zaun, ...). Die Tabelle wird mit Teilschritt 3a angelegt und
+ * ab 3b benutzt. [art] ist ein Schlüssel aus dem Katalog. Lage ([mitteX], [mitteY]) und Größe
+ * ([breite], [hoehe]) sind Skizzeneinheiten, der Maßstab des Gartens macht daraus Meter.
+ * [drehung] in Grad. [farbe] ist die Hauptfarbe (leer = Standard). [reihenfolge] teilt
+ * sich den Zähler mit den Flächen (höhere Zahl = weiter oben).
+ */
+@Entity(
+    tableName = "gegenstand",
+    foreignKeys = [
+        ForeignKey(
+            entity = Garten::class,
+            parentColumns = ["id"],
+            childColumns = ["gartenId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+        ForeignKey(
+            entity = Ebene::class,
+            parentColumns = ["id"],
+            childColumns = ["ebeneId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("gartenId"), Index("ebeneId")],
+)
+data class Gegenstand(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val gartenId: Long,
+    val ebeneId: Long,
+    val art: String,
+    val name: String? = null,
+    val mitteX: Float = 0f,
+    val mitteY: Float = 0f,
+    val breite: Float = 0f,
+    val hoehe: Float = 0f,
+    val drehung: Float = 0f,
+    val farbe: Int? = null,
+    val reihenfolge: Int = 0,
+)
+
+/**
+ * Ein Punkt eines Gebäudes in freier Form (nur dafür). Die Lage ist relativ zur Mitte des
+ * Gegenstands (vor der Drehung), gleicher Aufbau wie [Punkt].
+ */
+@Entity(
+    tableName = "gegenstandspunkt",
+    foreignKeys = [
+        ForeignKey(
+            entity = Gegenstand::class,
+            parentColumns = ["id"],
+            childColumns = ["gegenstandId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("gegenstandId")],
+)
+data class Gegenstandspunkt(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val gegenstandId: Long,
     val nr: Int,
     val x: Float,
     val y: Float,

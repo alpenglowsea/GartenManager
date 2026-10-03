@@ -1,0 +1,27 @@
+{
+  "hauptname": "Weißkohl",
+  "lateinisch": "Brassica oleracea",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": null,
+  "wikipedia": null,
+  "namen": [
+    {
+      "name": "Weisskraut",
+      "art": "umgangssprachlich",
+      "quelle": "test"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Pflege",
+      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
+      "quelle": "test",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

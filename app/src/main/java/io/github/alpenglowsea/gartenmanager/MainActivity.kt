@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.alpenglowsea.gartenmanager.ui.GartenListeScreen
 import io.github.alpenglowsea.gartenmanager.ui.GartenManagerTheme
 import io.github.alpenglowsea.gartenmanager.ui.GartenScreen
+import io.github.alpenglowsea.gartenmanager.ui.PflanzenTestScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,13 @@ class MainActivity : ComponentActivity() {
                 var offenerGartenId by rememberSaveable { mutableStateOf<Long?>(null) }
                 var bearbeiten by rememberSaveable { mutableStateOf(false) }
                 val offenerGarten = gaerten?.firstOrNull { it.id == offenerGartenId }
+                // Vorläufiger Testbildschirm für die Pflanzen-Grunddaten (Teilschritt 4a)
+                var pflanzenTest by rememberSaveable { mutableStateOf(false) }
 
-                if (offenerGarten != null) {
+                if (pflanzenTest && offenerGarten == null) {
+                    BackHandler { pflanzenTest = false }
+                    PflanzenTestScreen(onZurueck = { pflanzenTest = false })
+                } else if (offenerGarten != null) {
                     BackHandler {
                         // Zurück aus dem Bearbeiten führt in die Ansicht, aus der Ansicht in die Liste.
                         if (bearbeiten) bearbeiten = false else offenerGartenId = null
@@ -40,15 +46,26 @@ class MainActivity : ComponentActivity() {
                     val gartenId = offenerGarten.id
                     val flaechen by remember(gartenId) { viewModel.flaechen(gartenId) }
                         .collectAsState(initial = emptyList())
+                    val ebenen by remember(gartenId) { viewModel.ebenen(gartenId) }
+                        .collectAsState(initial = emptyList())
+                    val gegenstaende by remember(gartenId) { viewModel.gegenstaende(gartenId) }
+                        .collectAsState(initial = emptyList())
+                    val gegenstandspunkte by remember(gartenId) { viewModel.gegenstandspunkte(gartenId) }
+                        .collectAsState(initial = emptyList())
                     val punkte by remember(gartenId) { viewModel.punkte(gartenId) }
                         .collectAsState(initial = emptyList())
                     // Beim Betreten oder Verlassen des Bearbeitungsmodus: angefangene Zeichnung
                     // und Rückgängig-Verlauf zurücksetzen.
                     LaunchedEffect(bearbeiten, gartenId) { viewModel.beendeBearbeitung() }
+                    // Jeder Garten hat mindestens eine Ebene.
+                    LaunchedEffect(gartenId) { viewModel.sichereEbene(gartenId) }
 
                     GartenScreen(
                         garten = offenerGarten,
                         flaechen = flaechen,
+                        ebenen = ebenen,
+                        gegenstaende = gegenstaende,
+                        gegenstandspunkte = gegenstandspunkte,
                         punkte = punkte,
                         bearbeiten = bearbeiten,
                         viewModel = viewModel,
@@ -82,6 +99,7 @@ class MainActivity : ComponentActivity() {
                         onGartenLoeschen = viewModel::loescheGarten,
                         onGrundstueckAufloesen = viewModel::loeseGrundstueckAuf,
                         onGrundstueckMitGaertenLoeschen = viewModel::loescheGrundstueckMitGaerten,
+                        onPflanzenTest = { pflanzenTest = true },
                     )
                 }
             }

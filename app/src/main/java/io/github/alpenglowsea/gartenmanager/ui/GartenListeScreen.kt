@@ -80,6 +80,7 @@ fun GartenListeScreen(
     onGartenLoeschen: (Long) -> Unit,
     onGrundstueckAufloesen: (Long) -> Unit,
     onGrundstueckMitGaertenLoeschen: (Long) -> Unit,
+    onPflanzenTest: () -> Unit,
 ) {
     var dialog by remember { mutableStateOf<DialogZustand>(DialogZustand.Keiner) }
     var menue by remember { mutableStateOf<MenueZiel?>(null) }
@@ -87,7 +88,14 @@ fun GartenListeScreen(
     val kopieZusatz = stringResource(R.string.kopie_zusatz)
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.app_name)) }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.app_name)) },
+                actions = {
+                    TextButton(onClick = onPflanzenTest) { Text(stringResource(R.string.pflanzen_test_menue)) }
+                },
+            )
+        },
         floatingActionButton = {
             Box {
                 FloatingActionButton(onClick = { fabMenue = true }) {

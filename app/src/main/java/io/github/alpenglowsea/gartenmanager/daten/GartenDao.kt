@@ -54,6 +54,112 @@ abstract class GartenDao {
 
     // ---- Flaechen und Punkte ----
 
+    // ---- Ebenen (Behälter für Flächen und Gegenstände) ----
+
+    @Query("SELECT * FROM ebene WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract fun ebenen(gartenId: Long): Flow<List<Ebene>>
+
+    @Query("SELECT * FROM ebene WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract suspend fun ebenenListe(gartenId: Long): List<Ebene>
+
+    @Insert
+    abstract suspend fun fuegeEbeneEin(ebene: Ebene): Long
+
+    @Insert
+    abstract suspend fun fuegeEbenenEin(ebenen: List<Ebene>)
+
+    @Query("DELETE FROM ebene WHERE gartenId = :gartenId")
+    abstract suspend fun loescheEbenenDesGartens(gartenId: Long)
+
+    @Query("DELETE FROM ebene WHERE id = :id")
+    abstract suspend fun loescheEbeneZeile(id: Long)
+
+    @Query("UPDATE ebene SET name = :name WHERE id = :id")
+    abstract suspend fun benenneEbeneUm(id: Long, name: String?)
+
+    @Query("UPDATE ebene SET sicht = :sicht WHERE id = :id")
+    abstract suspend fun setzeEbeneSicht(id: Long, sicht: Int)
+
+    @Query("UPDATE ebene SET reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeEbeneReihenfolge(id: Long, reihenfolge: Int)
+
+    @Query("UPDATE ebene SET reihenfolge = reihenfolge + 1 WHERE gartenId = :gartenId AND reihenfolge > :ueber")
+    abstract suspend fun schiebeEbenenNach(gartenId: Long, ueber: Int)
+
+    @Query("UPDATE flaeche SET ebeneId = :nach WHERE ebeneId = :von")
+    abstract suspend fun verschiebeFlaechenDerEbene(von: Long, nach: Long)
+
+    @Query("SELECT * FROM flaeche WHERE id = :id")
+    abstract suspend fun flaecheMitId(id: Long): Flaeche?
+
+    @Query("UPDATE flaeche SET ebeneId = :ebeneId, reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeFlaecheEbene(id: Long, ebeneId: Long, reihenfolge: Int)
+
+    /**
+     * Gibt die gewünschte Ebene zurück, wenn es sie in diesem Garten gibt. Sonst die vorderste.
+     * Hat der Garten noch gar keine Ebene, wird die erste angelegt.
+     */
+    @Transaction
+    open suspend fun ebeneFuer(gartenId: Long, gewuenscht: Long?): Long {
+        val liste = ebenenListe(gartenId)
+        if (gewuenscht != null && liste.any { it.id == gewuenscht }) return gewuenscht
+        if (liste.isNotEmpty()) return liste.last().id
+        return fuegeEbeneEin(Ebene(gartenId = gartenId, reihenfolge = 0))
+    }
+
+    /** Legt eine neue, leere Ebene direkt über [ueber] an (oder ganz vorn, wenn [ueber] fehlt). */
+    @Transaction
+    open suspend fun legeEbeneAn(gartenId: Long, ueber: Long?): Long {
+        val liste = ebenenListe(gartenId)
+        val bezug = liste.firstOrNull { it.id == ueber } ?: liste.lastOrNull()
+        val neueNummer = if (bezug == null) 0 else bezug.reihenfolge + 1
+        if (bezug != null) schiebeEbenenNach(gartenId, bezug.reihenfolge)
+        return fuegeEbeneEin(Ebene(gartenId = gartenId, reihenfolge = neueNummer))
+    }
+
+    /** Verschiebt eine Ebene um [schritt] Plätze (+1 = weiter nach vorn). */
+    @Transaction
+    open suspend fun bewegeEbene(gartenId: Long, ebeneId: Long, schritt: Int) {
+        val liste = ebenenListe(gartenId).toMutableList()
+        val von = liste.indexOfFirst { it.id == ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        val e = liste.removeAt(von)
+        liste.add(nach, e)
+        liste.forEachIndexed { index, eb -> setzeEbeneReihenfolge(eb.id, index) }
+    }
+
+    /**
+     * Löscht eine Ebene, aber nie die letzte. Mit [inhaltBehalten] wandern ihre Flächen in die
+     * Ebene dahinter (bei der hintersten in die davor), sonst werden sie mitgelöscht.
+     */
+    @Transaction
+    open suspend fun loescheEbene(gartenId: Long, ebeneId: Long, inhaltBehalten: Boolean) {
+        val liste = ebenenListe(gartenId)
+        if (liste.size <= 1) return
+        val index = liste.indexOfFirst { it.id == ebeneId }
+        if (index < 0) return
+        if (inhaltBehalten) {
+            val ziel = if (index > 0) liste[index - 1] else liste[index + 1]
+            verschiebeFlaechenDerEbene(ebeneId, ziel.id)
+            verschiebeGegenstaendeDerEbene(ebeneId, ziel.id)
+        }
+        loescheEbeneZeile(ebeneId) // Was dann noch darin liegt, verschwindet mit (CASCADE).
+    }
+
+    /** Verschiebt eine Fläche in die Nachbarebene ([schritt] +1 = nach vorn, -1 = nach hinten). */
+    @Transaction
+    open suspend fun bewegeFlaecheInNachbarebene(gartenId: Long, flaecheId: Long, schritt: Int) {
+        val flaeche = flaecheMitId(flaecheId) ?: return
+        val liste = ebenenListe(gartenId)
+        val von = liste.indexOfFirst { it.id == flaeche.ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        setzeFlaecheEbene(flaecheId, liste[nach].id, hoechsteReihenfolge(gartenId) + 1)
+    }
+
+    // ---- Flaechen und Punkte ----
+
     @Query("SELECT * FROM flaeche WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
     abstract fun flaechen(gartenId: Long): Flow<List<Flaeche>>
 
@@ -69,8 +175,211 @@ abstract class GartenDao {
     @Query("SELECT * FROM punkt WHERE flaecheId = :flaecheId ORDER BY nr")
     abstract suspend fun punkteListe(flaecheId: Long): List<Punkt>
 
-    @Query("SELECT COALESCE(MAX(reihenfolge), -1) FROM flaeche WHERE gartenId = :gartenId")
+    /** Höchste Reihenfolgenummer aller Flächen und Gegenstände (gemeinsamer Zähler). */
+    @Query(
+        "SELECT COALESCE(MAX(m), -1) FROM (SELECT reihenfolge AS m FROM flaeche WHERE gartenId = :gartenId " +
+            "UNION ALL SELECT reihenfolge AS m FROM gegenstand WHERE gartenId = :gartenId)",
+    )
     abstract suspend fun hoechsteReihenfolge(gartenId: Long): Int
+
+    // ---- Gegenstände ----
+
+    @Query("SELECT * FROM gegenstand WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract fun gegenstaende(gartenId: Long): Flow<List<Gegenstand>>
+
+    @Query("SELECT * FROM gegenstand WHERE gartenId = :gartenId ORDER BY reihenfolge, id")
+    abstract suspend fun gegenstaendeListe(gartenId: Long): List<Gegenstand>
+
+    @Query("SELECT * FROM gegenstand WHERE id = :id")
+    abstract suspend fun gegenstandMitId(id: Long): Gegenstand?
+
+    @Insert
+    abstract suspend fun fuegeGegenstandEin(gegenstand: Gegenstand): Long
+
+    @Insert
+    abstract suspend fun fuegeGegenstaendeEin(gegenstaende: List<Gegenstand>)
+
+    @Query("DELETE FROM gegenstand WHERE id = :id")
+    abstract suspend fun loescheGegenstand(id: Long)
+
+    @Query("DELETE FROM gegenstand WHERE gartenId = :gartenId")
+    abstract suspend fun loescheGegenstaendeDesGartens(gartenId: Long)
+
+    @Query(
+        "UPDATE gegenstand SET mitteX = :mitteX, mitteY = :mitteY, breite = :breite, hoehe = :hoehe, " +
+            "drehung = :drehung WHERE id = :id",
+    )
+    abstract suspend fun setzeGegenstandLage(
+        id: Long,
+        mitteX: Float,
+        mitteY: Float,
+        breite: Float,
+        hoehe: Float,
+        drehung: Float,
+    )
+
+    @Query("UPDATE gegenstand SET farbe = :farbe WHERE id = :id")
+    abstract suspend fun setzeGegenstandFarbe(id: Long, farbe: Int?)
+
+    @Query("UPDATE flaeche SET farbe = :farbe WHERE id = :id")
+    abstract suspend fun setzeFlaecheFarbe(id: Long, farbe: Int?)
+
+    @Query("UPDATE gegenstand SET name = :name WHERE id = :id")
+    abstract suspend fun benenneGegenstandUm(id: Long, name: String?)
+
+    @Query("UPDATE gegenstand SET ebeneId = :ebeneId, reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeGegenstandEbene(id: Long, ebeneId: Long, reihenfolge: Int)
+
+    @Query("UPDATE gegenstand SET ebeneId = :nach WHERE ebeneId = :von")
+    abstract suspend fun verschiebeGegenstaendeDerEbene(von: Long, nach: Long)
+
+    /** Legt einen Gegenstand in der Ebene [ebeneId] ganz oben an (gibt es sie nicht: vorderste Ebene). */
+    @Transaction
+    open suspend fun legeGegenstandAn(
+        gartenId: Long,
+        ebeneId: Long?,
+        vorlage: Gegenstand,
+        punkte: List<Gegenstandspunkt>,
+        jetzt: Long,
+    ): Long {
+        val ziel = ebeneFuer(gartenId, ebeneId)
+        setzeEbeneSicht(ziel, 0)
+        val id = fuegeGegenstandEin(
+            vorlage.copy(id = 0, gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
+        )
+        if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = id) })
+        beruehreGarten(gartenId, jetzt)
+        return id
+    }
+
+    /** Dupliziert einen Gegenstand (ganz oben, gleiche Ebene, um [dx]/[dy] versetzt). */
+    @Transaction
+    open suspend fun dupliziereGegenstand(gartenId: Long, gegenstandId: Long, dx: Float, dy: Float): Long? {
+        val g = gegenstandMitId(gegenstandId) ?: return null
+        val neu = fuegeGegenstandEin(
+            g.copy(
+                id = 0,
+                mitteX = g.mitteX + dx,
+                mitteY = g.mitteY + dy,
+                reihenfolge = hoechsteReihenfolge(gartenId) + 1,
+            ),
+        )
+        val punkte = gegenstandspunkteListe(gegenstandId)
+        if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = neu) })
+        return neu
+    }
+
+    // ---- Punkte freier Gebäude ----
+
+    @Query(
+        "SELECT p.* FROM gegenstandspunkt p INNER JOIN gegenstand g ON p.gegenstandId = g.id " +
+            "WHERE g.gartenId = :gartenId ORDER BY p.gegenstandId, p.nr",
+    )
+    abstract fun gegenstandspunkte(gartenId: Long): Flow<List<Gegenstandspunkt>>
+
+    @Query(
+        "SELECT p.* FROM gegenstandspunkt p INNER JOIN gegenstand g ON p.gegenstandId = g.id " +
+            "WHERE g.gartenId = :gartenId ORDER BY p.gegenstandId, p.nr",
+    )
+    abstract suspend fun gegenstandspunkteDesGartens(gartenId: Long): List<Gegenstandspunkt>
+
+    @Query("SELECT * FROM gegenstandspunkt WHERE gegenstandId = :gegenstandId ORDER BY nr")
+    abstract suspend fun gegenstandspunkteListe(gegenstandId: Long): List<Gegenstandspunkt>
+
+    @Insert
+    abstract suspend fun fuegeGegenstandspunkteEin(punkte: List<Gegenstandspunkt>)
+
+    @Insert
+    abstract suspend fun fuegeGegenstandspunktEin(punkt: Gegenstandspunkt): Long
+
+    @Query("UPDATE gegenstandspunkt SET x = :x, y = :y WHERE id = :id")
+    abstract suspend fun setzeGegenstandspunktLage(id: Long, x: Float, y: Float)
+
+    @Query("UPDATE gegenstandspunkt SET rund = :rund WHERE id = :id")
+    abstract suspend fun setzeGegenstandspunktRund(id: Long, rund: Boolean)
+
+    @Query("UPDATE gegenstandspunkt SET nr = nr + 1 WHERE gegenstandId = :gegenstandId AND nr >= :ab")
+    abstract suspend fun schiebeGegenstandspunkteNach(gegenstandId: Long, ab: Int)
+
+    @Query("UPDATE gegenstandspunkt SET nr = nr - 1 WHERE gegenstandId = :gegenstandId AND nr > :nach")
+    abstract suspend fun schliesseGegenstandspunktLuecke(gegenstandId: Long, nach: Int)
+
+    @Query("DELETE FROM gegenstandspunkt WHERE id = :id")
+    abstract suspend fun loescheGegenstandspunkt(id: Long)
+
+    @Query("SELECT COUNT(*) FROM gegenstandspunkt WHERE gegenstandId = :gegenstandId")
+    abstract suspend fun zaehleGegenstandspunkte(gegenstandId: Long): Int
+
+    /** Fügt einen Punkt an Stelle [nr] ein; die folgenden Punkte rücken nach. */
+    @Transaction
+    open suspend fun fuegeGegenstandspunktAn(gegenstandId: Long, nr: Int, x: Float, y: Float, rund: Boolean): Long {
+        schiebeGegenstandspunkteNach(gegenstandId, nr)
+        return fuegeGegenstandspunktEin(Gegenstandspunkt(gegenstandId = gegenstandId, nr = nr, x = x, y = y, rund = rund))
+    }
+
+    /** Entfernt einen Punkt, aber nie unter drei Punkte. */
+    @Transaction
+    open suspend fun entferneGegenstandspunkt(gegenstandId: Long, punktId: Long, nr: Int) {
+        if (zaehleGegenstandspunkte(gegenstandId) <= 3) return
+        loescheGegenstandspunkt(punktId)
+        schliesseGegenstandspunktLuecke(gegenstandId, nr)
+    }
+
+    // ---- Reihenfolge ändern (Ziehen in der Ebenenliste) ----
+
+    @Query("UPDATE gegenstand SET reihenfolge = :reihenfolge WHERE id = :id")
+    abstract suspend fun setzeGegenstandReihenfolge(id: Long, reihenfolge: Int)
+
+    /**
+     * Neue Reihenfolge der Elemente einer Ebene. [ordnung] enthält "f<Nummer>" (Fläche) oder
+     * "g<Nummer>" (Gegenstand), von hinten nach vorn. Die vorhandenen Reihenfolgenummern werden nur
+     * neu verteilt, so bleibt der gemeinsame Zähler heil.
+     */
+    @Transaction
+    open suspend fun ordneElemente(gartenId: Long, ebeneId: Long, ordnung: List<String>) {
+        val fl = flaechenListe(gartenId).filter { it.ebeneId == ebeneId }.associateBy { "f" + it.id }
+        val ge = gegenstaendeListe(gartenId).filter { it.ebeneId == ebeneId }.associateBy { "g" + it.id }
+        val zahlen = (fl.values.map { it.reihenfolge } + ge.values.map { it.reihenfolge }).sorted()
+        if (zahlen.size != ordnung.size) return
+        ordnung.forEachIndexed { i, schluessel ->
+            fl[schluessel]?.let { setzeReihenfolge(it.id, zahlen[i]) }
+            ge[schluessel]?.let { setzeGegenstandReihenfolge(it.id, zahlen[i]) }
+        }
+    }
+
+    /**
+     * Verschiebt ein Element ("f<Nummer>" oder "g<Nummer>") in die Ebene [zielEbeneId] und ordnet dort
+     * alle Elemente neu ([ordnung] von hinten nach vorn, mit dem verschobenen Element).
+     */
+    @Transaction
+    open suspend fun verschiebeElementInEbene(gartenId: Long, schluessel: String, zielEbeneId: Long, ordnung: List<String>) {
+        val id = schluessel.drop(1).toLongOrNull() ?: return
+        val neu = hoechsteReihenfolge(gartenId) + 1
+        if (schluessel.startsWith("f")) setzeFlaecheEbene(id, zielEbeneId, neu) else setzeGegenstandEbene(id, zielEbeneId, neu)
+        ordneElemente(gartenId, zielEbeneId, ordnung)
+    }
+
+    /** Setzt eine Ebene auf Platz [neuerPlatz] (0 = ganz hinten). */
+    @Transaction
+    open suspend fun setzeEbenePlatz(gartenId: Long, ebeneId: Long, neuerPlatz: Int) {
+        val liste = ebenenListe(gartenId).toMutableList()
+        val von = liste.indexOfFirst { it.id == ebeneId }
+        if (von < 0) return
+        val e = liste.removeAt(von)
+        liste.add(neuerPlatz.coerceIn(0, liste.size), e)
+        liste.forEachIndexed { index, eb -> setzeEbeneReihenfolge(eb.id, index) }
+    }
+
+    /** Verschiebt einen Gegenstand in die Nachbarebene ([schritt] +1 = nach vorn, -1 = nach hinten). */
+    @Transaction
+    open suspend fun bewegeGegenstandInNachbarebene(gartenId: Long, gegenstandId: Long, schritt: Int) {
+        val g = gegenstandMitId(gegenstandId) ?: return
+        val liste = ebenenListe(gartenId)
+        val von = liste.indexOfFirst { it.id == g.ebeneId }
+        val nach = von + schritt
+        if (von < 0 || nach < 0 || nach >= liste.size) return
+        setzeGegenstandEbene(gegenstandId, liste[nach].id, hoechsteReihenfolge(gartenId) + 1)
+    }
 
     @Insert
     abstract suspend fun fuegeFlaecheEin(flaeche: Flaeche): Long
@@ -147,32 +456,40 @@ abstract class GartenDao {
         schliesseLuecke(flaecheId, nr)
     }
 
-    /** Verschiebt eine Fläche um [schritt] Plätze in der Reihenfolge (+1 = weiter nach oben). */
+    /**
+     * Stellt den Zustand aller Ebenen, Flächen, Punkte und Gegenstände eines Gartens aus einem
+     * Abbild wieder her.
+     */
     @Transaction
-    open suspend fun bewegeInReihenfolge(gartenId: Long, flaecheId: Long, schritt: Int) {
-        val liste = flaechenListe(gartenId).toMutableList()
-        val von = liste.indexOfFirst { it.id == flaecheId }
-        val nach = von + schritt
-        if (von < 0 || nach < 0 || nach >= liste.size) return
-        val f = liste.removeAt(von)
-        liste.add(nach, f)
-        liste.forEachIndexed { index, fl -> setzeReihenfolge(fl.id, index) }
-    }
-
-    /** Stellt den Zustand aller Flächen und Punkte eines Gartens aus einem Abbild wieder her. */
-    @Transaction
-    open suspend fun stelleWiederHer(gartenId: Long, flaechen: List<Flaeche>, punkte: List<Punkt>) {
+    open suspend fun stelleWiederHer(
+        gartenId: Long,
+        ebenen: List<Ebene>,
+        flaechen: List<Flaeche>,
+        punkte: List<Punkt>,
+        gegenstaende: List<Gegenstand>,
+        gegenstandspunkte: List<Gegenstandspunkt>,
+    ) {
+        loescheEbenenDesGartens(gartenId) // nimmt wegen CASCADE auch alle Flächen, Punkte und Gegenstände mit
         loescheFlaechenDesGartens(gartenId)
+        loescheGegenstaendeDesGartens(gartenId)
+        fuegeEbenenEin(ebenen)
         fuegeFlaechenEin(flaechen)
         fuegePunkteEin(punkte)
+        fuegeGegenstaendeEin(gegenstaende)
+        fuegeGegenstandspunkteEin(gegenstandspunkte)
         beruehreGarten(gartenId, System.currentTimeMillis())
     }
 
-    /** Legt eine neue Fläche ganz oben an. Die Punkte kommen mit flaecheId = 0 herein. */
+    /**
+     * Legt eine neue Fläche in der Ebene [ebeneId] ganz oben an (gibt es sie nicht, in der
+     * vordersten Ebene). Die Punkte kommen mit flaecheId = 0 herein.
+     */
     @Transaction
-    open suspend fun legeFlaecheAn(gartenId: Long, punkte: List<Punkt>, jetzt: Long): Long {
+    open suspend fun legeFlaecheAn(gartenId: Long, ebeneId: Long?, punkte: List<Punkt>, jetzt: Long): Long {
+        val ziel = ebeneFuer(gartenId, ebeneId)
+        setzeEbeneSicht(ziel, 0) // Wer in eine Ebene zeichnet, soll das Ergebnis auch sehen.
         val flaecheId = fuegeFlaecheEin(
-            Flaeche(gartenId = gartenId, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
+            Flaeche(gartenId = gartenId, ebeneId = ziel, reihenfolge = hoechsteReihenfolge(gartenId) + 1),
         )
         fuegePunkteEin(punkte.map { it.copy(flaecheId = flaecheId) })
         beruehreGarten(gartenId, jetzt)
@@ -190,11 +507,23 @@ abstract class GartenDao {
             geaendertAm = jetzt,
         )
         val kopieId = fuegeGartenEin(kopie)
+        // Ebenen zuerst kopieren und merken, welche alte Ebene zu welcher neuen gehört.
+        val neueEbenen = HashMap<Long, Long>()
+        for (ebene in ebenenListe(id)) {
+            neueEbenen[ebene.id] = fuegeEbeneEin(ebene.copy(id = 0, gartenId = kopieId))
+        }
         for (flaeche in flaechenListe(id)) {
-            val neueFlaecheId = fuegeFlaecheEin(flaeche.copy(id = 0, gartenId = kopieId))
+            val ebeneZiel = neueEbenen[flaeche.ebeneId] ?: ebeneFuer(kopieId, null)
+            val neueFlaecheId = fuegeFlaecheEin(flaeche.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
             fuegePunkteEin(
                 punkteListe(flaeche.id).map { it.copy(id = 0, flaecheId = neueFlaecheId) },
             )
+        }
+        for (g in gegenstaendeListe(id)) {
+            val ebeneZiel = neueEbenen[g.ebeneId] ?: ebeneFuer(kopieId, null)
+            val neueId = fuegeGegenstandEin(g.copy(id = 0, gartenId = kopieId, ebeneId = ebeneZiel))
+            val punkte = gegenstandspunkteListe(g.id)
+            if (punkte.isNotEmpty()) fuegeGegenstandspunkteEin(punkte.map { it.copy(id = 0, gegenstandId = neueId) })
         }
         return kopieId
     }

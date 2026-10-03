@@ -1,0 +1,32 @@
+{
+  "hauptname": "Wald-Erdbeere",
+  "lateinisch": "Fragaria vesca",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": null,
+  "wikipedia": null,
+  "namen": [
+    {
+      "name": "Monatserdbeere",
+      "art": "umgangssprachlich",
+      "quelle": "test"
+    },
+    {
+      "name": "Walderdbeere",
+      "art": "umgangssprachlich",
+      "quelle": "test"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Pflege",
+      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
+      "quelle": "test",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}
