@@ -1,0 +1,50 @@
+{
+  "hauptname": "Wasser-Minze",
+  "lateinisch": "Mentha aquatica",
+  "gruppen": [
+    "Wasserpflanzen",
+    "Kräuter"
+  ],
+  "wikidata": "Q161232",
+  "wikipedia": "Wasserminze",
+  "namen": [
+    {
+      "name": "Wasserminze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bachminze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Menthe Aquatique",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Wasserminze ist in Europa, in Afrika und in Asien bis zur Inneren Mongolei zu finden. Des Weiteren ist sie auch in Makaronesien, auf Zypern, im Libanon, in Israel, in Palästina, der Türkei, im Kaukasus und im Iran verbreitet. In Europa kommt sie vor in allen Ländern selbst in Island, doch ist sie dort nicht indigen.",
+      "quelle": "wp-mentha-aquatica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Wasserminze wächst als ausdauernde krautige Pflanze, die Wuchshöhen von meist 20 bis 50 (10 bis 150) Zentimeter erreicht. An Land werden unterirdische und im Wasser auch oberirdische Ausläufer gebildet. Der aufrechte und meist verzweigte Stängel ist vierkantig.\n\nDie gegenständig am Stängel angeordneten Laubblätter sind 3 bis 15 Millimeter lang gestielt. Die einfache Blattspreite ist eiförmig elliptisch, etwas derb und oft glänzend, mit gesägtem Blattrand. Die Blattspreite ist 2 bis 8 (bis 12)cm lang und 1 bis 4 (bis 6) cm breit. Es sind vier bis sechs Paare bogiger Fiedernerven vorhanden.",
+      "quelle": "wp-mentha-aquatica",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blüten stehen dicht in den Achseln der oberen Blätter in stehenden, locker übereinander angeordneten Scheinquirlen und in einem endständigen kugeligen, kopfigen Teilblütenstand zusammen.\n\nDie Blüten sind zygomorph und fünfzählig mit doppelter Blütenhülle. Die fünf nur etwas ungleichen Kelchblätter sind teilweise röhrig verwachsen mit 13 Nerven und fünf lanzettlichen Kelchzähnen. Der Kelch ist etwa 4 Millimeter lang. Die fünf hellvioletten, rosafarbenen, fleischigrosafarbenen bis weißen Kronblätter sind unterschiedlich stark verwachsen und nur schwach zweilippig. Die Oberlippe ist meist so groß wie einer der drei Lappen der Unterlippe. Hierdurch scheint die Blüte fast regelmäßig vierspaltig. Von den vier geraden, fertilen Staubblättern sind zwei etwas länger. Der Griffel ragt meist weit aus der Blütenkrone heraus. Die Blütenkrone besitzt im Schlund eine Haarring.\n\nDie Klausenfrüchte zerfallen in vier oben warzige, hellbraune Teilfrüchte. Jede Teilfrucht ist fast 1 Millimeter lang.",
+      "quelle": "wp-mentha-aquatica",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

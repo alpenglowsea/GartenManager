@@ -1,0 +1,55 @@
+{
+  "hauptname": "Mutterkraut",
+  "lateinisch": "Tanacetum parthenium",
+  "gruppen": [
+    "Blumen",
+    "Kräuter"
+  ],
+  "wikidata": "Q818481",
+  "wikipedia": "Mutterkraut",
+  "namen": [
+    {
+      "name": "Zierkamille",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Fieberkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Chrysanthemum parthenium",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "grande camomille",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Ursprünglich war Tanacetum parthenium im östlichen Mittelmeerraum beheimatet. Seine Heimat war der Kaukasusraum, die Türkei, die Krim, Portugal, Südosteuropa und Tschechien. Aufgrund seiner historisch langen Nachweisbarkeit in Mitteleuropa wird Tanacetum parthenium als Archäophyt eingestuft. In Nordafrika, auf den Azoren, Kanaren und Madeira, in West- und Zentralasien, in Nord-, Mittel- und Südamerika, in Neuseeland, Hawaii und Australien ist das Mutterkraut ein Neophyt.",
+      "quelle": "wp-tanacetum-parthenium",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Das Mutterkraut wächst als ausdauernde krautige Pflanze und erreicht in seiner Wildform Wuchshöhen von 30 bis 80 Zentimetern. Es riecht stark aromatisch. Der Stängel ist gerippt, aufrecht und im oberen Bereich ebensträußig verzweigt.\n\nDie wechselständig angeordneten Laubblätter sind in Blattstiel und Blattspreite gegliedert. Die zarte, hellgrüne, fast kahle Blattspreite ist im Umriss eiförmig und fiederspaltig bis fiederteilig mit größerem Endabschnitt und 2 bis 5 Paar Fiederlappen. Die Fiederkappen sind einfach bis doppelt fiederspaltig und stachelig bespitzt. Der Endabschnitt ist mit den oberen seitlichen Abschnitten oft verwachsen.",
+      "quelle": "wp-tanacetum-parthenium",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juni bis September. In lockeren doldenrispigen Gesamtblütenständen stehen fünf bis 30 körbchenförmige Teilblütenstände zusammen. Die Blütenkörbchen weisen einen Durchmesser von 13 bis 22 Millimeter auf und enthalten Zungen- und Röhrenblüten. Die Hüllblätter sind mehrreihig, am Rücken gekielt, behaart, grünlich und von einem hellen trockenhäutigen zerschlitzten Saum umgeben. Die äußeren Hüllblätter sind lanzettlich und spitz; die inneren sind länglich.  Die Zungenblüten sind weiß, weiblich und 5 bis 9 Millimeter lang und kürzer als die Hülle. Die zwittrigen Röhrenblüten sind gelb. Die Achänen sind kreiselförmig, fünf- bis zehnrippig, 1,5 Millimeter lang, harzig punktiert und haben alle einen kurzen häutigen am Rand gezähnten Kelchsaum.",
+      "quelle": "wp-tanacetum-parthenium",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

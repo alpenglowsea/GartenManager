@@ -1,0 +1,50 @@
+{
+  "hauptname": "Pastinake",
+  "lateinisch": "Pastinaca sativa",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q188614",
+  "wikipedia": "Pastinak",
+  "namen": [
+    {
+      "name": "Pastinak",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnlicher Pastinak",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Je nach Autor gibt es Unterarten oder Varietäten:\n\nWiesen-Pastinak (Pastinaca sativa subsp. sativa var. pratensis Pers.): Die auch in Mitteleuropa heimische formenreiche Art wird auch Hammelmöhre, Hirschmöhre, Moorwurzel oder Welsche Petersilie genannt. Sie gedeiht auf Wiesen, an Trockenhängen und auf Feldrainen. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz für diese Unterart: Feuchtezahl F = 2+w (frisch aber mäßig wechselnd), Lichtzahl L = 4 (hell), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).\n\nGemüse-Pastinak (Pastinaca sativa subsp. sativa var. sativa): In diversen Zuchtsorten zur Vermarktung als Gemüse angebaut.",
+      "quelle": "wp-pastinaca-sativa",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Pastinak wächst als zweijährige krautige Pflanze und erreicht Wuchshöhen von 30 bis 120 Zentimetern, selten auch bis 300 Zentimetern. Es handelt sich um eine Halbrosettenpflanze mit fleischiger Rübe, im Bau ähnlich der Möhre (Daucus). Der intensive, angenehme Geruch der ganzen Pflanzenteile ist süßlich, etwas dem wilden Fenchel (Foeniculum vulgare) ähnlich. Der Stängel ist kantig gefurcht. Nach dem ersten Jahr wird eine Rübe als Speicherorgan ausgebildet. Die Rübe ist von gelblich-weißer Farbe; bei der Wildform ist sie dünn und hart, bei den Kulturvarietäten bis zu 6 Zentimeter dick, 20 Zentimeter lang, kegelförmig und bis zu 1,5 Kilogramm schwer. Es wurde schon Wurzeln von 62 Zentimeter Länge gemessen. Im Unterschied zur Petersilienwurzel hat die Pastinakenrübe einen ausgeprägten Rand um den Austrittsbereich der Blätter. Die unterirdischen Pflanzenteile sind frosthart.",
+      "quelle": "wp-pastinaca-sativa",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Viele Blüten stehen in sieben- bis 20-strahligen doppeldoldigen Blütenständen zusammen. Hüllblätter und Hüllchenblätter sind meist keine vorhanden. Die Blüten sind zwittrig oder männlich. Die Kelchzähne sind winzig und dreieckig. Die Kronblätter sind gelb. Sie sind ausgebreitet 1,5 Millimeter lang und eingerollt 0,5 Millimeter lang. Sie sind am oberen Ende in eine ganzrandige rechteckige Spitze verschmälert. Die Blütezeit reicht von Juli bis September. Das Griffelpolster ist niedrig kegelförmig.\n\nDie Blüten sind „nektarführende Scheibenblumen vom Heracleum-Typ“. Sie werden von Insekten aller Art besucht (Entomophilie), besonders von Zweiflüglern und Hautflüglern. Die Windbestäubung ist zwar möglich, findet jedoch praktisch nicht statt.",
+      "quelle": "wp-pastinaca-sativa",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Der Geschmack der vorwiegend im Winter geernteten Wurzeln ist süßlich-würzig, teilweise auch herb. Er erinnert an Karotten und Sellerie und ist dem der Petersilienwurzel ähnlich, nur milder. Sie lassen sich backen oder kochen und zu Cremesuppen und Pürees verarbeiten. Pürierter Pastinak wird besonders wegen seines geringen Nitratgehalts als Baby-Gemüsebrei in Gläschen verkauft. Gerieben kann er wie Sellerie auch als Salat zubereitet werden. Pastinak sollte nicht zu dunkel angebraten werden, da er sonst einen bitteren Geschmack bekommt. Auch zu lange Lagerung kann Bittergeschmack hervorrufen. Zu den Klassikern der englischen Küche gehört Pastinakenpüree, Mashed parsnips, das ebenso wie Kartoffelpüree zubereitet wird, jedoch wesentlich aromatischer ist. Es wird traditionell zu gebratenem oder gegrilltem Fleisch gereicht. Ähnlich der Kartoffel werden aus Pastinak auch Chips hergestellt.",
+      "quelle": "wp-pastinaca-sativa",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

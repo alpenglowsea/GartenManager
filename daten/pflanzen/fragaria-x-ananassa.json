@@ -1,0 +1,48 @@
+{
+  "hauptname": "Garten-Erdbeere",
+  "lateinisch": "Fragaria × ananassa",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": "Q13158",
+  "wikipedia": "Gartenerdbeere",
+  "namen": [
+    {
+      "name": "Gartenerdbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Ananas-Erdbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kulturerdbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Fragaria ×ananassa",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Standort",
+      "text": "Für ein gesundes Gedeihen benötigen Erdbeeren einen vollsonnigen und windgeschützten Standort. Da die Blüten sich nach dem Ende der Kälteperiode entwickeln, sind sie durch Spätfrost stark gefährdet.\n\nOptimale Bedingungen für Erdbeeren bietet ein tiefgründiger und gut durchlässiger Boden. Er sollte humus- und nährstoffreich sein. Besonders förderlich ist ein leicht saurer Boden mit einem pH-Wert zwischen 5,5 und 6,5.",
+      "quelle": "wp-fragaria-x-ananassa",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Erdbeeren sind pflückreif und genießbar, wenn mindestens zwei Drittel der Fruchtoberfläche rot gefärbt sind. Ihr voller Geschmack entwickelt sich jedoch nur, wenn sie ausgereift gepflückt werden. Zu einer Nachreife kommt es bei Erdbeeren nicht. Idealerweise werden sie unmittelbar nach dem Pflücken verzehrt. Erdbeeren sind nur eingeschränkt transportfähig, da sie sehr druckempfindlich und anfällig für Schimmelpilze sind. Im Kühlschrank können sie bei zwei bis sechs Grad Celsius etwa ein bis zwei Tage gelagert werden. Bei Temperaturen zwischen null und zwei Grad sind sie bis zu fünf Tage haltbar.\n\nZu ihrer Verarbeitung werden sie gewaschen, bevor Stiele und Kelchblätter entfernt werden, da der Kontakt mit Wasser dazu führt, dass sie Aroma verlieren. Werden sie mit Zucker bestreut, darf das erst kurz vor dem Servieren geschehen, da sie dadurch sehr viel Saft verlieren und weich werden.",
+      "quelle": "wp-fragaria-x-ananassa",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

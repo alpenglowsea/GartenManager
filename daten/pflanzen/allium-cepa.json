@@ -1,0 +1,84 @@
+{
+  "hauptname": "Speisezwiebel",
+  "lateinisch": "Allium cepa",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q23485",
+  "wikipedia": "Zwiebel",
+  "namen": [
+    {
+      "name": "Zwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Luftzwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Zwiebeln",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Sommerzwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Etagenzwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenzwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Hauszwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Küchenzwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemeine Zwiebel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Zwiebellauch",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Küchenzwiebel existiert, von gelegentlichen Verwilderungen abgesehen, nur noch als reine Kulturpflanze. Es sind weder Wildformen bekannt noch konnte bisher eine rezente wildlebende Allium-Art als direkter Vorfahre identifiziert werden. Die geographische Herkunft der Küchenzwiebel kann daher nicht genau bestimmt werden, wobei häufig „Mittelasien“ oder „Afghanistan“ als mögliche Herkunftsregion benannt werden. Die derzeit als nächstverwandt angesehene Art Allium vavilovii ist in Turkmenistan und dem Iran beheimatet.",
+      "quelle": "wp-allium-cepa",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Küchenzwiebel ist eine ausdauernde krautige Pflanze, die in der Kultur jedoch meist nur ein- oder zweijährig gehalten und dann geerntet wird. Ihre Sprossachse bleibt bis zur Blütenbildung zu einem flachen scheibenförmigen Gebilde gestaucht, das Zwiebelscheibe oder Zwiebelkuchen genannt wird. Das Apikalmeristem auf der Oberseite der Zwiebelscheibe bringt an seinem Rand, abwechselnd gegenüberliegend und daher scheinbar zweizeilig (nach botanischer Terminologie aber grundständig), etwa 10 bis 15 ungestielte, deutlich in Unter- und Oberblatt gegliederte Laubblätter hervor. Die Unterblätter sind von weißlicher Farbe mit grüner Aderung, ähnlich wie Blattscheiden geformt, und umgreifen einander straff, sodass sie in ihrem oberen Teil einen mehrere Zentimeter langen Scheinspross bilden, im unteren Teil fleischig verdickt die bekannte „Zwiebel“ als Speicherorgan. Die rein grünen Oberblätter verwachsen zu Röhren mit geschlossener Spitze, die hohl und im Querschnitt annähernd oval sind.",
+      "quelle": "wp-allium-cepa",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Zwiebel war Heilpflanze des Jahres 2015. Als Heildroge dienen die frischen Zwiebeln. Für die Droge konnten antibakterielle, den Blutdruck, die Blutfette und den Blutzucker schwach senkende Wirkungen nachgewiesen werden, auch gerinnungshemmende und antiasthmatische Eigenschaften wurden nachgewiesen. Die Wirkungen hierfür sollen hauptsächlich auf die antioxidativen Schwefelverbindungen der Zwiebeln zurückzuführen sein. Die Positivmonographie der Kommission E des ehemaligen Bundesgesundheitsamtes gibt 1986 als Indikationen Appetitlosigkeit und die Vorbeugung von altersbedingten Gefäßveränderungen an.\n\nÄußerlich verwendet man Zwiebelsaft oder Sirup bei Insektenstichen, Wunden, Furunkeln und zur Nachbehandlung von Blutergüssen.",
+      "quelle": "wp-allium-cepa",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

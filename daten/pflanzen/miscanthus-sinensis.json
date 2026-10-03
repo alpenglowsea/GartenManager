@@ -4,14 +4,26 @@
   "gruppen": [
     "Gräser"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q1073621",
+  "wikipedia": "Chinaschilf",
   "namen": [],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
+      "abschnitt": "Herkunft",
+      "text": "Chinaschilf kommt ursprünglich von Indonesien und den Philippinen bis China, Korea, Japan und Russlands Fernem Osten vor. Es ist in weiten Teilen Chinas sowie in Japan und Korea auf Berghängen, an Küsten sowie weiteren Standorten in Höhenlagen unter 2000 Meter weitverbreitet. In Nord- und Südamerika, in Europa, Ägypten, Kleinasien und Neuseeland kommt es eingeführt vor.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bie neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-miscanthus-sinensis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Miscanthus sinensis charakterisiert sich durch eine schilfartige Wuchsform, bildet dichte bis lockere Horste aus und erreicht Höhen zwischen 80 und 200 (selten 300 bis 400) Zentimeter. Die Pflanzen bilden ein horizontal wachsendes, kurzes Rhizom aus, das daran ansetzende Wurzelsystem kann in Abhängigkeit von der Bodenbeschaffenheit bis in eine Tiefe von 2,5 m vordringen.",
+      "quelle": "wp-miscanthus-sinensis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "In den Ursprungsgebieten war das Chinaschilf als Rohstoff für Matten und Flechtwerk zum Sicht- und Windschutz sowie als Futterpflanze bekannt. Seit den 1950er Jahren wird es neben Miscanthus sacchariflorus in Europa als Zierpflanze kultiviert. Es existieren zahlreiche Sorten, die Verwendung in der Gartengestaltung finden, wie 'Strictus', 'Ferner Osten' und 'Malepartus'.\n\nBereits 1935 wurde eine spezielle starkwüchsige Sorte, das Riesen-Chinaschilf (Miscanthus × giganteus Hodkinson & Renvoize, Syn.: Miscanthus × longiberbis (Hack.) Nakai), eine Kreuzung aus dem Chinaschilf mit Miscanthus sacchariflorus, von Japan über Dänemark nach Mitteleuropa eingeführt, das auch im europäischen Raum Wuchshöhen von bis zu vier Metern erreichen kann und deshalb seit dem Ende der 1970er Jahre vermehrt als nachwachsender Rohstoff zur energetischen und stofflichen Nutzung angebaut wird.",
+      "quelle": "wp-miscanthus-sinensis",
       "auszug": false
     }
   ],

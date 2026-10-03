@@ -4,26 +4,44 @@
   "gruppen": [
     "Stauden"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q146684",
+  "wikipedia": "Wald-Erdbeere",
   "namen": [
     {
       "name": "Monatserdbeere",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
     },
     {
       "name": "Walderdbeere",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
     }
   ],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
+      "abschnitt": "Herkunft",
+      "text": "Die Wald-Erdbeere ist in weiten Teilen Europas und Nordasiens beheimatet. Sie wächst bevorzugt in lichten Laub- und Nadelwäldern sowie entlang der Waldränder. Die Wald-Erdbeere bevorzugt sonnige bis absonnige Standorte und benötigt feuchte, aber gut durchlässige, nährstoff- und humusreiche Böden. Sie ist in Mitteleuropa eine Charakterart der Klasse Epilobietea, kommt aber auch in Pflanzengesellschaften der Verbände Alliarion oder Trifolion medii vor. In den Allgäuer Alpen steigt sie am Aggenstein in Bayern bis zu einer Höhenlage von 1750 Metern auf.",
+      "quelle": "wp-fragaria-vesca",
       "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Wald-Erdbeere ist eine wintergrüne, ausdauernde, krautige Pflanze. Sie erreicht Wuchshöhen von meist 5 bis 25 Zentimetern und ist damit im Wuchs kleiner als die Gartenerdbeere. Die Laubblätter stehen in einer grundständigen Rosette zusammen.",
+      "quelle": "wp-fragaria-vesca",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blüten erscheinen in den Monaten April bis Juni, und im Laufe des Sommers reifen die Sammelnussfrüchte heran. Bei ausreichend starkem Sonneneinfall tragen einzelne Pflanzen auch bis zum Winterfrost Blüten und Früchte. Die Stängel tragen jeweils nur wenige Blüten. Die zwittrigen Blüten sind radiärsymmetrisch und fünfzählig. Jeweils fünf kleine Außenkelchblätter umgeben eine Blüte. Ein zweiter, alternierender Kreis wird von den eigentlichen Kelchblättern gebildet. Die Blüte hat fünf weiße Kronblätter. Es sind etwa 20 gelbe Staubblätter vorhanden. Die Fruchtblätter haben eine gelbgrüne Farbe. Die Blüten sind vorweiblich, womit eine Selbstbestäubung verhindert wird.",
+      "quelle": "wp-fragaria-vesca",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "„Die Köch seind der Erdbeeren auch gewar worden, machen gute Müßlein darauß“, schrieb Hieronymus Bock über die Walderdbeere. Aus archäologischen Funden weiß man, dass Walderdbeeren schon lange zu den von Menschen gesammelten Früchten gehören. In der Antike wurden sie von römischen Dichtern gepriesen. Ovid, Plinius und Vergil haben dieser Pflanzenart bereits Zeilen gewidmet.\n\nIm Mittelalter wurde die Wald-Erdbeere (lateinisch damals Fragaria, auch fragum) ab dem 14. Jahrhundert großflächig angebaut, ohne jedoch die Fruchtgröße merklich steigern zu können. Die Entdeckung der großfrüchtigeren Chile-Erdbeere (Fragaria chiloensis) und die darauffolgende Kreuzung mit der amerikanischen Scharlach-Erdbeere (Fragaria virginiana) führten dazu, dass die Walderdbeere seit dem 18. Jahrhundert fast nicht mehr kultiviert wurde. Später züchtete man wieder mit der Walderdbeere, wodurch als Kulturform der Walderdbeere die Monatserdbeere entstand.",
+      "quelle": "wp-fragaria-vesca",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

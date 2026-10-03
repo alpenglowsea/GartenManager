@@ -1,0 +1,55 @@
+{
+  "hauptname": "Echte Feige",
+  "lateinisch": "Ficus carica",
+  "gruppen": [
+    "Obstgehölze",
+    "Sträucher"
+  ],
+  "wikidata": "Q36146",
+  "wikipedia": "Echte Feige",
+  "namen": [
+    {
+      "name": "Feige",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Asvatha",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Feigenbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnlicher Eichenbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Feige wächst als sommergrüner und laubwerfender Strauch oder kleiner Baum mit Wuchshöhen von drei bis zu zehn Metern. In Deutschland werden Feigenbäume kaum über 5 oder 6 Meter hoch. Größe und Wuchsform sind stark von der jeweiligen Feigensorte abhängig. Die Krone ist bei alten Individuen meist sehr breit und ausladend, jedoch unregelmäßig und niedrig. Der Stamm ist oft knorrig, gedreht oder gebogen. Die meist reiche Verzweigung beginnt schon in geringer Höhe. Die Zweige sind relativ dick und gerade. Die gräulich-braune Borke besitzt deutlich erkennbare Lentizellen. Die Rinde ist glatt und hellgrau. Die ganze Pflanze führt Milchsaft, der in Zusammenhang mit Sonnenlicht nach Berührung zu einer Photodermatitis führen kann, die sich durch Entzündung der Haut und Bläschenbildung äußert.",
+      "quelle": "wp-ficus-carica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die achselständig und einzeln stehenden Blütenstände sind bei einem Durchmesser von drei bis fünf Zentimetern birnen- beziehungsweise flaschenförmig. Die Blütenstände sind grün und unauffällig und sehen aus wie kleine unreife Feigen. Sie entstehen, indem die Blütenstandsachse krugförmig nach oben wächst und mehrere hundert Einzelblüten dabei nach innen verlagert werden. An der Spitze des Blütenstandes bleibt eine enge, konkave Öffnung (Ostiolum) frei, die durch schuppenartige, eiförmige Hochblätter fast völlig geschlossen ist.",
+      "quelle": "wp-ficus-carica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die meisten Feigen werden getrocknet. Dies geschieht an der Sonne oder in Heißluftöfen. Der Wassergehalt wird dabei auf 33 bis 18 % gesenkt, der Zuckeranteil steigt auf rund 60 %. Die im Handel erhältlichen Rollen entstehen, indem man die getrockneten Feigen unter Verwendung von heißem Wasserdampf presst. Hauptsächlich werden Feigen in frischem oder getrocknetem Zustand als Obst verwendet.\n\nAus dem Saft reifer Feigen wird auch ein Dessertwein hergestellt. In Spanien und Portugal gibt es „Feigenkäse“, der reife Feigen, Hasel-, Pinienkerne, Mandeln, Pistazien und Gewürze enthält. Geröstete Feigen werden zudem zu Feigenkaffee verarbeitet.\n\nIm Handel werden die Feigen meist nicht unter den Sortennamen gehandelt, sondern nach der Herkunft benannt: Smyrna-Feigen (Türkei, besonders Mäander-Tal), Bari-Feigen (Region Puglia, Italien), Fraga-Feigen (Provinz Huelva, Spanien), Calamata-Feigen (Peloponnes, Griechenland), Bougie-Feigen (Algerien).",
+      "quelle": "wp-ficus-carica",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

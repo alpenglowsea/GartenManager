@@ -1,0 +1,53 @@
+{
+  "hauptname": "Pfefferminze",
+  "lateinisch": "Mentha × piperita",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q156037",
+  "wikipedia": "Pfefferminze",
+  "namen": [
+    {
+      "name": "Pfefferminztee",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Mentha x piperita",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Pfefferminz",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Pfeffer-Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Mentha piperita",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "1696 entdeckte John Ray in einem englischen Garten die besonders heilkräftige Pfefferminze (Mentha × piperita) als eine – wahrscheinlich zufällige – Kreuzung von Bachminze (Mentha aquatica) und Grüner Minze (Mentha spicata). Da Mentha spicata ihrerseits eine Kreuzung aus Rossminze (Mentha longifolia) und Mentha rotundifolia ist, ist die Pfefferminze ein weitgehend steriler Tripelbastard; eine sortenechte Vermehrung ist daher nur vegetativ (durch Stecklinge) möglich, nicht jedoch aus Samen. Züchterische Bemühungen haben zu vielen Unterarten, Varietäten und Formen geführt. In Mitcham bei London wurde die Pfefferminze um 1750 angebaut; die dunkelgrüne Sorte Mitcham ist bis heute die am höchsten geschätzte. Grob unterscheidet man dunkelgrüne (black mint) und hellgrüne (white mint) Sorten.",
+      "quelle": "wp-mentha-x-piperita",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Blätter enthalten ätherisches Pfefferminzöl und werden gern als teeähnliches Getränk oder Gewürz verwendet. Wichtigster Inhaltsstoff ist das Menthol, das in den älteren Blättern vermehrt zu finden ist. Die erste Jahresernte findet kurz vor der Blüte statt (Blütezeit Juni bis August) und erbringt die höhere Güte; die zweite Ernte im Herbst die geringere. Die Blätter kommen teils frisch, vorwiegend jedoch getrocknet in den Handel (Pfefferminztee). Weiterhin werden große Mengen zur Gewinnung des ätherischen Pfefferminzöls benötigt. Pfefferminzöl findet ausgedehnte Anwendung als Geruchs- und Geschmacksstoff.\n\nDa die Pfefferminze erst seit 1696 bekannt ist, fehlt sie in den Kräuterbüchern der Antike und des Mittelalters. Andere Minzen wurden jedoch schon früher verwendet.",
+      "quelle": "wp-mentha-x-piperita",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

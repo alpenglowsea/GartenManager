@@ -1,0 +1,38 @@
+{
+  "hauptname": "Rauer Sonnenhut",
+  "lateinisch": "Rudbeckia fulgida",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": "Q450250",
+  "wikipedia": "Gewöhnlicher Sonnenhut",
+  "namen": [
+    {
+      "name": "Gewöhnlicher Sonnenhut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Leuchtender Sonnenhut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Gewöhnliche Sonnenhut kommt im warmen bis gemäßigten Osten der USA in feuchten, lichten Wäldern, Seggenwiesen, Kalkquellfluren und Flussufersümpfen vor. Das Verbreitungsgebiet reicht von New York bis Florida.",
+      "quelle": "wp-rudbeckia-fulgida",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gewöhnliche Sonnenhut ist eine ausdauernde krautige Pflanze, die Wuchshöhen von 60 bis 100 Zentimetern erreicht. Die Pflanze bildet kurze unterirdische Ausläufer (Stolonen), an deren Enden sich immergrüne Rosetten befinden. Die Stängel wachsen verzweigt. Stängel und Blätter sind kahl bis angedrückt behaart, aber nicht sehr rau oder abstehend stechend borstig. Die wechselständigen Laubblätter sind einfach; sie sind in grundständigen Rosetten und entlang der aufrechten Stängel angeordnet. Die Blattränder sind glatt oder gesägt. Die Grundblätter sind dreinervig (selten bis fünfnervig), eiförmig-lanzettlich und entfernt gezähnt. Die Stängelblätter sind sitzend, halbstängelumfassend, gezähnt und dreinervig.",
+      "quelle": "wp-rudbeckia-fulgida",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

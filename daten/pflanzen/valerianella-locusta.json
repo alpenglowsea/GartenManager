@@ -1,0 +1,84 @@
+{
+  "hauptname": "Feldsalat",
+  "lateinisch": "Valerianella locusta",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q158954",
+  "wikipedia": "Gewöhnlicher Feldsalat",
+  "namen": [
+    {
+      "name": "Gewöhnlicher Feldsalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Lämmli",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Mausohrsalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Vogerlsalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Nüsslersalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Nüsslisalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Ackersalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnliches Rapünzchen",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Rapunzel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Salade de Blé",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Gewöhnliche Feldsalat kommt vor in Europa, in Makaronesien, im nördlichen Afrika und in Westasien. In Nord- und Südamerika, in China, Korea und Japan kommt er als Neophyt vor.\n\nEr gedeiht auf frischen bis mäßig frischen, nährstoff- und basenreichen, sandigen oder reinen Lehmböden in wintermild-humider Klimalage. Er kommt in Mitteleuropa vor allem in Gesellschaften der Klasse Sedo-Scleranthetea vor, ist aber auch in Gesellschaften der Ordnung Polygono-Chenopodietalia oder der Klasse Secalietea zu finden. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (-kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-valerianella-locusta",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gewöhnliche Feldsalat ist eine einjährige, meist winterannuelle, krautige Pflanze, die Wuchshöhen von 5 bis 15 cm erreicht. Seine einfachen Laubblätter werden 5 bis 30 mm lang und stehen in einer grundständigen Blattrosette. Je nach Sorte sind die Blätter breit oder schmal, rund oder spitz und kommen in verschiedenen Grünschattierungen vor. Der Stängel ist dichasial verzweigt, vierkantig, gefurcht und abwärts gebogen behaart.\n\nDie Blüten stehen in kleinen, gerundeten Trugdolden (Dichasien). Die kleinen, zygomorphen Blüten sind fünfzählig und 1,5 bis 2 mm lang. Die fünf blassblauen Kronblätter sind verwachsen. Es sind nur drei Staubblätter vorhanden. Drei Fruchtblätter sind zu einem Fruchtknoten verwachsen. Diese Art ist nur mit reifen Früchten zu bestimmen. Die Früchte sind kleine asymmetrische Nüsse mit einem einsamigen Fach mit schwammig verdickter Wand sowie zwei tauben Fruchtfächern als Schwimmeinrichtung.",
+      "quelle": "wp-valerianella-locusta",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "In seiner Kulturform wird Feldsalat als Blattsalat gegessen. Er ist stark aromatisch und einige Varietäten erinnern im Geschmack an Haselnuss.",
+      "quelle": "wp-valerianella-locusta",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

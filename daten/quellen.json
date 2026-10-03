@@ -1,11 +1,4673 @@
 {
-  "test": {
-    "art": "Testdaten",
-    "titel": "Testtexte von GartenManager (keine echten Inhalte)",
+  "liste": {
+    "art": "Projektliste",
+    "titel": "Pflanzenliste des Projektinhabers (Namen)",
     "adresse": null,
     "version": null,
-    "lizenz": "CC0-1.0",
+    "lizenz": null,
     "abrufdatum": null,
     "aenderung": null
+  },
+  "wikidata": {
+    "art": "Wikidata",
+    "titel": "Wikidata (Bezeichnungen, Aliase)",
+    "adresse": "https://www.wikidata.org",
+    "version": null,
+    "lizenz": "CC0 1.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": null
+  },
+  "wp-achillea-millefolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Schafgarbe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Schafgarbe&oldid=270884873",
+    "version": "270884873",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aconitum-napellus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blauer Eisenhut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blauer_Eisenhut&oldid=270575264",
+    "version": "270575264",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ajuga-reptans": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kriechender Günsel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kriechender_Günsel&oldid=266710090",
+    "version": "266710090",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-alchemilla-mollis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weicher Frauenmantel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weicher_Frauenmantel&oldid=244451269",
+    "version": "244451269",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anemone-nemorosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Buschwindröschen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Buschwindröschen&oldid=269592995",
+    "version": "269592995",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anemone-hupehensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Herbst-Anemone",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Herbst-Anemone&oldid=270144349",
+    "version": "270144349",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aquilegia-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Akelei",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Akelei&oldid=270061560",
+    "version": "270061560",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-arabis-caucasica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kaukasische Gänsekresse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kaukasische_Gänsekresse&oldid=266356135",
+    "version": "266356135",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aubrieta-x-cultorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blaukissen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blaukissen&oldid=267725225",
+    "version": "267725225",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-astilbe-x-arendsii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hybrid-Prachtspiere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hybrid-Prachtspiere&oldid=263672924",
+    "version": "263672924",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-astrantia-major": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Große Sterndolde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Große_Sterndolde&oldid=269091222",
+    "version": "269091222",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-symphyotrichum-novae-angliae": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Raublatt-Aster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Raublatt-Aster&oldid=267684999",
+    "version": "267684999",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-symphyotrichum-novi-belgii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Neubelgische Aster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Neubelgische_Aster&oldid=267723165",
+    "version": "267723165",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aster-amellus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Berg-Aster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Berg-Aster&oldid=267728588",
+    "version": "267728588",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-bergenia-cordifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Herzblättrige Bergenie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Herzblättrige_Bergenie&oldid=239871587",
+    "version": "239871587",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-echinops-ritro": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ruthenische Kugeldistel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ruthenische_Kugeldistel&oldid=268651567",
+    "version": "268651567",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-eryngium-planum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Flachblatt-Mannstreu",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Flachblatt-Mannstreu&oldid=266910618",
+    "version": "266910618",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-euphorbia-cyparissias": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zypressen-Wolfsmilch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zypressen-Wolfsmilch&oldid=270377415",
+    "version": "270377415",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-filipendula-ulmaria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echtes Mädesüß",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echtes_Mädesüß&oldid=269209095",
+    "version": "269209095",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-geranium-pratense": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Storchschnabel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Storchschnabel&oldid=265773726",
+    "version": "265773726",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-geranium-sanguineum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blutroter Storchschnabel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blutroter_Storchschnabel&oldid=265558097",
+    "version": "265558097",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-geranium-macrorrhizum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Balkan-Storchschnabel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Balkan-Storchschnabel&oldid=257616913",
+    "version": "257616913",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-geum-rivale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bach-Nelkenwurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bach-Nelkenwurz&oldid=270612137",
+    "version": "270612137",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-gypsophila-paniculata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rispiges Gipskraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rispiges_Gipskraut&oldid=269784173",
+    "version": "269784173",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hylotelephium-telephium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Große Fetthenne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Große_Fetthenne&oldid=249129981",
+    "version": "249129981",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sedum-acre": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Scharfer Mauerpfeffer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Scharfer_Mauerpfeffer&oldid=264086456",
+    "version": "264086456",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-heuchera-sanguinea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Purpurglöckchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Purpurglöckchen&oldid=262100362",
+    "version": "262100362",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hemerocallis-fulva": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gelbrote Taglilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gelbrote_Taglilie&oldid=270487927",
+    "version": "270487927",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hosta-sieboldiana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blaublatt-Funkie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blaublatt-Funkie&oldid=207816808",
+    "version": "207816808",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-iris-sibirica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sibirische Schwertlilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sibirische_Schwertlilie&oldid=259250269",
+    "version": "259250269",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-iris-x-germanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Deutsche Schwertlilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Deutsche_Schwertlilie&oldid=266512544",
+    "version": "266512544",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nepeta-x-faassenii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hybrid-Katzenminze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hybrid-Katzenminze&oldid=259090943",
+    "version": "259090943",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-leucanthemum-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Magerwiesen-Margerite",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Magerwiesen-Margerite&oldid=267415517",
+    "version": "267415517",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lupinus-polyphyllus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Vielblättrige Lupine",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Vielblättrige_Lupine&oldid=267240430",
+    "version": "267240430",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-silene-flos-cuculi": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kuckucks-Lichtnelke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kuckucks-Lichtnelke&oldid=268527551",
+    "version": "268527551",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-silene-chalcedonica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Brennende Liebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Brennende_Liebe&oldid=255610518",
+    "version": "255610518",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-paeonia-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Pfingstrose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Pfingstrose&oldid=270084167",
+    "version": "270084167",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-paeonia-lactiflora": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Paeonia lactiflora",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Paeonia_lactiflora&oldid=264140960",
+    "version": "264140960",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-papaver-orientale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Türkischer Mohn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Türkischer_Mohn&oldid=269411525",
+    "version": "269411525",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-phlox-paniculata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hoher Stauden-Phlox",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hoher_Stauden-Phlox&oldid=253893923",
+    "version": "253893923",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-phlox-subulata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Polster-Phlox",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Polster-Phlox&oldid=256705978",
+    "version": "256705978",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-polygonatum-multiflorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Vielblütige Weißwurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Vielblütige_Weißwurz&oldid=264040366",
+    "version": "264040366",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-primula-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stängellose Schlüsselblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stängellose_Schlüsselblume&oldid=270217336",
+    "version": "270217336",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-primula-veris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Schlüsselblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Schlüsselblume&oldid=266600322",
+    "version": "266600322",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pulmonaria-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Geflecktes Lungenkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Geflecktes_Lungenkraut&oldid=268637408",
+    "version": "268637408",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pulsatilla-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Kuhschelle",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Kuhschelle&oldid=269995377",
+    "version": "269995377",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salvia-nemorosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hain-Salbei",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hain-Salbei&oldid=259824882",
+    "version": "259824882",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salvia-pratensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesensalbei",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesensalbei&oldid=268611022",
+    "version": "268611022",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-scabiosa-columbaria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tauben-Skabiose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tauben-Skabiose&oldid=268024390",
+    "version": "268024390",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-knautia-arvensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Acker-Witwenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Acker-Witwenblume&oldid=267407571",
+    "version": "267407571",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-antennaria-dioica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliches Katzenpfötchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliches_Katzenpfötchen&oldid=267774902",
+    "version": "267774902",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-delphinium-elatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hoher Rittersporn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hoher_Rittersporn&oldid=269848434",
+    "version": "269848434",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-digitalis-purpurea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Roter Fingerhut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Roter_Fingerhut&oldid=263901033",
+    "version": "263901033",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-centaurea-jacea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Flockenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Flockenblume&oldid=268525910",
+    "version": "268525910",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-centaurea-montana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Berg-Flockenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Berg-Flockenblume&oldid=268547153",
+    "version": "268547153",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-campanula-rotundifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rundblättrige Glockenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rundblättrige_Glockenblume&oldid=270535036",
+    "version": "270535036",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-campanula-persicifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfirsichblättrige Glockenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfirsichblättrige_Glockenblume&oldid=269738434",
+    "version": "269738434",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-campanula-carpatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Karpaten-Glockenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Karpaten-Glockenblume&oldid=257994703",
+    "version": "257994703",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-heliopsis-helianthoides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Sonnenauge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Sonnenauge&oldid=267948520",
+    "version": "267948520",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-monarda-didyma": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Indianernessel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Indianernessel&oldid=268528745",
+    "version": "268528745",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-oenothera-lindheimeri": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Prachtkerze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Prachtkerze&oldid=269144969",
+    "version": "269144969",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-gaillardia-x-grandiflora": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kokardenblumen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kokardenblumen&oldid=268203705",
+    "version": "268203705",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lamprocapnos-spectabilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tränendes Herz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tränendes_Herz&oldid=269533781",
+    "version": "269533781",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helleborus-niger": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schneerose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schneerose&oldid=269877599",
+    "version": "269877599",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helleborus-orientalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Orientalische Nieswurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Orientalische_Nieswurz&oldid=269855619",
+    "version": "269855619",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-epimedium-x-rubrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Elfenblumen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Elfenblumen&oldid=269336009",
+    "version": "269336009",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-convallaria-majalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Maiglöckchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Maiglöckchen&oldid=265876555",
+    "version": "265876555",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vinca-minor": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kleines Immergrün",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kleines_Immergrün&oldid=269565765",
+    "version": "269565765",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-waldsteinia-ternata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Dreiblättrige Waldsteinie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Dreiblättrige_Waldsteinie&oldid=259836878",
+    "version": "259836878",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-asarum-europaeum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Haselwurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Haselwurz&oldid=270616825",
+    "version": "270616825",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dryopteris-filix-mas": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Wurmfarn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Wurmfarn&oldid=270549951",
+    "version": "270549951",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-athyrium-filix-femina": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Frauenfarn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Frauenfarn&oldid=270523909",
+    "version": "270523909",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-asplenium-scolopendrium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hirschzungenfarn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hirschzungenfarn&oldid=267811730",
+    "version": "267811730",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-matteuccia-struthiopteris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Straußenfarn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Straußenfarn&oldid=267128557",
+    "version": "267128557",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brunnera-macrophylla": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Großblättriges Kaukasusvergissmeinnicht",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Großblättriges_Kaukasusvergissmeinnicht&oldid=265207087",
+    "version": "265207087",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sanguisorba-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Großer Wiesenknopf",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Großer_Wiesenknopf&oldid=270357183",
+    "version": "270357183",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lythrum-salicaria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Blutweiderich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Blutweiderich&oldid=269556604",
+    "version": "269556604",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-stachys-byzantina": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Woll-Ziest",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Woll-Ziest&oldid=268781516",
+    "version": "268781516",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-veronica-longifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Langblättriger Ehrenpreis",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Langblättriger_Ehrenpreis&oldid=260693659",
+    "version": "260693659",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-verbascum-densiflorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Großblütige Königskerze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Großblütige_Königskerze&oldid=264242772",
+    "version": "264242772",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cichorium-intybus-gewoehnliche-wegwarte": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Wegwarte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Wegwarte&oldid=269055509",
+    "version": "269055509",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sempervivum-tectorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Dach-Hauswurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Dach-Hauswurz&oldid=270203617",
+    "version": "270203617",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-veronicastrum-virginicum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Veronicastrum virginicum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Veronicastrum_virginicum&oldid=260896109",
+    "version": "260896109",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dianthus-carthusianorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kartäusernelke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kartäusernelke&oldid=270531123",
+    "version": "270531123",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dianthus-gratianopolitanus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfingstnelke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfingstnelke&oldid=257503042",
+    "version": "257503042",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helianthemum-nummularium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gelbes Sonnenröschen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gelbes_Sonnenröschen&oldid=261297663",
+    "version": "261297663",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aurinia-saxatilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Felsensteinkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Felsensteinkraut&oldid=265590960",
+    "version": "265590960",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-thalictrum-aquilegiifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Akeleiblättrige Wiesenraute",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Akeleiblättrige_Wiesenraute&oldid=270077187",
+    "version": "270077187",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-trollius-europaeus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Trollblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Trollblume&oldid=270396710",
+    "version": "270396710",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-centranthus-ruber": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rote Spornblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rote_Spornblume&oldid=269595755",
+    "version": "269595755",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-linum-perenne": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ausdauernder Lein",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ausdauernder_Lein&oldid=234530035",
+    "version": "234530035",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-solidago-virgaurea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Goldrute",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Goldrute&oldid=267673393",
+    "version": "267673393",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-actaea-racemosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Traubensilberkerze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Traubensilberkerze&oldid=264494651",
+    "version": "264494651",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aruncus-dioicus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Geißbart",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Geißbart&oldid=267788174",
+    "version": "267788174",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helenium-autumnale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Sonnenbraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Sonnenbraut&oldid=268212824",
+    "version": "268212824",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-echinacea-purpurea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Purpur-Sonnenhut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Purpur-Sonnenhut&oldid=267936473",
+    "version": "267936473",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rudbeckia-fulgida": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Sonnenhut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Sonnenhut&oldid=267931780",
+    "version": "267931780",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rudbeckia-laciniata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schlitzblättriger Sonnenhut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schlitzblättriger_Sonnenhut&oldid=267925271",
+    "version": "267925271",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-liatris-spicata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Prachtscharte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Prachtscharte&oldid=267758926",
+    "version": "267758926",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fragaria-x-ananassa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenerdbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenerdbeere&oldid=267068333",
+    "version": "267068333",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fragaria-vesca": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Erdbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Erdbeere&oldid=260660122",
+    "version": "260660122",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-buddleja-davidii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schmetterlingsflieder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schmetterlingsflieder&oldid=268341691",
+    "version": "268341691",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-forsythia-x-intermedia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Forsythie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Forsythie&oldid=265516836",
+    "version": "265516836",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hydrangea-macrophylla": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenhortensie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenhortensie&oldid=270604685",
+    "version": "270604685",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hydrangea-paniculata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rispen-Hortensie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rispen-Hortensie&oldid=265464272",
+    "version": "265464272",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hydrangea-arborescens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Hortensie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Hortensie&oldid=269250368",
+    "version": "269250368",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-syringa-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeiner Flieder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeiner_Flieder&oldid=270522988",
+    "version": "270522988",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rhododendron": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rhododendren",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rhododendren&oldid=263452917",
+    "version": "263452917",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-kerria-japonica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kerrie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kerrie&oldid=267886122",
+    "version": "267886122",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-weigela-florida": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Liebliche Weigelie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Liebliche_Weigelie&oldid=266502005",
+    "version": "266502005",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-deutzia-gracilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zierliche Deutzie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zierliche_Deutzie&oldid=249958202",
+    "version": "249958202",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-philadelphus-coronarius": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäischer Pfeifenstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäischer_Pfeifenstrauch&oldid=259385998",
+    "version": "259385998",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ribes-sanguineum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blut-Johannisbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blut-Johannisbeere&oldid=253641969",
+    "version": "253641969",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-chaenomeles-japonica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Japanische Zierquitte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Japanische_Zierquitte&oldid=259981616",
+    "version": "259981616",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-daphne-mezereum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Seidelbast",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Seidelbast&oldid=270550017",
+    "version": "270550017",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-caryopteris-x-clandonensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bartblumen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bartblumen&oldid=260068433",
+    "version": "260068433",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cotinus-coggygria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Perückenstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Perückenstrauch&oldid=269070173",
+    "version": "269070173",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-amelanchier-lamarckii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kupfer-Felsenbirne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kupfer-Felsenbirne&oldid=257235192",
+    "version": "257235192",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cornus-sanguinea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Roter Hartriegel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Roter_Hartriegel&oldid=267677411",
+    "version": "267677411",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cornus-mas": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kornelkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kornelkirsche&oldid=266804732",
+    "version": "266804732",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cornus-alba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tatarischer Hartriegel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tatarischer_Hartriegel&oldid=221491468",
+    "version": "221491468",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sambucus-nigra": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarzer Holunder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarzer_Holunder&oldid=270307934",
+    "version": "270307934",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sambucus-racemosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Roter Holunder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Roter_Holunder&oldid=267710648",
+    "version": "267710648",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viburnum-opulus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Schneeball",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Schneeball&oldid=270275217",
+    "version": "270275217",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viburnum-lantana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wolliger Schneeball",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wolliger_Schneeball&oldid=270102948",
+    "version": "270102948",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viburnum-tinus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lorbeerblättriger Schneeball",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lorbeerblättriger_Schneeball&oldid=268019944",
+    "version": "268019944",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-berberis-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Berberitze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Berberitze&oldid=269210868",
+    "version": "269210868",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-berberis-thunbergii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Thunberg-Berberitze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Thunberg-Berberitze&oldid=269267454",
+    "version": "269267454",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crataegus-monogyna": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Eingriffeliger Weißdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Eingriffeliger_Weißdorn&oldid=266605922",
+    "version": "266605922",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crataegus-laevigata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zweigriffeliger Weißdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zweigriffeliger_Weißdorn&oldid=256995388",
+    "version": "256995388",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-spinosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schlehdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schlehdorn&oldid=270656578",
+    "version": "270656578",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-canina": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hundsrose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hundsrose&oldid=269028108",
+    "version": "269028108",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-rugosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kartoffel-Rose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kartoffel-Rose&oldid=270598030",
+    "version": "270598030",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-rubiginosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wein-Rose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wein-Rose&oldid=260656547",
+    "version": "260656547",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-spinosissima": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bibernell-Rose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bibernell-Rose&oldid=258819264",
+    "version": "258819264",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-gallica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Essig-Rose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Essig-Rose&oldid=250583447",
+    "version": "250583447",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-edelrosen-und-beetrosen-hybriden": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rosen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rosen&oldid=270759528",
+    "version": "270759528",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-corylus-avellana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Hasel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Hasel&oldid=270543073",
+    "version": "270543073",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-euonymus-europaeus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Spindelstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Spindelstrauch&oldid=269185023",
+    "version": "269185023",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-euonymus-alatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Flügel-Spindelstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Flügel-Spindelstrauch&oldid=258371222",
+    "version": "258371222",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hippophae-rhamnoides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sanddorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sanddorn&oldid=267957148",
+    "version": "267957148",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-frangula-alnus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Faulbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Faulbaum&oldid=270448792",
+    "version": "270448792",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-juniperus-communis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeiner Wacholder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeiner_Wacholder&oldid=270549945",
+    "version": "270549945",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mahonia-aquifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Mahonie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Mahonie&oldid=269302746",
+    "version": "269302746",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dasiphora-fruticosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fingerstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fingerstrauch&oldid=258660637",
+    "version": "258660637",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hamamelis-x-intermedia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hamamelis ×intermedia",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hamamelis_×intermedia&oldid=269622818",
+    "version": "269622818",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-physocarpus-opulifolius": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schneeballblättrige Blasenspiere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schneeballblättrige_Blasenspiere&oldid=263538877",
+    "version": "263538877",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lonicera-xylosteum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rote Heckenkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rote_Heckenkirsche&oldid=266472748",
+    "version": "266472748",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cytisus-scoparius": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Besenginster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Besenginster&oldid=268527878",
+    "version": "268527878",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-symphoricarpos-albus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Schneebeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Schneebeere&oldid=270449242",
+    "version": "270449242",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cotoneaster-horizontalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fächer-Zwergmispel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fächer-Zwergmispel&oldid=267598142",
+    "version": "267598142",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pyracantha-coccinea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mittelmeer-Feuerdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mittelmeer-Feuerdorn&oldid=270489278",
+    "version": "270489278",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hibiscus-syriacus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Straucheibisch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Straucheibisch&oldid=266848535",
+    "version": "266848535",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-magnolia-stellata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stern-Magnolie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stern-Magnolie&oldid=270427208",
+    "version": "270427208",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-calluna-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Besenheide",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Besenheide&oldid=268270124",
+    "version": "268270124",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-erica-carnea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schneeheide",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schneeheide&oldid=263906987",
+    "version": "263906987",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-perovskia-atriplicifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Silber-Perowskie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Silber-Perowskie&oldid=269061410",
+    "version": "269061410",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-kolkwitzia-amabilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kolkwitzie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kolkwitzie&oldid=266497677",
+    "version": "266497677",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lavandula-angustifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Lavendel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Lavendel&oldid=268109488",
+    "version": "268109488",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salix-caprea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sal-Weide",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sal-Weide&oldid=270672460",
+    "version": "270672460",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-festuca-gautieri": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bärenfell-Schwingel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bärenfell-Schwingel&oldid=251201398",
+    "version": "251201398",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-stipa-capillata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Haar-Pfriemengras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Haar-Pfriemengras&oldid=255323611",
+    "version": "255323611",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-celtica-gigantea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Riesen-Federgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Riesen-Federgras&oldid=267667826",
+    "version": "267667826",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cenchrus-alopecuroides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lampenputzergras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lampenputzergras&oldid=264416845",
+    "version": "264416845",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-miscanthus-sinensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Chinaschilf",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Chinaschilf&oldid=266222051",
+    "version": "266222051",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-molinia-caerulea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blaues Pfeifengras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blaues_Pfeifengras&oldid=264022545",
+    "version": "264022545",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-calamagrostis-x-acutiflora": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Reitgräser",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Reitgräser&oldid=261768235",
+    "version": "261768235",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-briza-media": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mittleres Zittergras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mittleres_Zittergras&oldid=256291751",
+    "version": "256291751",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-panicum-virgatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rutenhirse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rutenhirse&oldid=260603938",
+    "version": "260603938",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-carex-montana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Berg-Segge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Berg-Segge&oldid=258226275",
+    "version": "258226275",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-carex-sylvatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Segge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Segge&oldid=267671530",
+    "version": "267671530",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lagurus-ovatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Samtgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Samtgras&oldid=250616348",
+    "version": "250616348",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-melica-nutans": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Nickendes Perlgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Nickendes_Perlgras&oldid=262986781",
+    "version": "262986781",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-milium-effusum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Flattergras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Flattergras&oldid=262252341",
+    "version": "262252341",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brachypodium-sylvaticum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Zwenke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Zwenke&oldid=255524052",
+    "version": "255524052",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brachypodium-pinnatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fieder-Zwenke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fieder-Zwenke&oldid=269248687",
+    "version": "269248687",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-alopecurus-pratensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Fuchsschwanz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Fuchsschwanz&oldid=268379861",
+    "version": "268379861",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anthoxanthum-odoratum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliches Ruchgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliches_Ruchgras&oldid=261989508",
+    "version": "261989508",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-arrhenatherum-elatius": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Glatthafer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Glatthafer&oldid=268184796",
+    "version": "268184796",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-poa-pratensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Rispengras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Rispengras&oldid=262319678",
+    "version": "262319678",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-deschampsia-cespitosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rasen-Schmiele",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rasen-Schmiele&oldid=267355835",
+    "version": "267355835",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lolium-perenne": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Deutsches Weidelgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Deutsches_Weidelgras&oldid=267981708",
+    "version": "267981708",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-luzula-nivea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schneeweiße Hainsimse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schneeweiße_Hainsimse&oldid=267464648",
+    "version": "267464648",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-luzula-sylvatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Hainsimse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Hainsimse&oldid=268639172",
+    "version": "268639172",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fargesia-murielae": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Muriel-Bambus",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Muriel-Bambus&oldid=269469249",
+    "version": "269469249",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cortaderia-selloana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Amerikanisches Pampasgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Amerikanisches_Pampasgras&oldid=246993507",
+    "version": "246993507",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hedera-helix": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeiner Efeu",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeiner_Efeu&oldid=270146163",
+    "version": "270146163",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-parthenocissus-tricuspidata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Dreispitzige Jungfernrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Dreispitzige_Jungfernrebe&oldid=266605229",
+    "version": "266605229",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-parthenocissus-quinquefolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Selbstkletternde Jungfernrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Selbstkletternde_Jungfernrebe&oldid=270464875",
+    "version": "270464875",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-clematis-vitalba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Waldrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Waldrebe&oldid=270268248",
+    "version": "270268248",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-clematis-viticella": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Italienische Waldrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Italienische_Waldrebe&oldid=269692647",
+    "version": "269692647",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-clematis-alpina": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Alpen-Waldrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Alpen-Waldrebe&oldid=269673676",
+    "version": "269673676",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lonicera-periclymenum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Waldgeißblatt",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Waldgeißblatt&oldid=267223176",
+    "version": "267223176",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lonicera-caprifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartengeißblatt",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartengeißblatt&oldid=268028791",
+    "version": "268028791",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hydrangea-anomala-subsp-petiolaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kletter-Hortensie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kletter-Hortensie&oldid=225067527",
+    "version": "225067527",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-wisteria-sinensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Chinesische Wisteria",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Chinesische_Wisteria&oldid=266048274",
+    "version": "266048274",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rosa-kletterrosen-hybriden": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rosen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rosen&oldid=270759528",
+    "version": "270759528",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-campsis-radicans": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Amerikanische Klettertrompete",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Amerikanische_Klettertrompete&oldid=252682393",
+    "version": "252682393",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aristolochia-macrophylla": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfeifenwinde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfeifenwinde&oldid=270637476",
+    "version": "270637476",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fallopia-baldschuanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schlingknöterich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schlingknöterich&oldid=260723457",
+    "version": "260723457",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-humulus-lupulus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Hopfen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Hopfen&oldid=270242875",
+    "version": "270242875",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tropaeolum-majus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Große Kapuzinerkresse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Große_Kapuzinerkresse&oldid=260635918",
+    "version": "260635918",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lathyrus-odoratus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Duftende Platterbse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Duftende_Platterbse&oldid=266957691",
+    "version": "266957691",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ipomoea-purpurea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Purpur-Prunkwinde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Purpur-Prunkwinde&oldid=262121569",
+    "version": "262121569",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-thunbergia-alata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarzäugige Susanne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarzäugige_Susanne&oldid=258628189",
+    "version": "258628189",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cobaea-scandens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Glockenrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Glockenrebe&oldid=262209290",
+    "version": "262209290",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-euonymus-fortunei": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kletter-Spindelstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kletter-Spindelstrauch&oldid=270683486",
+    "version": "270683486",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-akebia-quinata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fingerblättrige Akebie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fingerblättrige_Akebie&oldid=270686942",
+    "version": "270686942",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-passiflora-caerulea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blaue Passionsblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blaue_Passionsblume&oldid=262180387",
+    "version": "262180387",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-jasminum-nudiflorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Winter-Jasmin",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Winter-Jasmin&oldid=270498934",
+    "version": "270498934",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-carpinus-betulus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Hainbuche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Hainbuche&oldid=270884801",
+    "version": "270884801",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fagus-sylvatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rotbuche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rotbuche&oldid=269461826",
+    "version": "269461826",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-taxus-baccata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäische Eibe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäische_Eibe&oldid=270713268",
+    "version": "270713268",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-thuja-occidentalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Abendländischer Lebensbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Abendländischer_Lebensbaum&oldid=269447923",
+    "version": "269447923",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-chamaecyparis-lawsoniana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lawsons Scheinzypresse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lawsons_Scheinzypresse&oldid=264518664",
+    "version": "264518664",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-laurocerasus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lorbeerkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lorbeerkirsche&oldid=270433307",
+    "version": "270433307",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ligustrum-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Liguster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Liguster&oldid=269417119",
+    "version": "269417119",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-buxus-sempervirens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Buchsbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Buchsbaum&oldid=270979405",
+    "version": "270979405",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-campestre": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Feldahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Feldahorn&oldid=269823009",
+    "version": "269823009",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-cerasifera": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kirschpflaume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kirschpflaume&oldid=267950948",
+    "version": "267950948",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cupressus-x-leylandii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Leyland-Zypresse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Leyland-Zypresse&oldid=252507558",
+    "version": "252507558",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ilex-aquifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäische Stechpalme",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäische_Stechpalme&oldid=270098295",
+    "version": "270098295",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crataegus-x-media": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mittlerer Weißdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mittlerer_Weißdorn&oldid=194780705",
+    "version": "194780705",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-picea-abies": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Fichte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Fichte&oldid=269852490",
+    "version": "269852490",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cotoneaster-salicifolius": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weidenblättrige Zwergmispel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weidenblättrige_Zwergmispel&oldid=269038867",
+    "version": "269038867",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-malus-domestica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kulturapfel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kulturapfel&oldid=270810180",
+    "version": "270810180",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-malus-sylvestris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Holzapfel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Holzapfel&oldid=267668522",
+    "version": "267668522",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pyrus-communis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kultur-Birne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kultur-Birne&oldid=266650875",
+    "version": "266650875",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pyrus-pyraster": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wildbirne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wildbirne&oldid=266650893",
+    "version": "266650893",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-avium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Vogelkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Vogelkirsche&oldid=270570099",
+    "version": "270570099",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-cerasus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sauerkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sauerkirsche&oldid=267909335",
+    "version": "267909335",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-domestica-subsp-domestica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zwetschge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zwetschge&oldid=270183963",
+    "version": "270183963",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-domestica-subsp-syriaca": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mirabelle",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mirabelle&oldid=269833893",
+    "version": "269833893",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-domestica-subsp-italica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Edel-Pflaume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Edel-Pflaume&oldid=258458614",
+    "version": "258458614",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-persica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfirsich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfirsich&oldid=267939448",
+    "version": "267939448",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-armeniaca": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Aprikose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Aprikose&oldid=269809364",
+    "version": "269809364",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-dulcis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mandelbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mandelbaum&oldid=267301932",
+    "version": "267301932",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cydonia-oblonga": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Quitte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Quitte&oldid=269855618",
+    "version": "269855618",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-juglans-regia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Walnuss",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Walnuss&oldid=269128417",
+    "version": "269128417",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mespilus-germanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mispel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mispel&oldid=268169050",
+    "version": "268169050",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ficus-carica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Feige",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Feige&oldid=270242249",
+    "version": "270242249",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vitis-vinifera": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weinrebe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weinrebe&oldid=270959827",
+    "version": "270959827",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-castanea-sativa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Edelkastanie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Edelkastanie&oldid=270801669",
+    "version": "270801669",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sorbus-domestica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Speierling",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Speierling&oldid=264423846",
+    "version": "264423846",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-morus-nigra": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarze Maulbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarze_Maulbeere&oldid=262940695",
+    "version": "262940695",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-diospyros-kaki": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kaki",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kaki&oldid=270989830",
+    "version": "270989830",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-corylus-maxima": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lambertshasel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lambertshasel&oldid=266811636",
+    "version": "266811636",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ribes-rubrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rote Johannisbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rote_Johannisbeere&oldid=267140902",
+    "version": "267140902",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ribes-nigrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarze Johannisbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarze_Johannisbeere&oldid=266161948",
+    "version": "266161948",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ribes-uva-crispa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stachelbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stachelbeere&oldid=266164202",
+    "version": "266164202",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rubus-idaeus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Himbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Himbeere&oldid=270315264",
+    "version": "270315264",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vaccinium-corymbosum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Amerikanische Heidelbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Amerikanische_Heidelbeere&oldid=259887300",
+    "version": "259887300",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vaccinium-myrtillus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Heidelbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Heidelbeere&oldid=268946486",
+    "version": "268946486",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vaccinium-vitis-idaea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Preiselbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Preiselbeere&oldid=254399319",
+    "version": "254399319",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vaccinium-macrocarpon": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Großfrüchtige Moosbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Großfrüchtige_Moosbeere&oldid=270939793",
+    "version": "270939793",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aronia-melanocarpa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarze Apfelbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarze_Apfelbeere&oldid=268623109",
+    "version": "268623109",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lycium-barbarum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeiner Bocksdorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeiner_Bocksdorn&oldid=270932727",
+    "version": "270932727",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-actinidia-arguta": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Scharfzähniger Strahlengriffel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Scharfzähniger_Strahlengriffel&oldid=261110571",
+    "version": "261110571",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lonicera-caerulea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blaue Heckenkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blaue_Heckenkirsche&oldid=267878464",
+    "version": "267878464",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ocimum-basilicum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Basilikum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Basilikum&oldid=270776840",
+    "version": "270776840",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-petroselinum-crispum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Petersilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Petersilie&oldid=267787218",
+    "version": "267787218",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-schoenoprasum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schnittlauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schnittlauch&oldid=270766234",
+    "version": "270766234",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anethum-graveolens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Dill (Pflanze)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Dill_(Pflanze)&oldid=265745675",
+    "version": "265745675",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-coriandrum-sativum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Koriander",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Koriander&oldid=270980918",
+    "version": "270980918",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mentha-x-piperita": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfefferminze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfefferminze&oldid=270449057",
+    "version": "270449057",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mentha-spicata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Grüne Minze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Grüne_Minze&oldid=270568021",
+    "version": "270568021",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-thymus-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Thymian",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Thymian&oldid=261537713",
+    "version": "261537713",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-thymus-serpyllum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sand-Thymian",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sand-Thymian&oldid=266182075",
+    "version": "266182075",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salvia-rosmarinus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rosmarin",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rosmarin&oldid=264434467",
+    "version": "264434467",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salvia-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Salbei",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Salbei&oldid=265370434",
+    "version": "265370434",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-origanum-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Oregano",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Oregano&oldid=270568888",
+    "version": "270568888",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-origanum-majorana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Majoran",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Majoran&oldid=270182640",
+    "version": "270182640",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-satureja-hortensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sommer-Bohnenkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sommer-Bohnenkraut&oldid=265028521",
+    "version": "265028521",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-satureja-montana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Winter-Bohnenkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Winter-Bohnenkraut&oldid=259391986",
+    "version": "259391986",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-artemisia-dracunculus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Estragon",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Estragon&oldid=267302048",
+    "version": "267302048",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-levisticum-officinale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Liebstöckel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Liebstöckel&oldid=268563438",
+    "version": "268563438",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-melissa-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zitronenmelisse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zitronenmelisse&oldid=270021424",
+    "version": "270021424",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anthriscus-cerefolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Kerbel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Kerbel&oldid=265239143",
+    "version": "265239143",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-borago-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Borretsch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Borretsch&oldid=269460431",
+    "version": "269460431",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-matricaria-chamomilla": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Kamille",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Kamille&oldid=270242315",
+    "version": "270242315",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-calendula-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ringelblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ringelblume&oldid=270537299",
+    "version": "270537299",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-foeniculum-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fenchel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fenchel&oldid=269375366",
+    "version": "269375366",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pimpinella-anisum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Anis",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Anis&oldid=270768382",
+    "version": "270768382",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-carum-carvi": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Kümmel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Kümmel&oldid=270637570",
+    "version": "270637570",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-artemisia-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Beifuß",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Beifuß&oldid=269324106",
+    "version": "269324106",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-artemisia-absinthium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wermutkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wermutkraut&oldid=267276874",
+    "version": "267276874",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hyssopus-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ysop",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ysop&oldid=270264008",
+    "version": "270264008",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helichrysum-italicum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Italienische Strohblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Italienische_Strohblume&oldid=269367230",
+    "version": "269367230",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-galium-odoratum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Waldmeister",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Waldmeister&oldid=267293324",
+    "version": "267293324",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-ursinum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bärlauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bärlauch&oldid=269823359",
+    "version": "269823359",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rumex-acetosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Sauerampfer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Sauerampfer&oldid=267990707",
+    "version": "267990707",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-urtica-dioica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Große Brennnessel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Große_Brennnessel&oldid=266526985",
+    "version": "266526985",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-taraxacum-officinale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Löwenzahn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Löwenzahn&oldid=270160543",
+    "version": "270160543",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-plantago-lanceolata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Spitzwegerich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Spitzwegerich&oldid=268657227",
+    "version": "268657227",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lepidium-sativum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenkresse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenkresse&oldid=270871554",
+    "version": "270871554",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-armoracia-rusticana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Meerrettich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Meerrettich&oldid=270798932",
+    "version": "270798932",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-stevia-rebaudiana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stevia rebaudiana",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stevia_rebaudiana&oldid=269579381",
+    "version": "269579381",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salvia-sclarea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Muskatellersalbei",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Muskatellersalbei&oldid=269136617",
+    "version": "269136617",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-laurus-nobilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Lorbeer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Lorbeer&oldid=270638750",
+    "version": "270638750",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aloysia-citrodora": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zitronenstrauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zitronenstrauch&oldid=270758150",
+    "version": "270758150",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-tuberosum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Knoblauch-Schnittlauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Knoblauch-Schnittlauch&oldid=269775882",
+    "version": "269775882",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-valeriana-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Baldrian",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Baldrian&oldid=269995259",
+    "version": "269995259",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-althaea-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Eibisch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Eibisch&oldid=270242777",
+    "version": "270242777",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-symphytum-officinale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Beinwell",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Beinwell&oldid=267617696",
+    "version": "267617696",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-malva-sylvestris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wilde Malve",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wilde_Malve&oldid=265540370",
+    "version": "265540370",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sanguisorba-minor": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kleiner Wiesenknopf",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kleiner_Wiesenknopf&oldid=269150507",
+    "version": "269150507",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-myrrhis-odorata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Süßdolde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Süßdolde&oldid=270091554",
+    "version": "270091554",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tanacetum-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rainfarn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rainfarn&oldid=269776675",
+    "version": "269776675",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hypericum-perforatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echtes Johanniskraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echtes_Johanniskraut&oldid=270766432",
+    "version": "270766432",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-agastache-foeniculum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Anis-Duftnessel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Anis-Duftnessel&oldid=269354167",
+    "version": "269354167",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-solanum-lycopersicum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tomate",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tomate&oldid=270762773",
+    "version": "270762773",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cucumis-sativus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gurke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gurke&oldid=270956744",
+    "version": "270956744",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cucurbita-pepo": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenkürbis",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenkürbis&oldid=261616315",
+    "version": "261616315",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cucurbita-maxima": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Riesen-Kürbis",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Riesen-Kürbis&oldid=257030202",
+    "version": "257030202",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-capsicum-annuum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Spanischer Pfeffer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Spanischer_Pfeffer&oldid=263923305",
+    "version": "263923305",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-solanum-melongena": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Aubergine",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Aubergine&oldid=269391253",
+    "version": "269391253",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-solanum-tuberosum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kartoffel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kartoffel&oldid=270562121",
+    "version": "270562121",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-daucus-carota-subsp-sativus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Karotte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Karotte&oldid=268756059",
+    "version": "268756059",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-beta-vulgaris-subsp-vulgaris-rote-bete": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rote Bete",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rote_Bete&oldid=269522898",
+    "version": "269522898",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-beta-vulgaris-subsp-vulgaris-mangold": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rote Bete",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rote_Bete&oldid=269522898",
+    "version": "269522898",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-weisskohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-rotkohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-wirsing": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-gruenkohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-blumenkohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-brokkoli": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-rosenkohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-oleracea-kohlrabi": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsekohl",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsekohl&oldid=269809127",
+    "version": "269809127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lactuca-sativa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartensalat",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartensalat&oldid=269091673",
+    "version": "269091673",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-valerianella-locusta": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Feldsalat",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Feldsalat&oldid=269719092",
+    "version": "269719092",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-eruca-vesicaria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Senfrauke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Senfrauke&oldid=267250554",
+    "version": "267250554",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cichorium-endivia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Endivie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Endivie&oldid=268731862",
+    "version": "268731862",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cichorium-intybus-chicoree-und-radicchio": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Wegwarte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Wegwarte&oldid=269055509",
+    "version": "269055509",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-spinacia-oleracea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Spinat",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Spinat&oldid=270356574",
+    "version": "270356574",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-raphanus-sativus-radieschen": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Rettich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Rettich&oldid=263886554",
+    "version": "263886554",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-raphanus-sativus-rettich": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Rettich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Rettich&oldid=263886554",
+    "version": "263886554",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-cepa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zwiebel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zwiebel&oldid=269381875",
+    "version": "269381875",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-sativum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Knoblauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Knoblauch&oldid=270980609",
+    "version": "270980609",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-porrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Lauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Lauch&oldid=269025243",
+    "version": "269025243",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-cepa-var-aggregatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schalotte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schalotte&oldid=270147915",
+    "version": "270147915",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pisum-sativum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Erbse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Erbse&oldid=267652388",
+    "version": "267652388",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-phaseolus-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenbohne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenbohne&oldid=270974373",
+    "version": "270974373",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-phaseolus-coccineus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Feuerbohne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Feuerbohne&oldid=266798956",
+    "version": "266798956",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-vicia-faba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ackerbohne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ackerbohne&oldid=270514938",
+    "version": "270514938",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-zea-mays": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mais",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mais&oldid=270165608",
+    "version": "270165608",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-apium-graveolens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echter Sellerie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echter_Sellerie&oldid=268092268",
+    "version": "268092268",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pastinaca-sativa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pastinak",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pastinak&oldid=267137815",
+    "version": "267137815",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-petroselinum-crispum-var-tuberosum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wurzelpetersilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wurzelpetersilie&oldid=266126618",
+    "version": "266126618",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-scorzonera-hispanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Schwarzwurzel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Schwarzwurzel&oldid=270453115",
+    "version": "270453115",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helianthus-tuberosus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Topinambur",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Topinambur&oldid=270094221",
+    "version": "270094221",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-napus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Raps",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Raps&oldid=269411506",
+    "version": "269411506",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-rapa-mairuebe": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rübsen (Pflanze)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rübsen_(Pflanze)&oldid=269216246",
+    "version": "269216246",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-rapa-pak-choi": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rübsen (Pflanze)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rübsen_(Pflanze)&oldid=269216246",
+    "version": "269216246",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-brassica-rapa-chinakohl": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rübsen (Pflanze)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rübsen_(Pflanze)&oldid=269216246",
+    "version": "269216246",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-asparagus-officinalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemüsespargel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemüsespargel&oldid=268115290",
+    "version": "268115290",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cynara-cardunculus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Cynara cardunculus",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Cynara_cardunculus&oldid=269880467",
+    "version": "269880467",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-rheum-rhabarbarum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeiner Rhabarber",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeiner_Rhabarber&oldid=270504510",
+    "version": "270504510",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ipomoea-batatas": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Süßkartoffel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Süßkartoffel&oldid=270959077",
+    "version": "270959077",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cucumis-melo": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zuckermelone",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zuckermelone&oldid=270081647",
+    "version": "270081647",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-citrullus-lanatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wassermelone",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wassermelone&oldid=269458194",
+    "version": "269458194",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-helianthus-annuus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sonnenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sonnenblume&oldid=270167719",
+    "version": "270167719",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tagetes-patula": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tagetes",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tagetes&oldid=261518089",
+    "version": "261518089",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tagetes-erecta": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Aufrechte Studentenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Aufrechte_Studentenblume&oldid=258075619",
+    "version": "258075619",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-zinnia-elegans": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zinnie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zinnie&oldid=267957779",
+    "version": "267957779",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cosmos-bipinnatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schmuckkörbchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schmuckkörbchen&oldid=268198819",
+    "version": "268198819",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-antirrhinum-majus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Großes Löwenmaul",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Großes_Löwenmaul&oldid=269568311",
+    "version": "269568311",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viola-x-wittrockiana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Stiefmütterchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Stiefmütterchen&oldid=264141729",
+    "version": "264141729",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viola-cornuta": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hornveilchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hornveilchen&oldid=267403811",
+    "version": "267403811",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-viola-odorata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Duftveilchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Duftveilchen&oldid=266845518",
+    "version": "266845518",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-petunia-x-atkinsiana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Petunie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Petunie&oldid=262675629",
+    "version": "262675629",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-impatiens-walleriana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fleißiges Lieschen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fleißiges_Lieschen&oldid=270053407",
+    "version": "270053407",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-begonia-x-semperflorens-cultorum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Semperflorens-Begonien",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Semperflorens-Begonien&oldid=266993048",
+    "version": "266993048",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-verbena-bonariensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Patagonisches Eisenkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Patagonisches_Eisenkraut&oldid=260266711",
+    "version": "260266711",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lobelia-erinus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Männertreu",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Männertreu&oldid=267941214",
+    "version": "267941214",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-callistephus-chinensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sommeraster",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sommeraster&oldid=267540418",
+    "version": "267540418",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-matthiola-incana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Levkoje",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Levkoje&oldid=269556389",
+    "version": "269556389",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-erysimum-cheiri": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Goldlack",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Goldlack&oldid=265973747",
+    "version": "265973747",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-myosotis-sylvatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wald-Vergissmeinnicht",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wald-Vergissmeinnicht&oldid=264866837",
+    "version": "264866837",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-bellis-perennis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gänseblümchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gänseblümchen&oldid=270891698",
+    "version": "270891698",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-centaurea-cyanus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kornblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kornblume&oldid=270759547",
+    "version": "270759547",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-papaver-rhoeas": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Klatschmohn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Klatschmohn&oldid=269418139",
+    "version": "269418139",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-papaver-somniferum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schlafmohn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schlafmohn&oldid=269412962",
+    "version": "269412962",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nigella-damascena": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Jungfer im Grünen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Jungfer_im_Grünen&oldid=269875145",
+    "version": "269875145",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-agrostemma-githago": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kornrade",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kornrade&oldid=265682340",
+    "version": "265682340",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tanacetum-parthenium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Mutterkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Mutterkraut&oldid=267919028",
+    "version": "267919028",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-alcea-rosea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Stockrose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Stockrose&oldid=270981857",
+    "version": "270981857",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-echium-vulgare": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Natternkopf",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Natternkopf&oldid=269623510",
+    "version": "269623510",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-oenothera-biennis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Nachtkerze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Nachtkerze&oldid=270884849",
+    "version": "270884849",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-daucus-carota": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Möhre (Pflanzenart)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Möhre_(Pflanzenart)&oldid=270706705",
+    "version": "270706705",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anthemis-tinctoria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Färberkamille",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Färberkamille&oldid=268150035",
+    "version": "268150035",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-consolida-regalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Feldrittersporn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Feldrittersporn&oldid=269823793",
+    "version": "269823793",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-linaria-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echtes Leinkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echtes_Leinkraut&oldid=264853231",
+    "version": "264853231",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-galium-verum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echtes Labkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echtes_Labkraut&oldid=268754988",
+    "version": "268754988",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tragopogon-pratensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Bocksbart",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Bocksbart&oldid=269995428",
+    "version": "269995428",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cardamine-pratensis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wiesen-Schaumkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wiesen-Schaumkraut&oldid=268159633",
+    "version": "268159633",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dipsacus-fullonum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wilde Karde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wilde_Karde&oldid=269193240",
+    "version": "269193240",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-heliotropium-arborescens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Vanilleblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Vanilleblume&oldid=267919430",
+    "version": "267919430",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-osteospermum-ecklonis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kapkörbchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kapkörbchen&oldid=267724410",
+    "version": "267724410",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sanvitalia-procumbens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Husarenknopf",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Husarenknopf&oldid=267962437",
+    "version": "267962437",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lantana-camara": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wandelröschen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wandelröschen&oldid=269521749",
+    "version": "269521749",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fuchsia-magellanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Scharlach-Fuchsie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Scharlach-Fuchsie&oldid=261286334",
+    "version": "261286334",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-xerochrysum-bracteatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Strohblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Strohblume&oldid=267857372",
+    "version": "267857372",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mirabilis-jalapa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wunderblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wunderblume&oldid=269181013",
+    "version": "269181013",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nemesia-strumosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Elfenspiegel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Elfenspiegel&oldid=265500325",
+    "version": "265500325",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-dianthus-barbatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bartnelke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bartnelke&oldid=258888049",
+    "version": "258888049",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nymphaea-alba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weiße Seerose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weiße_Seerose&oldid=270353359",
+    "version": "270353359",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nuphar-lutea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gelbe Teichrose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gelbe_Teichrose&oldid=270240495",
+    "version": "270240495",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-nymphoides-peltata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäische Seekanne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäische_Seekanne&oldid=270111003",
+    "version": "270111003",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hydrocharis-morsus-ranae": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Froschbiss",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Froschbiss&oldid=270967680",
+    "version": "270967680",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ranunculus-aquatilis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Wasserhahnenfuß",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Wasserhahnenfuß&oldid=269939792",
+    "version": "269939792",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hippuris-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Tannenwedel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Tannenwedel&oldid=263326100",
+    "version": "263326100",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ceratophyllum-demersum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Raues Hornblatt",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Raues_Hornblatt&oldid=270209444",
+    "version": "270209444",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-stratiotes-aloides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Krebsschere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Krebsschere&oldid=270972096",
+    "version": "270972096",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hottonia-palustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wasserfeder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wasserfeder&oldid=259378196",
+    "version": "259378196",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sparganium-erectum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ästiger Igelkolben",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ästiger_Igelkolben&oldid=266250883",
+    "version": "266250883",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-typha-latifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Breitblättriger Rohrkolben",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Breitblättriger_Rohrkolben&oldid=266908556",
+    "version": "266908556",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-typha-angustifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schmalblättriger Rohrkolben",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schmalblättriger_Rohrkolben&oldid=265105072",
+    "version": "265105072",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-phragmites-australis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schilfrohr",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schilfrohr&oldid=269567449",
+    "version": "269567449",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-schoenoplectus-lacustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Teichbinse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Teichbinse&oldid=269160258",
+    "version": "269160258",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-iris-pseudacorus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpf-Schwertlilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpf-Schwertlilie&oldid=265395340",
+    "version": "265395340",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-caltha-palustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpfdotterblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpfdotterblume&oldid=270644890",
+    "version": "270644890",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-alisma-plantago-aquatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Froschlöffel",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Froschlöffel&oldid=270830570",
+    "version": "270830570",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sagittaria-sagittifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliches Pfeilkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliches_Pfeilkraut&oldid=270868429",
+    "version": "270868429",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-butomus-umbellatus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwanenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwanenblume&oldid=270869301",
+    "version": "270869301",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ranunculus-lingua": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Zungen-Hahnenfuß",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Zungen-Hahnenfuß&oldid=269968812",
+    "version": "269968812",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-menyanthes-trifoliata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fieberklee",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fieberklee&oldid=256995621",
+    "version": "256995621",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-myosotis-scorpioides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpf-Vergissmeinnicht",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpf-Vergissmeinnicht&oldid=264787101",
+    "version": "264787101",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-mentha-aquatica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wasserminze",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wasserminze&oldid=264048538",
+    "version": "264048538",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-veronica-beccabunga": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Bachbunge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Bachbunge&oldid=267464547",
+    "version": "267464547",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-calla-palustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Drachenwurz",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Drachenwurz&oldid=267558161",
+    "version": "267558161",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-persicaria-amphibia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wasser-Knöterich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wasser-Knöterich&oldid=260539317",
+    "version": "260539317",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lemna-minor": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kleine Wasserlinse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kleine_Wasserlinse&oldid=262799420",
+    "version": "262799420",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-potamogeton-natans": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwimmendes Laichkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwimmendes_Laichkraut&oldid=225670280",
+    "version": "225670280",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-eupatorium-cannabinum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Wasserdost",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Wasserdost&oldid=267808405",
+    "version": "267808405",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-stachys-palustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpf-Ziest",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpf-Ziest&oldid=267322135",
+    "version": "267322135",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lysimachia-vulgaris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Gilbweiderich",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Gilbweiderich&oldid=240000441",
+    "version": "240000441",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lysimachia-nummularia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pfennigkraut",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pfennigkraut&oldid=269179811",
+    "version": "269179811",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-eriophorum-angustifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schmalblättriges Wollgras",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schmalblättriges_Wollgras&oldid=270182870",
+    "version": "270182870",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-juncus-effusus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Flatter-Binse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Flatter-Binse&oldid=261987228",
+    "version": "261987228",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-carex-acutiformis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpf-Segge",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpf-Segge&oldid=261289010",
+    "version": "261289010",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-quercus-robur": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stieleiche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stieleiche&oldid=270858254",
+    "version": "270858254",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-quercus-petraea": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Traubeneiche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Traubeneiche&oldid=264493275",
+    "version": "264493275",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tilia-platyphyllos": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sommerlinde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sommerlinde&oldid=269598636",
+    "version": "269598636",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tilia-cordata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Winterlinde",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Winterlinde&oldid=266402943",
+    "version": "266402943",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-platanoides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Spitzahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Spitzahorn&oldid=270755003",
+    "version": "270755003",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-pseudoplatanus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Berg-Ahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Berg-Ahorn&oldid=269563703",
+    "version": "269563703",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-palmatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Fächer-Ahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Fächer-Ahorn&oldid=266231672",
+    "version": "266231672",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fraxinus-excelsior": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Esche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Esche&oldid=270170180",
+    "version": "270170180",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-betula-pendula": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hänge-Birke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hänge-Birke&oldid=267764495",
+    "version": "267764495",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-betula-pubescens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Moor-Birke",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Moor-Birke&oldid=267645066",
+    "version": "267645066",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-populus-tremula": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Espe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Espe&oldid=268271429",
+    "version": "268271429",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-alnus-glutinosa": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarz-Erle",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarz-Erle&oldid=268738109",
+    "version": "268738109",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sorbus-aucuparia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Vogelbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Vogelbeere&oldid=270792488",
+    "version": "270792488",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sorbus-aria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Mehlbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Mehlbeere&oldid=270459716",
+    "version": "270459716",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-sorbus-torminalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Elsbeere",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Elsbeere&oldid=270323685",
+    "version": "270323685",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-padus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Traubenkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Traubenkirsche&oldid=270975496",
+    "version": "270975496",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salix-alba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Silber-Weide",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Silber-Weide&oldid=260241386",
+    "version": "260241386",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-salix-x-sepulcralis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Echte Trauerweide",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Echte_Trauerweide&oldid=270038744",
+    "version": "270038744",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-aesculus-hippocastanum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Rosskastanie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Rosskastanie&oldid=270979299",
+    "version": "270979299",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-robinia-pseudoacacia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Robinie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Robinie&oldid=269081737",
+    "version": "269081737",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-platanus-x-hispanica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ahornblättrige Platane",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ahornblättrige_Platane&oldid=270671853",
+    "version": "270671853",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ginkgo-biloba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Ginkgo",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Ginkgo&oldid=270986155",
+    "version": "270986155",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-catalpa-bignonioides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Trompetenbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Trompetenbaum&oldid=270981424",
+    "version": "270981424",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cercis-siliquastrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnlicher Judasbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnlicher_Judasbaum&oldid=265614223",
+    "version": "265614223",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-prunus-serrulata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Japanische Blütenkirsche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Japanische_Blütenkirsche&oldid=267327864",
+    "version": "267327864",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pinus-sylvestris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Waldkiefer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Waldkiefer&oldid=270948666",
+    "version": "270948666",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pinus-nigra": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schwarzkiefer",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schwarzkiefer&oldid=263490985",
+    "version": "263490985",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-abies-alba": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weiß-Tanne",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weiß-Tanne&oldid=270454591",
+    "version": "270454591",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-pseudotsuga-menziesii": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gewöhnliche Douglasie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gewöhnliche_Douglasie&oldid=270209447",
+    "version": "270209447",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-larix-decidua": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäische Lärche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäische_Lärche&oldid=270404919",
+    "version": "270404919",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-picea-pungens": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Stech-Fichte",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Stech-Fichte&oldid=250525612",
+    "version": "250525612",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cedrus-libani": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Libanon-Zeder",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Libanon-Zeder&oldid=269607555",
+    "version": "269607555",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-metasequoia-glyptostroboides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Urweltmammutbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Urweltmammutbaum&oldid=270106550",
+    "version": "270106550",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-liriodendron-tulipifera": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tulpenbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tulpenbaum&oldid=270807989",
+    "version": "270807989",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-magnolia-x-soulangeana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tulpen-Magnolie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tulpen-Magnolie&oldid=256389449",
+    "version": "256389449",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-liquidambar-styraciflua": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Amerikanischer Amberbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Amerikanischer_Amberbaum&oldid=268721955",
+    "version": "268721955",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-styphnolobium-japonicum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Japanischer Schnurbaum",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Japanischer_Schnurbaum&oldid=266239540",
+    "version": "266239540",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-rubrum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Rot-Ahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Rot-Ahorn&oldid=247391931",
+    "version": "247391931",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ostrya-carpinifolia": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Europäische Hopfenbuche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Europäische_Hopfenbuche&oldid=264999459",
+    "version": "264999459",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-acer-negundo": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Eschen-Ahorn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Eschen-Ahorn&oldid=260906997",
+    "version": "260906997",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-quercus-palustris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sumpf-Eiche",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sumpf-Eiche&oldid=260044545",
+    "version": "260044545",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tulipa-gesneriana": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Tulpe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Tulpe&oldid=267838568",
+    "version": "267838568",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-tulipa-sylvestris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Wilde Tulpe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Wilde_Tulpe&oldid=270312591",
+    "version": "270312591",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-narcissus-pseudonarcissus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gelbe Narzisse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gelbe_Narzisse&oldid=258435849",
+    "version": "258435849",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-narcissus-poeticus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Weiße Narzisse",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Weiße_Narzisse&oldid=270092090",
+    "version": "270092090",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crocus-vernus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Frühlings-Krokus",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Frühlings-Krokus&oldid=267439753",
+    "version": "267439753",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crocus-speciosus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Pracht-Herbst-Krokus",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Pracht-Herbst-Krokus&oldid=266198109",
+    "version": "266198109",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crocus-sativus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Safran",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Safran&oldid=267112692",
+    "version": "267112692",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-galanthus-nivalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kleines Schneeglöckchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kleines_Schneeglöckchen&oldid=252862644",
+    "version": "252862644",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-leucojum-vernum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Frühlingsknotenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Frühlingsknotenblume&oldid=265212711",
+    "version": "265212711",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-leucojum-aestivum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sommer-Knotenblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sommer-Knotenblume&oldid=269204325",
+    "version": "269204325",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-scilla-siberica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Sibirischer Blaustern",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Sibirischer_Blaustern&oldid=260420429",
+    "version": "260420429",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-muscari-armeniacum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Armenische Traubenhyazinthe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Armenische_Traubenhyazinthe&oldid=266410794",
+    "version": "266410794",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hyacinthus-orientalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gartenhyazinthe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gartenhyazinthe&oldid=262799577",
+    "version": "262799577",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-eranthis-hyemalis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Winterling",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Winterling&oldid=270182789",
+    "version": "270182789",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-puschkinia-scilloides": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Puschkinie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Puschkinie&oldid=270385804",
+    "version": "270385804",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fritillaria-meleagris": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Schachblume",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Schachblume&oldid=265499384",
+    "version": "265499384",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-fritillaria-imperialis": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kaiserkrone (Pflanze)",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kaiserkrone_(Pflanze)&oldid=264257822",
+    "version": "264257822",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-giganteum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Riesen-Lauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Riesen-Lauch&oldid=249305952",
+    "version": "249305952",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-sphaerocephalon": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kugelköpfiger Lauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kugelköpfiger_Lauch&oldid=242888102",
+    "version": "242888102",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-allium-karataviense": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Blauzungen-Lauch",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Blauzungen-Lauch&oldid=261672430",
+    "version": "261672430",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lilium-candidum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Madonnen-Lilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Madonnen-Lilie&oldid=267013248",
+    "version": "267013248",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lilium-bulbiferum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Feuer-Lilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Feuer-Lilie&oldid=267402536",
+    "version": "267402536",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lilium-martagon": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Türkenbund",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Türkenbund&oldid=268066956",
+    "version": "268066956",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-lilium-lancifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Tiger-Lilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Tiger-Lilie&oldid=270410179",
+    "version": "270410179",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-gladiolus-x-hortulanus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Gladiole",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Gladiole&oldid=226245127",
+    "version": "226245127",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-begonia-x-tuberhybrida": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Knollenbegonien",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Knollenbegonien&oldid=248955779",
+    "version": "248955779",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-canna-indica": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Indisches Blumenrohr",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Indisches_Blumenrohr&oldid=245441418",
+    "version": "245441418",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-anemone-coronaria": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Kronen-Anemone",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Kronen-Anemone&oldid=270967109",
+    "version": "270967109",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ranunculus-asiaticus": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Asiatischer Hahnenfuß",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Asiatischer_Hahnenfuß&oldid=269917230",
+    "version": "269917230",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-colchicum-autumnale": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Herbstzeitlose",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Herbstzeitlose&oldid=270094858",
+    "version": "270094858",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-cyclamen-hederifolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Efeublättriges Alpenveilchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Efeublättriges_Alpenveilchen&oldid=269447082",
+    "version": "269447082",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-corydalis-cava": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Hohler Lerchensporn",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Hohler_Lerchensporn&oldid=269468961",
+    "version": "269468961",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-iris-reticulata": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Netzblatt-Schwertlilie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Netzblatt-Schwertlilie&oldid=221319097",
+    "version": "221319097",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-hyacinthoides-non-scripta": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Atlantisches Hasenglöckchen",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Atlantisches_Hasenglöckchen&oldid=242235991",
+    "version": "242235991",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-crocosmia-x-crocosmiiflora": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Garten-Montbretie",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Garten-Montbretie&oldid=214247810",
+    "version": "214247810",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wp-ornithogalum-umbellatum": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Dolden-Milchstern",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Dolden-Milchstern&oldid=256341051",
+    "version": "256341051",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
   }
 }

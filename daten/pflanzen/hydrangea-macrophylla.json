@@ -4,16 +4,51 @@
   "gruppen": [
     "Sträucher"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q159219",
+  "wikipedia": "Gartenhortensie",
   "namen": [
+    {
+      "name": "Garten-Hortensie",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
     {
       "name": "Bauernhortensie",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bauern-Hortensie",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
     }
   ],
-  "angaben": [],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Wildform von Hydrangea macrophylla ist ein laubabwerfender Halbstrauch, dessen alte Zweige verholzen und dessen neue jeweils krautig sind, wie es typisch ist für Halbsträucher. Er kann Wuchshöhen bis zu 2 Metern erreichen, außerhalb Japans auch mehr.\n\nDie gegenständigen Laubblätter sind in Blattstiel und -spreite gegliedert. Die einfache, leicht ledrige Blattspreite ist bei einer Länge von bis zu 15 Zentimetern elliptisch bis eiförmig oder verkehrt-eiförmig, je nach Varietät breiter oder schmaler. Auf jeder Seite der Mittelrippe befinden sich erkennbare Seitenrippen. Der Spreitengrund ist abgerundet bis keilförmig oder gestutzt, der Blattrand spitzig gezähnt oder gesägt. Vorn ist das Blatt spitz bis zugespitzt oder bespitzt.",
+      "quelle": "wp-hydrangea-macrophylla",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Schaublüten der Gartenhortensie, mit Ausnahme der weißen Sorten, enthalten Delphinidin, einen Anthocyanfarbstoff, dessen Farbe vom pH-Wert abhängt: Er ist violett in saurer Lösung und rot in alkalischer Lösung. Die Blütenfarbe der Gartenhortensie hängt daher vom pH-Wert des Bodens ab, wobei die genauen Werte bei den einzelnen Sorten unterschiedlich sind. Typischerweise ergibt ein pH-Wert zwischen 4 und 4,5 violette Blüten, bei größeren pH-Werten geht die Blütenfarbe dann über Pink nach Rot über. Eine besonders intensive Blaufärbung wird durch Aluminiumionen erreicht.\n\nZur Regulierung des pH-Wertes wird meist Aluminiumsulfat oder Alaun verwendet. In zu wenig sauren Böden wird das Aluminium allerdings bereits im Boden gebunden und führt nicht zu einer Blaufärbung.",
+      "quelle": "wp-hydrangea-macrophylla",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Heutzutage umfasst der Name Gartenhortensie nicht nur Sorten der Art Hydrangea macrophylla, sondern auch viele Sorten, die vermutlich auf Kreuzungen, insbesondere mit der Samt-Hortensie (Hydrangea aspera), zurückgehen.",
+      "quelle": "wp-hydrangea-macrophylla",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Pflege",
+      "text": "Gartenhortensien sind je nach Sorte nur bedingt winterhart. In harten Wintern können sie stark zurückfrieren, neu gepflanzte Exemplare können auch ganz eingehen. Eine Überwinterung im Haus ist möglich, wobei die Temperatur nicht mehr als 5 °C betragen sollte.\n\nDie Blüten werden bei der Gartenhortensie bereits im Spätsommer oder im Frühherbst bei Temperaturen von etwa 15 °C in den Knospen für das nächste Jahr angelegt. Die Hauptblütezeit ist von Juni bis August. Die diesjährigen Triebe tragen also bereits den Blütenansatz für das Folgejahr; deshalb dürfen Gartenhortensien nicht im Herbst zurückgeschnitten werden, wenn sie im nächsten Jahr blühen sollen. Eine weitere Konsequenz ist, dass Spätfröste den Blütenansatz zerstören können.",
+      "quelle": "wp-hydrangea-macrophylla",
+      "auszug": true
+    }
+  ],
   "pflegehinweise": [],
   "merkmale": [],
   "veraltet": false

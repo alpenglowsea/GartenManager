@@ -1,0 +1,61 @@
+{
+  "hauptname": "Fenchel",
+  "lateinisch": "Foeniculum vulgare",
+  "gruppen": [
+    "Kräuter",
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q43511",
+  "wikipedia": "Fenchel",
+  "namen": [
+    {
+      "name": "Gemüsefenchel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Fencheltee",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Fenchelkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Echter Fenchel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Das ursprüngliche Verbreitungsgebiet des Fenchels umfasst Südeuropa, Nordafrika, Madeira, die Ukraine, Georgien, Pakistan und Westasien. In Großbritannien, auf den Azoren, Kapverden, in Südafrika, in Australien, Neuseeland, Hawaii, Mikronesien, in Mittel- und Südamerika ist er ein Neophyt. Auf den Kanarischen Inseln ist die Ursprünglichkeit zweifelhaft.\n\nEr gedeiht am besten auf mäßig trockenen, nährstoff- und basenreichen, milden bis mäßig sauren Lehm- oder Lößböden in wintermild-humider Klimalage. Man findet ihn in Gesellschaften der Verbände Sisymbrion, Onopordion oder der Ordnung Brometalia.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 5 (sehr warm-kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental), Salztoleranz = 1 (tolerant).",
+      "quelle": "wp-foeniculum-vulgare",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Fenchel ist eine zweijährige bis ausdauernde krautige Pflanze, die Wuchshöhen von 40 bis 200 Zentimetern erreicht und würzig (anisähnlich) riecht. Der stielrunde Stängel ist aufrecht, kahl und bläulich bereift. Die Pflanze bildet bei der Varietät Zwiebelfenchel mit ihren Speicherblättern knollenähnliche Zwiebeln. Die zwei- bis dreifach gefiederten Laubblätter sind haarförmig geschlitzt. Die Blattstiele besitzen 2 bis 2,5 Zentimeter lange, kapuzenförmig geformte Blattscheiden. Die Blattstiele der unteren Blätter sind 5 bis 15 Zentimeter lang; die mittleren und oberen Blätter sind auf den Blattscheiden sitzend.\n\nWeit verbreitet ist heute die Nutzung der Knollen des Gemüsefenchels, die z. B. roh in Salaten, gedünstet in Gemüsegerichten oder als Beilage zu Fischgerichten verwendet werden. Fein gehackte Fenchelblätter werden in geringer Menge zum Würzen von Suppen, Salaten, Mayonnaisen und in der klassischen „Sauce vinaigrette“ verwendet.",
+      "quelle": "wp-foeniculum-vulgare",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die doppeldoldigen Blütenstände weisen einen Durchmesser von 5 bis 9 (bis 15) Zentimetern auf und enthalten an sehr ungleich langen, 2 bis 25 Zentimeter langen Stielen 4 bis 29 (selten bis zu 40) Döldchen. Die Döldchen enthalten 14 bis 42 kleine Blüten. Hüllen und Hüllchen sind keine vorhanden. Die zwittrigen Blüten sind fünfzählig. Der Kelch besteht aus hinfälligen Kelchzähnen. Die verkehrt-eiförmigen Kronblätter sind gelb, etwa 1 Millimeter lang und an der Spitze mit einem eingerollten Lappen. Es gibt nur einen Kreis mit fünf freien, fertilen Staubblättern. Der Griffel ist sehr kurz. Die Früchte sind mehr oder weniger zylindrisch, 4 bis 10,5 Millimeter lang, 2 bis 3 Millimeter breit und nicht geflügelt mit fünf charakteristischen, breiten, stumpfen Rippen.",
+      "quelle": "wp-foeniculum-vulgare",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Vom Fenchel können die Blätter, die Stängel, die (verdickte) Stängelbasis (Fenchelknollen), die Früchte und die Blüten als Gemüse, Salat und/oder als Gewürz genutzt werden.\n\nMedizinisch werden vom Fenchel heute hauptsächlich die getrockneten, reifen Früchte aber auch das aus ihnen durch Wasserdampfdestillation gewonnene ätherische Öl, das sogenannte Fenchelöl genutzt. Dabei unterscheidet man zwischen Bitterem Fenchel (Foeniculi amari fructus) und Süßem Fenchel (Foeniculi dulcis fructus).\n\nUnter Bitterem Fenchel versteht man hierbei die getrockneten ganzen und Teilfrüchte von Foeniculum vulgare ssp. vulgare var. vulgare mit einem Gehalt an ätherischem Öl von mindestens 40 ml pro kg, wobei dieses einen Gehalt an Anethol von mindestens 60 % und eine Gehalt an Fenchon von mindestens 15 % besitzen muss.",
+      "quelle": "wp-foeniculum-vulgare",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

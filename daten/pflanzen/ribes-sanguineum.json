@@ -1,0 +1,39 @@
+{
+  "hauptname": "Blut-Johannisbeere",
+  "lateinisch": "Ribes sanguineum",
+  "gruppen": [
+    "Sträucher"
+  ],
+  "wikidata": "Q149372",
+  "wikipedia": "Blut-Johannisbeere",
+  "namen": [
+    {
+      "name": "Blutjohannisbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Blut-Johannisbeere stammt aus dem Westen Nordamerikas und kommt dort von British Columbia bis nach Nordkalifornien vor. Sie kommt in Kalifornien in Höhenlagen bis 2200 m vor.",
+      "quelle": "wp-ribes-sanguineum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Blut-Johannisbeere wächst als laubabwerfender, locker beasteter Strauch und erreicht Wuchshöhen von 1 bis 4 m. Die Rinde ist graubraun bis rotbraun. Die Laubblätter sind fünflappig und mit 2 bis 7 cm etwa genauso breit wie lang. Der frische Blattaustrieb im Frühling duftet harzig.",
+      "quelle": "wp-ribes-sanguineum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Wegen der leuchtend roten Blüte wird die Blut-Johannisbeere seit 1826 häufig als Zierstrauch in Gärten gepflanzt.",
+      "quelle": "wp-ribes-sanguineum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

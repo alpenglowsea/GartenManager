@@ -1,0 +1,61 @@
+{
+  "hauptname": "Rhabarber",
+  "lateinisch": "Rheum rhabarbarum",
+  "gruppen": [
+    "Gemüsepflanzen",
+    "Stauden"
+  ],
+  "wikidata": "Q7535",
+  "wikipedia": "Gemeiner Rhabarber",
+  "namen": [
+    {
+      "name": "Gemeiner Rhabarber",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Krauser Rhabarber",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemüse-Rhabarber",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnlicher Rhabarber",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Rhabarber stammt aus dem Himalaya. Seit dem 11. Jahrhundert gelangte Rheum rhabarbarum L. als Importware aus Zentralasien oder China über die arabische Medizin des Mittelalters und die Schule von Salerno in die abendländische Medizin des Mittelalters, wo nicht wie heute die Stängel, sondern vor allem die unterirdischen Sprossachsen – insbesondere zur Zubereitung von Arzneimitteln – Verwendung fanden.",
+      "quelle": "wp-rheum-rhabarbarum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Rhabarber ist eine sommergrüne, ausdauernde krautige Pflanze und wird bis zu 2 m hoch.\n\nNach der Keimung bildet Rhabarber eine Primärwurzel, die sich zunächst zu einer fleischigen, dicken Rübe entwickelt, welche recht kurzlebig ist. Der Primärspross entwickelt sich im zweiten Jahr zu einer Knolle, in den folgenden Jahren verdicken auch die Seitenachsen und es entstehen Sekundärknollen um die inzwischen weitergewachsene Primärknolle. Es entstehen derart 25–30 verdickte Sprossachsen.\n\nEs werden dicke, unregelmäßige Rhizome gebildet. Oberirdische Teile sterben im Herbst ab. Die Ruhephase beginnt im August und September. Der Wiederaustrieb erfolgt im Frühjahr mit unterirdischen Knospen.",
+      "quelle": "wp-rheum-rhabarbarum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Mai bis Ende Juni. Für die Blütenbildung ist ein Kältereiz nötig (Vernalisation), der Temperaturen unter 10 °C für eine Dauer von 12–16 Wochen erfordert. Der rispige Blütenstand ist bis 40 cm hoch und enthält bis zu 500 Blüten. Die kleinen Blüten mit hellgrünlich-cremefarbenem Perigon sind unscheinbar, meist zwittrig und werden fremdbestäubt. Die Früchte sind einsamige und dreieckige und dreiflügelige, orange-braune Flügelnüsse (Achänen). Die Flügelnüsse sind 7–10 mm lang, die Breite beträgt 6–8 mm, die Flügel sind etwa 3–4 mm breit, die Tausendkornmasse der Samen beträgt etwa 11–22 g.",
+      "quelle": "wp-rheum-rhabarbarum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Blattstiele werden – je nach Sorte und Alter der Stiele – geschält und meist geschnitten weiterverarbeitet. Rhabarber gilt wegen seiner Zubereitung gemeinhin als Obst, obwohl er eigentlich zu den Gemüse zählt und in der (gehobenen) Gastronomie durchaus auch bei Gemüsegerichten verwendet wird. Die bekanntesten Zubereitungen sind Konfitüren und Kompott, beides auch in industriellem Maßstab, sowie Kuchen. Darüber hinaus wird Rhabarber auch zu Saft oder Most verarbeitet. Wegen des hohen Säureanteils wird Rhabarber eher selten als Gemüse verwendet. Beliebt ist Rhabarber wegen seines erfrischenden, pikant-säuerlichen Geschmacks und des niedrigen Energiegehalts.",
+      "quelle": "wp-rheum-rhabarbarum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,54 @@
+{
+  "hauptname": "Stiel-Eiche",
+  "lateinisch": "Quercus robur",
+  "gruppen": [
+    "Bäume"
+  ],
+  "wikidata": "Q165145",
+  "wikipedia": "Stieleiche",
+  "namen": [
+    {
+      "name": "Stieleiche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Sommereiche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Sommer-Eiche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Deutsche Eiche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Stieleiche ist die in Mitteleuropa am weitesten verbreitete Eichenart. Sie kommt in fast ganz Europa vor und fehlt nur im Süden der Iberischen Halbinsel, auf Sizilien, im Süden Griechenlands, im nördlichen Skandinavien und in Nordrussland. Gegenüber der Traubeneiche reicht ihr Verbreitungsgebiet weitaus weiter in den Osten, da sie kontinentales Klima wesentlich besser verträgt. Die Verbreitung der Stieleiche reicht in den Bayerischen Alpen bis auf 1000 m.",
+      "quelle": "wp-quercus-robur",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Stieleiche ist ein 20 bis über 40 Meter hoher Laubbaum und erreicht einen Stammumfang bis 3 Meter, im Freistand bis über 12 Meter, wie die Femeiche oder die Ivenacker Eichen. Ihr Höchstalter liegt bei 500 bis 1000 Jahren, in Ausnahmefällen bis zu 1400 Jahren. Ihre Rinde ist in der Jugend glatt und schwach grau-grün glänzend, später wird eine dicke, tief längsrissige, furchige, graubraune Borke gebildet. Die Knospen sind stumpf, eiförmig und sitzen gehäuft an den Triebenden. Die wechselständigen, ledrigen Blätter sind nur kurz gestielt und werden 10 bis 15 Zentimeter lang. Sie sind oberseits tiefgrün glänzend, auf der Unterseite heller und in fünf bis sechs Buchten gelappt. Insbesondere bei jungen Bäumen verbleiben die verwelkten Blätter während der Winterruhe am Baum (Marzeszenz).",
+      "quelle": "wp-quercus-robur",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Stieleiche ist ein ringporiger Kernholzbaum. Der gelblich-weiße Splint ist verhältnismäßig schmal ausgebildet, das Kernholz hat eine hell- bis dunkelbraune Farbe. Die mittlere Rohdichte beträgt 0,65 (0,39 bis 0,93) Gramm pro Kubikzentimeter. Das Eichenholz ist hart, zäh, sehr dauerhaft und gut zu bearbeiten. Es ist sehr vielseitig verwendbar: als Bauholz, im Wasserbau, für Eisenbahnschwellen und für Pfähle. Im Innenausbau eignet es sich als Parkett, für Treppen und als Möbelholz. Hochwertiges Eichenholz wird als Furnier verarbeitet oder zum Fassbau verwendet. Der bei der Verarbeitung von Eichenholz anfallende Staub gehört zu den Hartholzstäuben, die beim Menschen nachgewiesenermaßen Nasenschleimhautkrebs erzeugen können.\n\nÜberdies liefert die Stieleiche mit einem Heizwert von etwa 15 MJ/kg ein hervorragendes Brennholz.",
+      "quelle": "wp-quercus-robur",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

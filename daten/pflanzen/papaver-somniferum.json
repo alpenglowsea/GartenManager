@@ -1,0 +1,61 @@
+{
+  "hauptname": "Schlaf-Mohn",
+  "lateinisch": "Papaver somniferum",
+  "gruppen": [
+    "Blumen"
+  ],
+  "wikidata": "Q131584",
+  "wikipedia": "Schlafmohn",
+  "namen": [
+    {
+      "name": "Schlafmohn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Blaumohn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Waldviertler Graumohn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der wilde „Vorläufer“ des Schlafmohns ist umstritten, diskutiert werden Papaver glaucum Boiss. et Hausskn., Papaver aculeatum Thunb. und, wie bereits bei De Candolle der im westlichen Mittelmeerraum beheimatete Borstenmohn (Papaver somniferum subsp. setigerum (DC.) Arcang.). Der Borstenmohn gilt als der wahrscheinlichste Kandidat. Der genaue Ursprung des Schlafmohns ist unbekannt, es werden sowohl der östliche als auch der westliche Mittelmeerraum angenommen. Die größte Artenvielfalt von Papaver-Arten findet sich in der östlichen Ägäis und im Iran. Aber auch eine Domestikation im Gebiet der Linearbandkeramik wäre möglich.",
+      "quelle": "wp-papaver-somniferum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).\n\nDer Schlafmohn wird in den Alpentälern bis in Meereshöhen von 1600 Metern angebaut.",
+      "quelle": "wp-papaver-somniferum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Schlafmohn ist eine einjährige krautige Pflanze, die Wuchshöhen von 0,3 bis 1,5 Metern erreicht. Der aufrechte, runde, überlaufende Stängel ist selten verzweigt. Es wird eine Pfahlwurzel gebildet.\n\nDie einfachen, wechselständigen Laubblätter sind 5 bis 20 Zentimeter lang. Der Blattrand ist gezähnt bis gesägt. Die unteren Blätter sind in einen kurzen Stiel verschmälert; die oberen sind stängelumfassend.",
+      "quelle": "wp-papaver-somniferum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juni bis August. Der Blütenstiel ist schlank und behaart.\n\nDie relativ große Blütenknospe ist meist 15 bis 25 (10 bis 30) Millimeter lang und hängt über. Beim Öffnen der Blütenknospe fallen die zwei Kelchblätter ab. Die geöffneten, zwittrigen Blüten sind bei einem Durchmesser von 5 bis 10 Zentimetern radiärsymmetrisch. Die vier weißen bis violetten (selten roten) Blütenkronblätter sind etwa doppelt so groß wie die Kelchblätter und weisen am Grund einen dunklen Fleck auf. Die Staubblätter sind in gelbe Staubfäden und 2 bis 4 Millimeter lange Staubbeutel gegliedert. Die Blüte ist meist schon nach wenigen Tagen komplett bestäubt und wirft dann auch ihre Blütenkronblätter ab. Die Blüten von Ziermohnrassen können andersfarbig sein und mehr als vier Blütenkronblätter besitzen.",
+      "quelle": "wp-papaver-somniferum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Es existieren zahlreiche Zuchtsorten, die sich unter anderem durch Gehalt und Zusammensetzung der Alkaloide unterscheiden.",
+      "quelle": "wp-papaver-somniferum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

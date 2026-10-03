@@ -1,0 +1,50 @@
+{
+  "hauptname": "Heckenberberitze",
+  "lateinisch": "Berberis thunbergii",
+  "gruppen": [
+    "Sträucher",
+    "Heckenpflanzen"
+  ],
+  "wikidata": "Q158397",
+  "wikipedia": "Thunberg-Berberitze",
+  "namen": [
+    {
+      "name": "Thunberg-Berberitze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Grüne Hecken-Berberitze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Thunbergs Berberitze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Berberis thunbergii kommt in Japan vor. Nach der Flora of China kommt die Art ursprünglich nicht in China vor.",
+      "quelle": "wp-berberis-thunbergii",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der anspruchslose sommergrüne (laubabwerfende) Strauch kann eine Wuchshöhe von bis zu 2 Metern erreichen. Er wächst straff aufrecht und ist dicht verzweigt und bedornt.\n\nDie unterseits hellgrünen und kurz gestielten, abgerundeten bis stumpfen, manchmal stachelspitzigen, ledrigen, kahlen Laubblätter sind verkehrt-eiförmig, spatelförmig, ganzrandig und etwa 1 bis 3 cm lang. Ihre Herbstfärbung reicht von leuchtend orange bis hin zu karminrot. Die Blattdornen sind meist einfach und 5 bis 15 mm lang.",
+      "quelle": "wp-berberis-thunbergii",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Ihre Blüten, die unterschiedlichen Blattfärbungen und die im Herbst erscheinenden Beeren führen zur Verwendung der vielen Sorten der Thunberg-Berberitze als Ziersträucher in Garten und Parks.\n\nSie dienen auch als Bienenweide.",
+      "quelle": "wp-berberis-thunbergii",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

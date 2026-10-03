@@ -1,0 +1,50 @@
+{
+  "hauptname": "Radieschen",
+  "lateinisch": "Raphanus sativus",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q7224565",
+  "wikipedia": "Garten-Rettich",
+  "namen": [
+    {
+      "name": "Garten-Rettich",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Rettich",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Garten-Rettich kommt nur in Kultur vor. Angebaut werden verschiedene Sorten besonders in Europa, Nordamerika und Ostasien. Selten kommt er in Mitteleuropa verwildert vor, bleibt jedoch unbeständig.\n\nGarten-Rettich bevorzugt nährstoffreiche und sandige Böden.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-raphanus-sativus-radieschen",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Garten-Rettich ist eine ein- bis zweijährige krautige Pflanze, die Wuchshöhen von 30 bis 100 Zentimetern erreicht. Der Garten-Rettich bildet Hypokotylknollen oder Wurzel-Hypokotylknollen, das heißt an der Bildung der Knolle ist nur das Hypokotyl oder Hypokotyl und Wurzel beteiligt. Die Farbe und Größe der Knollen ist dabei sehr variabel. Der Stängel ist ästig, röhrig, kahl oder mit breiten derben Borsten besetzt. Er ist oft violett, besonders in den Achseln der Seitenzweige. Die Laubblätter sind gezähnt, fiederspaltig oder gefiedert, jedoch sind die Fiedern nicht bis zur Rhachis getrennt. Die Stängelblätter sind nicht stängelumfassend. Die unteren Blätter sind leierförmig fiederschnittig mit einem großen geschweift-gekerbten Endabschnitt. Die Seitenlappen sind kleiner, länglich-eiförmig, gezähnt und zerstreut mit angedrückten Borsten besetzt.",
+      "quelle": "wp-raphanus-sativus-radieschen",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit liegt im Mai und Juni. Die Blütentrauben sind locker und umfassen durchschnittlich 30 Blüten. Die Blütenstiele sind 1 bis 2 Zentimeter lang und zerstreut borstig.",
+      "quelle": "wp-raphanus-sativus-radieschen",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Vom Garten-Rettich wird die Wurzel als Gemüse genutzt. Aus den Samen des Ölrettichs wird Öl gewonnen. Die Schoten des Schlangenrettichs werden als Gemüse gegessen. Auch die Blätter sind essbar.",
+      "quelle": "wp-raphanus-sativus-radieschen",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

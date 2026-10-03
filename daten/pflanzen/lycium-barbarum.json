@@ -1,0 +1,61 @@
+{
+  "hauptname": "Gojibeere",
+  "lateinisch": "Lycium barbarum",
+  "gruppen": [
+    "Beerensträucher",
+    "Sträucher"
+  ],
+  "wikidata": "Q196332",
+  "wikipedia": "Gemeiner Bocksdorn",
+  "namen": [
+    {
+      "name": "Gemeiner Bocksdorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bocksdorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Goji",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnlicher Bocksdorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Nach Ellenberg ist der Gewöhnliche Bocksdorn eine Volllichtpflanze. Er kommt vorwiegend in und nahe den Städten im Osten Deutschlands vor, verwildert an Mauern und Zäunen. Weniger häufig sieht man ihn im Westen Deutschlands. Er verträgt weder Salz noch Schwermetalle. Durch die häufige Verwendung zur Dammbepflanzung und als Zierpflanze kommt Bocksdorn vor allem in südlichen Ländern verwildert vor. In Europa verhält er sich invasiv, weswegen seine Anpflanzung in freier Landschaft zu unerwünschter Verdrängung heimischer Ruderalvegetation führen kann.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2 (mäßig trocken), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-lycium-barbarum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gewöhnliche Bocksdorn ist ein sommergrüner Strauch, der Wuchshöhen von 2 bis 4 Metern erreicht. Seine rutenförmigen Äste hängen bogenartig herab. Es sind wenige schlanke Dornen vorhanden.\n\nDie kurz gestielten, leicht fleischigen und (wechselständigen) Laubblätter sitzen einzeln oder gruppiert am Zweig. Der Blattstiel ist 2 bis 20 Millimeter lang. Die einfache Blattspreite ist bei einer Breite von 1 bis 2 Zentimetern sowie einer Länge von 3,5 bis 7 Zentimetern eiförmig bis lanzettlich, länglich, seltener verkehrt-eiförmig mit gerundetem bis meist spitzem oberen Ende und ganzrandig.",
+      "quelle": "wp-lycium-barbarum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit des Gemeinen Bocksdorns reicht von Juni bis August und teils bis September. Der blattachselständige Blütenstand enthält eine bis drei Blüten. Der Blütenstiel ist 1 bis 2 Zentimeter lang.\n\nDie zwittrigen Blüten sind fünfzählig mit doppelter Blütenhülle. Der Blütenkelch ist bei einem Durchmesser von 4 bis 5 Millimetern glockenförmig und etwas zweilippig. Die Oberlippe des Kelchs ist kurz zweizähnig und die Unterlippe ist dreizipfelig. Die Blütenkrone ist grün-violett und trichterförmig. Die Kronröhre ist 8 bis 10 Millimeter lang. Die sich spreizenden Kronlappen sind 5 bis 6 Millimeter lang und am Rand fast kahl. Die Staubblätter sind am Grund behaart. Die Staubbeutel sind eiförmig und springen der Länge nach auf. Der oberständige Fruchtknoten ist zweifächerig. Der lange, fadenförmige Griffel endet in einer kopfigen Narbe. Die oben in der Kronröhre sitzenden Staubblätter und Griffel überragen die Blütenkrone etwas.",
+      "quelle": "wp-lycium-barbarum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Bocksdorn wird in China zum Kochen und in der Naturheilkunde (TCM) verwendet. Im Sommer und Herbst werden die Früchte geerntet und in der Sonne getrocknet. Die Früchte werden gekocht oder, wenn es süße sind, auch roh gegessen; einige Varianten sind sehr sauer. Blätter von Jungpflanzen werden auch als Blattgemüse verwendet.",
+      "quelle": "wp-lycium-barbarum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

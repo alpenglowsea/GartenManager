@@ -28,4 +28,5 @@ replay_pid*
 
 # Diese beiden Dateien werden bewusst mit hochgeladen
 !gradle/wrapper/gradle-wrapper.jar
-!app/debug.keystore
+!app/debug.keystorerohdaten/
+rohdaten/

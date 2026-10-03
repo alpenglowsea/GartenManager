@@ -1,0 +1,38 @@
+{
+  "hauptname": "Stauden-Phlox",
+  "lateinisch": "Phlox paniculata",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": "Q164553",
+  "wikipedia": "Hoher Stauden-Phlox",
+  "namen": [
+    {
+      "name": "Hoher Stauden-Phlox",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Rispige Flammenblume",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Hohe Stauden-Phlox kommt im warmen bis gemäßigten östlichen Nordamerika in lichten Wäldern und an Flussläufen vor.",
+      "quelle": "wp-phlox-paniculata",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Der Hohe Stauden-Phlox wird verbreitet als Zierpflanze in Rabatten und Staudenbeeten sowie als Schnittblume genutzt. Sein erster sicherer Nachweis in Europa stammt von Dillenius, der ihn 1732 in seinem Hortus Elthamensis beschrieb und abbildete. In Deutschland ist er erstmals 1765 im Botanischen Garten Greifswald und im Botanischen Garten Berlin nachweisbar. Seit dem 19. Jahrhundert entstanden zahlreiche Sorten, die sich in Wuchshöhe, Blütenfarbe und Blütezeit unterscheiden.",
+      "quelle": "wp-phlox-paniculata",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -5,21 +5,54 @@
     "Obstgehölze",
     "Bäume"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q18674606",
+  "wikipedia": "Kulturapfel",
   "namen": [
     {
-      "name": "Apfelbaum",
+      "name": "Kulturapfelbaum",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gatenapfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kultur-Apfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kulturapfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
     }
   ],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
+      "abschnitt": "Herkunft",
+      "text": "Der Kulturapfel ist eine Zuchtform, die vom Asiatischen Wildapfel (Malus sieversii) abstammt.\n\nDie ursprüngliche Heimat des Kulturapfels liegt demnach in Asien. In Almaty am Tian Shan wurden nach kasachischen Angaben schon vor 6.000 Jahren Früchte gehandelt, die dem heutigen Kulturapfel glichen. Die größte Stadt in Kasachstan, Almaty, hieß früher Alma-Ata, was in Kasachisch „Großvater der Äpfel“ bedeutet. Gesichert ist, dass im Kaukasus und im Mittleren Osten bereits vor 4000 Jahren Äpfel angebaut wurden.\n\nÜber die Verbreitung des Apfelbaums von Asien nach Mitteleuropa ist nichts Näheres bekannt, möglicherweise gelangte er über Handelswege hierher, da die Frucht als lebensverlängerndes Heilmittel galt. Auch Schwarzwild und Pferde haben wohl zur Verbreitung durch Samen beigetragen.",
+      "quelle": "wp-malus-domestica",
       "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Kulturapfel ist ein sommergrüner Baum, der im Freistand eine etwa 8 bis 15 Meter hohe, weit ausladende Baumkrone ausbildet. Tatsächlich ist diese Wuchsform selten zu beobachten, da die einzelnen Sorten in Verbindung mit ihren Unterlagen eine davon oft stark abweichende Wuchshöhe zeigen (als Extremfälle der Hochstamm und der Spindelbusch), die darüber hinaus durch den Schnitt nicht zur Ausprägung kommt. Der Stammdurchmesser erreicht über 75 Zentimeter, wie bei dem Apfelbaum Schafsnase in Dresden. In seltenen Ausnahmefällen können Apfelbäume bis gegen 20 Meter hoch werden.\n\nDie wechselständig angeordneten Laubblätter sind oval, rund bis eiförmig oder elliptisch, meist gesägt, selten ganzrandig und manchmal gelappt.",
+      "quelle": "wp-malus-domestica",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Einzeln oder in doldigen Schirmrispen stehen die Blüten. Die fünfzähligen, radiären Blüten sind bei einigen Sorten halbgefüllt oder gefüllt, meist flach becherförmig, duftend und haben meist einen Durchmesser von zwei bis fünf Zentimeter. Die fünf Kronblätter sind weiß oder leicht rosa, im knospigen Zustand immer deutlich rötlich. Je nach Blüte sind viele Staubblätter und fünf Fruchtblätter vorhanden.\n\nDer Apfelbaum blüht in Zentraleuropa meist im Mai. Der Blühbeginn des Apfels markiert im phänologischen Kalender den Beginn des Vollfrühlings. Durch die Protokollierung der örtlichen Verschiebungen der Apfelblüte können Rückschlüsse auf allgemein beobachtbare Klimaveränderungen gezogen werden. Insofern gilt sie als Indikator für die globale Erwärmung. Seit den 1950er-Jahren hat sich dadurch die Apfelblüte etwa in Norddeutschland um knapp zwei Wochen nach vorne verlagert.",
+      "quelle": "wp-malus-domestica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Kelten und Germanen verarbeiteten die wohl kleinen und harten Früchte des einheimischen Apfels. Sie verkochten das Obst zu Mus und gewannen Most daraus. Den Saft vergor man zusammen mit Honig zu Met.\n\nDaneben ist sein Nektar mit 9 bis 87 Prozent Zuckergehalt (Saccharose) und einem Zuckerwert von bis zu 1,37 mg Zucker je Blüte pro Tag für die Bienen bei der Honigerzeugung eine wichtige Tracht.\n\nDer Kulturapfel hat im Obstbau überragende Bedeutung, weil er von allen heimischen Obstarten am vielfältigsten verwendbar ist. Es gibt vom Apfel daher die weitaus meisten Zuchtformen; er gilt in unseren Breiten als das Obst schlechthin.\n\nUnter „alten Apfelsorten“ versteht man Sorten, die vor etwa 1940 entstanden sind. Manche sind – aufgrund örtlicher klimatischer oder kultureller Umstände – regional noch von Bedeutung, manche nurmehr vereinzelt in Obstbauversuchsanlagen zu finden.",
+      "quelle": "wp-malus-domestica",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

@@ -1,0 +1,81 @@
+{
+  "hauptname": "Feuerbohne",
+  "lateinisch": "Phaseolus coccineus",
+  "gruppen": [
+    "Gemüsepflanzen",
+    "Kletterpflanzen"
+  ],
+  "wikidata": "Q159753",
+  "wikipedia": "Feuerbohne",
+  "namen": [
+    {
+      "name": "Käferbohnen",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gigantes",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Schminkbohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Käferbohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Arabische Bohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Türkische Bohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Prunkbohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Blumenbohne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Feuerbohne hat nach ILDIS ihr Ursprungsgebiet in Mexiko bis Nicaragua.",
+      "quelle": "wp-phaseolus-coccineus",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Feuerbohne wächst als linkswindende, meist einjährige, jedoch in frostfreien Gebieten auch zwei- und mehrjährige krautige Schlingpflanze. Die Feuerbohne ist eine Langtagpflanze. Die Keimblätter bleiben im Boden, ergrünen also nicht: hypogäische Keimung. Die Wurzel verdickt sich bei mehrjährigen Pflanzen zu einer im Durchmesser 2 bis 3 Zentimeter dicken, spindelförmigen Knolle. Der meist 2 bis 4, selten bis zu 7 Meter lange, im unteren Bereich runde und im oberen Bereich sechskantige Stängel ist wie bei der Gartenbohne stets linkswindend. Der Stängel ist anfangs schwach und kurz behaart und später verkahlend.",
+      "quelle": "wp-phaseolus-coccineus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juni bis September. Die Blütenstände sind bei einer Länge von 25 bis 35 Zentimeter meist länger als die Laubblätter. Die Blütenstände enthalten sechs bis zehn in den Achseln kleiner eiförmiger Tragblätter stehende Blütenpaare. Der Blütenstiel ist relativ lang. Die zwittrigen Blüten sind bei einer Höhe von 1,5 bis 3,0 Zentimeter leicht asymmetrisch zygomorph und fünfzählig mit doppelter Blütenhülle. Der Kelch besteht aus zwei Lippen und die oberen Kelchzähne sind deutlich kürzer als die anderen. Die kurze Fahne ist zurückgeschlagen. Die relativ großen Flügel sind breit. Schiffchen und Fruchtknoten sind schraubig eingerollt. Der relativ kurze Griffel ist dick. Blütenökologisch handelt es sich bei der Feuerbohne um Pollen-Schmetterlingsblumen mit Bürstenmechanismus, so dass der Bestäubungsmechanismus nur von großen Apidae ausgelöst werden kann. Die Blüten sind selbststeril.",
+      "quelle": "wp-phaseolus-coccineus",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Feuerbohne stammt aus Amerika und wurde im 17. Jahrhundert nach Europa gebracht. Da die Feuerbohne Kälte besser toleriert als die Gartenbohne, ist sie heute von Nord- bis Südeuropa anzutreffen und wird auch in höheren Lagen in Österreich kultiviert.\n\nIn Mitteleuropa wird die Feuerbohne als einjährige Pflanze kultiviert; sie kann in Ländern mit milderem Klima mehrjährig sein. In Europa werden Feuerbohnen vielfach als Zierpflanzen gepflanzt. Zur Nahrungserzeugung kultiviert man die Feuerbohne wegen ihrer Wuchshöhe meist an 4 bis 5 Meter langen Stangen, die zur besseren Stabilität zeltförmig gegeneinander gestellt und miteinander verbunden werden. Manchmal werden die Bohnen auch mit Mais gemeinsam angebaut, wobei die Maispflanzen die Stangen ersetzen. Diese Methode ist mit weniger Aufwand verbunden, da die Ernte mit einem Mähdrescher vollzogen werden kann. Danach muss die Ernte jedoch sortiert werden.",
+      "quelle": "wp-phaseolus-coccineus",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,49 @@
+{
+  "hauptname": "Gewöhnlicher Seidelbast",
+  "lateinisch": "Daphne mezereum",
+  "gruppen": [
+    "Sträucher"
+  ],
+  "wikidata": "Q165166",
+  "wikipedia": "Echter Seidelbast",
+  "namen": [
+    {
+      "name": "Echter Seidelbast",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemeiner Seidelbast",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "bois-gentil",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Echte Seidelbast hat ein eurasisches Verbreitungsgebiet, das in der gemäßigten und der borealen Klimazone liegt. In Europa fehlt er in den äußersten westlichen und nördlichen Gebieten mit ozeanischer oder arktischer klimatischer Prägung. Im Mittelmeerraum beschränken sich seine Vorkommen auf die Gebirge von den Pyrenäen über Süditalien, den Balkan bis zum Kaukasusraum. Im Osten erreicht er den Baikalsee in Sibirien, im Süden den Iran.\n\nVerwildert findet man die Art auch auf den Britischen Inseln und in Nordamerika. In Europa kommt der Echte Seidelbast in allen Ländern vor außer in Portugal, Irland, Island und Spitzbergen.",
+      "quelle": "wp-daphne-mezereum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Echte Seidelbast wächst als kleiner, wenig verzweigter, aufrechter bis aufsteigender, sommergrüner Strauch mit rutenförmigen zähen Ästen, der Wuchshöhen von 40 bis 125 Zentimetern erreicht. Die Rinde junger Zweige ist gelblich-braun, später reißt sie auf und nimmt eine braun-graue Farbe an.\n\nDie Blattknospen des Echten Seidelbasts sind länglich bis eiförmig und zugespitzt. Die Ränder der Knospenschuppen sind mit weißen Wimpern besetzt.",
+      "quelle": "wp-daphne-mezereum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blüten sitzen meist in Dreiergruppen seitenständig unmittelbar der Sprossachse an. Der Echte Seidelbast ist die einzige cauliflore Art Mitteleuropas; gewöhnlich ist direkte Stammblütigkeit nur bei Tropenpflanzen verbreitet. Die Blüten bilden sich direkt über den Narben der abgefallenen Blätter des Vorjahres und unterhalb einer Gipfelknospe, die nach dem Abblühen einen langen Laubtrieb ausbildet.",
+      "quelle": "wp-daphne-mezereum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,51 @@
+{
+  "hauptname": "Feld-Ahorn",
+  "lateinisch": "Acer campestre",
+  "gruppen": [
+    "Heckenpflanzen",
+    "Bäume"
+  ],
+  "wikidata": "Q158785",
+  "wikipedia": "Feldahorn",
+  "namen": [
+    {
+      "name": "Feldahorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Massholder",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Feldahorn besitzt von allen Ahornarten das größte Verbreitungsgebiet, mit Schwerpunkt in den gemäßigten Gebieten der Nordhalbkugel. Es gibt Fundortangaben für Algerien, Tunesien, Spanien, Portugal, Frankreich, Korsika, Sardinien, Sizilien, Italien, die Schweiz, Liechtenstein, Österreich, Deutschland, Luxemburg, Belgien, Niederlande, Vereinigtes Königreich, Dänemark, Schweden, den europäischen Teil Russlands, Polen, Ungarn, die ehemalige Tschechoslowakei, das ehemalige Jugoslawien, Albanien, Bulgarien, Rumänien, Griechenland, Türkei, Iran, Ciskaukasien, Armenien, Aserbaidschan, Georgien, Dagestan, Moldawien, die Ukraine und die Krim. Fast überall in Europa (in Skandinavien nur die südlichsten Gebiete), Westasien und Nordwestafrika ist der wärmeliebende Baum zu finden, im Mittelmeerraum ist er auf die höheren Lagen beschränkt. In Mitteleuropa ist er von der Ebene bis ins Hügelland weit verbreitet, selten im Gebirge.",
+      "quelle": "wp-acer-campestre",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Feldahorn wächst meistens als sommergrüner Strauch und ist nur unter günstigen Bedingungen als Baum 2. Ordnung mit Wuchshöhen von 20 Metern anzutreffen; in Einzelfällen wird er aber auch höher als 30 Meter und kann einen Stammdurchmesser von über 1,3 Meter erreichen. Der Feldahorn kann 150 bis über 300 Jahre alt werden. Die Rinde ist braun-grau und netzrissig. Die jungen Zweige bilden manchmal Korkleisten, sie sind sehr schnittverträglich.",
+      "quelle": "wp-acer-campestre",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Der Feldahorn ist einhäusig getrenntgeschlechtig (monözisch). Dabei werden in der einzelnen Blüte zu einem frühen Entwicklungszeitpunkt zunächst beide Geschlechter angelegt (weiblich: Fruchtblätter, männlich: Staubblätter) und erst später differenziert sich das Geschlecht heraus. So kommen auf einem Pflanzenexemplar männliche und weibliche Blüten vor, meist sogar im selben Blütenstand. 10 bis 20 Blüten sind in einem aufrechten, endständigen und schirmrispigen Blütenstand angeordnet. Der Blütenstiel ist 10 bis 15 Millimeter lang.",
+      "quelle": "wp-acer-campestre",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Der zuckerhaltige Saft wird verwendet.",
+      "quelle": "wp-acer-campestre",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

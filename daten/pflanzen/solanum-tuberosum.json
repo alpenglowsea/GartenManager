@@ -1,0 +1,70 @@
+{
+  "hauptname": "Kartoffel",
+  "lateinisch": "Solanum tuberosum",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q10998",
+  "wikipedia": "Kartoffel",
+  "namen": [
+    {
+      "name": "Erdbirne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Grundbirne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Erdapfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Potaten",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Potacke",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Erdknolle",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die heute kultivierten Kartoffeln stammen von verschiedenen Landsorten ab, die in den Anden vom westlichen Venezuela bis nach Argentinien und der Insel Chiloé bzw. dem Chonos-Archipel im Süden Chiles vorkommen. Auf Chiloé fand man die ältesten bekannten Spuren wilder Kartoffeln, man schätzt ihr Alter auf 13.000 Jahre. Die chilenischen Landsorten stammen ihrerseits jedoch vermutlich von den peruanischen Andensorten (Solanum tuberosum ssp. andigenum (Juz. & Bukasov) Hawkes) ab, die wahrscheinlich nach Hybridisierung mit der Wildart Solanum tarijense entstanden. Diese Wildart ist in Bolivien und Argentinien zu finden. In dem lange Zeit als Ursprungsland der Kartoffel angesehenen Peru gibt es wiederum mehr als 3.000 endemische Kartoffelsorten. Die meisten können nur in den peruanischen Anden angebaut werden, weil sie aufgrund ihrer geologischen und klimatischen Ansprüche in anderen Weltgegenden nicht gedeihen.",
+      "quelle": "wp-solanum-tuberosum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Kartoffeln sind aufrecht oder kletternd wachsende, ausdauernde krautige Pflanzen, die Wuchshöhen von über 1 Meter erreichen können. Die Sprossachse ist manchmal vierkantig, teilweise sogar geflügelt. Unterirdisch oder knapp über der Oberfläche bildet die Pflanze knollentragende Stolone aus.",
+      "quelle": "wp-solanum-tuberosum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blüten stehen in trugdoldenförmigen Blütenständen. Die Blütenstandsschäfte sind 5 bis 15 Zentimeter lang und behaart. Die Blütenstiele sind ebenfalls behaart und 3 bis 35 Millimeter lang.\n\nDie zwittrigen Blüten sind radiärsymmetrisch und fünfzählig mit doppelter Blütenhülle. Der Blütenkelch ist bei einem Durchmesser von 1,5 bis 2 Zentimetern glockenförmig und fünflappig. Die Kelchlappen sind spitz bis stark zugespitzt. Die Kronblätter sind weiß bis blau, die Krone ist doppelt so lang wie der Kelch und hat einen Durchmesser von 3,5 bis 4 Zentimeter. Die gelben Staubbeutel stehen frei, aufrecht und porig.",
+      "quelle": "wp-solanum-tuberosum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Speisekartoffeln werden nach ihren Kocheigenschaften unterschieden. Nach der Handelsklassenverordnung müssen alle im Handel (auch lose) angebotenen Kartoffeln nach diesen Kocheigenschaften eingeordnet werden. In der EU werden Speisekartoffeln in vier Kochtypen eingeteilt, die mit den Buchstaben A bis D sowie Kombinationen daraus bezeichnet werden. Deutsche Kartoffeln werden darüber hinaus mit einem farbigen Streifen auf der Verpackung gekennzeichnet.\n\nKartoffel zu Speisezwecken\n\nFestkochende Speisekartoffeln\n\nKochtypen: A und A-B\n\nFarbkennzeichnung: grün\n\nSorten: Annabelle, Agata, Amandine, Anais, Belana, Charlotte, Cilena, Ditta, Filea, Hansa, Kipfler, La Ratte, Linda, Marabel, Nicola, Primura, Princess, Renate, Selma, Sieglinde, Spunta, Stella, Vitelotte\n\nForm: Länglich bis oval\n\nKonsistenz: fest, feinkörnig, feucht\n\nKocheigenschaften: kein Aufspringen\n\nGeschmack: mild bis angenehm kräftig\n\nGerichte: Bratkartoffeln, Gratins, Kartoffelsalat, Salz- und Pellkartoffeln",
+      "quelle": "wp-solanum-tuberosum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

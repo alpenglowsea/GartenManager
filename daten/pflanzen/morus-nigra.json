@@ -1,0 +1,40 @@
+{
+  "hauptname": "Schwarze Maulbeere",
+  "lateinisch": "Morus nigra",
+  "gruppen": [
+    "Obstgehölze",
+    "Bäume"
+  ],
+  "wikidata": "Q161040",
+  "wikipedia": "Schwarze Maulbeere",
+  "namen": [
+    {
+      "name": "schwarzer Maulbeerbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Schwarze Maulbeere ist ursprünglich in Westasien beheimatet. Sie wurde allerdings spätestens um 1500 herum bereits in Südeuropa gepflanzt. Im Mittelmeerraum und in den südöstlichen USA ist sie mittlerweile eingebürgert. In Mitteleuropa ist sie dagegen selten zu finden, da sie nur in den wärmsten Lagen gut gedeiht. Die größte dokumentierte Ansammlung von Schwarzen Maulbeeren in Mitteleuropa (ca. 470 Bäume) ist im Weingarten von Pukanec in der Slowakei zu finden.",
+      "quelle": "wp-morus-nigra",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Schwarze Maulbeere wächst als sommergrüner Baum und erreicht Wuchshöhen von bis über 12 Meter. Der Stammdurchmesser erreicht bis über 1,5 Meter, selten über 2 Meter. Am Stamm finden sich viele knollenförmige Verdickungen und Wassertriebe. Die braune bis gräuliche Borke ist im Alter furchig. Die Krone ist niedrig und breit gewölbt; alte Stämme sind überlehnend oder niederliegend.\n\nDie Rinde der dicken Zweige ist anfangs hellgrün, später braun bis purpurgrau sowie etwas behaart und weist verstreute große Lentizellen auf. Die Knospe ist dick und glänzend dunkelpurpurbraun.",
+      "quelle": "wp-morus-nigra",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Es sind mehrere Zuchtformen in Kultur. Hier eine Auswahl:\n\n'Black Persian': Mit großen schwarzen Früchten, die etwa 3 cm lang und fast ebenso breit sind. Die Früchte sind saftig.\n\n'Chelsea': Diese Form trägt lange, dunkle Früchte von feinem Geschmack.\n\n'Kaester': Eine ertragreiche Sorte, die aus Los Angeles stammt. Sie bildet große, längliche, schwarze oder dunkelrote Früchte. Die Früchte sind etwa 3 bis 4 cm lang und knapp 2 cm breit. Der Geschmack ist sehr süß.",
+      "quelle": "wp-morus-nigra",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

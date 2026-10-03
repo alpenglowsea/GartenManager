@@ -5,15 +5,33 @@
     "Beerensträucher",
     "Obstgehölze"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q12252383",
+  "wikipedia": "Himbeere",
   "namen": [],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
-      "auszug": false
+      "abschnitt": "Herkunft",
+      "text": "Die wilde Himbeere ist im gemäßigten bis borealen Europa und Westsibirien weit verbreitet. In der mediterranen Zone wird sie nach Süden hin zunehmend seltener und ist an die montanen bis subalpinen Höhenstufe der Gebirge gebunden. In den Alpen steigt sie bis in eine Höhenlage von etwa 2000 Metern, beispielsweise in den Allgäuer Alpen am Walmendinger Horn bis 1930 Meter. Im Kanton Wallis erreicht sie sogar eine Höhenlage von etwa 2200 Meter und in Graubünden 2350 Meter. Eingebürgerte Vorkommen gibt es im östlichen Nordamerika, in Grönland und in Neuseeland.\n\nRubus idaeus tritt als Waldpionier auf Kahlflächen auf. Sie gedeiht am besten auf kali- und nitratreichen Böden an sonnigen bis halbschattigen Standorten, zum Beispiel auf Waldlichtungen und an Waldrändern mit hoher Luftfeuchtigkeit sowie kühlen Sommertemperaturen. Rubus idaeus verträgt keine Staunässe, da sie empfindlich gegenüber Wurzelkrankheiten sind.",
+      "quelle": "wp-rubus-idaeus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Art Rubus idaeus und ihre Sorten wachsen als sommergrüne, bewehrte oder unbewehrte Sträucher oder sogenannte Scheinsträucher und erreicht Wuchshöhen von meist 1 bis 1,5 (0,5 bis zu 3) Metern. Die fast aufrechten bis überhängenden, im Querschnitt runden, also bleistiftförmigen Sprossachsen sind meist zweijährig. Hauptsächlich im unteren Bereich ist die Sprossachse oft zerstreut bis dicht mit feinen, kurzen, zarten, bis zu 2 Millimeter langen, dunkelvioletten, aufrechten Stacheln besetzt; sie sind an ihrer Basis 1 bis 4 Millimeter breit. An den Sprossachsen können auch Borsten vorhanden sein. Die Rinde der Sprossachsen ist gelblich-braun braun bis rötlich-braun, zuerst blau bereift, anfangs spärlich wollig, nicht drüsig, behaart und später mehr oder weniger kahl. An den Sprossachsen können Trichome vorhanden sein, manchmal sind diese gestielt drüsig oder die Sprossachsen verkahlen.",
+      "quelle": "wp-rubus-idaeus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "In endständigen behaarten, stacheligen, beblätterten, traubigen bis rispigen Blütenständen befinden sich meist drei bis vier (ein bis zwanzig) oder manchmal zusätzlich wenige Blüten in Gruppen in den Blattachseln angeordnet. Die kahlen bis spärlich flaumig behaarten, wobei die Trichome drüsig sein können, Blütenstiele sind 1 bis 2 Zentimeter lang und unbewehrt oder es sind einige hakenförmige Stacheln vorhanden.",
+      "quelle": "wp-rubus-idaeus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Heildrogen sind die getrockneten Himbeerblätter, Rubi idaei folium (DAC), und Himbeersirup aus den frischen Früchten zubereitet – Rubi idaei sirupus. Wirkstoffe sind in den Blättern Gerbstoffe (Gallotannine und Ellagitannine), Flavonoide und Vitamin C, in den Früchten Mineralstoffe, Vitamine, Fruchtsäuren, Farbstoff-Glykoside und Aromastoffe aus etwa 100 Komponenten.\n\nDie Laubblätter werden in der Volksheilkunde wie die Laubblätter von Brombeeren verwendet, so aufgrund ihres Gerbstoffgehalts als Tee bei leichten Durchfallerkrankungen, zu Gurgeln bei Entzündungen im Mund- und Rachenraum, seltener auch zu Waschungen bei chronischen Hauterkrankungen. Fermentierte Himbeerblätter können an den Geschmack von Schwarzem Tee erinnern, sie sind daher häufig in Hausteemischungen enthalten. Der Sirup dient der Geschmacksverbesserung und der Färbung von Arzneimitteln, seit alters her wird er (verdünnt) gern als durstlöschendes Getränk bei Fieber gegeben.",
+      "quelle": "wp-rubus-idaeus",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

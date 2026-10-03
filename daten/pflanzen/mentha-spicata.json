@@ -1,0 +1,68 @@
+{
+  "hauptname": "Grüne Minze",
+  "lateinisch": "Mentha spicata",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q160114",
+  "wikipedia": "Grüne Minze",
+  "namen": [
+    {
+      "name": "Ährige Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Speer-Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Ähren-Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spearmint",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Waldminze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wald-Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Krause Minze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Menthe Verte",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Grüne Minze wächst als ausdauernde, krautige Pflanze mit Wuchshöhen von 30 bis 130 Zentimeter. Sie bildet unterirdische Ausläufer aus und besitzt einen angenehmen aromatischen Geruch. Der Geschmack ist süßer als der der Pfefferminze und es fehlt die Schärfe des Menthols, von dem die Grüne Minze nur wenig enthält. Die aufrechten, vierkantigen, grünen bis rötlichen Stängel verzweigen üblicherweise im oberen Bereich und sind kahl bis fast kahl.\n\nDie gegenständig am Stängel angeordneten Laubblätter sind ungestielt oder bis zu 2 Millimeter gestielt und am Blattgrund drüsig. Die einfache, annähernd kahle Blattspreite ist bei einer Länge von 2 bis 7 Zentimetern und einer Breite von 0,5 bis 2 Zentimetern eiförmig-länglich bis schmal-lanzettlich mit herzförmigen, gerundeten oder breit keilförmigen Spreitengrund und spitzer bis lang zugespitzter Spreitenspitze. Der Spreitenrand ist unregelmäßig gesägt.",
+      "quelle": "wp-mentha-spicata",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juli bis September. Die Blütenstiele sind etwa 2 Millimeter lang. Die Blüten sind in vielblütigen Scheinquirlen angeordnet. Sie stehen in endständigen, an der Basis unterbrochenen, mit einer Länge von 4 bis 10 Zentimetern zylindrischen, ährenartigen Blütenständen. Die 5 bis 8 Millimeter langen, linealischen Tragblätter sind kürzer oder gleich lang wie die Blüten.",
+      "quelle": "wp-mentha-spicata",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

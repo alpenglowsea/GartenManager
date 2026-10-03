@@ -5,16 +5,50 @@
     "Heckenpflanzen",
     "Bäume"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q146149",
+  "wikipedia": "Rotbuche",
   "namen": [
     {
       "name": "Buche",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Schlitzblättrige Rotbuche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Rot-Buche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnliche Buche",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
     }
   ],
-  "angaben": [],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Rotbuche wächst als sommergrüner Baum und kann Wuchshöhen von bis zu 30 Metern, im dichten Wald auch bis zu 50 Metern erreichen. Der Stammdurchmesser kann im Freistand bis über 2,5 Meter betragen, wie bei der Kletterbuche von Hoppenrade. Sie kann bis zu 300 Jahre alt werden; in Einzelfällen wurden auch ältere Exemplare gefunden. Im Nationalpark Kalkalpen in Oberösterreich, dessen Buchenwaldbestand zum seriellen Weltnaturerbe „Alte Buchenwälder und Buchenurwälder der Karpaten und anderer Regionen Europas“ gehört, wurde 2019 eine bereits 546 Jahre alte Buche entdeckt, die als nunmehr älteste datierte Rotbuche Zentraleuropas gilt; ihre ersten datierbaren Jahresringe stammen aus dem Jahr 1474. Damit ist sie 18 Jahre älter als die bis dahin älteste datierte Buche der Alpen, die im selben Nationalpark beheimatet ist.",
+      "quelle": "wp-fagus-sylvatica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Rotbuche blüht ab einem Alter von 30 bis 50 Jahren. Die Rotbuche ist einhäusig getrenntgeschlechtig (monözisch); die männlichen und weiblichen Blüten sind also an einem Baumexemplar zu finden. Die Blüten-Knospen sind hell-braun, spindelförmig, schmal und spitz. Sie sind eingehüllt in zwei oder drei gegenständig angeordnete, doppelte Hüllblätter, die sich schuppenartig überdecken. Die Blüten erscheinen zeitgleich mit dem Blattaustrieb von April bis Mai. Die Blüten jeweils eines Geschlechtes stehen in Blütenständen zusammen. Die Büschel der männlichen Blüten sind 3 bis 5 Zentimeter lang und hängen herab, wobei jede männliche Blüte vier bis sieben Staubblätter enthält. Aus den aufrecht stehenden weiblichen Blüten ragen jeweils drei rosafarbene Narben.",
+      "quelle": "wp-fagus-sylvatica",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "In weiten Teilen Deutschlands ist Buchenholz das mit Abstand am häufigsten privat wie kommerziell genutzte Brennholz. Dies hängt zum einen mit der sehr großen Verbreitung der Rotbuche zusammen, ihrem im Vergleich zu vielen anderen Laubhölzern prinzipiell geringeren Wert im Verkauf und ihrer Neigung, bei genügend Platz und Licht krumm gewachsene Stämme mit vielen Verzweigungen zu bilden, die zum Verkauf als Stammholz ungeeignet sind. Somit fallen bei Durchforstungen zur Bestandsausdünnung stetig große Mengen Buchenholz an, die sich praktisch nur zur Nutzung als Brennholz eignen. Es hat einen hervorragenden Brennwert von 19,7 MJ/kg, zeichnet sich durch sehr langes, ruhiges Brennen, starke Glutbildung und einen hohen Heizwert aus. Aufgrund der starken Glutbildung eignet es sich auch sehr gut zum Grillen.",
+      "quelle": "wp-fagus-sylvatica",
+      "auszug": true
+    }
+  ],
   "pflegehinweise": [],
   "merkmale": [],
   "veraltet": false

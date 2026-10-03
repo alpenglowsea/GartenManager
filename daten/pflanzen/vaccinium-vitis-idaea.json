@@ -1,0 +1,75 @@
+{
+  "hauptname": "Preiselbeere",
+  "lateinisch": "Vaccinium vitis-idaea",
+  "gruppen": [
+    "Beerensträucher"
+  ],
+  "wikidata": "Q93235",
+  "wikipedia": "Preiselbeere",
+  "namen": [
+    {
+      "name": "Kronsbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Riffelbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Granten",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Grestling",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Preißelbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kronsbeeren",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Preiselbeeren",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Preiselbeere ist in Eurasien und Nordamerika weit verbreitet. Sie ist in Mitteleuropa eine Piceetalia-Ordnungscharakterart (wächst also in von Fichte dominierten Nadelwäldern auf bodensauren Standorten), kommt aber auch in Gesellschaften des Unterverbands Genisto-Quercenion roboris-petraeae (also in Eichenwäldern auf bodensauren Standorten), im Vaccinio-Callunetum des Verbands Genistion (also in Zwergstrauchheiden bodensaurer Standorte) oder in Gesellschaften des Erico-Pinion-Verbands (also in Kiefernwäldern bodentrockener Standorte auf Kalk) vor.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+w (frisch aber mäßig wechselnd), Lichtzahl L = 4 (hell), Reaktionszahl R = 1 (stark sauer), Temperaturzahl T = 2 (subalpin), Nährstoffzahl N = 2 (nährstoffarm), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-vaccinium-vitis-idaea",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Preiselbeere wächst als immergrüner, kompakter, aufrechter bis kriechender Zwergstrauch und erreicht Wuchshöhen zwischen 10 und 40 Zentimeter. Die oberirdischen Pflanzenteile sind flaumig behaart. Sie wurzelt bis einen Meter tief.\n\nDie wechselständig und zweizeilig an den Zweigen angeordneten Laubblätter sind in Blattstiel und -spreite gegliedert. Der flaumig behaarte Blattstiel ist etwa einen Millimeter lang. Die einfache, ledrige Blattspreite ist mit einer Länge von 0,7 bis 2 cm und einer Breite von vier bis acht Millimeter elliptisch oder verkehrt-eiförmig mit keilförmigen Spreitengrund. Die glänzend dunkelgrüne Blattoberseite ist kahl oder am Hauptnerv flaumig behaart. Die Blattunterseite ist angedrückt drüsig behaart. Die fünf oder sechs Paar Seitennerven sind fein und unauffällig auf beiden Blattseiten. Der ganze bis schwach buchtig-gekerbte Blattrand ist leicht umgebogen, die Spitze ist feinstachelspitzig und abgerundet bis stumpf oder eingebuchtet.",
+      "quelle": "wp-vaccinium-vitis-idaea",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "In endständigen, 1 bis 1,5 cm langen, flaumig behaarten und hängenden, traubigen Blütenständen stehen bis über acht Blüten zusammen. Die schnell vergänglichen, flaumig behaarten Tragblätter sind mit einer Länge von etwa einem Millimeter breit-eiförmig und es sind auch Deckblätter vorhanden.",
+      "quelle": "wp-vaccinium-vitis-idaea",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Preiselbeeren werden seit prähistorischen Zeiten wild gesammelt. Die Nutzungsgeschichte ist aber schlecht erforscht. Im alt-isländischen Gesetzbuch Grágás aus dem 12. Jahrhundert findet sich die Regelung, man dürfe auf fremden Grund nur so viele Preiselbeeren ernten, wie man an Ort und Stelle verzehren könne. Die Nutzung in Skandinavien war in den Pachtverträgen der Höfe geregelt, sie waren teilweise dem Grundherren gegenüber abgabepflichtig. Wie üblich bei Wildkräutern und wilden Beeren ist die Nutzung aber schlecht dokumentiert. Die Beeren wurden von Hand gepflückt oder durch rechenartige Werkzeuge abgestreift; dies wurde teilweise als schädlich für die Pflanze verboten, soll aber nach einem Gutachten der Schwedischen Akademie der Wissenschaften von 1918 unschädlich sein.",
+      "quelle": "wp-vaccinium-vitis-idaea",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

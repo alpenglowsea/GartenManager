@@ -4,21 +4,50 @@
   "gruppen": [
     "Kletterpflanzen"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q26354",
+  "wikipedia": "Gemeiner Efeu",
   "namen": [
+    {
+      "name": "Gemeiner Efeu",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
     {
       "name": "Efeu",
       "art": "umgangssprachlich",
-      "quelle": "test"
+      "quelle": "wikidata"
     }
   ],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
-      "auszug": false
+      "abschnitt": "Herkunft",
+      "text": "„Landschaftliche Namen“ sind unter anderem Epheu (p und h getrennt gesprochen), Baumwinde (lateinisch früher Hedera arborea) und, allerdings mehrdeutig, Eppich.\n\nDie Herkunft des Wortes „Efeu“ ist unsicher. Althochdeutsch überliefert sind unter anderem ebihouwi, ebhouwe, ebihewe, ebahewi, ebah, ebahi, ebahboum, ebboum, mittelhochdeutsch ebehöu, ephöu, frühneuhochdeutsch Ebheu, Epheu. Die heutige Schreibung (und die davon ausgehende Aussprache) Efeu beruht auf einer im 17. Jahrhundert aufgekommenen Fehldeutung der Schreibung ph als f. Das Wort war schon früh nicht mehr durchsichtig; bereits in althochdeutsch ebihouwi liegt eine Umdeutung zur Zusammensetzung mit „Heu“ (infolge der Nutzung als Laubheu), in althochdeutsch ebboum eine solche mit „Baum“ vor. Für das Vorderglied eb- wurde schon Verwandtschaft mit lateinisch ibex ‚Steinbock‘ und damit eine Grundbedeutung als „Kletterer“ angenommen, doch bleibt dies hypothetisch.",
+      "quelle": "wp-hedera-helix",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Der Gemeine Efeu ist eine sehr anspruchslose, robuste und pflegeleichte Pflanze: Er kommt mit mehr oder minder nährstoff- und humusreicher Gartenerde und verschiedenen anderen, möglichst durchlässigen Bodentypen gut zurecht; Staunässe sollte vermieden werden. An den Boden-pH-Wert stellt er keine Ansprüche, der Boden darf auch gerne kalkhaltig sein.\n\nDie Pflanze bevorzugt schattige bis halbschattige Standorte. Sie bildet eine Herzwurzel aus und ist nach Etablierung an ihrem Standort auch relativ trockenheitsresistent; an sonnigeren Standorten auf trockenen Böden sind bei längerer Dürre aber Wassergaben vorteilhaft. Als Winterhärte wird meist die USDA-Klimazone 6 (bis −23 °C), teilweise sogar 4 (bis −34 °C) angegeben.",
+      "quelle": "wp-hedera-helix",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gemeine Efeu ist eine immergrüne, ausdauernde Pflanze und ein Klettergehölz. Sehr variabel ist der Gemeine Efeu in seinen Lebensformen, es liegt Sprossdimorphismus vor. Die Keimung erfolgt epigäisch. Zuerst entwickelt er sich als ausdauernde, krautige Pflanze. So überwuchert der Efeu gelegentlich flächendeckend den Boden. Seine Sprossachsen sind in diesem Stadium niederliegend bis kriechend (plagiotrop). Die Rinde junger Sprossachsen ist mit stern- bis schildförmigen Haaren (Trichomen) flaumig bedeckt. An den Sprossachsen werden im dichten Abstand Adventivwurzeln gebildet. Sobald Bäume, Zäune oder Mauern erreicht werden, ist der Efeu in der Lage, durch Haftwurzeln daran emporzuklettern; dabei erklimmt er Höhen von 20 oder selten bis zu 30 Metern. Der Gemeine Efeu ist der einzige in Mitteleuropa einheimische Wurzelkletterer.",
+      "quelle": "wp-hedera-helix",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Endständig zu dritt bis sechst in rispigen Gesamtblütenständen oder einzeln stehen auf Blütenstandsschäften in halbkugeligen bis kugeligen, doldigen Blütenständen etwa 20 gestielte, unscheinbare Blüten zusammen. Die Blütenstandsschäfte und Blütenstiele sind filzig mit Sternhaaren bedeckt.",
+      "quelle": "wp-hedera-helix",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Für Deutschland lässt sich eine gärtnerische Nutzung des Gemeinen Efeus erstmals für die Mitte des 16. Jahrhunderts belegen. Der schweizerische Naturforscher und Arzt Conrad Gessner, der ein Verzeichnis der Gartenpflanzen Deutschlands anlegte, zählte den Efeu 1561 zu den Gartenpflanzen. Gartenbücher, die gegen Ende des 17. Jahrhunderts veröffentlicht wurden, nannten auch erstmals seit der Antike wieder Sorten mit panaschierten Blättern. Die Gärten des Barock und der Renaissance boten für den wuchernden Efeu jedoch wenig Raum. Populärer wurde der Efeu als Gartenpflanze erst, als in der zweiten Hälfte des 18. Jahrhunderts die weiträumigen Landschaftsparks in Mode kamen. Mit der zunehmenden Popularität des Efeus nahm auch die Anzahl der Sorten zu. Eine 1872 in Großbritannien von Shirley Hibberd veröffentlichte Efeu-Monografie listete bereits mehr als 200 Sorten auf.",
+      "quelle": "wp-hedera-helix",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

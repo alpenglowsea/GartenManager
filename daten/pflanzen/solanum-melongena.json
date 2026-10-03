@@ -1,0 +1,49 @@
+{
+  "hauptname": "Aubergine",
+  "lateinisch": "Solanum melongena",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q7540",
+  "wikipedia": "Aubergine",
+  "namen": [
+    {
+      "name": "Eierfrucht",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Eierpflanze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Melanzani",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Auberginen stammen wahrscheinlich aus Asien, wo sie schon seit mehr als 4000 Jahren angebaut werden. Die Autoren des griechischen und römischen Altertums dagegen erwähnen sie nicht. Erst die Sarazenen in Andalusien scheinen sie als erste in Europa kultiviert zu haben. Sie haben sie wahrscheinlich in Persien kennengelernt. In Italien kocht man mit Auberginen seit dem 15. Jahrhundert.\n\nIn Europa und Nordamerika werden vorwiegend Sorten angebaut, die länglich-ovale, 12 bis 25 cm lange und 6 bis 9 cm dicke Früchte mit dunkelvioletter Schale haben. In Indien und anderen Ländern Asiens werden Sorten angebaut, deren Früchte bis zu 1 kg wiegen können. Die Farbe der Fruchtschale kann von weiß über gelb und grün bis zu purpurrot oder dunkelviolett reichen. Einige Sorten haben Früchte mit graduierter Farbe oder Streifen. In China finden sich gewöhnlich längliche, dünne Früchte, die in ihrer Form an Gurken erinnern.",
+      "quelle": "wp-solanum-melongena",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Auberginen sind mehrjährige, meist einjährig kultivierte, krautige, teilweise leicht verholzende Pflanzen mit einer Höhe von 50 bis 150 cm. Sie sind fast vollständig mit dichtstehenden, violetten bis grauen, sternförmigen Trichomen behaart. Teilweise sind sie auch bestachelt.\n\nDie gestielten und mehr oder weniger behaarten, seltener auch bestachelten Laubblätter stehen wechselständig; sie sind eiförmig bis rundlich oder elliptisch mit einer Länge von 10 bis 20 cm und einer Breite von 5 bis 10 cm. Sie sind unregelmäßig gelappt mit abgerundeten bis spitzen Lappen, die Blattbasis ist ungleichmäßig, spitz bis abgerundet oder fast stumpf bis leicht herzförmig. Die Trichome der Oberseite sind meist violett, die der etwas stärker behaarten Blattunterseite grau.",
+      "quelle": "wp-solanum-melongena",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Aubergine wird heute insbesondere in der mediterranen, orientalischen und türkischen Küche verwendet, wo sie mit einigen speziellen Gerichten zu großer Berühmtheit gelangt ist. So ist sie als Auberginensalat und gefüllte Aubergine beliebt, z. B. İmam bayıldı in der Türkei, aus Indonesien und Griechenland gibt es berühmtere Zubereitungen wie Moussaka oder Samballan. Vergleichbares gilt unter ähnlichen Namen für weitere Länder des Balkan und im arabischen Raum. Im Orient wird sie häufig als Paste oder Püree (Baba Ghanoush) als Vorspeise gereicht, und am westlichen Mittelmeer ist sie Bestandteil des Ratatouille.\n\nIn der italienischen Küche sind insbesondere die „Melanzane alla Parmigiana“ (Auflauf), die „Melanzane ripiene“ (gefüllte Auberginen) sowie die Caponata bekannt. Zudem ist es auch möglich, Auberginen als Dessert zuzubereiten.",
+      "quelle": "wp-solanum-melongena",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,74 @@
+{
+  "hauptname": "Löwenzahn",
+  "lateinisch": "Taraxacum officinale",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q131219",
+  "wikipedia": "Gewöhnlicher Löwenzahn",
+  "namen": [
+    {
+      "name": "Gewöhnlicher Löwenzahn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Puschelkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Hundeblume",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bettseicher",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bettsaier",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Maistöckel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Taraxacum officinale agg.",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wiesenlöwenzahn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Gewöhnliche Löwenzahn stammt ursprünglich aus dem westlichen Asien und Europa, ist aber, auch durch menschliches Zutun, weit auf der Nordhalbkugel verbreitet. Auf der Südhalbkugel kommt er nur sporadisch und dann ausschließlich infolge einer Verschleppung vor. Löwenzahn kommt in großen Mengen auf Grünland in der Landwirtschaft vor, welches stark gedüngt wurde mit Tiergülle, also auf Böden mit sehr viel Nitrat, das andere Pflanzen nicht vertragen.\n\nIn Mitteleuropa ist er ein häufiges Wildkraut auf Wiesen, an Wegrändern und in Gärten. Als Ruderalpflanze besiedelt er schnell Brachflächen, Schutthalden und Mauerritzen. Er wächst in Gebieten mit einer jährlichen Durchschnittstemperatur von 5 bis 26 °C und einem jährlichen Durchschnittsniederschlag von 0,3 bis 2,7 m auf Böden mit einem pH-Wert von 4,2 bis 8,3. Im Gebirge kommt er bis in Höhenlagen von 2800 m ü. NN vor, bleibt dort aber deutlich kleiner als im Flachland.",
+      "quelle": "wp-taraxacum-officinale",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Löwenzahn ist eine ausdauernde krautige Pflanze, die eine Wuchshöhe von (5) 10 – 30 (40) cm erreicht und in allen Teilen einen weißen Milchsaft enthält. Seine bis zu 1 Meter (selten auch bis 2 Meter) lange, fleischige Pfahlwurzel ist außen dunkelbraun bis schwarz. Sie geht in eine kurze, stark gestauchte Sprossachse über, auf der die Blätter dicht in einer grundständigen Rosette stehen. Nach einer Verletzung des Vegetationspunktes regeneriert sich die Pflanze aus der Wurzel und bildet dann meist mehrere Blattrosetten. Die 10 bis 30 cm langen Blätter sind eiförmig bis eilanzettlich, unregelmäßig stark gelappt und tief eingeschnitten und gezahnt (auch schrotsägeförmig genannt). Einschnitte und Zähne sind von der Basis bis zu etwa zwei Drittel der Länge stark, weiter zur Blattspitze häufig geringer ausgeprägt.",
+      "quelle": "wp-taraxacum-officinale",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Durch das frühe Erscheinen seiner Blüten ist der Löwenzahn eine wichtige Bienenweide, die der Entwicklung der Bienenvölker im Frühjahr dient, bei größeren Vorkommen aber auch eine Frühtracht-Honigernte ermöglichen kann. Löwenzahnhonig hat ein kräftiges Aroma, ist im frischen Zustand goldgelb und dickflüssig und kristallisiert feinkörnig zu einem dann gelblichen Honig aus. Für ein Kilogramm Honig muss ein Bienenvolk über 100.000 Löwenzahnblüten besuchen.\n\nVor allem Kinder bedienen sich des Blütenstandstieles, der, an einem Ende gespleißt, eine Minitröte ergibt. Reißt man den Blütenstandsstiel in Streifen und legt diese anschließend ins Wasser, bilden sich durch die unterschiedliche Saugfähigkeit der inneren und äußeren Wand Spiralen. Die Innenwand quillt stärker und bildet dadurch das Kurvenäußere.",
+      "quelle": "wp-taraxacum-officinale",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,49 @@
+{
+  "hauptname": "Zuckermais",
+  "lateinisch": "Zea mays",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q11575",
+  "wikipedia": "Mais",
+  "namen": [
+    {
+      "name": "Mais",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kukuruz",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kukuruz (AT)",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Kulturmais ist durch die lange Züchtungsgeschichte formenreich.\n\nKulturmais ist eine kräftig gebaute, sommergrüne, einjährige, krautige Pflanze, die Wuchshöhen von einem bis zu drei Metern erreicht. Der runde, nicht oder nur selten verzweigte Halm ist auf ganzer Länge von glatten Blattscheiden bedeckt. Er ist innen markhaltig und kann am Grund einen Durchmesser von fünf Zentimetern aufweisen. Die zahlreichen Knoten stehen insbesondere bodennah in dichter Folge. Aus ihnen entwickeln sich sprossbürtige Wurzeln, die der Wasser- und Nährstoffaufnahme, vor allem aber auch der Standfestigkeit der Pflanze dienen.\n\nDie Laubblätter sind wechselständig am Halm angeordnet. Das drei bis fünf Millimeter lange Blatthäutchen (Ligula) ist zerschlitzt oder bewimpert. Die einfache, leicht raue, mitunter zerstreut behaarte, dunkelgrüne Blattspreite ist bei einer Länge von bis zu einem Meter und einer Breite von vier bis zehn Zentimeter flach und zum Rand hin wellig.",
+      "quelle": "wp-zea-mays",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Kulturmais ist einhäusig getrenntgeschlechtig (monözisch). An der Sprossspitze befinden sich die endständigen männlichen rispigen Blütenstände, die sich an den Rispenästen aus paarweise angeordneten Ährchen mit jeweils zwei männlichen Blüten zusammensetzen. Ein bis drei weibliche Blütenstände wachsen in Blattachseln am unteren bis mittleren Bereich des Halmes. Diese seitenständigen, kurz gestielten Kolben werden vollständig von Hüllblättern (Lieschblätter, auch genannt Lieschen, gesprochen /ˈliːʃən/) umhüllt und tragen paarweise Ährchen in 8 bis 16 Längszeilen. Dabei enthält jedes Ährchen zwei Blüten, von denen aber nur eine voll entwickelt ist. Der Fruchtknoten ist mit drei Millimetern sehr klein, jedoch zur Anthese mit 20 bis 40 Zentimeter langen Griffeln ausgestattet. Später ragen die vertrockneten Griffel als bräunliches Bündel aus der Spitze des Kolbens zwischen den Blattscheiden hervor.",
+      "quelle": "wp-zea-mays",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Etwa 15 % der globalen Maisernte werden als Lebensmittel verwendet (Zeitraum: 2005–2007). Global werden 63 % des verbrauchten Mais an Nutztiere verfüttert, 11 % werden verarbeitet, 10 % werden andersartig genutzt, 1 % als Saatgut. In Entwicklungsländern liegt der Anteil von Lebensmitteln an der Maisnachfrage bei 25 %, in Ost- und Südafrika bei 73 %, während er in Industrieländern 3 % beträgt. In Industrieländern wird 23 % des verbrauchten Mais verarbeitet, vor allem zu Bioenergie. Die Nachfrage nach Mais als Futtermittel (vor allem für Schweine und Geflügel) steigt um 6 % jährlich, insbesondere aufgrund des zunehmenden Fleischkonsums in Asien.",
+      "quelle": "wp-zea-mays",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,37 @@
+{
+  "hauptname": "Silber-Weide",
+  "lateinisch": "Salix alba",
+  "gruppen": [
+    "Bäume"
+  ],
+  "wikidata": "Q156918",
+  "wikipedia": "Silber-Weide",
+  "namen": [
+    {
+      "name": "Silberweide",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gelbe Weide",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Saule blanc",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Silber-Weide kann als Laubbaum eine Wuchshöhe bis zu 35 Metern erreichen, sie wächst nur ausnahmsweise strauchig. Es wurden Weiden gefunden, die etwa 200 Jahre alt sind. Jüngere Bäume haben noch eine spitz kegelförmige Baumkrone; die Krone älterer Bäume wirkt dagegen formlos. Der Stamm kann einen Durchmesser bis über 1,5 Meter erreichen. Die Rinde ist dunkelgrau mit dicken, dicht zusammenstehenden Leisten; ältere Bäume weisen eine gräuliche, tiefgefurchte Borke auf.",
+      "quelle": "wp-salix-alba",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

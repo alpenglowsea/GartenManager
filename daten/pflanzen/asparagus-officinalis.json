@@ -1,0 +1,54 @@
+{
+  "hauptname": "Spargel",
+  "lateinisch": "Asparagus officinalis",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q28367",
+  "wikipedia": "Gemüsespargel",
+  "namen": [
+    {
+      "name": "Gemüsespargel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemeiner Spargel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnlicher Spargel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemüse-Spargel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Vorläufer bzw. Verwandte des heutigen Gemüsespargels kommen wild in Mittel- und Südeuropa, Vorderasien, dem westlichen Sibirien und Nordafrika vor. Als Heimat des Gemüsespargels wird der östliche Mittelmeerraum angenommen. In Süd- und Nordamerika sowie in Neuseeland kommt er stellenweise eingebürgert vor. Ob die schon von mittelalterlichen Autoren erwähnten Bestände auf Kies- und Sandbänken von Rhein, Main und Donau echte Wildvorkommen sind oder auf Verwilderungen zurückgehen, ist unklar. Verwilderter Spargel findet sich in Mitteleuropa auf trockenen, mäßig nährstoffreichen Standorten, auf Dämmen, an Wegrändern, in Dünen und in (ruderalen) Trockenrasen. Er gedeiht meist in Gesellschaften der Ordnung Corynephoretalia, aber auch der Ordnung Origanetalia oder der Klasse Festuco-Brometea.",
+      "quelle": "wp-asparagus-officinalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gemüsespargel ist eine sommergrüne, ausdauernde, krautige Pflanze. Aus dem Rhizom treibt er fleischige, saftige, mit Niederblättern spiralig besetzte, weißliche oder blassrötliche Sprossen, die sich über der Erde in einem verzweigten, grünen, 0,6 bis 1,5 Meter hohen, glatten Stängel verlängern. Die Laubblätter sind auf kleine, häutige Schuppen reduziert, in deren Achseln linealische Phyllokladien (umgewandelte Kurzsprosse) entspringen.\n\nDie Blütezeit reicht von Juni bis Juli. Die Blüten sind meist eingeschlechtig, selten zwittrig. Wenn die Blüten eingeschlechtig sind, dann ist der Gemüsespargel zweihäusig getrenntgeschlechtig (diözisch). Die relativ kleinen, zwittrigen Blüten sind dreizählig. Die sechs Blütenhüllblätter sind gelblich und bis zu 6,5 Millimeter lang.\n\nDie Beeren sind scharlachrot und gering giftig.",
+      "quelle": "wp-asparagus-officinalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Man unterscheidet zwischen Weiß- (oder Bleich-) und Grünspargel. Bei ersterem werden die Sprossachsen geerntet, bevor sie an die Erdoberfläche gelangen. Die Spargeltriebe werden in Europa je nach Region von März bis Juni geerntet und sind als Gemüse besonders geschätzt. In Deutschland überwiegt heutzutage der Verzehr von Bleichspargel, in englischsprachigen Ländern (so wie früher auch in Deutschland) der von Grünspargel.",
+      "quelle": "wp-asparagus-officinalis",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

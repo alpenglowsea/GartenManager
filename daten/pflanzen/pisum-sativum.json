@@ -1,0 +1,59 @@
+{
+  "hauptname": "Erbse",
+  "lateinisch": "Pisum sativum",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q25237",
+  "wikipedia": "Erbse",
+  "namen": [
+    {
+      "name": "Gartenerbse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Schalerbse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Speiseerbse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Markerbse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Erbsenpflanze",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Erbse ist eine einjährige, krautige Pflanze. Das Wurzelsystem ist in der oberen Bodenschicht stark verzweigt und kann in geeigneten Böden eine Tiefe von 1 Meter erreichen. Die niederliegenden oder kletternden Stängel werden 0,5 bis 2 Meter lang und sind einfach oder am Grund verzweigt, hohl, kantig, kahl und bläulichgrün.\n\nDie Laubblätter besitzen ein bis drei Fiederpaare und verzweigte Blattranken. Die Fiederblättchen sind eiförmig bis breit-elliptisch, gerundet, ganzrandig (oder entfernt gezähnt). Sie sind 2 bis 7 Zentimeter lang und 1,5 bis 4 Zentimeter breit. Die Nebenblätter sind mit 4 bis 10 Zentimetern relativ groß und breit halbherzförmig. Am unteren Rand sind die Nebenblätter entfernt gezähnt bis ausgebuchtet und am Grund haben sie meist einen violetten Punkt. Die Spaltöffnungen befinden sich auf der Ober- und Unterseite der Blattspreite.",
+      "quelle": "wp-pisum-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Ein bis drei Blüten stehen in einem traubigen Blütenstand und die Blütenstandsachse endet oft in einer Granne. Der Blütenstiel ist 5 bis 10 Millimeter lang.\n\nDie zwittrigen Blüten sind zygomorph und fünfzählig mit doppelter Blütenhülle. Die fünf Kelchblätter sind glockig verwachsen und am Rücken ausgesackt. Die Kelchzähne sind eiförmig-lanzettlich. Die unteren Kelchzähne sind etwa dreimal so lang wie die Kelchröhre sowie schmaler und länger als die oberen. Die 15 bis 36 Millimeter lange Blütenkrone hat den typischen Aufbau von Schmetterlingsblüten. Bei der Unterart Pisum sativum subsp. sativum ist die Fahne weiß, bei der Unterart Pisum sativum subsp. elatius ist die Fahne blasslilafarben und die Flügel sind dunkelpurpurfarben.",
+      "quelle": "wp-pisum-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Der größte Teil der Trockenerbsen wird in der Tierernährung als Erbsenschrot verfüttert, ebenso Erbsenfuttermehl aus der Nahrungsmittelproduktion und Erbsenkleie als Rückstand in der Schälmüllerei. Auch Erbsenstroh wird wegen seines hohen Nährstoffgehalts verfüttert. Die Erbse wird als Grünfutter und -dünger verwendet.\n\nFür die menschliche Ernährung fanden ursprünglich ebenfalls Trockenerbsen Verwendung, die hauptsächlich als Mus zubereitet wurden. Heute noch verbreitet ist die Erbsensuppe. Im 19. Jahrhundert entstand die Erbswurst. Getrocknete Erbsen werden als ganze Erbsen (mit Samenschale) oder als halbe Erbsen (deren Samenschale entfernt wurde) benutzt. Heute werden Erbsen in Mitteleuropa hauptsächlich grün zubereitet. Häufig finden Erbsen in Form von Konserven und tiefgekühlt Verwendung; seltener frisch, da Erbsen nicht besonders lange haltbar sind und rasch an Geschmack verlieren. Im Gegensatz zu früher werden sie als Gemüsebeilage verwendet, weniger als Hauptnahrungsmittel.",
+      "quelle": "wp-pisum-sativum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

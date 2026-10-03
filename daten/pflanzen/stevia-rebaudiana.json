@@ -1,0 +1,60 @@
+{
+  "hauptname": "Stevia",
+  "lateinisch": "Stevia rebaudiana",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q7213452",
+  "wikipedia": "Stevia rebaudiana",
+  "namen": [
+    {
+      "name": "Süßkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Süßblatt",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Honigkresse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Honigkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Stevia rebaudiana stammt ursprünglich aus Paraguay in Südamerika. Natürliche Vorkommen von Stevia rebaudiana findet man im Hochland des Grenzgebietes zwischen Brasilien und Paraguay, zum Beispiel im Departamento Amambay.",
+      "quelle": "wp-stevia-rebaudiana",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Stevia rebaudiana ist eine mehrjährige, krautige Pflanze, die Wuchshöhen von 70 bis über 100 Zentimetern erreicht. Die schlanken, aufrechten Stängel sind mehr oder weniger, teils drüsig behaart.\n\nDie kreuzgegenständig am Stängel angeordneten Laubblätter sind in Blattstiel und -spreite gegliedert. Die einfache, leicht ledrige und eiförmige bis verkehrt-eiförmige, teils spatelförmige oder elliptische und stumpfe bis rundspitzige, mehr oder weniger im vorderen Teil grob gekerbte bis gesägte Blattspreite ist 2 bis 4 Zentimeter lang. Der Blattstiel ist meist sehr kurz bis fast fehlend. Die Blätter mit keilförmigem Grund sind fein, teils drüsig behaart. Die Nervatur ist dreizählig.",
+      "quelle": "wp-stevia-rebaudiana",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "In endständigen, lockeren Schirmrispen in einem trugdoldigen Gesamtblütenstand befinden sich die kleinen und wenigblütigen (meist 5), körbchenförmigen Teilblütenstände mit einer teils drüsig behaarten Hülle. Die kleinen und zwittrigen, vorstehenden Scheibenblüten sind meist weiß bis purpur.\n\nEs werden kleine und drüsige, gelbliche unfertile und dunkelbraune fertile und rippige, fast kahle Achänen mit borstigem, einreihigem Pappus und Karpopodium gebildet.",
+      "quelle": "wp-stevia-rebaudiana",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Stevia ist eine seit Jahrhunderten bekannte Pflanzenart, die auch als ein natürlicher Süßstoff bezeichnet werden kann. Ihre Inhaltsstoffe, häufig auch Stevioside genannt, werden vor allem in Asien als Zuckerersatz zum Süßen von Tees und Nahrungsmitteln verwendet. So produzierte Korea schon 1973 Stevia für den japanischen Markt, wo der Süßstoff der Stevia-Pflanze inzwischen 40 % des Zuckerersatzstoffmarktes ausmacht.\n\nIm Vergleich zum Rübenzucker sind Stevia-Blätter 30-mal, und der darin enthaltene süßende Stoff, Steviosid, ist in reiner Form sogar 150- bis 300-mal süßer. Dabei enthält das Blatt nur ein 300stel des physiologischen Brennwerts der süßkraftäquivalenten Menge von Haushaltszucker. Der Vorteil von Stevia gegenüber dem Süßstoff Aspartam ist, dass er auch ausreichend temperaturstabil ist und daher auch zum Backen und Kochen verwendet werden kann. In getrocknetem Zustand können die Blätter über Jahre aufbewahrt werden.",
+      "quelle": "wp-stevia-rebaudiana",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

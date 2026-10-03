@@ -1,0 +1,33 @@
+{
+  "hauptname": "Zucchini",
+  "lateinisch": "Cucurbita pepo",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q7229863",
+  "wikipedia": "Gartenkürbis",
+  "namen": [
+    {
+      "name": "Gartenkürbis",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Als Stammform des Gartenkürbisses gilt der Texanische Wildkürbis (Cucurbita texana). Die Heimat der verschiedenen Kürbisarten, von denen der Gartenkürbis die größte Bedeutung hat, liegt zwischen Peru und den südlichen USA. Der Kürbis ist eine der ältesten Kulturpflanzen der Menschheit und gehörte schon bei Maya und Azteken zu den Grundnahrungsmitteln. Archäologische Funde aus Mexiko weisen auf eine Kultivierung kleinsamiger Formen um 7000 bis 5000 v. Chr. hin. Funde aus dem südlichen Mexiko wurden auf 10.000 v. Chr. datiert. Später wurde der Gartenkürbis unabhängig davon im östlichen Nordamerika domestiziert.\n\nChristoph Kolumbus berichtet, dass er die Pflanze 1492 in Kuba kennen und schätzen gelernt habe. Anfang des 16. Jahrhunderts gelangten dann die ersten Gartenkürbissamen nach Europa, so dass mit cucurbita zuvor nicht der Gartenkürbis gemeint sein konnte.",
+      "quelle": "wp-cucurbita-pepo",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Das zerkleinerte und süßsauer eingemachte Fruchtfleisch ist als Kompott oder Fleischbelag schmackhaft. Für Kürbissuppen wird das Fruchtfleisch des Kürbisses allein oder in Mischung mit Kartoffeln und anderen Gemüsen (z. B. Möhren) in einer Gemüse- oder Fleischbrühe gekocht und anschließend mit Gewürzen püriert. Die großen Blüten werden in Mexiko für Suppen verwendet und in Italien gefüllt. Auch als Salat kann Kürbis dienen. Als Besonderheit gilt der Spaghettikürbis, der als ganzes gekocht, aufgeschnitten, fädig mürbes Fruchtfleisch liefert. Die Samen werden für Backwaren verwendet und dienen geröstet oder ungeröstet als Snack.",
+      "quelle": "wp-cucurbita-pepo",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

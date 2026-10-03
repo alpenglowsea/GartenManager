@@ -6,14 +6,32 @@
     "Kräuter",
     "Stauden"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q42081",
+  "wikipedia": "Echter Lavendel",
   "namen": [],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
+      "abschnitt": "Herkunft",
+      "text": "Die Heimat des Echten Lavendels sind ursprünglich die Küstenregionen des Mittelmeerraums. Die meisten ursprünglichen Populationen gibt es großflächig im östlichen Spanien, sonst sind Fundorte nur aus der Südostecke Frankreichs und in angrenzenden Gebieten in Italien sowie ein italienischer Fundort in der Nähe von Bologna bekannt. Es gibt weitere Berichte aus mehreren französischen Departments. Die ursprünglichen Bestände befinden sich in Bergregionen, die für eine landwirtschaftliche Nutzung nicht geeignet sind.\n\nIn der Roten Liste der gefährdeten Arten der IUCN wird Lavandula angustifolia als LC = „least concern“ = „nicht gefährdet“ eingestuft. Diese Bewertung erfolgte, weil der Echte Lavendel für die Nutzung großflächig angebaut wird und Entnahmen aus Wildbeständen daher nicht wirtschaftlich wären. Die weitverbreiteten natürlichen Bestände sind also stabil.",
+      "quelle": "wp-lavandula-angustifolia",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Echte Lavendel ist ein aromatischer, kleiner Strauch, auch Zwergstrauch genannt, der Wuchshöhen bis 100 bis 150, selten bis 200 Zentimetern erreicht. Die oberirdischen Pflanzenteile sind graufilzig behaart. Die Zweige sind aufsteigend, aufrecht und stark verzweigt, steif aufrecht und unverzweigt oder sie tragen Kurztriebe.\n\nDie gegenständig angeordnet Laubblätter sind sitzend. Die einfache Blattspreite ist bei einer Länge von 40 bis 50 Millimetern lanzettlich, länglich oder linealisch und verschmälern sich an beiden Enden. Sie sind stumpf, ganzrandig und am Rand mehr oder weniger eingerollt. Im jungen Zustand sind die Laubblätter an Ober- und Unterseite graufilzig behaart, später verkahlen sie.",
+      "quelle": "wp-lavandula-angustifolia",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juni bis August, in Mitteleuropa meist von Juli bis Oktober. Der Blütenstandsschaft ist etwa dreimal so lang wie der Blütenstand. In einem bis zu 8 Zentimeter langen, ährigen Blütenstand befinden sich mehrere Scheinquirle, die jeweils sechs bis zehn Blüten enthalten. Die Hochblätter haben eine Länge bis zu 8 Millimeter, sind meist breit rautenförmig, verkehrt-eiförmig, begrannt, häutig und braun oder violett gefärbt, die Nerven sind deutlich erkennbar. Die Tragblätter sind rhombisch-eiförmig oder spitz-spatelförmig. Die Blütenstiele sind relativ kurz. Deckblätter sind kaum erkennbar.",
+      "quelle": "wp-lavandula-angustifolia",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Echter Lavendel wird überwiegend zur Gewinnung von Duftstoffen oder als Zierpflanze genutzt. Das Holz des Echten Lavendels findet nur selten Verwendung, gelegentlich in Instrumenten sowie als Zierholz für kleinere Arbeiten.\n\nJunge Blätter und weiche Triebe eignen sich zum Verfeinern von Gerichten wie Eintopf, Fisch, Geflügel, Lammfleisch und in Soßen und Suppen, in kleineren Mengen auch an Salaten. Besonders in der französischen, italienischen und spanischen Küche wird Lavendel oft verwendet. In der Avantgardeküche wird es auch in Desserts eingesetzt, z. B. in weißer Schokoladenmousse oder in Aprikosensorbet. Das Aroma ist dem des Rosmarins ähnlich und bitter bis würzig. Lavendel zählt zwar nicht zu den Standardbestandteilen der Gewürzmischung Herbes de Provence, ist aber häufig in dieser enthalten. Das getrocknete und luftdicht und lichtgeschützt verpackte Gewürz hält sich 6 bis 9 Monate.",
+      "quelle": "wp-lavandula-angustifolia",
       "auszug": false
     }
   ],

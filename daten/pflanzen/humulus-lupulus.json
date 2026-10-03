@@ -1,0 +1,43 @@
+{
+  "hauptname": "Echter Hopfen",
+  "lateinisch": "Humulus lupulus",
+  "gruppen": [
+    "Kletterpflanzen"
+  ],
+  "wikidata": "Q104212",
+  "wikipedia": "Echter Hopfen",
+  "namen": [
+    {
+      "name": "Gewöhnlicher Hopfen",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Humulus lupus",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Hopfen",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Aus einem dicken Wurzelstock (Rhizom) treibt der laubabwerfende Hopfen meist sehr zahlreich aus. Er ist eine ausdauernde, krautige Kletterpflanze die einige Meter weit und hoch wächst. Es sind dünne, raue und hohle Stängel mit anker- oder hakenartigen „Kletterhaaren“ (Stacheln), die eine erstaunliche Haftfähigkeit besitzen. Diese Triebe werden wie beim Wein als Reben bezeichnet und wachsen im Durchschnitt 10 cm pro Tag. Wie bei allen Stauden kommt es nicht zu einer durchgehenden Verholzung der Pflanze. Hopfen ist ein Rechtswinder, die oberirdischen Triebe sind einjährig und sterben nach der Samenreife ab. Mit 2 bis 6 Metern Höhe ist die Wildform kleiner als die Zuchtsorten mit 4–8 Meter; ebenso sind die Blütenstände deutlich kleiner. In Mitteleuropa ist der Wilde Hopfen nahezu überall anzutreffen, kleinere Lücken gibt es im Alpenvorland.",
+      "quelle": "wp-humulus-lupulus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "95 Prozent des Hopfens wird, meistens in der Form von Hopfenpellets, für die Bierherstellung verwendet. Er verleiht dem Bier sein Aroma und die typische Bitterkeit. Die Hopfeninhaltsstoffe wirken zusätzlich beruhigend, konservierend und schaumstabilisierend. Zum Brauen werden ausschließlich die Dolden der weiblichen Hopfenpflanzen verwendet. Für einen Liter Bier benötigt man 1 bis 4 Gramm Hopfen.\n\nBeim Grünhopfenbier wird der Hopfen ohne Trocknung direkt von der Ernte verarbeitet.\n\nVereinzelt wird Hopfen als Geschmacksbereicherung für einige Liköre und Schnäpse verwendet, inzwischen wird auch Hopfen-Limonade hergestellt.\n\nEin geringer Anteil des Hopfens wird zu medizinischen Zwecken, hauptsächlich als Sedierungsmittel, verwendet.",
+      "quelle": "wp-humulus-lupulus",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

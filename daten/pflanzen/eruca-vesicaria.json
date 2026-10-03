@@ -1,0 +1,44 @@
+{
+  "hauptname": "Rucola",
+  "lateinisch": "Eruca vesicaria",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q5395935",
+  "wikipedia": "Senfrauke",
+  "namen": [
+    {
+      "name": "Senfrauke",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Garten-Senfrauke",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Senfrauke ist ursprünglich von Spanien über das südliche bis in das südöstliche Europa sowie im nördlichen Afrika beheimatet. Weiters erstreckt sich das Verbreitungsgebiet über Vorderasien bis Zentralasien. Eingeschleppt wird diese Art aber fast weltweit beobachtet.\n\nIn Südeuropa kommt sie in Gesellschaften des Verbands Hordeion aus der Klasse der Chenopodietea vor.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-eruca-vesicaria",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Senfrauke wächst als einjährige krautige Pflanze und wird 5 bis 60, selten 100 Zentimeter hoch. Alle Pflanzenteile sind meist glatt, können aber auch rau bis steif behaart sein. Der aufrechte Stängel ist kantig gestreift und größtenteils verzweigt. Die grundständigen oder unteren, am Stängel verteilt angeordneten Laubblätter können gestielt sein. Die grundständigen Laubblätter sind gestielt und die Blattspreite ist meist leierförmig-fiederteilig bis fiederschnittig. Die Seitenlappen sind länglich bis linealisch, der Endlappen ist größer und der Blattrand ist buchtig gezähnt oder ausgeschweift, selten ganzrandig. Die oberen Stängelblätter sind sitzend bis höchstens kurzgestielt und die Blattspreite ist einfach und gezähnt oder fiederteilig.",
+      "quelle": "wp-eruca-vesicaria",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit der Senfrauke ist Mai bis Juni. Der anfangs schirmtraubige Blütenstand verlängert sich später bis zu einem traubigen Fruchtstand. Die zwittrigen Blüten sind vierzählig mit doppelter Blütenhülle (Perianth). Die Blütenstiele sind aufrecht-abstehend und nur ein Viertel bis zwei Drittel so lang wie der Kelch. Die vier aufrechten Kelchblätter sind meist länglich. Sie sind 7 bis 12 Millimeter lang und 1,5 bis 2 Millimeter breit. Die vier breit verkehrt-eiförmigen, genagelten Kronblätter sind cremefarben bis gelb mit dunkelbraunen bis purpurfarbenen Adern. Alle Staubblätter sind fast gleich lang. Die Staubbeutel sind länglich bis lineal. Es sind vier Nektardrüsen vorhanden. Der Fruchtknoten enthält 13 bis 50 Samenanlagen. Der Griffel ist nur rudimentär vorhanden und die konische Narbe ist zweilappig.",
+      "quelle": "wp-eruca-vesicaria",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

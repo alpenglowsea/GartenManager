@@ -1,0 +1,54 @@
+{
+  "hauptname": "Echter Thymian",
+  "lateinisch": "Thymus vulgaris",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q148668",
+  "wikipedia": "Echter Thymian",
+  "namen": [
+    {
+      "name": "Römischer Quendel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenthymian",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kuttelkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Thym Commun",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Ursprünglich stammt der Echte Thymian aus dem westlichen europäischen Mittelmeerraum. Er hat ursprüngliche Vorkommen in Spanien, auf den Balearen, in Frankreich und in Italien. Er wird als Heil- und Gewürzpflanze verwendet und verwildert in Mitteleuropa nur in warmen Gegenden, besonders am Alpensüdfuß und in der Südwestschweiz. In Deutschland kommt er an mehreren Stellen eingebürgert vor. In Südtirol wohl nur am Cascate del Varone beim Gardasee. Der Echte Thymian steigt in den Seealpen bis 1000 Meter Meereshöhe auf. Er wird im Engadin bis in 1728 Meter Meereshöhe angebaut.\n\nEr besiedelt lückige Trockenrasen und Macchien. Der Echte Thymian gedeiht am besten auf trockenen, flachgründig-steinigen, kalkhaltigen Böden bei ausgesprochen sommerheißem Klima.",
+      "quelle": "wp-thymus-vulgaris",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Echte Thymian ist ein ausdauernder, stark verzweigter Halbstrauch, der Wuchshöhen von 10 bis 40 Zentimeter erreicht. Die Zweige sind niederliegend oder aufsteigend, vierkantig, verholzt und kurz behaart. Die kreuzgegenständigen Laubblätter sind sitzend oder kurz gestielt und schmal elliptisch. Ihre Oberseite ist graugrün gefärbt, die Unterseite filzig grauweiß behaart und der Rand zurückgerollt.",
+      "quelle": "wp-thymus-vulgaris",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die kleinen Blüten sind in Scheinquirlen angeordnet, die sich in zylindrischen Köpfchen an den Enden der Zweige befinden. Die zwittrigen Blüten sind zygomorph und fünfzählig mit doppelter Blütenhülle. Die fünf Kronblätter sind weiß oder rosafarben und zu einer zweilippigen Krone verwachsen. Die Oberlippe ist wenig glockig, die Unterlippe weist drei breite Lappen auf. Die Nussfrüchte sind kugelförmig.\n\nDie Blütezeit reicht von Mai bis Oktober.",
+      "quelle": "wp-thymus-vulgaris",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

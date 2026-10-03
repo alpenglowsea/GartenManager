@@ -1,0 +1,39 @@
+{
+  "hauptname": "Kulturheidelbeere",
+  "lateinisch": "Vaccinium corymbosum",
+  "gruppen": [
+    "Beerensträucher",
+    "Sträucher"
+  ],
+  "wikidata": "Q468695",
+  "wikipedia": "Amerikanische Heidelbeere",
+  "namen": [
+    {
+      "name": "Amerikanische Heidelbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Amerikanische Blaubeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Amerikanische Heidelbeere ist heimisch in sumpfigen Wiesen und feuchten Wäldern von Neufundland bis Minnesota, südlich bis Florida und Louisiana. In Niedersachsen wird sie auch kultiviert und kommt dort verwildert in Gesellschaften der Ordnung Sphagnetalia vor.",
+      "quelle": "wp-vaccinium-corymbosum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Amerikanische Heidelbeere ist ein 1 bis 4 Meter hoher, stark verzweigter Halbstrauch mit glatten oder schwach behaarten Zweigen. Die kurz gestielten, einfachen Laubblätter sind länglich-rund bis elliptisch und 2,5 bis 8 cm lang, meist spitz zulaufend und am Rand borstig behaart, mindestens aber entlang der Nervatur der Unterseite fein behaart.\n\nDie Trauben erscheinen noch vor den Blättern und sind ebenso lang wie die Blütenstandsstiele, die Tragblätter sind hinfällig. Die Krone ist 6 bis 12 mm lang, mit fünf weißen oder hell rosa, zylindrisch oder nah dem Schlund sich schwach verjüngenden Zipfeln. Die Beeren sind rundliche, dunkelblaue Früchte und erreichen einen Durchmesser von 6 bis 8 mm.",
+      "quelle": "wp-vaccinium-corymbosum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

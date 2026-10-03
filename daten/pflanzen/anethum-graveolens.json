@@ -1,0 +1,60 @@
+{
+  "hauptname": "Dill",
+  "lateinisch": "Anethum graveolens",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q26686",
+  "wikipedia": "Dill (Pflanze)",
+  "namen": [
+    {
+      "name": "Dille",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Dillöl",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gurkenkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Dillkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Dill ist ursprünglich in Vorderasien verbreitet. Nach Ralf Hand kommt er ursprünglich aber beispielsweise in Marokko, Algerien, Tunesien, Libyen, Spanien, Portugal, Madeira, Kroatien, Bulgarien, Zypern, im Gebiet von Israel und Jordanien und in der Türkei vor. Für Albanien und Mallorca ist die Ursprünglichkeit zweifelhaft. In Italien und Slowenien kommt er eingebürgert vor. In Mitteleuropa ist er selten verwildert zu finden.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2w (mäßig trocken aber mäßig wechselnd), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 5 (sehr warm-kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-anethum-graveolens",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Dill ist eine sommerannuelle, einjährige krautige Pflanze und erreicht Wuchshöhen von meist 30 bis 75 Zentimetern, selten bis zu 125 Zentimetern. Alle oberirdischen Pflanzenteile sind kahl und die Farbe variiert von Hellgrün bis Grün-Türkis. Alle Pflanzenteile duften stark aromatisch. Die Stängel wachsen aufrecht, sind rund und fein gerillt und verzweigen sich meist im oberen Abschnitt. Besonders die unteren Laubblätter sind drei- bis vierfach fiederschnittig, fein zerteilt in borstliche Abschnitte. Die oberen Laubblätter sind weniger stark geteilt und kleiner. Nebenblätter fehlen. Die Blattscheiden haben eine Länge von 1 bis 2 Zentimetern und sind oben gehörnt. Die unteren Stängelblätter sind gestielt, die oberen auf den Blattscheiden sitzend.",
+      "quelle": "wp-anethum-graveolens",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die großen Blütenstände sind tragblattlose, 15- bis 30-strahlige Doppeldolden, selten bis zu 50-strahlig. Sie weisen einen Durchmesser von 5 bis 15 Zentimetern auf und enthalten zehn bis 25 Döldchen. Die Döldchen weisen einen Durchmesser von 3 bis 5 Zentimetern auf und enthalten 15 bis 25 Blüten. Die Blütenstiele sind 6 bis 10 Millimeter lang.\n\nHülle und Hüllchen fehlen. Die kleinen Blüten sind radiärsymmetrisch und fünfzählig. Die fünf Kelchblätter sind verwachsen. Die fünf Kronblätter sind (dotter-)gelb; sie sind an der Spitze in ein umgeschlagenes Läppchen verschmälert. Es ist nur ein Kreis mit fünf Staubblättern vorhanden. Die Staubblätter sind länger als die eingerollten Kronblätter.",
+      "quelle": "wp-anethum-graveolens",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Gartendill ist eine vielseitig verwendete Gewürzpflanze. Er wird für Salate verwendet und ist für warme und kalte Dillsaucen, in Gewürzbutter und in Brotaufstrichen geeignet. Des Weiteren dient er auch zum Würzen von Fisch- und Fleischspeisen. Durch Destillation wird das Dillöl auch für die Likörindustrie angereichert. Frisch und getrocknet kann es auch für Konserven und für Kräuteressenzen verwendet werden. Blätter wie Blütendolden sind ein wichtiges Gewürz für Gewürzgurken, insbesondere für Salz-Dill-Gurken. Meist werden die Dillspitzen verwendet, in frischem, getrocknetem, tiefgefrorenem oder gefriergetrocknetem Zustand. Seltener wird das Dillkraut (das junge Kraut) oder die ganze oberirdische Pflanze verwendet. Das frische Dillkraut hat den besten Geschmack und wird auch auf gegarte Kartoffeln gestreut.\n\nAls Heildrogen dienen die getrockneten reifen Früchte und die ganze frische, blühende Pflanze.",
+      "quelle": "wp-anethum-graveolens",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

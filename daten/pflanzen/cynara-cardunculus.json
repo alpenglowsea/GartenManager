@@ -1,0 +1,39 @@
+{
+  "hauptname": "Artischocke",
+  "lateinisch": "Cynara cardunculus",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q7186137",
+  "wikipedia": "Cynara cardunculus",
+  "namen": [
+    {
+      "name": "Wilde Artischocke",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die frostempfindliche Artischocke stammt ursprünglich aus dem Mittelmeerraum; vom östlichen Mittelmeer (Türkei und Iran) bis nach Nordafrika, westlich bis Spanien und ebenso auf den Kanarischen Inseln. Sie ist in weiteren Gebieten mit mediterranem Klima eingebürgert, so in Kalifornien, Südamerika, Südafrika und Australien.",
+      "quelle": "wp-cynara-cardunculus",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die einjährigen Pflanzen keimen im Spätsommer und bilden über Winter eine kräftige Blattrosette und eine fleischige Pfahlwurzel. Im Frühjahr und Sommer des darauf folgenden Jahres streckt sich die Sprossachse und trägt die Blütenstände.\n\nDie Blätter erreichen eine Länge von 30 bis 200 Zentimeter. Sie sind tief einfach oder doppelt fiederschnittig, der Blattrand kann glatt oder gesägt sein. Die Blätter sind mit ein bis 30 Millimeter langen Stacheln besetzt, besonders entlang der Mittelrippe. Unterseits sind die Blätter dicht grau oder weiß behaart, oberseits nur leicht behaart.",
+      "quelle": "wp-cynara-cardunculus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Cynara cardunculus wird in zwei verschiedenen Formen als Gemüse verwendet. Bei der Sortengruppe der Artischocken werden die noch ungeöffneten Blütenstände geerntet, bei der Cardy die gebleichten Blattrippen. Außerdem werden die Blätter aufgrund ihres Gehalts an phenolischen\n\nVerbindungen wie Caffeoylchinasäuren und Flavonoiden sowie terpenoiden Komponenten wie Sesquiterpenlactone als Arznei verwendet.\n\nIn einer Untersuchung über Mittelmeerdiäten wurde festgestellt, dass Cynara cardunculus eine stimmungsaufhellende Wirkung besitzt (Serotonin-Wiederaufnahmehemmer).\n\nVerschiedene Käsesorten wie die portugiesischen Schafskäse Queijo de Azeitão und Queijo Serra da Estrela oder der spanische Queso de La Serena werden mit einem Aufguss aus den Staubblättern von Cynara cardunculus dickgelegt.",
+      "quelle": "wp-cynara-cardunculus",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,50 @@
+{
+  "hauptname": "Echte Kamille",
+  "lateinisch": "Matricaria chamomilla",
+  "gruppen": [
+    "Kräuter",
+    "Blumen"
+  ],
+  "wikidata": "Q28437",
+  "wikipedia": "Echte Kamille",
+  "namen": [
+    {
+      "name": "Matricaria recutita",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Chamomilla recutita",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kamille",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die ursprüngliche Heimat der Echten Kamille ist Vorderasien, Süd- und Osteuropa. Heute ist sie in ganz Europa, auch in Nord- und Südamerika und in Australien eingebürgert. Nach POWO kommt sie ursprünglich in vielen Ländern Eurasiens vor und fehlt beispielsweise nur in Indien, Südostasien und in Japan.\n\nSie wächst auf Äckern und auf Ödland, bevorzugt auf frischen, nährstoffreichen, eher humosen Lehm- und Tonböden. Sie kommt bis in die montane Höhenstufe vor, in Tirol steigt sie bis 1300 Meter Meereshöhe. Im Kanton Wallis wurde sie noch bei 1650 Meter, in Graubünden beim Bahnhof Ospizio Bernina bei 2300 Meter beobachtet. Sie ist in Mitteleuropa eine Charakterart des Alchemillo-Matricarietum aus dem Verband Aperion spicae-venti, kommt aber auch in Gesellschaften der Klasse Chenopodietea oder Plantaginetea majoris vor.",
+      "quelle": "wp-matricaria-chamomilla",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Echte Kamille ist eine einjährige krautige Pflanze und erreicht Wuchshöhen von 15 bis 50 cm. Alle Pflanzenteile besitzen einen starken, charakteristischen Geruch. Die Stängel sind aufrecht oder aufsteigend und kahl, im oberen Teil sind sie meist sehr stark verzweigt.\n\nDie Laubblätter sind 4 bis 7 cm lang und zwei- bis dreifach fiederteilig. Die einzelnen Zipfel sind schmal linealisch, knapp 0,5 mm breit, und tragen eine Stachelspitze.",
+      "quelle": "wp-matricaria-chamomilla",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "In einem Gesamtblütenstand stehen meist 7 bis 120 (1 bis 900) körbchenförmige Teilblütenstände zusammen. Der Körbchenstiel ist 3 bis 10 cm lang. Das Aussehen erinnert an ein Gänseblümchen, obwohl diese viel kleiner sind. Die Blütenkörbchen weisen einen Durchmesser von 18 bis 25 mm auf. Die 20 bis 30 Hüllblätter stehen annähernd einreihig. Die Hüllblätter sind länglich, stumpf und haben einen hellen Hautrand. Der Körbchenboden ist zu Beginn der Blüte flach, wird später kegelförmig und hohl. Meist sind weiße Zungenblüten vorhanden, die zum Ende der Anthese zurückgeschlagen, 6 bis 9 mm lang und 2 bis 3 mm breit sind. Die Röhrenblüten sind goldgelb und fünfzähnig und sind häufig in hexagonaler Kreispackung angeordnet. Die Bestäubung erfolgt durch Insekten: meist Zweiflügler, seltener durch Käfer und Hautflügler.",
+      "quelle": "wp-matricaria-chamomilla",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

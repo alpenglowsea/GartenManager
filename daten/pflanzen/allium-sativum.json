@@ -1,0 +1,49 @@
+{
+  "hauptname": "Knoblauch",
+  "lateinisch": "Allium sativum",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q23400",
+  "wikipedia": "Knoblauch",
+  "namen": [
+    {
+      "name": "Knofi",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Rockenbolle",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Schlangenknoblauch",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Wildform des Knoblauchs ist von Zentralasien bis zum nordöstlichen Iran verbreitet. A. sativum wird in vielen Ländern angepflanzt oder kommt verwildert vor.",
+      "quelle": "wp-allium-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Knoblauch ist eine ausdauernde, krautige Pflanze und erreicht Wuchshöhen von 30 bis 90 Zentimetern. Die flachen, bläulich grünen, spitzen und linealischen, kahlen Laubblätter mit Blattscheide sind bis zu 15–30 Millimeter breit und bis 50–80 Zentimeter lang. Als Überdauerungsorgan wird eine 5–7 Zentimeter große Zwiebel gebildet, die von einer dünnen, weißen oder rötlichen, papierigen, trockenen Hülle (Tunika) umgeben ist. Sie besteht aus den etwa fünf bis zwanzig Beiknospen der Blätter (Zehen, Klauen). Eine solche Zehe setzt sich aus dem von einem fleischigen, verdickten Niederblatt umgebenen Vegetationskegel und dem schützenden, zähen Hüllblatt zusammen. Jeweils drei bis fünf dieser Zehen sind dann von einem trockenen Zwiebelblatt (Niederblatt) umgeben, welche alle zusammen die Tunika bilden.",
+      "quelle": "wp-allium-sativum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Knoblauch ist in weiten Teilen der Welt als Gewürz und Gemüse bekannt und verbreitet. Knoblauchzehen sind in vielen Ländern frisch oder eingelegt in eine Salzlake oder in Öl erhältlich. Einen besonderen Stellenwert genießt er in der Küche des gesamten Mittelmeerraums und weiten Teilen Asiens. Er kommt in Gerichten mit ausgeprägtem Knoblauchgeschmack, wie etwa dem italienischen Spaghetti aglio e olio, den spanischen Gambas al ajillo, Knoblauchbrot, verschiedenen Würzsaucen oder Dips wie Aioli und Tsatsiki vor, wirkt jedoch auch allgemein geschmacksverstärkend und wird deshalb zu verschiedensten Braten-, Schmor-, Fisch- oder Eintopfgerichten hinzugefügt.\n\nIn manchen Gegenden Österreichs wird Knoblauch auch als „Vanille des armen Mannes“ bezeichnet. Der dort bekannte Vanillerostbraten wird daher nicht mit Vanille, sondern mit Knoblauch gewürzt.",
+      "quelle": "wp-allium-sativum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

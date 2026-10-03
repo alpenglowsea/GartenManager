@@ -320,4 +320,19 @@ Als Nächstes:
 - BfN-Antwort eingearbeitet (Abschnitt 4.2): keine FloraWeb-Inhalte in den Grunddaten, keine FloraWeb-Kennungen gespeichert. Hinweis des BfN zu CC BY-SA: Die Lizenz darf nur für ein eigenständiges neues Werk gelten; weitergegebene Teile behalten ihre ursprüngliche Lizenz. Das ist in DATENMODELL.md, Abschnitt 5, eingearbeitet.
 
 ### 03.10.2026: Teilschritt 4a geliefert
-- Gerüst der Grunddaten: Textdateien in `daten/`, Bauskript `tools/baue_grunddaten.py` (erzeugt `app/src/main/assets/grunddaten.db` und `grunddaten.version`), 14 Testpflanzen mit gekennzeichneten Testtexten, Lesezugriff `Grunddaten.kt`, Testbildschirm "Pflanzen (Test)". Nicht kompiliert, noch nicht auf dem Handy getestet. Das Kopieren der Datei beim App-Update ist ungeprüft.
+- Gerüst der Grunddaten: Textdateien in `daten/`, Bauskript `tools/baue_grunddaten.py` (erzeugt `app/src/main/assets/grunddaten.db` und `grunddaten.version`), 14 Testpflanzen mit gekennzeichneten Testtexten, Lesezugriff `Grunddaten.kt`, Testbildschirm "Pflanzen (Test)". Getestet am 03.10.2026: alle 10 Punkte OK (Datei kommt an, Gruppen mit Anzahl, Suche mit Umlauten, ss/ß, lateinischen Namen und Alias, Mehrfachgruppen, gleicher lateinischer Name bei Rot-/Weißkohl). **Weiterhin ungeprüft:** das Ersetzen der Datei bei einem App-Update.
+
+### 03.10.2026: Teilschritt 4a getestet, 4b Skripte geliefert
+- 4a: alle 10 Testpunkte OK. Offen bleibt das Ersetzen der Datei bei einem App-Update (braucht zweite Datenversion, kommt mit 4b).
+- 4b: Skripte `hole_daten.py` (Abruf, fortsetzbar), `erzeuge_pflanzen.py` (Sortieren, Auszüge, Bericht, Stichprobe), `pflanzenliste.py`. Nur offline getestet; Abruf und Qualität der Sortierung sind **nicht geprüft**.
+
+### 03.10.2026 (abends): Erster voller Abruf, Bericht und Stichprobe
+- Ergebnis des ersten Laufs (539 Pflanzen): Wikidata-Treffer 95 %, Wikipedia-Artikel 89 %; gefüllt: Herkunft 76 %, Wuchs und Laub 83 %, Blüte 64 %, Verwendung 72 %, **Standort 8 %, Pflege 1 %** (folgt aus der Entscheidung, nur Überschriften mit "Standort" bzw. "Pflege" zu nehmen).
+- Beim Gegenlesen der 30er-Stichprobe (Handlesung durch Claude, nicht streng): etwa jeder dritte Text "Wuchs und Laub" begann mit Chromosomenzahl oder Fruchtbeschreibung; zwei Herkunftstexte waren Namensherleitungen; ein Verwendungstext Nutzungsgeschichte. Ursache waren meine Regeln (Unterabschnitte ohne Treffer wurden angehängt; "herkunft"/"nutzung" trafen "Namensherkunft"/"Nutzungsgeschichte"). **Korrigiert** in `erzeuge_pflanzen.py`: nur eigener Text passender Überschriften, Chromosomen-Absätze weggelassen, Namens- und Geschichtsüberschriften ausgeschlossen.
+- 22 Pflanzen ohne Wikidata-Treffer, meist Hybriden: Wikidata schreibt "Nepeta ×faassenii" ohne Leerzeichen. **Korrigiert** in `hole_daten.py` (Schreibweise vereinheitlicht, zusätzliche Suche über den deutschen Namen, Artikelsuche über den Listennamen, Option `--luecken`).
+- Offene Entscheidungen: Überschriften wie "Verbreitung und Standort" (rund 45 Fälle) weglassen oder unter Herkunft und Standort; Standort und Pflege bleiben zunächst dünn besetzt.
+
+### 03.10.2026 (spät): Zweiter Lauf
+- Ergebnis nach den Korrekturen: Wikidata-Treffer 98 %, Wikipedia-Artikel 95 %; Herkunft 81 %, Wuchs und Laub 89 %, Blüte 67 %, Verwendung 69 %, Standort 8 %, Pflege 1 %. Noch 8 Pflanzen ohne Wikidata-Treffer, 22 ohne Artikel (bekommen "Noch keine Angaben" und können eigene Notizen erhalten).
+- Stichprobe 2 (Handlesung durch Claude): Kapitelreihenfolge und Chromosomen-/Frucht-Fehler sind weg. Neuer Fehler: das Stichwort "laub" traf "Volksglaube" und "Aberglauben" (3 von 30 Pflanzen: Seidelbast, Walnuss, Akelei). **Korrigiert:** kurze Stichwörter (laub, blatt, wuchs, nadeln) zählen nur am Wortanfang.
+- Weiterhin offen: Behandlung von Überschriften wie "Verbreitung und Standort" (rund 55 Fälle); Verwendungstexte beginnen teils mit Geschichte statt mit Gartenverwendung (bekannte Schwäche, siehe DATENMODELL.md 4.2).

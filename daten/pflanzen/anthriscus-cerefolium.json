@@ -1,0 +1,55 @@
+{
+  "hauptname": "Kerbel",
+  "lateinisch": "Anthriscus cerefolium",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q218462",
+  "wikipedia": "Echter Kerbel",
+  "namen": [
+    {
+      "name": "Echter Kerbel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Garten-Kerbel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenkerbel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Wildsippe ist in Westasien, Südeuropa, auf dem Balkan und im Kaukasusraum und in Mitteleuropa heimisch, dort kommt sie im Elsass, in Baden-Württemberg, Rheinland-Pfalz, in der Schweiz, Ober- und Niederösterreich, Wien, Burgenland, Polen und Tschechien vor. Die Kultursippe wird in fast ganz Europa angebaut und findet sich häufig als Kulturflüchtling.\n\nDie Wildsippe wächst in Mitteleuropa in Wäldern, Gebüschen, an Ruderalstellen und Weinbergsrändern. Sie gedeiht am besten auf trockeneren bis frischen, nährstoffreichen, mehr oder weniger humosen Lehmböden. Sie findet sich bis in die submontane, selten bis in die subalpine Höhenstufe.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 5 (sehr nährstoffreich bis überdüngt), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-anthriscus-cerefolium",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Echte Kerbel ist eine einjährige krautige Pflanze, die Wuchshöhen von 20 bis 70 Zentimetern erreicht. Die Wurzel ist dünn und spindelförmig. Alle Pflanzenteile besitzen einen Anisgeruch. Die oberirdischen Pflanzenteile sind mit Ausnahme der Frucht behaart. Der dünne Stängel ist unter den Knoten nicht verdickt und im Querschnitt rund bis zart gerillt. Über den Knoten ist der Stängel weiß flaumig behaart, ansonsten kahl.\n\nDie Laubblätter sind weich, zart, hellgrün und doppelt bis vierfach fiederschnittig, im Umriss sind sie dreieckig und können dreilappig-kleeähnlich erscheinen. Der Blattrand ist gesägt oder gekerbt. Die Blätter sind auf der Oberseite kahl, am Rand und auf den Nerven der Unterseite sind sie wie die Blattstiele zerstreut borstig behaart. Die unteren Blätter sind gestielt, die oberen sitzen auf den Blattscheiden, die am Rand wollig-zottig behaart sind und einen weißen Hautrand besitzen.",
+      "quelle": "wp-anthriscus-cerefolium",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Mai bis August. Die Geschlechter sind andromonözisch verteilt, es gibt also männliche und zwittrige Blüten an einem Pflanzenexemplar. Der doppeldoldige Blütenstand ist zwei- bis sechsstrahlig, kurz gestielt bis annähernd sitzend. Die Doldenstiele und -strahlen sind dicht weichflaumig behaart. Hüllblätter fehlen. Hüllchenblätter werden ein bis vier, selten fünf, nur einseitig gebildet. Die Hüllchenblätter sind linealisch-lanzettlich, spitz, bewimpert und haben einen Hautrand.\n\nDie Kelchzipfel sind reduziert. Die weißen Kronblätter sind länglich verkehrt-eiförmig und am oberen Ende seicht ausgerandet, der eingeschlagene Kronlappen ist kurz. Die größten sind etwas über 1 Millimeter lang.",
+      "quelle": "wp-anthriscus-cerefolium",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Echter Kerbel findet hauptsächlich Verwendung als Würzkraut. Er hat ein feines ätherisches Aroma und wird vor allem in Suppen, Salaten und Saucen und Kräuterbutter gebraucht. Der leicht pfeffrige Geschmack erinnert an Petersilie. Kerbel ist auch Bestandteil berühmter Kräutermischungen wie den Fines herbes oder der Frankfurter Grünen Sauce. Kerbel gehört zu den ersten Pflanzen, die im Frühling geerntet werden, deshalb ist er traditionell Bestandteil von Gründonnerstags- und Ostergerichten.\n\nIn der Heilkunde fand Kerbel unter anderem als harntreibendes Mittel Verwendung.",
+      "quelle": "wp-anthriscus-cerefolium",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

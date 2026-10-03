@@ -1,0 +1,32 @@
+{
+  "hauptname": "Garten-Gladiole",
+  "lateinisch": "Gladiolus × hortulanus",
+  "gruppen": [
+    "Zwiebel- und Knollenblumen"
+  ],
+  "wikidata": "Q160431",
+  "wikipedia": "Garten-Gladiole",
+  "namen": [
+    {
+      "name": "Gladiolus x hortulanus",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gladiolus hortulanus",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Garten-Gladiole wird verbreitet als Zierpflanze in Rabatten und in Gärtnereien im Feldanbau für Schnittblumen genutzt.",
+      "quelle": "wp-gladiolus-x-hortulanus",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

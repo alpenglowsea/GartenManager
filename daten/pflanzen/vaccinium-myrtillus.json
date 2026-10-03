@@ -1,0 +1,43 @@
+{
+  "hauptname": "Heidelbeere (Blaubeere)",
+  "lateinisch": "Vaccinium myrtillus",
+  "gruppen": [
+    "Beerensträucher"
+  ],
+  "wikidata": "Q5413585",
+  "wikipedia": "Heidelbeere",
+  "namen": [
+    {
+      "name": "Heidelbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Blaubeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Blaubeere, Heidelbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der 10 bis 60 cm hohe Zwergstrauch wächst stark verzweigt mit aufrechten, kantigen bis schmal geflügelten, grün gefärbten Ästen, die kahl (unbehaart) sind. Die Laubblätter sind 2 bis 3 cm lang, eiförmig bis elliptisch, drüsig gesägt bis fein gezähnt und beiderseits grasgrün. Der Strauch wurzelt bis 1 Meter tief.\n\nDie kleinen, zwittrigen, dickgestielten Blüten wachsen einzeln aus den Blattachseln und sind nickend. Ihre Krone ist 4 bis 6 mm lang und grünlich bis rötlich. Sie erscheinen ab April/Mai. Der kleine Kelch, am becherförmigen Blütenbecher, ist verwachsen mit minimalen Lappen. Die Kronblätter sind rundlich-urnenförmig verwachsen, mit kurzen, ausgebogenen Lappen. Die 8–10 eingeschlossenen Staubblätter sind kurz und die Antheren sind begrannt und gehörnt (Tubules). Der vier-, fünfkammerige Fruchtknoten ist unterständig mit einem langen Griffel. Es ist ein Diskus vorhanden.",
+      "quelle": "wp-vaccinium-myrtillus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Heidelbeeren sind eine beliebte Beerensorte für die menschliche Ernährung. Sie lassen sich sowohl frisch verzehren als auch in der Küche verwerten. Anthocyane in der Heidelbeere sind für ihre antioxidativen und entzündungshemmenden Eigenschaften verantwortlich.\n\nVor dem Verzehr selbstgepflückter, ungewaschener Heidelbeeren wird wegen möglicher Anhaftung von Eiern des Fuchsbandwurms gewarnt. Wenn man dieses Risiko ausschließen will, sollte man die Beeren kochen. Geerntete Heidelbeeren halten sich nicht allzu lange.\n\nGerichte aus oder mit Heidelbeeren sind zum Beispiel Heidelbeerkompott, Heidelbeermarmelade, Heidelbeereis, Heidelbeerkuchen, Hefeklöße mit Heidelbeeren sowie Heidelbeerpfannkuchen. Auch in der Roten Grütze sind sie bisweilen zu finden.",
+      "quelle": "wp-vaccinium-myrtillus",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

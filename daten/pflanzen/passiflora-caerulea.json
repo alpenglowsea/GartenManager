@@ -1,0 +1,39 @@
+{
+  "hauptname": "Blaue Passionsblume",
+  "lateinisch": "Passiflora caerulea",
+  "gruppen": [
+    "Kletterpflanzen"
+  ],
+  "wikidata": "Q161120",
+  "wikipedia": "Blaue Passionsblume",
+  "namen": [
+    {
+      "name": "Passionsblume",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Blaue Passionsblume ist eine kletternde, ausdauernde, krautige Pflanze. Der Stängel ist meist bleistiftförmig bis etwas kantig und immer unbehaart. Die wechselständig am Stängel verteilt angeordneten Laubblätter sind in Blattstiel und Blattspreite gegliedert. Die 2 bis 3 cm langen Blattstiele besitzen meist zwei bis vier, selten bis zu sechs kleine Drüsen, es sind extraflorale Nektarien, die gut erkennbare Tropfen von Nektar abscheiden. Die krautige, glatte Blattspreite ist basis herzförmig und besitzt meist fünf (drei bis neun) Lappen. Die Blattlappen sind eiförmig-länglich und ganzrandig, wobei der Mittellappen immer etwas länger ist als die seitlichen. Die nierenförmigen Nebenblätter sind etwa 1,2 cm groß und besitzen einen gewellten Rand.",
+      "quelle": "wp-passiflora-caerulea",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Der Blütenstand ist eine reduzierte Zyme, wobei die zentrale Blüte nicht ausgebildet ist, ein Seitenast zu einer Ranke umgebildet ist und die Blüte sich der Ranke gegenüber befindet. Die breit eiförmigen Hochblätter sind 2 bis 3 cm groß und ganzrandig. Der Blütenstiel ist 3 bis 4 cm lang.",
+      "quelle": "wp-passiflora-caerulea",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die reifen Früchte werden roh gegessen oder es wird ein Fruchtsaft daraus gewonnen. Unreife Früchte können nur nach dem Garen gegessen werden. Der Pulpus schmeckt säuerlich.",
+      "quelle": "wp-passiflora-caerulea",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

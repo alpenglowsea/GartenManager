@@ -1,0 +1,40 @@
+{
+  "hauptname": "Mandelbaum",
+  "lateinisch": "Prunus dulcis",
+  "gruppen": [
+    "Obstgehölze",
+    "Bäume"
+  ],
+  "wikidata": "Q39918",
+  "wikipedia": "Mandelbaum",
+  "namen": [
+    {
+      "name": "Mandel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Prunus amygdalus wächst als sommergrüner, aufrechter, locker belaubter Baum oder Strauch und erreicht Wuchshöhen von (2 bis) 3 bis 8 (bis 11) Meter. Die Borke ist grau-braun, der Stammdurchmesser kann bis zu 100 Zentimeter betragen, die durchschnittliche Lebenserwartung beträgt ca. 70–80 Jahre, kann aber bis zu 150 Jahre betragen. Der Stamm junger Bäume weist eine ausgeprägte Ringelborke auf, im Alter wird sie unregelmäßig längsrissig. Die Rinde junger Zweige ist kahl, erst grün, dann rötlich, die der Vorjahreszweige ist bräunlich, später gräulich-braun bis gräulich-schwarz. Die Äste sind aufrecht oder horizontal ausgebreitet mit vielen kurzen Zweigen. Die bräunlichen, eiförmigen Winterknospen sind 3 bis 5 Millimeter lang und unbehaart.",
+      "quelle": "wp-prunus-dulcis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die vor der Laubentfaltung sich öffnenden Blüten stehen einzeln oder zu zweit. Die Blütezeit beginnt oft schon im Januar und reicht bis in den April. Der kahle, sehr kurze Blütenstiel ist anfangs 3 bis 4 Millimeter lang und vergrößert sich bis zur Fruchtreife auf 4 bis 10 Millimeter.",
+      "quelle": "wp-prunus-dulcis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Man unterscheidet zwischen der süßen Mandel, der Krachmandel und der bitteren Mandel. Süße Mandeln haben eine zimtbraune, raue Haut. Das Abziehen dieser Haut wird durch Überbrühen der Mandeln mit kochendem Wasser (Blanchieren) erleichtert. Mandeln werden zum Rohgenuss, für Mehlspeisen, zum Dekorieren (Splitter, Blätter), zum Füllen von Oliven und zur Herstellung von gebrannten Mandeln, Likören und Marzipan verwendet. Bittere Mandeln sind zum Rohgenuss nicht geeignet, da sie Amygdalin, ein blausäureerzeugendes Glykosid, enthalten. Krachmandeln wiederum sind aufgrund ihrer leicht zu knackenden Schale zum Rohverzehr vor allem in der Weihnachtszeit beliebt.",
+      "quelle": "wp-prunus-dulcis",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

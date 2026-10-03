@@ -4,15 +4,44 @@
   "gruppen": [
     "Bäume"
   ],
-  "wikidata": null,
-  "wikipedia": null,
-  "namen": [],
+  "wikidata": "Q26745",
+  "wikipedia": "Spitzahorn",
+  "namen": [
+    {
+      "name": "Spitzahorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spitzblättriger Ahorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
-      "auszug": false
+      "abschnitt": "Herkunft",
+      "text": "Der Spitzahorn ist über weite Teile Europas verbreitet. Er reicht nach Norden bis Mittelschweden und Südfinnland und ist im Osten bis zum Ural verbreitet. Von den europäischen Ahornarten ist er diejenige, dessen natürliche Vorkommen am weitesten nach Norden reichen. Seine Westgrenze verläuft am westlichen Rand Mitteleuropas. Er fehlt also in Teilen Nordwestdeutschlands und im Großteil Frankreichs. Im Süden kommt der Spitzahorn in den Gebirgen vor, in den Pyrenäen, im Apennin, in den Gebirgen Griechenlands und Kleinasiens sowie im Kaukasus.\n\nDer Spitzahorn wächst im gemäßigt kontinentalen Klima. Er ist ein Baum der Ebene, des Hügellandes und des niedrigen Berglandes. In den Nordalpen steigt er bis in Höhenlagen von etwa 1000 Metern, im Unterwallis kommt er aber auch bis etwa 1620 Metern vor. In den Allgäuer Alpen steigt er im Tiroler Teil am Wasserschnallengräble gegen Schindtal bei Nesselwängle bis zu einer Höhenlage von 1460 Metern auf.",
+      "quelle": "wp-acer-platanoides",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Spitzahorn ist ein sommergrüner, breitkroniger Laubbaum, der eine Wuchshöhe von 20 bis 30 Metern, selten bis über 35 Metern erreichen kann. Der Stammdurchmesser erreicht über 60 Zentimeter, selten bis über 1,7 Meter. Er kann etwa 150, maximal 200 Jahre alt werden. Seine Rinde ist in der Jugend glatt und blassbraun. Im Alter ist die Borke dunkelbraun bis grau mit längsrissig gerippter Struktur; sie löst sich nicht schuppig oder plattig wie beim Berg-Ahorn ab. Bei Verletzung der Laubblätter oder der jungen Zweige tritt Milchsaft aus.\n\nDie Blattknospen des Spitzahorns besitzen weinrote und kahle Knospenschuppen. Sie sind 3 bis 10 Millimeter lang. Die Endknospen sind schmal- bis breit-eiförmig und größer als die Seitenknospen. Die Seitenknospen sind schmal-eiförmig mit zugespitztem oberen Ende. Sie liegen dem Zweig an und sind kreuzgegenständig angeordnet.",
+      "quelle": "wp-acer-platanoides",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Der Spitzahorn ist einhäusig monözisch und dichogam. Die Blüten erscheinen vor oder mit den Blättern. Wie beim Feld-Ahorn stehen die Blüten des Spitzahorns in aufrechten, endständigen und schirmrispigen Blütenständen zusammen. Die funktionell eingeschlechtlichen und gelb-grünen Blüten sind fünfzählig mit doppelter Blütenhülle. Der Blütenstiel ist 1 bis 2 Zentimeter lang. Die Blüten sind 10 bis 12 Millimeter groß. Kelch und Krone sind leicht unterschiedlich und gelb-grün bis blassgelb. Die eiförmigen Kelch- und die kurz genagelten Kronblätter sind 4 bis 7 Millimeter lang. Die Anzahl der Staubblätter, welche etwas kürzer als die Kronblätter sind, beträgt acht. Der abgeflachte, kahle Fruchtknoten ist oberständig und besteht aus zwei Fruchtblättern. Der Griffel ist kahl und die Narbenäste gelblich bis weißlich. Bei den männlichen Blüten ist ein Pistillode und bei den weiblichen sind Staminodien mit Antheroden vorhanden. Es ist jeweils ein Diskus vorhanden.",
+      "quelle": "wp-acer-platanoides",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Als Halbschattenbaumart ist der Spitzahorn waldbaulich vielseitig und mischungsfähig verwendbar. Er findet zunehmend Beachtung im Waldbau. Vor dem Hintergrund zunehmend trockener Sommer infolge des Klimawandels wird der Spitzahorn als geeigneter Baum angesehen für trockene und sehr trockene Standorte. Für nasse bis frische Standorte ist er hingegen nicht geeignet.\n\nDas Holz des Spitzahorns wird insgesamt für ähnliche Nutzungen gewählt wie der Bergahorn. Spitzahorn wird eher bevorzugt, wenn es um Festigkeit und Robustheit geht, während der Bergahorn eher für ästhetische Anwendungen gewählt wird. Aus dem Holz werden u. a. Werkzeuge, Stiele, Hobelkästen, Werkzeugbänke, Bögen sowie Gewehrschäfte, Spazierstöcke oder Schlittenkufen gefertigt. Früher wurde aus den Blättern mitunter sogar Salat hergestellt, weshalb der Spitzahorn auch Salatbaum genannt wurde. Auch als Viehfutter wurde das Laub früher verwendet. Die gut zersetzbare Laubstreu ist bodenpfleglich.",
+      "quelle": "wp-acer-platanoides",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

@@ -1,0 +1,39 @@
+{
+  "hauptname": "Ysop",
+  "lateinisch": "Hyssopus officinalis",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q137931",
+  "wikipedia": "Ysop",
+  "namen": [
+    {
+      "name": "Echter Ysop",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Ysop ist in Europa, Westasien und in Nordafrika verbreitet. In Europa kommt Ysop ursprünglich nur im Süden (nordwärts bis zu den Südalpen) vor, weiter nördlich wurde er seit dem Mittelalter als Gewürz-, Heil- und Zierpflanze angebaut. Er ist dort in wärmeren Gegenden zum Teil ein eingebürgerter Neophyt, anderswo ist er nur unbeständig verwildert, so zum Beispiel im Hegau, im Gebiet um den Genfersee und am Alpensüdfuß. Er steigt im Kanton Wallis bis in eine Höhenlage von 1550 Meter, in der spanischen Sierra Nevada bis in eine Höhenlage von 2500 Metern auf.\n\nDer Ysop gedeiht in Mitteleuropa meist auf kalkhaltigen oder sonst basenreichen, lockeren, trockenen steinig-flachgründigen Böden und im sehr warmen Klima. Er besiedelt in Mitteleuropa trockene Hügel und Hänge, Felsenheiden sowie Wegränder; dabei sind Standort sonnig mit kalkhaltigen und trockenen Böden. Er kommt teilweise in Xerobrometen, aber auch in Felsband- und Mauerspaltengesellschaften vor.",
+      "quelle": "wp-hyssopus-officinalis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Ysop ist ein Halbstrauch oder ein Zwergstrauch und erreicht Wuchshöhen von bis 60 Zentimetern. Er weist zahlreiche aufrechte, selten auch niederliegende, verzweigte, mattbraune Äste mit abblätternder Rinde auf.\n\nDie gegenständig und scheinbar quirlig an Kurztrieben angeordneten Laubblätter sind sitzend oder fast sitzend. Die einfache Blattspreite ist bei einer Länge von bis zu 50 Millimetern lang sowie einer Breite von etwa 10 Millimetern stumpf oder kurz zugespitzt und ganzrandig. Die Blattflächen sind kahl bis zottig behaart und dicht mit Öldrüsen bedeckt.",
+      "quelle": "wp-hyssopus-officinalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juli bis Oktober. 4 bis 16 Blüten befinden sich in einseitswendigen Scheinquirlen, die zu endständigen, ährigen Blütenständen vereinigt sind. Die Deckblätter sind linealisch, laufen am oberen Ende spitz zu und sind nicht begrannt oder besitzen Grannen mit einer Länge von 1 bis 3 Millimetern.",
+      "quelle": "wp-hyssopus-officinalis",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

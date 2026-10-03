@@ -1,0 +1,32 @@
+{
+  "hauptname": "Glattblatt-Aster",
+  "lateinisch": "Symphyotrichum novi-belgii",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": "Q1537333",
+  "wikipedia": "Neubelgische Aster",
+  "namen": [
+    {
+      "name": "Neubelgische Aster",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Neubelgien-Herbstaster",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Neubelgische Aster stammt ursprünglich aus dem östlichen Kanada und  den östlichen Vereinigten Staaten und wurde in Deutschland im 18. Jahrhundert als Gartenpflanze eingeführt. Verwildert wächst sie als Neophyt in Staudenfluren an Flussufern oder in Ruderalfluren auf frischem bis feuchtem, nährstoffreichem Boden. Sie kommt in Mitteleuropa in Gesellschaften der Ordnung Convolvuletalia vor. Als Neophyt wächst sie außerdem auf Kuba und Hispaniola sowie in Mexiko, Australien und Neuseeland. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3w+ (mäßig feucht aber stark wechselnd), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch), Salztoleranz = 1 (tolerant).\n\nDie Pflanze befindet sich auf der Liste der gebietsfremden invasiven Pflanzen der Schweiz.",
+      "quelle": "wp-symphyotrichum-novi-belgii",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

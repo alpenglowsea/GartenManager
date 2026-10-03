@@ -1,0 +1,44 @@
+{
+  "hauptname": "Schmuckkörbchen (Cosmea)",
+  "lateinisch": "Cosmos bipinnatus",
+  "gruppen": [
+    "Blumen"
+  ],
+  "wikidata": "Q575748",
+  "wikipedia": "Schmuckkörbchen",
+  "namen": [
+    {
+      "name": "Schmuckkörbchen",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kosmee",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Cosmos bipinnatus stammt ursprünglich aus dem Gebiet von Arizona in den USA über Mexiko und Guatemala bis Costa Rica. Da sie in vielen Ländern als Zierpflanze verwendet wird und zum Verwildern neigt, ist sie in vielen Gebieten der Welt eine invasive Pflanze.",
+      "quelle": "wp-cosmos-bipinnatus",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Cosmos bipinnatus sind einjährige krautige Pflanzen, die Wuchshöhen von bis zu 2 m erreichen. Der verzweigte Stängel ist meist dicht bis vereinzelt mit feinen, nach oben hin aufgespaltenen, rauen Trichomen besetzt, einige Exemplare sind auch komplett unbehaart. Die einschließlich des Blattstieles meist 5 bis 15 cm langen Laubblätter sind zwei- bis dreifach fiederspaltig geteilt. Der Blattstiel selbst ist unscheinbar, geflügelt, 10 (selten bis 15) mm lang, manchmal sind die Blätter auch fast aufsitzend. Die Teilblätter sind linealisch-fadenförmig bis eng linealisch mit einer Breite von 0,5 bis 1 (selten bis 1,7) mm; die Spitzen sind zugespitzt, verhärtet, aber nicht besonders scharf.",
+      "quelle": "wp-cosmos-bipinnatus",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die sehr auffälligen körbchenförmigen Blütenstände haben einen Durchmesser von meist 5 bis 7 (selten 8) cm und enthalten Zungen- und Röhrenblüten, die von Hüllblättern umgeben sind. Die äußeren Hüllblätter stehen meist zu acht und sind eiförmig bis lanzettlich-schwanzähnlich geformt, 7 bis 15 mm lang, 3 bis 5 (selten 6) mm breit. Die inneren Hüllblätter sind eiförmig-lanzettlich und 8 bis 12 mm lang. Sie sind durchscheinend mit vielen schwarzen Streifen und einem bis zu 1 mm breiten klarem Rand, der manchmal gelbliche oder rosa Pigmente aufweist, die Spitze ist bewimpert. Die Spreublätter haben gold-gelbe, fadenförmige Spitzen und ragen zwischen den Röhrenblüten hervor. Die verbreiterte Basis dieser Spreublätter ist durchscheinend, mit einer gelben Linie versehen.",
+      "quelle": "wp-cosmos-bipinnatus",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

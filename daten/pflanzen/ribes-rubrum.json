@@ -1,0 +1,61 @@
+{
+  "hauptname": "Rote Johannisbeere",
+  "lateinisch": "Ribes rubrum",
+  "gruppen": [
+    "Beerensträucher",
+    "Sträucher"
+  ],
+  "wikidata": "Q146661",
+  "wikipedia": "Rote Johannisbeere",
+  "namen": [
+    {
+      "name": "Weiße Johannisbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gelbe Johannisbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Champagner-Johannisbeere",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Jonkheer van Tets",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Rote Johannisbeere ist in fast ganz Europa verbreitet. Wild kommt sie nur in Belgien, den Niederlanden, Frankreich, Deutschland, Österreich, Italien und Polen vor, im restlichen Europa ist sie aus Kultur verwildert. Sie ist sehr selten in Auwäldern, Schluchten, Gebüschen und an Bachläufen zu finden. Sie bevorzugt nassen, tonigen Boden und ist eine Charakterart des Ribeso-Fraxinetum aus dem Verband Alno-Ulmion.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3+w (mäßig feucht aber mäßig wechselnd), Lichtzahl L = 2 (schattig), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 3+ (unter-montan und ober-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-ribes-rubrum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Rote Johannisbeere ist ein aufrechter, sommergrüner Strauch ohne Stacheln, der Wuchshöhen von 1 bis 2 Metern erreicht. Die Rinde junger Zweige ist leicht behaart und mit Drüsen besetzt. Die Rinde älterer Zweige ist rötlich-braun bis grau-schwarz. Die eiförmigen Knospen besitzen lockere Knospenschuppen und weisen eine Länge von 5 bis 7 mm auf.\n\nDie wechselständigen und gestielten Laubblätter sind einfach. Die vom Umriss rundliche Blattspreite ist 4 bis 10 Zentimeter lang und 3 bis 7 Zentimeter breit. Sie ist drei- bis fünflappig und am Grund herzförmig, die Blattlappen sind rundspitzig bis stumpf und am Rand grob gesägt oder gekerbt. Die Blattunterseite ist in der Jugend kurzflaumig behaart, später kahl. Der Blattstiel ist mit 3 bis 6 cm ungefähr so lang wie die Blattspreite und ebenso reingrün. Der Grund der Blattstiele ist meist kahl oder selten mit langen, drüsenlosen Haaren und einzelnen sitzenden Drüsen besetzt.",
+      "quelle": "wp-ribes-rubrum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von April bis Mai. In einem kurzen traubigen Blütenstand mit einer kahlen Blütenstandsachse stehen bis zu 20 Blüten zusammen. Der Blütenstiel ist 3 bis 5 mm lang.",
+      "quelle": "wp-ribes-rubrum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Rote Johannisbeere ist wegen ihrer Früchte eine beliebte Gartenpflanze. Die Früchte werden häufig roh verzehrt oder beispielsweise als Gelee oder Saft sowie als wichtige Zutat zur Roten Grütze vielfältig in der Küche verwendet. In der Imkerei sind Rote Johannisbeeren aufgrund des hohen Zuckergehalts ihres Nektars (16–31 %) und seines hohen Zuckerwerts (bis zu 0,7 mg Zucker/Tag je Blüte) eine geschätzte Nebentracht.",
+      "quelle": "wp-ribes-rubrum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

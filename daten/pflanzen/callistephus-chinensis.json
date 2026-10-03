@@ -1,0 +1,38 @@
+{
+  "hauptname": "Sommer-Aster",
+  "lateinisch": "Callistephus chinensis",
+  "gruppen": [
+    "Blumen"
+  ],
+  "wikidata": "Q312441",
+  "wikipedia": "Sommeraster",
+  "namen": [
+    {
+      "name": "Sommeraster",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenaster",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Sommeraster kommt in Japan, Korea und China an den Rändern von Laubwäldern vor. In China kommt sie vor in den Provinzen Gansu, Hebei, Heilongjiang, Henan, Jiangsu, Jilin, Liaoning, Innere Mongolei, Shandong, Shanxi, Sichuan, Xinjiang und Yunnan. Sie wächst dort in Höhenlagen zwischen 300 und 2700 Metern Meereshöhe.\n\nAls Zierpflanze gedeiht sie auf frischen, nährstoffreichen, locker-humosen Böden in warm-humider Klimalage. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 1 (ozeanisch).",
+      "quelle": "wp-callistephus-chinensis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Sommeraster wird verbreitet als Zierpflanze für Sommerrabatten, Beeteinfassungen und Bauerngärten sowie als Schnittblume genutzt. Sie ist seit spätestens 1728 in Europa in Kultur. In China wird sie schon seit 2000 Jahren kultiviert. Es gibt rund 400 Sorten in ungefähr 9 Sortengruppen:\n\nMargareten-Gruppe: Die Blütenkörbchen sind ungefüllt, die Pflanzen verbreiten sich durch Selbstaussaat und verwildern.\n\nPinocchio-Gruppe: Die Pflanzen werden bis 20 Zentimeter hoch, die Blütenkörbchen sind gefüllt, die Strahlenblüten sind eingekrümmt.\n\nComet-Gruppe: Die frühblühenden Pflanzen werden 15 bis 25 Zentimeter hoch, die Blütenkörbchen sind gefüllt.\n\nMilady-Gruppe: Die Pflanzen werden 20 bis 30 Zentimeter hoch.\n\nStraußenfeder-Gruppe: Die spätblühenden Pflanzen werden bis 60 Zentimeter hoch, die Blütenkörbchen sind gefüllt und groß.\n\nCompliment-Gruppe: Die Pflanzen werden bis 70 Zentimeter hoch, die Blütenkörbchen sind gefüllt, die Strahlenblüten sind gerollt.",
+      "quelle": "wp-callistephus-chinensis",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

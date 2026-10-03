@@ -1,0 +1,61 @@
+{
+  "hauptname": "Ringelblume",
+  "lateinisch": "Calendula officinalis",
+  "gruppen": [
+    "Kräuter",
+    "Blumen"
+  ],
+  "wikidata": "Q145930",
+  "wikipedia": "Ringelblume",
+  "namen": [
+    {
+      "name": "Gartenringelblume",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Mariegold",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Garten-Ringelblume",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Ringelblumensalbe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die genaue Herkunft der Gewöhnlichen Ringelblume ist unbekannt, wird jedoch im Mittelmeerraum vermutet. POWO gibt Spanien als Ursprungsland an. Die Art wird weit verbreitet kultiviert und kommt verwildert in ganz Europa vor. In Mitteleuropa ist sie eine Adventivpflanze, jedoch nicht eingebürgert. Sie verwildert leicht, jedoch nur unbeständig. In Mitteleuropa wächst sie auf Schutt und nährstoffreichen Lockerböden in der collinen bis montanen Höhenstufe. Angebaut kommt sie im Kanton Uri bis 1420 Meter, in Tirol am Reschenpass bis 1500 Meter Meereshöhe vor.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-calendula-officinalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Ringelblume ist eine einjährige krautige Pflanze, seltener wächst sie einjährig überwinternd oder zweijährig und erreicht meist Wuchshöhen von 30 bis 50, selten bis 70 Zentimeter. Die Wurzel ist spindelförmig und faserreich. Der aufrechte, wenig oder lediglich im oberen Bereich verzweigte Stängel ist kantig und kurzflaumig behaart und bis oben beblättert. Die Laubblätter sind ungestielt; nur die untersten sind stielartig verschmälert. Die oberen Blätter sind mit abgestutztem oder herzförmigen Grund sitzend. Die einfache Blattspreite ist behaart, ganzrandig, und von länglich lanzettlicher bis verkehrt-eiförmiger Form. Ihre Farbe ist mittel- bis hellgrün, sie sind 3 bis 12 (selten bis 18) cm lang und 1 bis 3 (selten bis 6) Zentimeter breit.",
+      "quelle": "wp-calendula-officinalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit dauert von Juni bis Oktober, ein Blütenkorb blüht meist vier bis fünf Tage lang. Die Blütenkörbe stehen einzeln an beblätterten, langen Blütenstandsstielen und haben einen Durchmesser von bis zu 4 Zentimeter. Die 12 bis über 40 Hüllblätter sind 10 bis 12 Millimeter lang, sie sind lanzettlich, pfrimlich zugespitzt und mit Wimpern behaart. Am Blütenkorbrand stehen (selten 30 bis) 60 bis über 150 weibliche, fruchtbare Zungenblüten von dottergelber bis orangegelber Farbe. Sie sind 15 bis 30 Millimeter lang.  Im Inneren der Körbe stehen 30 bis 50 (bis selten über 100) funktionell männliche Röhrenblüten.",
+      "quelle": "wp-calendula-officinalis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "In der EU ist die medizinische Anwendung der Ringelblume durch den Ausschuss für pflanzliche Arzneimittel (englisch Committee on Herbal Medicinal Products, kurz HMPC) der europäischen Arzneimittel-Agentur (englisch European Medicines Agency, kurz EMA) geregelt. Laut der HMPC ist eine medizinische Wirkung anhand von Studien nicht ausreichend belegt, jedoch wird die Pflanze auf Grund langer traditioneller Nutzung als nicht-gesundheitsschädlich eingestuft. Vor einer Nutzung bei bestehender Allergie gegen Pflanzen der Familie Asteraceae (Korbblütler) wird gewarnt.\n\nIn der Lebensmittelindustrie wird die Ringelblume als Farbstoff eingesetzt, unter anderem bei Käse und Butter. In Teemischungen dient sie als Schmuckdroge. In der Vergangenheit diente sie zum Verfälschen von Safran.",
+      "quelle": "wp-calendula-officinalis",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

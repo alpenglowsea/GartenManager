@@ -1,0 +1,51 @@
+{
+  "hauptname": "Gewöhnlicher Buchsbaum",
+  "lateinisch": "Buxus sempervirens",
+  "gruppen": [
+    "Heckenpflanzen",
+    "Sträucher"
+  ],
+  "wikidata": "Q27344",
+  "wikipedia": "Gewöhnlicher Buchsbaum",
+  "namen": [
+    {
+      "name": "Buchsbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Buchsstrauch",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Buchsbaum bevorzugt ozeanisch geprägtes Klima. Sein ursprüngliches Verbreitungsgebiet reicht in nordwestlicher Richtung vom Mittelmeer über Frankreich bis nach Südengland. In östlicher Richtung ist er bis zum Nordiran zu finden. In Europa kommt er in zwei Schwerpunktgebieten vor, einerseits von Südwestfrankreich bis Nordspanien, andererseits auf dem Balkan. Bei anderen wilden Vorkommen handelt es sich um Einzelareale. Ursprüngliche Wuchsorte finden sich in Deutschland wohl nur noch im Buchswald bei Grenzach (Landkreis Lörrach) und an der Mosel, beispielsweise im Kehrbachtal von Löf. An der Mosel gedeiht er in der Assoziation Aceri monspessulani-Quercetum, sonst auch im Buxo-Quercetum aus dem Verband Quercion pubescenti-petraeae. In Österreich kommt er ursprünglich in Salzburg und in Oberösterreich bei Steyr vor. In Niederösterreich und im Burgenland kommt er eingebürgert vor.",
+      "quelle": "wp-buxus-sempervirens",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Buchsbaum wächst sehr langsam als immergrüner Strauch oder selten kleiner Baum. Er erreicht meist Wuchshöhen von bis zu 8 Metern; im subtropischen Verbreitungsgebiet erreicht er auch Wuchshöhen von bis über 15 Metern. Der Stammdurchmesser erreicht über 60 Zentimeter. Der Buchsbaum ist recht langlebig und kann 250 bis über 500 Jahre alt werden. Er bildet kurze, schräg nach oben stehende kantige Zweige aus. Die Rinde der Zweige ist zunächst olivgrün und kurz behaart, verkahlt aber später.\n\nDie gegenständig an den Zweigen angeordneten Laubblätter stehen dicht. Die einfachen Blattspreiten sind bei einer Länge von 1 bis 2,5 Zentimetern etwa halb so breit und eiförmig bis länglich-elliptisch. Die Blattoberseite ist glänzend dunkelgrün und die -unterseite ist deutlich heller sowie matt. Der Blattrand ist nach unten umgebogen.",
+      "quelle": "wp-buxus-sempervirens",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Der Buchsbaum ist einhäusig getrenntgeschlechtig (monözisch). Von März bis Mai erscheinen in den Blattachseln unscheinbare, gelbliche, wohlriechende Blütenknäuel. Jeder Knäuel besteht in der Regel aus einer endständigen weiblichen Blüte und mehreren seitenständigen männlichen Blüten. Eine Blütenkrone fehlt, vorhanden sind lediglich mehrere sehr kleine Hüll- und Kelchblätter. Die weiblichen Blüten haben drei Griffel, jeweils mit einer zweigeteilten Narbe, die männlichen Blüten jeweils vier Staubblätter.\n\nIm September spalten sich die etwa 8 Millimeter langen, dreiklappigen Kapselfrüchte und streuen je zwei schwarze, glänzende Samen.",
+      "quelle": "wp-buxus-sempervirens",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Buchsbaumholz wird wegen seiner in Europa unübertroffenen Härte, Dichte (0,9–1,03 g/cm³) und annähernden Homogenität geschätzt und gerne zum Drechseln verwendet. Es findet heute noch Verwendung im Holzblasinstrumentenbau, Geigenbau (Wirbel, Endknopf, Saiten- und Kinnhalter) und für Schachfiguren. Vor der Einführung lithographischer und phototechnischer Vervielfältigungsverfahren schnitt man mit Vorliebe vor allem im Buchdruck die Druckstöcke für Holzstiche und Holzschnitte daraus, wobei man die polierte Hirnholzseite wie beim Stahl- oder Kupferstich bearbeitete und für feinste Detaillierung und Haltbarkeit nutzte. Auch das Putzholz des Uhrmachers wird meist aus Buchsbaum gefertigt.\n\nBuchsbaumholz wurde wegen seiner Härte bereits vor 171.000 Jahren von Neandertalern zur Herstellung von Grabstöcken benutzt.\n\nDie Härte des Holzes hängt nicht unwesentlich mit dem extrem langsamen Wachstum des Baums zusammen. Buchsbaumholz ist darum bis heute sehr knapp und teuer.",
+      "quelle": "wp-buxus-sempervirens",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

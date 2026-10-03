@@ -1,0 +1,49 @@
+{
+  "hauptname": "Deutsche Schwertlilie",
+  "lateinisch": "Iris × germanica",
+  "gruppen": [
+    "Stauden"
+  ],
+  "wikidata": "Q161734",
+  "wikipedia": "Deutsche Schwertlilie",
+  "namen": [
+    {
+      "name": "Iris germanica",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Iris Barbata",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bart-Iris",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Herkunft: Es handelt sich um eine Burgenpflanze, eine alte „Kulturhybride“ aus der südosteuropäischen Iris lutescens s.str. und einer Sippe der südosteuropäisch-kleinasiatischen Artengruppe um Iris mesopotamica s.l.\n\nAls Zauberpflanzen wurden Schwertlilien zur Feindabwehr auf Burgfelsen gepflanzt und bei Belagerungen ausgegraben und zur eigenen Burg verschleppt. Dadurch kam es zu den alten Hybriden wie Iris × germanica mit ihrem Albino 'Florentina', Iris × sambucina mit ihren Klongruppen 'Squalens', 'Flavescens' und 'Neglecta' sowie genetisch stabilen Kulturarten wie Iris pallida (Bleiche Schwertlilie, von Iris pseudopallida abstammend) und Iris aphylla s.l. (Nacktstängel-Schwertlilie, von Iris furcata abstammend).",
+      "quelle": "wp-iris-x-germanica",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Deutsche Schwertlilie ist eine ausdauernde krautige Pflanze, die Wuchshöhen von 30 bis 80 Zentimetern erreicht. Der aufrechte Stängel ist rund und wenig verzweigt. Die Laubblätter sind zweizeilig reitend.\n\nDie Hochblätter sind am Rand trockenhäutig. Die zwittrigen Blüten sind dreizählig. Das äußere Perigon ist dunkel-, das innere hellviolett (selten gelb) und nur am Grund geadert. Der Bart auf dem äußeren Perigon ist gelb. Die Staubblätter sind so lang wie die Staubbeutel.",
+      "quelle": "wp-iris-x-germanica",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Das Rhizom (der Wurzelstock), auch „Veilchenwurzel“ und „Schwertelwurzel“ (sowie „blaue Lilienwurzel“) genannt, wurde früher wie die „Gelbe Schwertlilie“ (Iris pseudacorus) therapeutisch genutzt; eine Heilwirkung ist allerdings nicht nachgewiesen.\n\nDas Rhizom liefert aber heute noch Material für die Parfümindustrie, da es ca. 0,1–0,2 % ätherisches Öl enthält. Dieses sogenannte „Veilchenwurzelöl“ wird durch Wasserdampfdestillation des geschälten, getrockneten und gemahlenen Wurzelstocks gewonnen. Es riecht veilchenähnlich und hat einen hohen Gehalt an Myristinsäure und anderen Fettsäuren. Hauptriechstoffe sind Irone. Irone selbst sind allerdings nicht im Wurzelstock enthalten, sondern entstehen erst beim Gewinnungsprozess aus Iridalen. Das Irisöl (lateinisch Oleum irinum) gehört zu den kostbarsten Naturprodukten. Es wird daher nur in allerkleinsten Dosierungen z. B. für hochwertige Parfüms oder zur Aromatisierung von Lebensmitteln, Likören, Süß- und Backwaren verwendet.",
+      "quelle": "wp-iris-x-germanica",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

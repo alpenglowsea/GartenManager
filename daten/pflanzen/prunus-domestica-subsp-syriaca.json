@@ -1,0 +1,49 @@
+{
+  "hauptname": "Mirabelle",
+  "lateinisch": "Prunus domestica subsp. syriaca",
+  "gruppen": [
+    "Obstgehölze",
+    "Bäume"
+  ],
+  "wikidata": "Q149741",
+  "wikipedia": "Mirabelle",
+  "namen": [
+    {
+      "name": "Mirabellenbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Prunus syriaca",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Prunus domestica var. cerea",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gelbe Zwetschge",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Nach Oberdorfer leitet sich die in Kleinasien und Nordpersien beheimatete Mirabelle aus einer Kreuzung der Pflaume mit der Kirschpflaume ab, vielleicht auch aus einer Kreuzung der Pflaume mit dem Schlehdorn.",
+      "quelle": "wp-prunus-domestica-subsp-syriaca",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Mirabelle wird in Mittel- und Südeuropa sowie Nordafrika als Obst angebaut. In Mitteleuropa liegen die Hauptanbaugebiete in Lothringen, im Saarland, am Mittelrhein, in der Pfalz und in Mainfranken. Allein in Lothringen wachsen rund 250.000 Mirabellenbäume, von denen jährlich 15.000 Tonnen der Früchte, 70 % der Weltproduktion, geerntet werden.\n\nAus den Früchten wird unter anderem eine Spirituose produziert, der Mirabellenbrand.\n\nBekannte Sorten sind:\n\n'Aprimira' ('Miracose', 'Aprikola', 'Apribelle', großfrüchtiger Zufallssämling der Forschungsanstalt Geisenheim aus 'Mirabelle von Herrenhausen')\n\n'Bellamira' (großfrüchtige Züchtung der Forschungsanstalt Geisenheim aus 'Čačaks Beste' × 'Mirabelle von Nancy')\n\nMirabelle d’Octobre ('Bricette', 'Petit Bricette', 'Late Gele Mirabelle', 'Mirabelle Tardive', 'Tardive', 'Late Mirabelle', eine sehr spät reifende alte Sorte aus Frankreich)\n\nMirabelle de Septembre ('Parfumée de Septembre', eine spätreifende französische Sorte)",
+      "quelle": "wp-prunus-domestica-subsp-syriaca",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

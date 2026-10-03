@@ -1,0 +1,80 @@
+{
+  "hauptname": "Douglasie",
+  "lateinisch": "Pseudotsuga menziesii",
+  "gruppen": [
+    "Bäume"
+  ],
+  "wikidata": "Q156687",
+  "wikipedia": "Gewöhnliche Douglasie",
+  "namen": [
+    {
+      "name": "Gewöhnliche Douglasie",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Douglastanne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Douglas-Tanne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Pseudotsuga lindleyana",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Douglasfichte",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Douglaskiefer",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Grüne Douglasie",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "sapin de douglas",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Das natürliche Verbreitungsgebiet der Douglasie (Pseudotsuga menziesii) ist der Westen Nordamerikas, wo sie an den Hängen der Rocky Mountains sowie der Kaskadenkette von British Columbia entlang der kalifornischen Sierra Nevada bis nach Mexiko weite Flächen einnimmt.",
+      "quelle": "wp-pseudotsuga-menziesii",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Die Gewöhnliche Douglasie bevorzugt wintermilde Lagen der unteren Bergstufe.\n\nSie benötigt nur wenig frische, tiefgründige Böden bei mittleren Nährstoffansprüchen. Sie gedeiht am besten auf nährstoffreichen Böden, die jedoch nicht unbedingt kalkreich sein müssen. Sie sollten vor allem lehmig-humos und nicht zu steinig sein. Die Streuzersetzung verläuft mäßig langsam, das Kohlenstoff-Stickstoff-Verhältnis (C/N-Verhältnis) beträgt 77. Die Streu der Douglasie bewirkt, im Gegensatz zum Beispiel zur Fichtenstreu, keine Bodenversauerung.",
+      "quelle": "wp-pseudotsuga-menziesii",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Douglasie ist ein immergrüner Baum. In Europa erreicht sie bisher Wuchshöhen bis über 60, in den USA bis über 100 Meter. Wohl gesichert ist eine Höhe von über 117 Metern. Die höchste jemals gefundene Douglasie, der Nooksack Giant, soll 142 Meter hoch gewesen sein, dies wäre weitaus höher als jeder heute noch stehende Baum (der derzeit höchste ist ein Küstenmammutbaum von etwa 116 Metern Höhe in Kalifornien). Die kräftigsten Exemplare erreichen an der Basis einen Stammdurchmesser bis über 4,5 Meter. Die Douglasie bildet eine relativ schlanke, kegelförmige Krone.\n\nDie Douglasie wächst schnell und kann ein Höchstalter von 400 (Pseudotsuga menziesii var. glauca) bis über 1400 (Pseudotsuga menziesii var. menziesii) Jahren erreichen. Sie hat ein herzförmiges Wurzelsystem. Die Sämlinge besitzen acht bis zehn Keimblätter (Kotyledonen).",
+      "quelle": "wp-pseudotsuga-menziesii",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Das Holz der Douglasie ist vielfältig verwendbar. Es ist frisch leicht rötlich wie Lärchenholz und findet Verwendung als Furnierholz (Schälholz), Ausstattungsholz (Parkett, Möbel, Vertäfelung), Konstruktionsholz für mittlere Beanspruchung im Innen-, Erd- und Wasserbau, für Fenster, Türen und Spezialholz (Schiffsmasten, Rammpfähle, Schwellen, Fässer). Das Holz der Douglasie ist im Kern besser imprägnierbar als Fichtenholz und wird als das beste Holz zum Bau von Dachstühlen angesehen.",
+      "quelle": "wp-pseudotsuga-menziesii",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

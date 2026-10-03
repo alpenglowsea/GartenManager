@@ -1,0 +1,55 @@
+{
+  "hauptname": "Haselnuss (Zuchtformen)",
+  "lateinisch": "Corylus maxima",
+  "gruppen": [
+    "Obstgehölze",
+    "Sträucher"
+  ],
+  "wikidata": "Q1801446",
+  "wikipedia": "Lambertshasel",
+  "namen": [
+    {
+      "name": "Lambertshasel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bluthasel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Lambertusnuss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Lambertus-Nuss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Lambertshasel stammt ursprünglich aus der nordwestlichen Balkanhalbinsel. Ihr Name ist eine Abwandlung von lampartische Nuss (mhd. lampartisch = lombardisch).\n\nIm Jahr 2023 wurden laut FAO weltweit 1.125.221 t Haselnüsse geerntet. Die zehn größten Produzenten ernteten zusammen etwa 96,2 % der Welternte.\n\nDie Lambertshasel ist kälteempfindlicher als die in Mitteleuropa heimische Gemeine Hasel. Ihr Hauptanbaugebiet liegt in der türkischen Schwarzmeerregion. Dort werden drei Viertel der weltweit erzeugten im Handel erhältlichen „Haselnüsse“ erzeugt; nur der kleinere Teil der Weltproduktion an Haselnüssen stammt von der Gemeinen Hasel (Corylus avellana).",
+      "quelle": "wp-corylus-maxima",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Lambertshasel ist ein sommergrünes Laubgehölz. Sie wächst als großer Strauch oder als Baum; sie erreicht größere Wuchshöhen als die Gemeine Hasel (Corylus avellana). Die Laubblätter haben einen oft sehr intensiven braun-roten Schein.",
+      "quelle": "wp-corylus-maxima",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Lambertshasel ist einhäusig getrenntgeschlechtig (monözisch).\n\nDie Nuss der Lambertshasel gleicht am meisten der „Zeller Nuss“ und ist von einer sehr langen, eingeschnürten, am oberen Ende geschlitzten Fruchthülle umgeben.",
+      "quelle": "wp-corylus-maxima",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

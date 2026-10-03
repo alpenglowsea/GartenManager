@@ -1,0 +1,44 @@
+{
+  "hauptname": "Wilde Möhre",
+  "lateinisch": "Daucus carota",
+  "gruppen": [
+    "Blumen"
+  ],
+  "wikidata": "Q30056",
+  "wikipedia": "Möhre (Pflanzenart)",
+  "namen": [
+    {
+      "name": "gewöhnliche Möhre",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Möhre",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Die Heimat der Art ist Europa, West- bis Zentralasien und Pakistan, Makaronesien und Nordafrika. Sie ist darüber hinaus fast weltweit verschleppt. In Europa kommt sie ursprünglich in fast allen Ländern vor; nur in Island kommt sie nur eingeschleppt und in Finnland eingebürgert vor.\n\nSie wächst gern in ruderalen Pioniergesellschaften an Wegen, Dämmen und Steinbrüchen. Sie kommt in Mitteleuropa vor allem in Gesellschaften des Verbands Dauco-Melilotion, aber auch in Gesellschaften des Verbands Mesobromion, der Ordnungen Origanetalia, Thlaspietalia und in mageren Arrhenathereten vor.\n\nIn den Allgäuer Alpen steigt die Wilde Möhre im Tiroler Teil zwischen Elbigenalp und Bernhardseck in Höhenlagen bis zu 1360 Metern auf. Im Puschlav erreicht sie 1880 Meter und in den Seealpen 2500 Meter.",
+      "quelle": "wp-daucus-carota",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Möhren wachsen als zweijährige krautige Pflanzen und erreichen Wuchshöhen von (5) 50 bis 80 (150) Zentimetern. Es wird eine dicke Pfahlwurzel gebildet. Sie wurzelt bis zu 80 Zentimeter tief. Die Stängel sind einfach oder verzweigt, gefurcht und wie die Laubblätter borstig behaart und selten kahl. Die länglichen Laubblätter sind zwei- bis dreifach fiederteilig. Die obersten Segmente sind lineal bis lanzettlich, 2 bis 15 mm × 0,5 bis 4 mm. Die unteren Laubblätter sind gestielt, die oberen sind auf den Blattscheiden sitzend.",
+      "quelle": "wp-daucus-carota",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Mai bis Juli. Die Blütenstandsschäfte sind 10 bis 55 cm lang. Im zweiten Jahr wird eine Doppeldolde gebildet. Die zahlreichen laubblattähnlichen Tragblätter der Dolde sind fiederteilig oder selten einfach und 3 bis 30 mm lang. Die ungleichen Strahlen der Doppeldolde sind 2 bis 7,5 cm lang. Die fünf bis sieben Tragblätter der Döldchen sind einfach oder zwei- bis dreilappig und können die Blüten überragen. Die Kronblätter sind weiß, manchmal gelb oder rosafarben. In der Mitte der Doppeldolde steht oft eine strahlig symmetrische, schwarzpurpurne Blüte, die früher „Mohrenblüte“ genannt wurde. Die Zähne der Kelchblätter sind klein aber deutlich. Die Kronblätter sind verkehrt herzförmig, an der Spitze ausgerandet und mit einem eingeschlagenen Läppchen versehen. Die Randblüten sind meist strahlend, die Kronblätter dort können 1,5 bis 4 Millimeter lang werden.",
+      "quelle": "wp-daucus-carota",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

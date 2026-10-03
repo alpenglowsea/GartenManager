@@ -1,0 +1,65 @@
+{
+  "hauptname": "Wermut",
+  "lateinisch": "Artemisia absinthium",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q25686",
+  "wikipedia": "Wermutkraut",
+  "namen": [
+    {
+      "name": "Wermutkraut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemeiner Wermut",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Bitterer Beifuß",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Alsem",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wermut-Tee",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Wermut kommt ursprünglich im gemäßigten Eurasien, in Indien, Marokko und Algerien vor. Er wächst bevorzugt auf trockenen oder auf sandig-tonigen Böden in der Nähe von Wasserläufen und steigt in Höhen bis zu 3500 Meter. Er ist in Mitteleuropa eine Charakterart der Ordnung Onopordetalia, kommt aber auch in Gesellschaften der Klasse Agropyretea vor. In Nordamerika wurde der Wermut eingeführt und kommt in sich selbst erhaltenden Populationen vor. In Mitteleuropa steigt er im Kanton Wallis bis 2200 Meter und wurde am Bahnhof Ospizio Bernina in 2309 Metern Meereshöhe beobachtet.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2 (mäßig trocken), Lichtzahl L = 4 (hell), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).\n\nDie alteingebürgerten Vorkommen des Wermut in allen Bundesländern Österreichs werden als häufig bis selten angegeben.",
+      "quelle": "wp-artemisia-absinthium",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Wermut ist eine ausdauernde, meist krautige Pflanze mit Wuchshöhen von 40 bis 60, gelegentlich bis 150 Zentimetern. Die Pflanze erscheint oberirdisch gräulich-grün und duftet stark aromatisch. Aus einem waagerecht wachsenden Rhizom gehen die aufrechten, dicht beblätterten Sprossen hervor, die am Grund manchmal verholzen und sich im oberen Bereich mehrfach verzweigen. Die Sprossachsen sind leicht gestreift, weisen sehr kleine punktförmige Öldrüsen auf und sind dicht anliegend behaart von kleinen, zweischenkligen, angedrückten Haaren silbergrau oder nahezu unbehaart. Die Stängel sind meist aufrecht, ästig und reich beblättert.",
+      "quelle": "wp-artemisia-absinthium",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blüten sitzen in kurz gestielten, hängenden Köpfchen. Die zahlreichen Köpfchen bilden zusammen einen bis zu 30 Zentimeter langen, pyramidenförmigen, rispenartigen Blütenstand. Die Köpfchen sind breit kugelig, etwa 3 bis 4 Millimeter lang und fast ebenso breit.\n\nDie Hüllblätter sind außen dicht seidig behaart; sie sind an der Spitze abgerundet. Die äußeren Hüllblätter sind lineal-länglich, die inneren sind eiförmig, stumpf und durchsichtig häutig berandet. Der Blütenboden ist rauhaarig.  Die einzelnen Röhrenblüten sind gelb mit 1 bis 2 Millimeter langen Kronröhren. Bei den äußeren, 9 bis 20 rein weiblichen Blüten haben sie zwei Spitzen; bei den 30 bis 50 zwittrigen Blüten im Inneren des Köpfchens fünf Spitzen. Bei den Randblüten treten die Griffelschenkel weit aus der Blüte. Die Früchte sind eiförmige bis zylindrische, etwa 1,5 Millimeter lange Achänen.",
+      "quelle": "wp-artemisia-absinthium",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Wermut wird seit der Antike als Heilpflanze eingesetzt. Ihm wurden zahlreiche Wirkungen zugeschrieben, darunter die Förderung von Appetit, Verdauung und Menstruation sowie Hilfe bei Kopfschmerzen, Gelbsucht und Entzündungen. Auch als Abtreibungsmittel (Abortivum) ist Wermut bekannt. Im alten Griechenland war die Pflanze der jungfräulichen Jagdgöttin Artemis geweiht, in Ägypten, wo sie auch als Liebeszauber eingesetzt wurde, der Fruchtbarkeitsgöttin Bastet. Im Mittelalter wurde der Einsatz von Wermut, lateinisch genannt auch absinthium domesticum, als Heilpflanze unter anderem von Hildegard von Bingen ausführlich beschrieben, die vor allem die äußerlichen Anwendungen betonte. Daneben wurde Wermut zur Abwehr von Mäusefraß an Büchern in Schreibtinte verwendet und gegen Motten in Kleiderschränke gehängt. Er galt außerdem als wirksames Abwehrmittel gegen Hexerei und dämonische Einflüsse und wurde bei verschiedenen Ritualen sowie in Kräutermützen gegen Schlaflosigkeit eingesetzt.",
+      "quelle": "wp-artemisia-absinthium",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

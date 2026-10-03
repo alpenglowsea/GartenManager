@@ -1,0 +1,38 @@
+{
+  "hauptname": "Paprika und Chili",
+  "lateinisch": "Capsicum annuum",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q1380",
+  "wikipedia": "Spanischer Pfeffer",
+  "namen": [
+    {
+      "name": "Spanischer Pfeffer",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Paprika",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Ursprüngliche Heimat der Capsicum annuum ist wahrscheinlich das heutige Mexiko. Das Verbreitungsgebiet vor der Entdeckung Amerikas umfasste Gebiete Nordkolumbiens bis in den Süden der USA. Nach POWO reicht die ursprüngliche Heimat von Florida, Texas und Arizona und den Westindischen Inseln bis Brasilien und Bolivien.\n\nNachdem durch die Reisen Christoph Kolumbus’ die ersten Paprikapflanzen Amerika verließen, verbreitete sich die Pflanze, unterstützt durch die große Ausdehnung der Kolonialherrschaft Portugals, schnell über die ganze Welt.",
+      "quelle": "wp-capsicum-annuum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Capsicum-annuum-Pflanzen werden bis zu 150 cm hoch und wachsen als buschiger Halbstrauch, aber meistens nach oben gestreckt. In der Nähe der Wurzel verholzen die Pflanzen relativ leicht. Die Blätter sind nach vorn zugespitzt, zwischen 5 und 25 cm lang und zwischen 3 und 15 cm breit.\n\nDie Blüten des Capsicum annuum wachsen meistens einzeln aus den Verzweigungen des Stiels, sehr selten sind auch zwei oder drei Blüten in einer Verzweigung zu finden. Meistens ist dies in der ersten Verzweigung der Sprossachse bei den so genannten Königsblüten zu beobachten. Die meistens fünf (aber auch vier bis sieben) Kronblätter sind weiß. Seltener haben sie violette Linien oder sind komplett violett. Typisches Merkmal sind die oft bläulichen Staubgefäße und der Kelch mit seinen kurzen (0,5 cm) Zipfeln. Blüten und Früchte hängen meistens nach unten, jedoch gibt es auch Sorten wie die Wildform Tepin, deren Früchte nach oben wachsen. Botanisch gesehen sind die Früchte Beeren.",
+      "quelle": "wp-capsicum-annuum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

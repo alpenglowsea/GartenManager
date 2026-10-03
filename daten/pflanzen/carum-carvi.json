@@ -1,0 +1,55 @@
+{
+  "hauptname": "Kümmel",
+  "lateinisch": "Carum carvi",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q26811",
+  "wikipedia": "Echter Kümmel",
+  "namen": [
+    {
+      "name": "Echter Kümmel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wiesenkümmel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wiesen-Kümmel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Wiesen-Kümmel ist in Vorderasien und den Mittelmeerländern beheimatet. Die Verbreitung erstreckt sich über Europa und die gemäßigten Gebiete Asiens bis Tunesien, Indien, Bhutan, Nepal und Pakistan. In Europa hat er ursprüngliche Vorkommen in fast allen Ländern und fehlt nur in Portugal und Griechenland; in Großbritannien, Irland und Island ist er eingebürgert und auf Spitzbergen wird er kultiviert.\n\nWild wächst der Wiesen-Kümmel an Wegrändern und Wiesen. Er tritt in kollinen, subalpinen bis alpinen Höhenstufen auf. Er ist Kennart der pflanzensoziologischen Ordnung Arrhenatheretalia. In den Allgäuer Alpen steigt der Wiesen-Kümmel im Tiroler Teil am Luxnacher Sattel bei Häselgehr bis in eine Höhenlage von 2070 Meter auf. Am Stilfser Joch und im Tessin erreicht er eine Höhenlage von 2200 Meter und am Riffelberg bei Zermatt 2550 Meter.",
+      "quelle": "wp-carum-carvi",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Kümmel ist eine sommergrüne, meist zweijährige krautige Pflanze und erreicht meist Wuchshöhen von 30 bis 80 Zentimetern, unter günstigen Bedingungen auch bis zu 120 Zentimetern. Es wird eine rübenartige Wurzel (Pfahlwurzel) entwickelt. Der kahle, geriefte Stängel ist mehrfach und sparrig verzweigt.\n\nDie kreuzgegen- oder gegenständigen Laubblätter sind in Blattstiel und -spreite gegliedert. Die Blattspreiten sind zwei- bis dreifach gefiedert und im Umriss länglich. Die Teilblätter letzter Ordnung sind fiederteilig mit fein zugespitzten Zähnen und Spitzen. Ihre Blattabschnitte sind bei einer Breite von höchstens einem Millimeter linealisch. Die untersten Fiederpaare zweiter Ordnung sind deutlich abgerückt und kreuzweise gestellt. Die meisten Stängelblätter besitzen eine Scheide mit nebenblattartigen Fiederpaaren.",
+      "quelle": "wp-carum-carvi",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit erstreckt sich von Mai bis Juli. Es ist ein Blütenstandsschaft vorhanden. Die achsel- und endständigen doppeldoldigen Blütenstände besitzen sechs bis zwölf gerippte Strahlen. Unter den Dolden können einzelne, linealische Deckblätter vorhanden sein, die Hüllen fehlen aber meist. Es können bei den Döldchen auch Hüllchenblätter ausgebildet sein. Es sind Blütenstiele vorhanden.\n\nDie meistens zwittrige und protandrische Blüte ist fünfzählig mit (einfacher) Blütenhülle. Der Kelch fehlt meistens oder ist zu minimalen Zähnchen reduziert. Die fünf weißen bis rosafarbenen oder rötlichen Kronblätter sind verkehrt-eiförmig und an der mittleren Spitze ist der Zipfel meist eingebogen. Es sind fünf freie Staubblätter vorhanden. Der zweikammerige Fruchtknoten ist unterständig. Auf einem fleischigen, kissenförmigen Stylopodium (Diskus) befinden sich zwei kurze und ausgebogene Griffel.",
+      "quelle": "wp-carum-carvi",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Blätter des Kümmels haben einen milden Geschmack, der mit Petersilie und Dill verglichen wird. Sie werden gerne für Suppen und Salate verwendet. Die Wurzeln können als Gemüse gekocht werden.\n\nKümmelsamen (botanisch korrekt handelt es sich um ganze Kümmelfrüchte) sind ein klassisches Gewürz in schwer verdaulichen Speisen, wie z. B. Kohlgerichten. Sie sind besonders in der jüdischen, skandinavischen und osteuropäischen Küche beliebt und werden dort auch als Gewürz für Kuchen und Roggenbrot, Gulasch, Käse und geschmorte Äpfel verwendet.\n\nDie „Kümmelsamen“ verleihen diversen Spirituosen einen charakteristischen Geschmack, beispielsweise dem skandinavischen Aquavit, dem norddeutschen Köm oder dem Kaiser-Kümmel.",
+      "quelle": "wp-carum-carvi",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

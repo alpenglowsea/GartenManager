@@ -1,0 +1,60 @@
+{
+  "hauptname": "Holz-Apfel",
+  "lateinisch": "Malus sylvestris",
+  "gruppen": [
+    "Obstgehölze",
+    "Bäume"
+  ],
+  "wikidata": "Q47161",
+  "wikipedia": "Holzapfel",
+  "namen": [
+    {
+      "name": "Holzapfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wilder Apfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Malus silvestris",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wildapfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wild-Apfel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Holzapfel ist ein sommergrüner Baum, der Wuchshöhen bis zu 10 Meter erreicht; überwiegend wächst er jedoch als großer Strauch mit Wuchshöhen von 3 bis 5 Metern. Die Krone ist dicht; die Äste und Zweige weisen mehr oder minder verdornende Kurztriebe auf. Die Rinde ist eine graubraune, längsrissige Schuppenborke. Die Knospen sind wollig. Die nur schwach behaarten bis fast kahlen, gestielten, bespitzten bis spitzen Laubblätter sind eiförmig, am Rand grob gesägt und 4 bis 8 Zentimeter lang.",
+      "quelle": "wp-malus-sylvestris",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Im April bis Mai erscheinen die rosa-weißen Blüten auf kahlen Blütenstielen. Die kugeligen Früchte sind gelbgrün mit ggfs. roter Backe, haben nur einen Durchmesser von 2 bis 4 Zentimetern und sind herbsauer und holzig.",
+      "quelle": "wp-malus-sylvestris",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Holzäpfel wurden in Mitteleuropa schon in der Jungsteinzeit genutzt. Die Früchte sind gedörrt oder gekocht genießbar und wurden im 17. Jahrhundert geschnitten dem Holzäpfelbier zugesetzt. Seit der Verbreitung des Kulturapfels hat der Holzapfel keinerlei wirtschaftliche Bedeutung mehr. In Gestecken werden neben Kiefernzapfen auch Holzäpfel künstlerisch verwendet. In der Schwäbischen Alb werden die herben Holzäpfel als besondere Würze hochwertigen Apfelsäften in geringer Menge zugesetzt.",
+      "quelle": "wp-malus-sylvestris",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,37 @@
+{
+  "hauptname": "Sibirischer Blaustern",
+  "lateinisch": "Scilla siberica",
+  "gruppen": [
+    "Zwiebel- und Knollenblumen"
+  ],
+  "wikidata": "Q158944",
+  "wikipedia": "Sibirischer Blaustern",
+  "namen": [
+    {
+      "name": "Nickende Sternhyazinthe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Sibirische Sternhyazinthe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Scilla sibirica",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Diese Pflanzenart stammt aus dem sarmatisch-pontischen Gebiet (Türkei, Südrussland, Kaukasus, Iran), wo sie in feuchten, offenen Wäldern vorkommt. Sie gilt in Mitteleuropa als Stinsenpflanze.",
+      "quelle": "wp-scilla-siberica",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

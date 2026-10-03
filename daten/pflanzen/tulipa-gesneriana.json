@@ -1,0 +1,27 @@
+{
+  "hauptname": "Garten-Tulpe",
+  "lateinisch": "Tulipa gesneriana",
+  "gruppen": [
+    "Zwiebel- und Knollenblumen"
+  ],
+  "wikidata": "Q163060",
+  "wikipedia": "Garten-Tulpe",
+  "namen": [
+    {
+      "name": "Gartentulpe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Garten-Tulpe wird verbreitet als Zierpflanze in Rabatten, Sommerrabatten und Staudenbeeten sowie als Schnittblume genutzt.",
+      "quelle": "wp-tulipa-gesneriana",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,26 @@
+{
+  "hauptname": "Echter Wein",
+  "lateinisch": "Vitis vinifera",
+  "gruppen": [
+    "Obstgehölze",
+    "Kletterpflanzen"
+  ],
+  "wikidata": "Q30046",
+  "wikipedia": "Weinrebe",
+  "namen": [
+    {
+      "name": "Weinrebe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Echte Weinrebe",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

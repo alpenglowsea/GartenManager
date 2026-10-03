@@ -1,0 +1,39 @@
+{
+  "hauptname": "Hoher Rittersporn",
+  "lateinisch": "Delphinium elatum",
+  "gruppen": [
+    "Stauden",
+    "Blumen"
+  ],
+  "wikidata": "Q164246",
+  "wikipedia": "Hoher Rittersporn",
+  "namen": [
+    {
+      "name": "Delphinium alpinum",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kleiner Gartenrittersporn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Hohe Rittersporn kommt in mehreren Unterarten vom warmgemäßigten bis kühlen Europa in den Französischen Alpen über die Ostalpen, die Karpaten und den Balkan bis nach Asien in lichten Wäldern, feuchten Schuttfluren, subalpinen Hochstaudenfluren, Grünerlengebüschen und Bachrändern in Höhenlagen bis 2000 Meter vor. Die Art ist auf Silikat und Kalk zu finden. Er gedeiht in Gesellschaften des Verbands Adenostylion. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 4 (sehr feucht), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 2 (subalpin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-delphinium-elatum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Der Hohe Rittersporn wird verbreitet als Zierpflanze in Staudenbeeten genutzt. Die Art ist seit spätestens 1578 in Kultur. Sie ist auch der wichtigste Elternteil der Garten-Rittersporne, das sind Hybriden unter Beteiligung von Delphinium elatum, die in Gärten kultiviert werden. Als „Gartenrittersporn“ wird aber auch der Garten-Feldrittersporn (Consolida ajacis) bezeichnet, der mit diesen Delphinium-Hybriden nicht näher verwandt ist.",
+      "quelle": "wp-delphinium-elatum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

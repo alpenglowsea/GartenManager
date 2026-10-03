@@ -1,0 +1,55 @@
+{
+  "hauptname": "Koriander",
+  "lateinisch": "Coriandrum sativum",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q41611",
+  "wikipedia": "Echter Koriander",
+  "namen": [
+    {
+      "name": "Echter Koriander",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Coriander",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenkoriander",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Echte Koriander ist in Vorderasien von der Türkei bis zur Sinai-Halbinsel, Arabien und Pakistan beheimatet. In der Schweiz wurde er verwildert bei Samedan noch in einer Höhenlage von 1730 Metern beobachtet.\n\nDer Echte Koriander gedeiht auf warmen, mäßig trockenen, nährstoffreichen und basenreichen, aber humusarmen Lehm- und Lößböden.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 5 (sehr warm-kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-coriandrum-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Echte Koriander wächst als einjährige krautige Pflanze. Die Wuchshöhe liegt je nach Standort, Sorte und Verwendung zwischen 30 und 90 Zentimetern. Der Geruch der Pflanzenteile ähnelt stark dem Geruch der Ausdünstungen diverser Wanzenarten. Die Wurzel ist dünn und spindelförmig. Der längs geriefte Stängel ist im Querschnitt rund und im oberen Teil verzweigt. Alle oberirdischen Pflanzenteile sind kahl.\n\nDie jüngeren Laubblätter unterscheiden sich in der Form deutlich von älteren. Die jungen Laubblätter sind eher rundlich, breit und dreigeteilt eingeschnitten, während die älteren Laubblätter doppelt gefiedert und fein zerteilt sind. Die unteren Laubblätter sind lang gestielt, die mittleren und oberen sind auf länglichen und breit hautrandigen Blattscheiden sitzend. Die Blattspreiten der mittleren und oberen Stängelblätter sind feiner geteilt, zwei- bis dreifach fiederschnittig mit entfernten, linealischen bis fast fädlichen meist ganzrandigen Blattzipfeln.",
+      "quelle": "wp-coriandrum-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Juni bis Juli und dauert etwa vier Wochen. Der auf einem langen Blütenstandsschaft stehende, doppeldoldige Blütenstand ist flach und drei- bis fünfstrahlig. Die Doldenhülle fehlt und besteht lediglich aus wenigen Blättchen, die fadenförmig sind. Die Döldchen haben nur an ihrer Außenseite Hüllchen. Koriander blüht weiß. Während der Anthese wird Koriander stark von Bienen beflogen. Das äußere Kronblatt der randständigen Blüten ist strahlend und 3 bis 4 Millimeter lang. Es ist tief zweispaltig mit länglich-eiförmigen Lappen. Die beiden Nachbar-Kronblätter sind schief asymmetrisch zweilappig; der vordere Lappen ist mehrmals größer als der hintere Lappen.  Die inneren Blüten der Dolde sind nicht strahlend. Der Griffel ist etwa 2 Millimeter lang und zwei- bis dreimal so lang wie das kegelförmige Griffelpolster.",
+      "quelle": "wp-coriandrum-sativum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Kraut und Samen (richtiger: Früchte) sind vielfach genutzte Küchengewürze. Der Geruch und der Geschmack der beiden sind sehr verschieden; sie können einander nicht ersetzen. So sind auch die Gegenden unterschiedlich, in denen Kraut und Samen stark genutzt werden. Während in Europa der Samen die größere Rolle spielte, wurden in der südamerikanischen und in der südostasiatischen Küche, aber auch im südlichen Portugal – speziell im Alentejo und in der Algarve – vor allem die grünen Pflanzenteile verwendet. Mittlerweile ist eine solche regionale Unterscheidung – auf Grund der Globalisierung – kaum mehr möglich. In der indischen Küche werden sowohl Samen als auch Blätter vielfach verwendet. In Thailand nutzt man die Wurzeln wie die der Petersilie bzw. Wurzelpetersilie.",
+      "quelle": "wp-coriandrum-sativum",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

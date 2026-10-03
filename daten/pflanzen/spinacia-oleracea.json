@@ -1,0 +1,74 @@
+{
+  "hauptname": "Spinat",
+  "lateinisch": "Spinacia oleracea",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q81464",
+  "wikipedia": "Spinat",
+  "namen": [
+    {
+      "name": "Blattspinat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Echter Spinat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Chenopodium oleraceum (L.) E.H.L.Krause",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spinacia glabra",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spinacia inermis",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spinacia spinosa",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spinacia domestica",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Spinacia sessiliflora",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Spinacia oleracea ist vermutlich in Südwestasien entstanden und im Mittelmeerraum seit der Antike eingebürgert. Als kultivierte Gemüsepflanze ist sie in Europa, Asien und Nordamerika weit verbreitet, manchmal kommt sie auch verwildert vor. Sie wächst in den gemäßigten und subtropischen Regionen bis zu einer Höhenlage von 1550 Meter (in Afghanistan). Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 5 (sehr hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 3+ (unter-montan und ober-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-spinacia-oleracea",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Spinat ist eine einjährige krautige Pflanze. Die rötliche, selten weiße Wurzel ist konisch. Die Oberfläche der Pflanzenteile ist meist kahl. Der aufrechte, gelblich- bis blassgrüne Stängel ist bei einer Wuchshöhe von 50 bis 100 Zentimetern nicht oder nur schwach verzweigt.\n\nDie lang gestielten Laubblätter sind anfangs rosettig, später wechselständig am Stängel angeordnet, bei weiblichen Pflanzen bis zur Stängelspitze und bei männlichen Pflanzen vorwiegend basal. Ihre flache, leicht fleischige und zwischen den Blattrippen gewölbte, hellgrüne Blattspreite ist bei einer Länge bis 12 Zentimetern eiförmig bis dreieckig-spießförmig, ganzrandig oder mit einem Paar lanzettlicher Seitenlappen. Die oberen Blätter sind kleiner, kürzer gestielt bis sitzend und meist ganzrandig.",
+      "quelle": "wp-spinacia-oleracea",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Spinat gehört zu den Langtagpflanzen und geht von Juni bis September bei schwacher Rosettenbildung schnell zur Blütenbildung über. Spinat ist zweihäusig getrenntgeschlechtig (diözisch), nur ausnahmsweise einhäusig (monözisch), selten kommen auch einige zwittrige Blüten vor. Bei neueren Sorten sind die Blüten oft zwittrig. Die Blüten sind meist vier- oder selten fünfzählig. Männliche Blüten stehen in knäueligen Teilblütenständen in unterbrochenen endständigen, scheinährigen Gesamtblütenständen. Die männlichen Blüten besitzen eine Blütenhülle aus vier (selten fünf) grünen ganzrandigen Tepalen und vier oder selten fünf aus der Blütenhülle herausragenden Staubblättern mit abgeflachten Staubfäden und etwa 1 Millimeter langen Staubbeuteln. Die weiblichen Blüten stehen in blattachselständigen, knäueligen Blütenständen mit etwa zehn Blüten. Die weiblichen Blüten werden umgeben von zwei bis vier miteinander verbundenen und überdauernden Vorblättern, eine Blütenhülle fehlt.",
+      "quelle": "wp-spinacia-oleracea",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

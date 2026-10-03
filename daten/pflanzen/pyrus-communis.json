@@ -1,0 +1,60 @@
+{
+  "hauptname": "Birne",
+  "lateinisch": "Pyrus communis",
+  "gruppen": [
+    "Obstgehölze",
+    "Bäume"
+  ],
+  "wikidata": "Q146281",
+  "wikipedia": "Kultur-Birne",
+  "namen": [
+    {
+      "name": "Kultur-Birne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kulturbirne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gartenbirnbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Wildbirne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Birnbaum",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der sommergrüne Baum zeigt sich je nach Unterlage, Sorte und Schnitt in sehr unterschiedlichen Wuchsformen und erreicht Wuchshöhen zwischen 3 und über 20 Metern, selten bis zu 30 Metern. Klassische Birnbäume zeigen steile, ei- bis birnenförmige Kronen mit ausgeprägter Stammverlängerung. Der Stammdurchmesser erreicht über 0,9 Meter, selten bis über 1,5 Meter. Die Borke ist dunkel graubraun und reißt in großen Schuppen oder Felder auf. Die Rinde der Zweige ist anfangs glänzend braun und später graubraun sowie kahl bis mehr oder weniger behaart. Sie können je nach Sorte bedornt oder unbedornt sein.\n\nVeredelte Birnbäume werden durchschnittlich ungefähr 70 Jahre alt, Mostbirnbäume zum Teil aber auch 200 Jahre. Birnenstandorte sollten über tiefgründige, nährstoffreiche Böden mit guter, von Staunässe freier Wasserversorgung und ein eher trocken-warmes Klima verfügen.",
+      "quelle": "wp-pyrus-communis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Pyrus communis ist vorweiblich protogyn. Die stark riechenden Blüten stehen in wenigblütigen, doldentraubigen Blütenständen zusammen. Die gestielten, zwittrigen, radiärsymmetrischen und fünfzähligen Blüten weisen einen Durchmesser von 2 bis 3 Zentimeter auf. Die Blütenstiele sind behaart bis kahl. Es ist ein kahler bis behaarter Blütenbecher vorhanden. Der Kelch ist meist beidseits filzig behaart. Die fünf meist weißen und kurz genagelten Kronblätter werden etwa 2 bis 5 Zentimeter lang. Die Staubbeutel der bis zu 30 relativ kurzen Staubblätter sind meist rot. Der fünfkammerige Fruchtknoten ist unterständig mit meist fünf freien, an der Basis behaarten Griffeln. Die Staubblätter sind anfangs nach innen gekrümmt und biegen sich dann nach außen, die anfangs genäherten Griffel spreizen sich später auseinander. Es sind jeweils Nektarien vorhanden. Blütezeit ist je nach Sorte April und Mai. Die Blüten werden durch Insekten bestäubt und sind selten selbstfertil.",
+      "quelle": "wp-pyrus-communis",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die klimakterischen Früchte sind nur begrenzt lagerfähig und liefern daher vor allem Frischobst. Sie werden auch zu Trockenfrüchten (Kletzen), Sirup (Birnenkraut), Marmelade, Saft und alkoholischen Getränken (Obstbrände) verarbeitet oder in Konserven eingemacht.\n\nDas schöne und recht schwere, aber wenig beständige Holz findet Verwendung als dauerhaftes und wertvolles Tischlerholz und im Musikinstrumentenbau sowie für Furnier.\n\nAufgrund der vergleichsweise geringen Zuckerproduktion (Zuckerwert: 0,05–0,30 mg/Tag/Blüte bei 5–48 % Zuckergehalt im Nektar) ist die Birne in Europa imkerlich trotz ihrer Häufigkeit keine maßgebliche Haupttracht.",
+      "quelle": "wp-pyrus-communis",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

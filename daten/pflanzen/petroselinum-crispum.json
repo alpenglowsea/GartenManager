@@ -1,0 +1,56 @@
+{
+  "hauptname": "Petersilie",
+  "lateinisch": "Petroselinum crispum",
+  "gruppen": [
+    "Kräuter",
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q25284",
+  "wikipedia": "Petersilie",
+  "namen": [
+    {
+      "name": "Petersil",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Peterling",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Petergrün",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Nach Euro+Med kommt Petroselinum crispum innerhalb des Mittelmeerraums ursprünglich nur in Marokko, Algerien, Tunesien, Albanien und Jordanien vor. In Spanien, Portugal, auf den Balearen, in Italien, Slowenien, Kroatien, Dänemark und Schweden ist sie ein Neophyt.\n\nIn gemäßigten Gebieten fast weltweit baut man sie in Gärten an; sehr selten verwildert sie. Sie gedeiht am besten auf frischen und nährstoffreichen Lehmböden.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-petroselinum-crispum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Petersilie ist eine zweijährige krautige Pflanze und erreicht Wuchshöhen von 30 bis 90, selten bis zu 100 Zentimetern. Sie besitzt eine mehr oder weniger rübenförmige Wurzel. Alle oberirdischen Pflanzenteile sind kahl. Je Pflanzenexemplar werden meist mehrere kahle Stängel gebildet, die aufrecht, stielrund bis leicht gerillt, sowie häufig röhrig sind.",
+      "quelle": "wp-petroselinum-crispum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Es ist eine relativ langer Blütenstandsschaft vorhanden. Der doppeldoldige Blütenstand besitzt 8 bis 20 etwa gleich lange Doldenstrahlen. Die ein bis drei Hüllblätter sind lanzettlich bis pfriemlich. Die je sechs bis acht Hüllchenblätter sind linealisch bis pfriemlich und rund halb so lang wie die Blütenstiele. Die Kronblätter sind grünlichgelb, häufig rötlich überlaufen und rund 0,6 Millimeter lang.",
+      "quelle": "wp-petroselinum-crispum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Blätter der Petersilie werden als Gewürzkraut roh oder nur kurz erhitzt verwendet, da sie sonst ihr typisches Aroma verlieren, und stellen einen festen Bestandteil verschiedener Mittelmeerküchen dar. Als Bestandteil von Bouquet garni der Französischen Küche wird die Petersilie nicht nur kurz mitgegart, sondern schon zu Anfang der Garzeit hinzugegeben, sie gibt dann Brühen und Saucen einen würzigen Grundgeschmack.\n\nAuch in der Küche Westasiens ist die Petersilie häufig zu finden, so werden beispielsweise in der türkischen Küche fast alle kalten Gerichte und gebratenes Fleisch mit gehackter Petersilie garniert. Beim Taboulé, einem Salat aus der libanesischen Küche, ist Petersilie neben Minze und Weizengrieß die Hauptzutat. Auch im Kaukasus, auf der arabischen Halbinsel und im Iran wird Petersilie häufig verwendet.",
+      "quelle": "wp-petroselinum-crispum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

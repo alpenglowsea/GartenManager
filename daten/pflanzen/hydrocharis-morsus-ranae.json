@@ -1,0 +1,54 @@
+{
+  "hauptname": "Europäischer Froschbiss",
+  "lateinisch": "Hydrocharis morsus-ranae",
+  "gruppen": [
+    "Wasserpflanzen"
+  ],
+  "wikidata": "Q158913",
+  "wikipedia": "Froschbiss",
+  "namen": [
+    {
+      "name": "Froschbiss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemeiner Froschbiss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Hydrocharis",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "petit nénuphar",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Das ursprüngliche Verbreitungsgebiet des Froschbisses reicht von Europa bis zum Kaukasus und umfasst mit Marokko und Algerien auch Nordafrika. Die Art kommt in Europa in fast allen Ländern vor und fehlt nur in Albanien und in Island.\n\nDer Froschbiss tritt innerhalb Deutschlands im Tiefland mäßig häufig mit Schwerpunkten in den Talauen der größeren Flüsse auf. Im Hügel- und Bergland ist die Pflanze selten und fehlt über weite Strecken. Sie steht regional auf manchen Roten Listen gefährdeter Arten. In Nordamerika gilt der Europäische Froschbiss zumindest im Osten der kanadischen Provinz Ontario als invasiver Neophyt.",
+      "quelle": "wp-hydrocharis-morsus-ranae",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Hydrocharis morsus-ranae wächst in windgeschützten Lagen in Schwimmblattgesellschaften warmer, nährstoffreicher, aber nicht übermäßig belasteter, meist kalkarmer, stehender oder höchstens schwach durchströmter Gewässer über schlammigem Grund. Dazu zählen beispielsweise Altarme, nicht jährlich bzw. nicht zu frühzeitig geräumte Gräben, Niedermoor-Torfstiche und Tümpel, aber auch ruhige Buchten von Fließgewässern und Röhrichte. Oft ist er mit der Krebsschere vergesellschaftet, kommt aber insgesamt wesentlich stetiger vor. Er ist eine Charakterart der Assoziation Hydrocharitetum morsus-ranae aus dem Verband Lemnion. Die ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 5v (untergetaucht und schwimmend), Lichtzahl L = 4 (hell), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-hydrocharis-morsus-ranae",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Froschbiss ist eine beliebte Zierpflanze in Gartenteichen.",
+      "quelle": "wp-hydrocharis-morsus-ranae",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

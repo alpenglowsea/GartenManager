@@ -1,0 +1,45 @@
+{
+  "hauptname": "Gartenkresse",
+  "lateinisch": "Lepidium sativum",
+  "gruppen": [
+    "Kräuter"
+  ],
+  "wikidata": "Q27033",
+  "wikipedia": "Gartenkresse",
+  "namen": [
+    {
+      "name": "řeřicha setá",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Lepidium sativum kommt ursprünglich in Ägypten, Äthiopien, auf der Arabischen Halbinsel, in der Türkei, in Syrien, im Libanon, in Jordanien, Israel, im Irak, in Iran, Afghanistan und Pakistan vor. Sie ist ein Neophyt in Europa, Kenia, Indien, Japan, China, Australien, Neuseeland, in Kanada, den Vereinigten Staaten, Argentinien, Chile und in Neukaledonien.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 5 (sehr warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-lepidium-sativum",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Gartenkresse ist eine einjährige krautige Pflanze und erreicht Wuchshöhen von meist 20 bis 80 (10 bis 100) Zentimetern. Die Pflanzen mit aufrechtem, einfachem oder im oberen Bereich verzweigtem Stängel sind kahl, selten spärlich fein behaart sowie meist bläulich-grün bereift.",
+      "quelle": "wp-lepidium-sativum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die end- oder seitenständigen, anfangs schirmtraubigen und später durch Streckung der kahlen Blütenstandsachse traubigen Blütenstände enthalten viele Blüten.",
+      "quelle": "wp-lepidium-sativum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Gartenkresse findet Verwendung in der Bioindikation. Bei diesem Kressetest kann anhand des Keimverhaltens eine Belastung von Luft, Wasser und Boden detektiert werden.\n\nGartenkresse kann roh oder gegart gegessen werden. Der relativ scharfe, typische Geschmack macht die Gartenkresse, in kleinen Mengen, zu einer exzellenten Zutat für Salate. Die relativ harten und kleinen Wurzeln werden zum Würzen verwendet. Die frischen Schötchen können getrocknet als Gewürz verwendet werden. Die etwa 7 Tage alten Sprossen aus den frisch gekeimten Samen werden vielseitig frisch verwendet. Aus den Samen kann ein Speiseöl gewonnen werden.\n\nGartenkresse schmeckt roh leicht scharf, der Geschmack erinnert an Senf und Rettich, was am Gehalt an Senfölglycosiden liegt. Selbst herangezogen oder im Lebensmittelhandel erworben werden die Kressesprossen in der Küche verwendet, vor allem die Keimlinge, die etwa eine Woche nach der Aussaat geerntet werden können.",
+      "quelle": "wp-lepidium-sativum",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

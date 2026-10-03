@@ -4,10 +4,35 @@
   "gruppen": [
     "Kräuter"
   ],
-  "wikidata": null,
-  "wikipedia": null,
+  "wikidata": "Q51148",
+  "wikipedia": "Schnittlauch",
   "namen": [],
-  "angaben": [],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Natürliche Bestände von Schnittlauch sind auf der Nordhalbkugel in alpinen Hochgebirgen des gemäßigten, borealen und subarktischen Eurasiens und Nordamerikas weitverbreitet, sowohl in Nutzgärten als auch verwildert.\n\nDas europäische Verbreitungszentrum liegt in Fennoskandinavien, dem nördlichen Russland sowie den subalpinen Höhenstufen der Iberischen Halbinsel, der Alpen (insbesondere in den westlichen Kalkalpen).\n\nKleinere Vorkommen finden sich in den Sudeten, auf der Balkanhalbinsel (z. B. eine 2012 neuentdeckte Population bei Idrija im nördlichen Teil des Dinarischen Gebirges), darüber hinaus in der Slowakei, in Rumänien, Serbien (Prokletije, Šar Planina, Pešter, Stara Planina und Tara-Gebirge), Montenegro (Maganik, Durmitor und Prokletije) und Nordmazedonien (Šar Planina, Belasica, Galičica und Nidže).",
+      "quelle": "wp-allium-schoenoprasum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Im mitteleuropäischen Bergland ist Schnittlauch auf vernässten, quellnassen Hängen und berieselten Felsterrassen hochmontaner und subalpiner Feuchtweiden anzutreffen. Er ist in solchen Feuchtwiesen zwar nur sporadisch verbreitet, kommt dann aber über anmoorigen Böden mit einem Deckungsgrad von rund 75 Prozent vor. Daneben wachsen zahlreiche Nässezeiger wie Sumpf-Schachtelhalm, Bach-Nelkenwurz sowie Säurezeiger wie die Braun- und Steife Segge. In der Moosschicht sind Starknervmoose der alpinen Quellfluren häufig. In den arktischen Regionen auf der Taimyr-Halbinsel ist die Art Lagoto glaucae-Allietum schoenoprasi von Feuchtwiesen der Tundra beschrieben worden. Diese wurden zur Klasse Thlaspietea rotundifolii gestellt.",
+      "quelle": "wp-allium-schoenoprasum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht je nach Standort von Mai bis August. Die Blütenstandsschäfte ähneln den Laubblättern, sind aber etwas fester und höher. Die endständigen, dichten, kugeligen bis eiförmigen, scheindoldige Blütenstände enthalten viele (30 bis 50) Blüten. Ihre Hüllblätter überragen den Blütenstand nie. Anders als beim Weinberg-Lauch (Allium vineale) oder dem Gemüse-Lauch (Allium oleraceum) bildet der Blütenstand des Schnittlauchs keine Brutzwiebeln aus. Die kurzen Blütenstiele sind eineinhalb- bis dreimal so lang wie die Blüten.",
+      "quelle": "wp-allium-schoenoprasum",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Schnittlauch ist seit dem frühen Mittelalter in Kultur. Es gibt zahlreiche Sorten, die in Bezug auf Wuchshöhe und Blattdicke sehr unterschiedlich sind. Neben den typischen lilablühenden Formen treten auch weiß blühende auf. Gelegentlich wird Schnittlauch auch als Zierpflanze in Gärten, beispielsweise in Steingärten, sowie zur Dachbegrünung verwendet.",
+      "quelle": "wp-allium-schoenoprasum",
+      "auszug": false
+    }
+  ],
   "pflegehinweise": [],
   "merkmale": [],
   "veraltet": false

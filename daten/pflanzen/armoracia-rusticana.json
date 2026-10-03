@@ -1,0 +1,51 @@
+{
+  "hauptname": "Meerrettich",
+  "lateinisch": "Armoracia rusticana",
+  "gruppen": [
+    "Kräuter",
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q26545",
+  "wikipedia": "Meerrettich",
+  "namen": [
+    {
+      "name": "Cochlearia armoracia",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kren",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Das Herkunftsgebiet des Meerrettichs ist wohl die Ukraine und das angrenzende europäische Russland. Sonst ist er fast auf der ganzen nördlichen Halbkugel ein Neophyt. Verwildert kommt Meerrettich am Rand feuchter Wiesen, an Bachläufen und Flussufern vor. In Deutschland sind die Zentren des Meerrettichanbaus der Spreewald, das badische Fautenbach, das badische Meerrettichdorf Urloffen (das ein eigenes Meerrettich-Lied aufzuweisen hat) sowie das fränkische Baiersdorf bei Erlangen, wo Meerrettich im großen Stil angebaut und verarbeitet wird, jedes Jahr im September der Krenmarkt stattfindet und es bis 2020 ein Meerrettich-Museum gab. Im Raum Bamberg und Nürnberg ist der Anbau von Meerrettich bereits seit Karl dem Großen bekannt. 1930 wurde der Meerrettich-Anbau im fränkischen Raum zwischen Nürnberg und Forchheim als der weltweit größte angesehen. Damals wurde in den Niederlanden noch wenig Meerrettich angebaut.",
+      "quelle": "wp-armoracia-rusticana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Meerrettich wächst als ausdauernde krautige Pflanze und erreicht Wuchshöhen von 50 bis 120 Zentimetern, gelegentlich auch bis 2 Metern. Diese winterharte Pflanze hält Temperaturen bis −50 °C aus. Als Überdauerungsorgan wird eine senkrechte, walzenförmige Pfahlwurzel gebildet, die eine Länge von 30 bis 40 Zentimetern und einen Durchmesser von 4 bis 6 Zentimetern erreicht. Unter guten Bedingungen mit leicht durchwurzelbarem Boden (Moor, Sand) wird die Pfahlwurzel bis zu 60 Zentimeter lang. Zum Stängel hin ist die Wurzel vielköpfig und am Wurzelende ästig mit vielen Seitenwurzeln und Wurzelfasern. Die unregelmäßig gerillte Wurzel ist außen schmutzig gelb-braun, aber das Innere ist weiß und etwas faserig.",
+      "quelle": "wp-armoracia-rusticana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Im Frühjahr beginnen sich die Blütenstände zu bilden; die Blütezeit reicht von Mitte Mai bis Juli. Die runden Blütenstandschäfte erreichen Wuchshöhen von bis zu 1,20 Metern. Der traubige Blütenstand besitzt Durchmesser von bis zu 40 Zentimetern. Es sind keine Hochblätter vorhanden.",
+      "quelle": "wp-armoracia-rusticana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Insbesondere in den Meerrettichanbaugebieten gehören Gerichte mit Meerrettich zum Alltag. Die Meerrettichwurzel ist in unverarbeitetem Zustand geruchlos. Wird sie geschnitten oder gerieben, verströmt sie einen stechenden und zu Tränen reizenden Geruch. Verantwortlich für diesen ist Allylisothiocyanat, das sich bei Zellverletzung enzymatisch aus Sinigrin bildet. Vor der leichten Erhältlichkeit von Pfeffer waren Meerrettich und Senf die einzigen scharfen Gewürze der deutschen Küche und fanden entsprechend viel Anwendung. Wird die Wurzel getrocknet oder gekocht, verliert sie ihr flüchtiges Öl größtenteils und damit auch ihren scharfen Geschmack.",
+      "quelle": "wp-armoracia-rusticana",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

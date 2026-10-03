@@ -1,0 +1,65 @@
+{
+  "hauptname": "Feld-Rittersporn",
+  "lateinisch": "Consolida regalis",
+  "gruppen": [
+    "Blumen"
+  ],
+  "wikidata": "Q162815",
+  "wikipedia": "Gewöhnlicher Feldrittersporn",
+  "namen": [
+    {
+      "name": "Gewöhnlicher Feldrittersporn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Acker-Rittersporn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Feldrittersporn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Delphinium consolida",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Ackerrittersporn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Gewöhnliche Feldrittersporn kommt ursprünglich von Europa bis Westsibirien vor. Er war in Mitteleuropa weit verbreitet, ist aber durch vermehrten Herbizideinsatz und intensive Bodenkultivierung selten geworden. In Deutschland ist er in der Roten Liste gefährdeter Arten als gefährdet eingestuft.\n\nDer Gewöhnliche Feldrittersporn benötigt nährstoffreiche Getreideäcker, Wegsäume, Trockenplätze. Er gedeiht auch auf warmen, mäßig trockenen bis frischen, nährstoffreichen und basenreichen, neutral-milden, humosen lockeren Lehmböden. Er ist in Mitteleuropa eine Charakterart des Verbands Caucalidion lappulae.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 2+ (frisch), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 4 (neutral bis basisch), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 4 (subkontinental).",
+      "quelle": "wp-consolida-regalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gewöhnliche Feldrittersporn ist eine einjährige krautige Pflanze, die Wuchshöhen von 20 bis 50 Zentimetern erreicht. Die wechselständigen Laubblätter sind ein- bis mehrfach dreiteilig in 1 Millimeter breite, lineale Zipfel geteilt.",
+      "quelle": "wp-consolida-regalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht von Mai bis August. In einem traubigen Blütenstand stehen fünf bis acht Blüten jeweils über Tragblättern, die kürzer als Blütenstiele sind. Die zwittrige Blüte ist zygomorph. Die blauviolette Blüte besitzt einen einfachen, etwa 2 bis 4 Zentimeter langen waagrechten oder nach oben zeigenden Sporn, der aus zwei miteinander verwachsenen Nektarblättern gebildet wird. Es ist nur ein Fruchtblatt vorhanden.\n\nDie einzelne kahle Balgfrucht weist eine Länge von etwa 2 Zentimeter auf und enthält viele Samen.",
+      "quelle": "wp-consolida-regalis",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Früher wurden die alkaloidarmen Blüten als Heilmittel eingesetzt, etwa bei Augenleiden, oder als magisches Mittel. Da Belege für die Wirksamkeit fehlen, ist die Droge als Arznei nicht mehr gebräuchlich.\n\nHäufig findet man getrocknete Blüten wegen ihrer schönen blauen Farbe aber noch als Schmuckdroge, besonders in Blasen- und Nierentees und auch in Teemischungen für andere Indikationen.",
+      "quelle": "wp-consolida-regalis",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

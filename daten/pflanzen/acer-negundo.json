@@ -1,0 +1,44 @@
+{
+  "hauptname": "Eschen-Ahorn",
+  "lateinisch": "Acer negundo",
+  "gruppen": [
+    "Bäume"
+  ],
+  "wikidata": "Q161166",
+  "wikipedia": "Eschen-Ahorn",
+  "namen": [
+    {
+      "name": "Eschenahorn",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Érable negundo",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Eschen-Ahorn ist im östlichen Nordamerika von Ontario bis Florida mit geographischen Varietäten bis Alberta, Kalifornien und Texas heimisch. Er gedeiht dort in den ostamerikanischen Auenwäldern der Ordnung Ulmo-Aceretalia-saccharini und in Kalifornien in denen der Ordnung Platanetalia-racemosi.\n\nDer Eschen-Ahorn wurde bereits 1688 in Mitteleuropa eingeführt und ist bis heute eines der am meisten gepflanzten fremdländischen Gehölze. Er ist als Neophyt eingebürgert. Er gedeiht auch in Mitteleuropa gelegentlich in Auenwäldern im Querco-Ulmetum aus dem Verband Alno-Ulmion.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3+w+ (feucht aber stark wechselnd), Lichtzahl L = 3 (halbschattig), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-acer-negundo",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Eschen-Ahorn ist ein laubabwerfender Baum der Wuchshöhen bis über 20 Metern, selten bis über 25 Metern und Stammdurchmesser von über 1,2 Meter, selten bis über 2 Meter erreichen kann. Er bleibt aber meistens einiges kleiner. Die Borke ist glatt und graubraun bis gräulich und im Alter rissig bis furchig. Die Baumkrone ist unregelmäßig gewölbt; im Inneren verdichtet sie sich durch viele Wasserreiser an Stamm und Ästen; alte Stämme sind oft übergelehnt bis niederliegend. Die Rinde der geraden Zweige ist grün und manchmal im zweiten Jahr violett bereift. Die kleine Knospe ist seidig weiß.",
+      "quelle": "wp-acer-negundo",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Der Eschen-Ahorn ist zweihäusig getrenntgeschlechtig (diözisch). Die Blüten erscheinen achselständig. Die männlichen Blüten sitzen in kleinen, hängenden Büscheln, die weiblichen Blüten sitzen zu einigen in längeren, hängenden, traubigen Blütenständen. Die Blüten erscheinen Anfang März bis April, vor oder mit dem Blattaustrieb.\n\nDie lang gestielten, kleinen, eingeschlechtlichen Blüten sind 4–5-zählig mit einfacher Blütenhülle, die Kronblätter fehlen. Die schlanken Blütenstiel sind mehr oder weniger behaart. Der Kelch ist außen mehr oder weniger borstig und rötlich-grünlich. Die männlichen Blüten enthalten bis zu sechs kurze Staubblätter mit großen, länglichen und roten, bespitzten Antheren, der Fruchtknoten der weiblichen Blüten ist kahl bis leicht behaart mit langen, grünlichen Narbenästen. Ein Diskus ist nicht erkennbar oder er ist nur klein.",
+      "quelle": "wp-acer-negundo",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,44 @@
+{
+  "hauptname": "Kopfsalat",
+  "lateinisch": "Lactuca sativa",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q83193",
+  "wikipedia": "Gartensalat",
+  "namen": [
+    {
+      "name": "Gartensalat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Salat",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Der Gartensalat wird in ganz Mitteleuropa in Gärten gezogen von der Ebene bis in die Bergstufe. In der alpinen und subalpinen Höhenstufe kommt er seltener vor. In Graubünden wurde er in Arosa noch in 1900 Meter Meereshöhe blühend beobachtet, im Kanton Wallis kommt er auf dem Großen St. Bernhard noch bei 2478 Meter vor.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 3 (mäßig feucht), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4+ (warm-kollin), Nährstoffzahl N = 4 (nährstoffreich), Kontinentalitätszahl K = 3 (subozeanisch bis subkontinental).",
+      "quelle": "wp-lactuca-sativa",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Es ist eine ein- bis zweijährige krautige Pflanze, die zunächst nur als Grundblatt-Rosette heranwächst; diese Rosette oder Teile von ihr sind es, die vom Menschen verzehrt werden. Die Grundblätter sind ungeteilt oder schrotsägeförmig, ganzrandig und nicht dornig gezähnt. Im Sommer schosst (= bildet einen Blütenstand) der Gartensalat schließlich in die Höhe und erreicht Wuchshöhen von 30 bis 100 Zentimetern. Der aufrechte Stängel ist im oberen Bereich rispig-verästelt, weißlich, oft rötlich gesprenkelt und kahl. Die Stängelblätter sind herzförmig-stängelumfassend und meist verkehrt-eiförmig.",
+      "quelle": "wp-lactuca-sativa",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "In rispigen Blütenständen stehen viele kleine, schmale körbchenförmige Teilblütenstände zusammen. Diese Teilblütenstände haben ungefähr zylindrische Form, die zur Anthese anschwillt, und ihre Hülle besteht aus dachig angeordneten Hüllblättern, die eine Länge von etwa 8 bis über 13 Millimetern aufweisen. In den Blütenkörbchen sind meist sieben bis 15 (selten bis zu 30 oder mehr) Zungenblüten vorhanden. Die überwiegend gelben, manchmal auch etwas violette Farbe enthaltenden Zungenblüten enden in fünf Kronzipfeln, woran man gut erkennen kann, dass die Kronröhre aus fünf Kronblättern gebildet wird.\n\nDie je nach Sorte weißlichen, hellgrauen, braunen oder schwarzen Achänen sind bei einer Länge von 3 bis 4 Millimetern verkehrt-eiförmig, haben eine oder mehrere Rippen und münden in eine oft fadenförmig verlängerte Spitze, an der der Pappus sitzt. Der weiße Pappus besteht aus mehreren Reihen einfacher und gleich langer Haare.",
+      "quelle": "wp-lactuca-sativa",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

@@ -1,0 +1,39 @@
+{
+  "hauptname": "Gurke",
+  "lateinisch": "Cucumis sativus",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q23425",
+  "wikipedia": "Gurke",
+  "namen": [
+    {
+      "name": "Salatgurke",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Gurke leitet sich her von dem altpolnischen ogurek, heute ogórek [ɔˈgurɛk], derselben Bedeutung. Dieses bereits im frühen Mittelalter aus den slawischen Sprachen übernommene Substantiv stammt über das gleichbedeutende mittelgriechische αγγούριον, angoúrion „Gurke“ (vielleicht auch dessen Diminutivform αγγουράκι, angouráki), vom Adjektiv άγουρος, águros [ˈaɣurɔs], „grün, unreif (bei Früchten)“ ab, das sich aus mittelgriechisch ἄωρος, áōros [ˈaorɔs], „unzeitig, unreif“ entwickelt hat. Im Deutschen ist „Gurke“ seit dem 16. Jahrhundert belegt, was zunächst auch eine Melone bezeichnete.",
+      "quelle": "wp-cucumis-sativus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Art ist ursprünglich getrenntgeschlechtig einhäusig (monözisch), dies gilt für die Wildformen und viele Kultursorten. Es wurden jedoch andromonözische und gynodiözische Sorten gezüchtet. Letztere bilden nur rein weibliche Pflanzen, die die Früchte ohne Bestäubung ansetzen und die dementsprechend hohen Ertrag liefern. Zur Herstellung von Saatgut und zur Züchtung wird die Bildung von männlichen Blüten durch Behandlung mit Silber-Ionen angeregt.\n\nDie Blütenstiele sind rund und mit etwa 2 Millimeter langen Haaren besetzt. Die Kelchzipfel sind schmal-lanzettlich, gleich lang oder länger als die becherförmige Kelchröhre. Die Krone hat einen Durchmesser von 2 bis 3 Zentimetern und ist goldgelb. Der Fruchtknoten ist dicht mit Stachelborsten besetzt, die auf Knötchen sitzen.",
+      "quelle": "wp-cucumis-sativus",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Die Salatgurken werden vorwiegend frisch als Salat verzehrt. Sie stammen überwiegend aus Treibhäusern. Einlege- und Schälgurken sind kleiner als die Salatgurken und kommen überwiegend aus dem Freilandanbau. Ihr Länge-zu-Breite-Verhältnis ist meist etwa 3:1. Sie werden durch Milchsäuregärung als Salzgurken oder mit einem Essigsud eingekocht und als Gewürzgurken oder Saure Gurke bezeichnet. Ausgewachsene Schälgurken können ebenfalls roh gegessen werden, oder sie werden zu Senf- oder Honiggurken verarbeitet oder als Schmorgurke zubereitet.\n\nGurken können auch als Suppe oder für Kochgerichte verwendet werden. In Ost- und Südasien werden Gurken gern als Gemüsebeilage gekocht, so werden z. B. in Indien Gurken in Currys und Chutneys verwendet. In Asien werden auch die Samen gegessen und aus den Samen wird ein Öl gewonnen, das ebenfalls in der Küche Verwendung findet. In Südostasien werden auch die jungen Blätter und Sprosse als Gemüse gekocht und gegessen.",
+      "quelle": "wp-cucumis-sativus",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

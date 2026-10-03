@@ -1,0 +1,59 @@
+{
+  "hauptname": "Rosenkohl",
+  "lateinisch": "Brassica oleracea",
+  "gruppen": [
+    "Gemüsepflanzen"
+  ],
+  "wikidata": "Q146212",
+  "wikipedia": "Gemüsekohl",
+  "namen": [
+    {
+      "name": "Gemüsekohl",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Kohlgemüse",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gemüse-Kohl",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Klippenkohl",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Chou Commun",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Ursprünglich ist die Wildform des Gemüsekohls in den meridionalen bis temperaten, ozeanisch geprägten Küstenbereichen Europas heimisch. Sie wächst auf Felsen, zum Teil auf Küstenkliffen, aber auch in Gebirgen. Wenige Autoren glauben, dass die Wildform ursprünglich nur in Spanien, Frankreich und Großbritannien vorkommt; die Vermutungen gehen aber weit auseinander; es gibt Autoren, die ein weites ursprüngliches Verbreitungsgebiet für die Wildformen angeben.\n\nIn Deutschland kommt die Wildform nur auf Helgoland vor und wird hier „Klippenkohl“ genannt. Er wächst hier in der Pflanzengesellschaft Brassicetum oleraceae (Crithmo-Armerion maritimae) an den Felshängen der Insel und teilweise an Ruderalstandorten, die den Schafen nicht zugänglich sind.\n\nDie Zuchtformen kommen außer in Gärten und auf Äckern selten auch verwildert vor und siedeln dann auf Schutt und auf frischen, nährstoffreichen Böden. Im Berner Oberland wird die Art bis in Höhen von 1870 Meter kultiviert.",
+      "quelle": "wp-brassica-oleracea-rosenkohl",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Der Gemüsekohl ist eine ein- bis zweijährige (Kulturformen) oder ausdauernde, krautige Pflanze, die im höheren Alter verholzt sein kann. Die Wuchshöhen betragen meist 50 bis 100 (40 bis 120) Zentimeter. Der Stängel ist abstehend-sparrig, jedoch wenig verzweigt und aufrecht.\n\nDie wechselständig am Stängel angeordneten Laubblätter sind oft in Blattstiel und -spreite gegliedert und oft abwischbar blau bereift sowie meist kahl. Die Blattspreite ist meist leierförmig fiederspaltig oder auch ungeteilt. Die oberen Stängelblätter sind an der Spreitenbasis gerundet oder verschmälert und sitzend.",
+      "quelle": "wp-brassica-oleracea-rosenkohl",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Blütezeit ist April bis September. Der Blütenstand ist schon beim Aufblühen verlängert und locker; die geöffneten Blüten stehen tiefer als die Knospen. Die Blütenstiele sind meist länger als der Kelch und fast so lang wie die ganze Blüte.\n\nDie zwittrigen Blüten sind vierzählig mit doppelter Blütenhülle. Die vier aufrechten Kelchblätter sind bei einer Länge von 6 bis 12 Millimetern schmal-elliptisch lang. Die vier schwefel-gelben Kronblätter sind bei einer Länge von 12 bis 26 Millimetern schmal-elliptisch oder schmal verkehrt-eiförmig; ihre Platte ist am Grund allmählich verschmälert und ihr Nagel ist schmal keilförmig und etwa so lang wie der Kelch. Die Staubblätter sind aufrecht. Von den vier Nektardrüsen stehen zwei an der Innenseite der beiden kürzeren Staubblätter und die 2 anderen außen je zwischen den zwei längeren Staubblättern.",
+      "quelle": "wp-brassica-oleracea-rosenkohl",
+      "auszug": true
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

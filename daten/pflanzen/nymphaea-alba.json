@@ -4,15 +4,39 @@
   "gruppen": [
     "Wasserpflanzen"
   ],
-  "wikidata": null,
-  "wikipedia": null,
-  "namen": [],
+  "wikidata": "Q147030",
+  "wikipedia": "Weiße Seerose",
+  "namen": [
+    {
+      "name": "Nénuphar Blanc",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
   "angaben": [
     {
-      "abschnitt": "Pflege",
-      "text": "Testtext – kein echter Inhalt. Dieser Text dient nur dazu, die Technik zu prüfen.",
-      "quelle": "test",
+      "abschnitt": "Herkunft",
+      "text": "Die Weiße Seerose kommt überwiegend in Europa vor. Sie kommt fast im gesamten Europa mit Ausnahme des hohen Nordens (bis 63° nördlicher Breite), großer Teile Spaniens und des östlichen Russlands vor. Südwärts reicht ihre Verbreitung bis Nordafrika, Griechenland, bis zur Türkei, dem Kaukasusraum, Irak, Iran, Jammu und Kaschmir in Indien und Tscheljabinsk in Sibirien. In Israel ist die Weiße Seerose ausgestorben.",
+      "quelle": "wp-nymphaea-alba",
       "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Weiße Seerose ist eine ausdauernde krautige Pflanze. Diese Wasserpflanze bildet verzweigte Rhizome als Überdauerungsorgane, mit denen sie im Gewässergrund verankert ist.",
+      "quelle": "wp-nymphaea-alba",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Blütezeit reicht über den ganzen Sommer von Juni bis September. Die Blüten stehe einzelnn auf einem langen Blütenstiel. Die zwittigen, wohlriechenden, mit einem Durchmesser von 9 bis 12 Zentimeter großen Blüten besitzen eine goldfarbenen Mitte. Die vier grünen Kelchblätter sind frei. Die meist 20 bis 25 (12 bis 33) weißen Kronblätter sind spiralig angeordnet und meist 3 bis 5,5, selten bis zu 8 Zentimeter lang. Die weißen Kronblätter gehen in die gleichfalls zahlreichen gelben Staubblätter über.\n\nDie Früchte sind bei einer Größe von 2,5 bis 3 Zentimetern halbkugelig bis eiförmig. Die glatten, meist 2 bis 3, selten bis zu 5 Millimeter großen Samen sind schwimmfähig.",
+      "quelle": "wp-nymphaea-alba",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Diese Art ist ein Starkzehrer. Da die Nährstoffaufnahme so gut wie ausschließlich über die Wurzeln erfolgt und für eine ausreichende Nährstoffdichte Tonmineralien im Wurzelbereich unabdingbar sind, stellt sich in Schwimmteichen mit anorganischem Grobsubstrat (Sand, Kies, Schotter) häufig Kümmerwuchs ein. Der sich aus Detritus bildende Mulm gibt seine Nährstoffe ausschließlich ans Wasser ab und kann nur mit Tonmineralien Schlamm bilden. Daher ist das Einbringen von Lehm oder Ton, evtl. als reines Tonmineral (etwa Bentonit) notwendig, damit sie reichlich Blüten ansetzt. Tonmineralien absorbieren Nährsalze und lagern sie in ausreichender Dichte an. Eine ausreichende Nährstoffdichte im Wasser würde einen Eutrophierungsgrad bedeuten, der das Gewässer für Badende gesundheitsgefährdend macht und auch für die Seerosen eine hohe Fäulnisgefahr (Kronenfäule) birgt.",
+      "quelle": "wp-nymphaea-alba",
+      "auszug": true
     }
   ],
   "pflegehinweise": [],

@@ -1,0 +1,55 @@
+{
+  "hauptname": "Weiß-Tanne",
+  "lateinisch": "Abies alba",
+  "gruppen": [
+    "Bäume"
+  ],
+  "wikidata": "Q146992",
+  "wikipedia": "Weiß-Tanne",
+  "namen": [
+    {
+      "name": "Pinus picea",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Abies pectinata",
+      "art": "lateinisch",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Weißtanne",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Obwohl es bei der Weiß-Tanne Unterschiede je nach Herkunft gibt, wird die Art Abies alba nicht in Unterarten oder Varietäten unterteilt. Bäume aus Südosteuropa unterscheiden sich genetisch von denen aus dem westlichen und südwestlichen Verbreitungsgebiet; ihre Wuchskraft ist höher und sie sind ökologisch anpassungsfähiger. Bäume aus Mittel- und Westeuropa unterscheiden sich nur in der Zusammensetzung der Monoterpene des Nadelharzes. Eine der Ursachen für die innerartlichen Unterschiede könnte eine primäre Selektion durch die unterschiedlichen klimatischen Bedingungen in den eiszeitlichen Refugien darstellen. Weitere Ursachen könnte eine sekundäre Selektion durch die Länge und Dauer der Rückwanderung sowie durch konkurrierende Baumarten sein.\n\nEinen Einfluss auf die Herkunftsunterschiede könnten Bastardisierungen mit der Griechischen Tanne (Abies cephalonica) und der Nebrodi-Tanne (Abies nebrodensis) haben, zu denen es während der letzten Eiszeit in Griechenland und in Süditalien kam.",
+      "quelle": "wp-abies-alba",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Weiß-Tanne erreicht eine Wuchshöhe von 30 bis 50 Metern, im Einzelfall sogar bis 65 Meter bei einem Brusthöhendurchmesser von bis zu 2, in seltenen Fällen bis zu 3,8 Metern. Das entspricht einem Stammesumfang von 6 bis 12 Metern. Während die Hauptäste in Scheinquirlen abgehen, sind die kleineren Äste spiralig angeordnet. Es werden keine Kurztriebe gebildet. Die Kronenform kann stark variieren und hängt vor allem vom geografischen Standort und den Lichtverhältnissen ab. Junge Bäume, die unter optimalen Lichtverhältnissen wachsen, bilden eine spitze Krone aus. Überwachsene Jungbäume sind flachkronig, entwickeln aber nach einer Freistellung schnell eine lange, spitze bis spitzkegelförmige Krone. Bei Altbäumen reduziert sich das Höhenwachstum der Gipfeltriebe, die obersten Seitentriebe wachsen jedoch noch in die Länge.",
+      "quelle": "wp-abies-alba",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Weiß-Tanne ist einhäusig-getrenntgeschlechtig (monözisch) und wird im Freistand mit 25 bis 35 und im Bestand mit 60 bis 70 Jahren mannbar. Je nach Standort blüht die Art von April bis Juni, kurz vor dem Erscheinen der neuen Triebe. Die 2 bis 3 Zentimeter langen männlichen Blütenzapfen sind gelb gefärbt. Man findet sie vor allem im mittleren und unteren Teil der Krone an den Unterseiten von vorjährigen Trieben. Die 3 bis 5 Zentimeter langen weiblichen Blütenzapfen sind blassgrün gefärbt und kommen etwas seltener vor als die männlichen Blütenzapfen. Man findet sie an den Oberseiten von kräftigen vorjährigen Trieben, vor allem im oberen Kronenbereich. Sie bestehen aus horizontal abstehenden, spitz zulaufenden Deckschuppen. Männliche und weibliche Blütenzapfen sind nur selten auf demselben Zweig zu finden. Der 106,9 bis 139,3 µm große Pollen ist hantelförmig und hat zwei seitliche, mehr als halbkugelige Luftsäcke. Die Bestäubung erfolgt über den Wind (Anemophilie).",
+      "quelle": "wp-abies-alba",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Sehr verbreitet ist die Nutzung der jungen Bäume als Christbaum. Dabei ist der Anteil an den beliebtesten Weihnachtsbaumarten jedoch regional unterschiedlich. Europaweit überwiegt jedoch zumeist der Anbau von Nordmann-Tannen. Selbst im tannenreichen Alpenland Österreich decken einheimische Weiß-Tannen und Fichten zusammen nur anteilig 23 Prozent der Christbaumproduktion ab, während die Nordmann-Tannen 49 Prozent Marktdeckung besitzen. Dabei stammt auch nur noch ein kleinerer Teil der österreichischen Nordmann-Tannen aus Importen, da inländische Produktionsbetriebe den Großteil der 2,35 Millionen in Österreich angebotenen Christbäume anbieten. Dabei beläuft sich der gesamtwirtschaftliche Marktwert in der Christbaumproduktion in Österreich bei einheimischen Tannen und Fichten auf 4,83 Millionen Euro, der der Nordmann-Tanne 34,3 Millionen Euro.",
+      "quelle": "wp-abies-alba",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}

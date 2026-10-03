@@ -1,0 +1,78 @@
+{
+  "hauptname": "Gemeine Hasel",
+  "lateinisch": "Corylus avellana",
+  "gruppen": [
+    "Sträucher",
+    "Obstgehölze",
+    "Heckenpflanzen"
+  ],
+  "wikidata": "Q124969",
+  "wikipedia": "Gemeine Hasel",
+  "namen": [
+    {
+      "name": "Waldhasel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnliche Haselnuss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Haselnuss",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Gewöhnliche Hasel",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Haselnussstrauch",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    },
+    {
+      "name": "Haselstrauch",
+      "art": "umgangssprachlich",
+      "quelle": "wikidata"
+    }
+  ],
+  "angaben": [
+    {
+      "abschnitt": "Herkunft",
+      "text": "Das natürliche Areal der Hasel umfasst große Teile Europas sowie Teile Anatoliens und des Kaukasus. Heute werden unter anderem auch an der Schwarzmeerküste in Nordanatolien – in den Provinzen Zonguldak bis Giresun – Haselnüsse in Plantagen angebaut. Im Norden reicht das natürliche Verbreitungsgebiet bis zu den Orkney-Inseln sowie in Norwegen bis zum Polarkreis. In Schweden kommt die Hasel bis zum 64., in Finnland bis zum 63. Breitengrad vor. Ob die Hasel in Nordafrika und in Syrien natürlich vorkommt, ist nicht ganz gesichert.",
+      "quelle": "wp-corylus-avellana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Die Hasel wächst bevorzugt in ozeanischem und subozeanischem Klima in sommerwarmen Lagen. Sie wächst in lichten Wäldern, an Waldrändern und Feldhecken. Sie ist eine Lichtpflanze, verträgt aber auch mäßigen Schatten. Bezüglich Feuchte, Bodenreaktion und Stickstoffbedarf ist sie nach der Klassifizierung nach Ellenberg indifferent. Ihr Optimum erreicht sie auf feuchten, gut durchlüfteten, warmen Böden, die einen hohen Humusgehalt und neutrale bis alkalische Reaktion haben. Auf nährstoffarmen Sanden sowie auf sauren, vernässten Standorten gedeiht sie nicht. Pflanzensoziologisch kommt sie in Mitteleuropa vor allem in Eichen-Hainbuchenwäldern (Carpinion betuli) und in Auenwäldern (Alno-Ulmion) vor. Die optimalen Bedingungen hat sie in älteren Schlehengebüschen (Prunetalia-Stadien) auf potentiellen Buchenwald-Standorten (Fagion bzw. Fagetalia).",
+      "quelle": "wp-corylus-avellana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Wuchs und Laub",
+      "text": "Die Blätter stehen zweizeilig wechselständig an den Trieben, an aufrechten Trieben jedoch spiralig. Der Blattstiel ist 0,5 bis 2 Zentimeter lang und drüsig behaart. Die Blattspreite ist runzelig, 7 bis 13 Zentimeter lang und 6 bis 10 Zentimeter breit. Die Form ist rundlich bis verkehrt-eiförmig. Die Spreitenspitze ist eine kurze Spitze, die Blattbasis ist oft etwas asymmetrisch und herzförmig. Der Blattrand ist grob doppelt gesägt. Die Blattoberseite ist zerstreut behaart und deutlich dunkler als die Unterseite. Die zwei kleinen, eiförmigen Nebenblätter fallen nach dem Blattaustrieb bald ab. Sonnen- und Schattenblätter unterscheiden sich in ihrer Anatomie. Je weniger Licht ein Blatt erhält, umso kürzer sind die Palisadenzellen. Im Herbst vergilben die Blätter vom Rand her, bevor sie abfallen.",
+      "quelle": "wp-corylus-avellana",
+      "auszug": false
+    },
+    {
+      "abschnitt": "Blüte",
+      "text": "Die Hasel ist monözisch, d. h., eine Pflanze verfügt über weibliche und männliche Blütenstände. Diese stehen in dichasialen Teilblütenständen. Letztere stehen entweder zu vielen und bilden Kätzchen (männliche Blüten) oder sie stehen zu mehreren und bleiben von der Knospe eingeschlossen (weibliche Blüten). Die Hasel hat ihre Blütezeit im Februar/März vor dem Laubaustrieb und ist als Frühblüher ein wichtiger Pollenlieferant für Honigbienen. An warmen, sonnigen Wintertagen werden allerdings nur die männlichen Kätzchen angeflogen, da die weiblichen Blüten weder duften noch Nektar anbieten. Die Bestäubung erfolgt in jedem Fall durch den Wind (Anemophilie). Die Blüten sind recht unscheinbar. Ein einziges Kätzchen enthält etwa 2 Millionen Pollenkörner. Mit etwa zehn Jahren tragen die Sträucher das erste Mal Früchte. Mit der leicht zu beobachtenden Haselblüte ist sie eine phänologische Zeigerpflanze.",
+      "quelle": "wp-corylus-avellana",
+      "auszug": true
+    },
+    {
+      "abschnitt": "Verwendung",
+      "text": "Für die industrielle Verarbeitung (Röstung) werden runde Kerne mit einem Durchmesser zwischen 9 und 13 mm benötigt. Industrienüsse sind darüber hinaus röstbar und leicht kernhautlösend. Die gehackten Nüsse oder das daraus gewonnene Haselnussöl werden für Backwaren, Süßigkeiten (Nougat, Krokant) und für Speiseeis verwendet. Die Röstung verstärkt den Nougatgeschmack; für weißes Nougat werden die Kernhäute entfernt.",
+      "quelle": "wp-corylus-avellana",
+      "auszug": false
+    }
+  ],
+  "pflegehinweise": [],
+  "merkmale": [],
+  "veraltet": false
+}
