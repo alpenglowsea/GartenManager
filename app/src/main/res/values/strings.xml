@@ -191,4 +191,40 @@
     <string name="pflanzen_test_treffer">%1$d Treffer</string>
     <string name="pflanzen_test_gefunden_ueber">gefunden über: %1$s</string>
     <string name="pflanzen_test_fehler">Fehler beim Lesen der Grunddaten: %1$s</string>
+
+    <!-- Teilschritt 4c: Pflanzenkatalog, Info-Fenster, Über GartenManager -->
+    <string name="katalog_menue">Pflanzenkatalog</string>
+    <string name="pflanzenkatalog_titel">Pflanzenkatalog</string>
+    <string name="info_nicht_gefunden">Diese Pflanze wurde in den Grunddaten nicht gefunden.</string>
+    <string name="info_laden_fehler">Fehler beim Lesen der Pflanze: %1$s</string>
+    <string name="info_auch_bekannt">Auch bekannt als: %1$s</string>
+    <string name="info_synonyme">Weitere wissenschaftliche Namen: %1$s</string>
+    <string name="info_gruppen">Gruppen: %1$s</string>
+    <string name="info_keine_angaben">Noch keine Angaben</string>
+    <string name="info_selbst_ergaenzen">Selbst ergänzen</string>
+    <string name="info_auszug_quelle">Auszug aus: %1$s</string>
+    <string name="info_ganz_quelle">Quelle: %1$s</string>
+    <string name="info_quellen_titel">Quellen und Lizenzen</string>
+    <string name="info_wikipedia_artikel">Wikipedia-Artikel: %1$s</string>
+    <string name="info_wikidata">Wikidata-Eintrag: %1$s</string>
+    <string name="info_zusammenstellung">Die Zusammenstellung der Daten in GartenManager steht unter CC BY-SA 4.0.</string>
+    <string name="info_lizenz">Lizenz: %1$s</string>
+    <string name="info_version">Version: %1$s</string>
+    <string name="info_abruf">Abgerufen am: %1$s</string>
+    <string name="info_aenderung">Änderung: %1$s</string>
+
+    <string name="ueber_titel">Über GartenManager</string>
+    <string name="ueber_version">Version %1$s</string>
+    <string name="ueber_beschreibung">GartenManager ist eine kostenlose App zum Planen und Verwalten des eigenen Gartens. Sie läuft vollständig auf diesem Gerät und braucht nach der Installation keine Internetverbindung. Nur das Öffnen der Links auf dieser Seite nutzt den Browser.</string>
+    <string name="ueber_programm_titel">Programm</string>
+    <string name="ueber_programm_text">Der Programmcode von GartenManager ist freie Software unter der GNU General Public License, Version 3 (GPL-3.0). Den Quelltext findest du im Projekt:</string>
+    <string name="ueber_daten_titel">Pflanzendaten</string>
+    <string name="ueber_daten_text">Die Pflanzendaten stammen aus mehreren Quellen. Jede Angabe trägt die Lizenz ihrer eigenen Quelle; im Info-Fenster jeder Pflanze steht unter „Quellen und Lizenzen“, woher welcher Text kommt. Texte aus Wikipedia sind Auszüge und wurden gekürzt.</string>
+    <string name="ueber_lizenz_wikipedia">Texte aus der deutschsprachigen Wikipedia: CC BY-SA 4.0 (Namensnennung, Weitergabe unter gleichen Bedingungen)</string>
+    <string name="ueber_lizenz_wikidata">Daten aus Wikidata: CC0 1.0 (gemeinfrei)</string>
+    <string name="ueber_lizenz_zusammenstellung">Die von GartenManager zusammengestellte Pflanzendatenbank: CC BY-SA 4.0</string>
+    <string name="ueber_quellen_uebersicht">Quellen in dieser Datenversion</string>
+    <string name="ueber_quellen_zeile">%1$d × %2$s (Lizenz: %3$s)</string>
+    <string name="ueber_hinweis_titel">Hinweis</string>
+    <string name="ueber_hinweis_text">Die Pflanzeninformationen wurden größtenteils automatisch aus freien Quellen übernommen und können Fehler oder Lücken enthalten. Sie ersetzen keine fachliche Beratung. Besonders bei Giftigkeit, Essbarkeit und Heilwirkung solltest du dich auf mehrere verlässliche Quellen stützen.</string>
 </resources>

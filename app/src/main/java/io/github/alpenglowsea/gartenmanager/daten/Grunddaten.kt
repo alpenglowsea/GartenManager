@@ -19,6 +19,40 @@ data class PflanzeTreffer(
     val gefundenUeber: String?,
 )
 
+data class QuelleInfo(
+    val schluessel: String,
+    val art: String,
+    val titel: String,
+    val adresse: String?,
+    val version: String?,
+    val lizenz: String?,
+    val abrufdatum: String?,
+    val aenderung: String?,
+)
+
+data class NameInfo(val name: String, val art: String)
+
+data class AngabeInfo(val abschnitt: String, val text: String, val quelle: String, val auszug: Boolean)
+
+/** Alles, was das Info-Fenster zu einer Pflanze zeigt. */
+data class PflanzeDetail(
+    val id: Long,
+    val hauptname: String,
+    val lateinisch: String,
+    val gattung: String,
+    val wikipedia: String?,
+    val wikidata: String?,
+    val hauptgruppe: String,
+    val gruppen: List<String>,
+    val namen: List<NameInfo>,
+    val angaben: List<AngabeInfo>,
+    /** Quellen der Angaben und Namen dieser Pflanze, in der Reihenfolge des ersten Auftretens. */
+    val quellen: List<QuelleInfo>,
+)
+
+/** Eine Zeile der Quellenübersicht: Art (zum Beispiel Wikipedia), Lizenz und Anzahl. */
+data class QuellenZaehlung(val art: String, val lizenz: String?, val anzahl: Int)
+
 /**
  * Lesezugriff auf die mitgelieferte Grunddaten-Datei ("Datei 1").
  *
@@ -122,6 +156,76 @@ object Grunddaten {
                 val ueber = c.getString(4)?.takeIf { it != name && it != lat }
                 liste += PflanzeTreffer(c.getLong(0), name, lat, c.getString(3) ?: "", ueber)
             }
+            liste
+        }
+    }
+
+    /** Alle Angaben zu einer Pflanze für das Info-Fenster; null, wenn es die Nummer nicht gibt. */
+    fun pflanze(context: Context, id: Long): PflanzeDetail? {
+        val d = oeffne(context)
+        val arg = arrayOf(id.toString())
+        val kopf = d.rawQuery(
+            "SELECT hauptname, lateinisch, gattung, wikipedia, wikidata FROM pflanze WHERE id = ?", arg,
+        ).use { c ->
+            if (!c.moveToFirst()) return null
+            arrayOf(c.getString(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4))
+        }
+        val gruppen = mutableListOf<String>()
+        var haupt = ""
+        d.rawQuery(
+            "SELECT g.name, pg.haupt FROM pflanze_gruppe pg JOIN gruppe g ON g.id = pg.gruppe_id " +
+                "WHERE pg.pflanze_id = ? ORDER BY pg.haupt DESC, g.id", arg,
+        ).use { c ->
+            while (c.moveToNext()) {
+                gruppen += c.getString(0)
+                if (c.getInt(1) == 1) haupt = c.getString(0)
+            }
+        }
+        if (haupt.isEmpty() && gruppen.isNotEmpty()) haupt = gruppen[0]
+        val namen = mutableListOf<NameInfo>()
+        val quellenSchluessel = linkedSetOf<String>()
+        d.rawQuery(
+            "SELECT name, art, quelle FROM name WHERE pflanze_id = ? AND art <> 'haupt' ORDER BY id", arg,
+        ).use { c ->
+            while (c.moveToNext()) {
+                if (c.getString(1) == "lateinisch" && c.getString(0) == kopf[1]) continue
+                namen += NameInfo(c.getString(0), c.getString(1))
+                if (!c.isNull(2)) quellenSchluessel += c.getString(2)
+            }
+        }
+        val angaben = mutableListOf<AngabeInfo>()
+        d.rawQuery(
+            "SELECT abschnitt, text, quelle, auszug FROM angabe WHERE pflanze_id = ? ORDER BY id", arg,
+        ).use { c ->
+            while (c.moveToNext()) {
+                angaben += AngabeInfo(c.getString(0), c.getString(1), c.getString(2), c.getInt(3) == 1)
+                quellenSchluessel += c.getString(2)
+            }
+        }
+        val quellen = quellenSchluessel.mapNotNull { quelle(d, it) }
+        return PflanzeDetail(id, kopf[0], kopf[1], kopf[2], kopf[3], kopf[4], haupt, gruppen, namen, angaben, quellen)
+    }
+
+    private fun quelle(d: SQLiteDatabase, schluessel: String): QuelleInfo? =
+        d.rawQuery(
+            "SELECT art, titel, adresse, version, lizenz, abrufdatum, aenderung FROM quelle WHERE schluessel = ?",
+            arrayOf(schluessel),
+        ).use { c ->
+            if (!c.moveToFirst()) null
+            else QuelleInfo(
+                schluessel, c.getString(0), c.getString(1), c.getString(2), c.getString(3),
+                c.getString(4), c.getString(5), c.getString(6),
+            )
+        }
+
+    /** Wie viele Quellen welcher Art und Lizenz in dieser Datenversion stecken (für "Über GartenManager"). */
+    fun quellenUebersicht(context: Context): List<QuellenZaehlung> {
+        val d = oeffne(context)
+        return d.rawQuery(
+            "SELECT art, lizenz, COUNT(*) FROM quelle GROUP BY art, lizenz ORDER BY art, lizenz", null,
+        ).use { c ->
+            val liste = mutableListOf<QuellenZaehlung>()
+            while (c.moveToNext()) liste += QuellenZaehlung(c.getString(0), c.getString(1), c.getInt(2))
             liste
         }
     }

@@ -80,11 +80,13 @@ fun GartenListeScreen(
     onGartenLoeschen: (Long) -> Unit,
     onGrundstueckAufloesen: (Long) -> Unit,
     onGrundstueckMitGaertenLoeschen: (Long) -> Unit,
-    onPflanzenTest: () -> Unit,
+    onKatalog: () -> Unit,
+    onUeber: () -> Unit,
 ) {
     var dialog by remember { mutableStateOf<DialogZustand>(DialogZustand.Keiner) }
     var menue by remember { mutableStateOf<MenueZiel?>(null) }
     var fabMenue by remember { mutableStateOf(false) }
+    var ueberMenue by remember { mutableStateOf(false) }
     val kopieZusatz = stringResource(R.string.kopie_zusatz)
 
     Scaffold(
@@ -92,7 +94,19 @@ fun GartenListeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
-                    TextButton(onClick = onPflanzenTest) { Text(stringResource(R.string.pflanzen_test_menue)) }
+                    TextButton(onClick = onKatalog) { Text(stringResource(R.string.katalog_menue)) }
+                    Box {
+                        IconButton(onClick = { ueberMenue = true }) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
+                        DropdownMenu(expanded = ueberMenue, onDismissRequest = { ueberMenue = false }) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.ueber_titel)) },
+                                onClick = {
+                                    ueberMenue = false
+                                    onUeber()
+                                },
+                            )
+                        }
+                    }
                 },
             )
         },

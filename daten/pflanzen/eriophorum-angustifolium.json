@@ -16,9 +16,15 @@
   "angaben": [
     {
       "abschnitt": "Herkunft",
-      "text": "Das Schmalblättrige Wollgras kommt in Europa, Asien (bis Korea und Japan), in Nordamerika und in Grönland vor.\n\nIn Europa erstreckt sich sein Verbreitungsgebiet nordwärts bis Nord-Norwegen, südwärts bis Nordspanien, Süditalien und bis zu den Gebirgen der Balkan-Halbinsel.\n\nIn Deutschland kommt es vor allem in den kalkarmen Mittelgebirgen und in der Norddeutschen Tiefebene vor.",
+      "text": "Das Schmalblättrige Wollgras kommt in fast ganz Europa, im arktischen und gemäßigten Asien und Nordamerika ziemlich häufig in warmgemäßigten bis arktischen Klimazonen vom Tiefland bis in Höhenlagen von etwa 2000 Metern NN (planar-kollin bis subalpin) vor. In Europa fehlt es nur in den Ländern Belarus, Ukraine, in Nordmazedonien und im europäischen Teil der Türkei.\n\nEs wächst auf nährstoffarmen (oligo- bis mesotrophen), basen- und kalkarmen, sauren bis mäßig sauren, nassen, zum Teil überschwemmten Moorböden überwiegend in Zwischenmooren und Hochmooren, in Kiefern- und Birkenbruchwäldern sowie in sekundären birkenreichen „Moorwäldern“ entwässerter Standorte, aber auch auf sauren, nährstoffarmen Sandböden an Ufern oligotropher Seen.\n\nDas Schmalblättrige Wollgras liebt mäßig basenreiche, sehr nasse, schlammige oder sandig-torfige Böden.",
       "quelle": "wp-eriophorum-angustifolium",
-      "auszug": false
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Das Schmalblättrige Wollgras kommt in fast ganz Europa, im arktischen und gemäßigten Asien und Nordamerika ziemlich häufig in warmgemäßigten bis arktischen Klimazonen vom Tiefland bis in Höhenlagen von etwa 2000 Metern NN (planar-kollin bis subalpin) vor. In Europa fehlt es nur in den Ländern Belarus, Ukraine, in Nordmazedonien und im europäischen Teil der Türkei.\n\nEs wächst auf nährstoffarmen (oligo- bis mesotrophen), basen- und kalkarmen, sauren bis mäßig sauren, nassen, zum Teil überschwemmten Moorböden überwiegend in Zwischenmooren und Hochmooren, in Kiefern- und Birkenbruchwäldern sowie in sekundären birkenreichen „Moorwäldern“ entwässerter Standorte, aber auch auf sauren, nährstoffarmen Sandböden an Ufern oligotropher Seen.\n\nDas Schmalblättrige Wollgras liebt mäßig basenreiche, sehr nasse, schlammige oder sandig-torfige Böden.",
+      "quelle": "wp-eriophorum-angustifolium",
+      "auszug": true
     },
     {
       "abschnitt": "Wuchs und Laub",

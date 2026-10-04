@@ -336,3 +336,13 @@ Als Nächstes:
 - Ergebnis nach den Korrekturen: Wikidata-Treffer 98 %, Wikipedia-Artikel 95 %; Herkunft 81 %, Wuchs und Laub 89 %, Blüte 67 %, Verwendung 69 %, Standort 8 %, Pflege 1 %. Noch 8 Pflanzen ohne Wikidata-Treffer, 22 ohne Artikel (bekommen "Noch keine Angaben" und können eigene Notizen erhalten).
 - Stichprobe 2 (Handlesung durch Claude): Kapitelreihenfolge und Chromosomen-/Frucht-Fehler sind weg. Neuer Fehler: das Stichwort "laub" traf "Volksglaube" und "Aberglauben" (3 von 30 Pflanzen: Seidelbast, Walnuss, Akelei). **Korrigiert:** kurze Stichwörter (laub, blatt, wuchs, nadeln) zählen nur am Wortanfang.
 - Weiterhin offen: Behandlung von Überschriften wie "Verbreitung und Standort" (rund 55 Fälle); Verwendungstexte beginnen teils mit Geschichte statt mit Gartenverwendung (bekannte Schwäche, siehe DATENMODELL.md 4.2).
+
+### 03.10.2026 (nachts): Teilschritt 4b abgeschlossen
+- Die Grunddaten-Datei mit 539 Pflanzen (Version 2) ist in der App, der Testbildschirm zeigt 539 Treffer. Damit hat die Datei auf dem Handy die 14-Pflanzen-Testversion ersetzt (Hinweis: setzt voraus, dass die App über die alte installiert wurde).
+- Als Nächstes: 4c (Piktogramme, Auswahl-Dialog, Info-Modal, "Über GartenManager" mit Quellen und Lizenzen).
+
+### 03.10.2026 (nachts): Entscheidung zu Überschriften und Teilschritt 4c geliefert
+- Entschieden: Überschriften wie "Verbreitung und Standort" (und Varianten) kommen in **Herkunft und Standort** (umgesetzt in `erzeuge_pflanzen.py`; Daten neu erzeugen, Version 3).
+- Neu in 4c: 13 Piktogramme (im Code gezeichnet, Gruppenfarbe, optional mit Initialen), **Pflanzenkatalog** (Suche, Gruppenfilter, Liste), **Info-Fenster** mit acht Abschnitten (zuklappbar, Zustand pro Pflanzenart gemerkt), Block "Quellen und Lizenzen", **"Über GartenManager"** (Menü ⋮ in der Gartenliste). Der alte Testbildschirm ist ersetzt.
+- Status: **ungetestet**, nicht kompiliert. Texte zu Lizenzen und Hinweis sind Entwürfe, keine Rechtsprüfung. Der Merker für zugeklappte Abschnitte liegt vorerst in SharedPreferences (nicht im Backup), zieht in 4d in die Datenbank.
+- Als Nächstes: 4d (Pflanzen im Garten platzieren, Datenbank Version 6).

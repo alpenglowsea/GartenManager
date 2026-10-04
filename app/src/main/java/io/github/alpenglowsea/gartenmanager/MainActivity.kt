@@ -16,7 +16,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.alpenglowsea.gartenmanager.ui.GartenListeScreen
 import io.github.alpenglowsea.gartenmanager.ui.GartenManagerTheme
 import io.github.alpenglowsea.gartenmanager.ui.GartenScreen
-import io.github.alpenglowsea.gartenmanager.ui.PflanzenTestScreen
+import io.github.alpenglowsea.gartenmanager.ui.PflanzenKatalogScreen
+import io.github.alpenglowsea.gartenmanager.ui.UeberScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +33,17 @@ class MainActivity : ComponentActivity() {
                 var offenerGartenId by rememberSaveable { mutableStateOf<Long?>(null) }
                 var bearbeiten by rememberSaveable { mutableStateOf(false) }
                 val offenerGarten = gaerten?.firstOrNull { it.id == offenerGartenId }
-                // Vorläufiger Testbildschirm für die Pflanzen-Grunddaten (Teilschritt 4a)
-                var pflanzenTest by rememberSaveable { mutableStateOf(false) }
+                // Pflanzenkatalog und "Über GartenManager" (von der Gartenliste aus erreichbar)
+                var katalogOffen by rememberSaveable { mutableStateOf(false) }
+                var ueberOffen by rememberSaveable { mutableStateOf(false) }
 
-                if (pflanzenTest && offenerGarten == null) {
-                    BackHandler { pflanzenTest = false }
-                    PflanzenTestScreen(onZurueck = { pflanzenTest = false })
+                if (ueberOffen && offenerGarten == null) {
+                    BackHandler { ueberOffen = false }
+                    UeberScreen(onZurueck = { ueberOffen = false })
+                } else if (katalogOffen && offenerGarten == null) {
+                    // Das Zurück-Verhalten innerhalb des Katalogs (Info-Fenster -> Liste) steckt im Katalog selbst.
+                    BackHandler { katalogOffen = false }
+                    PflanzenKatalogScreen(onZurueck = { katalogOffen = false })
                 } else if (offenerGarten != null) {
                     BackHandler {
                         // Zurück aus dem Bearbeiten führt in die Ansicht, aus der Ansicht in die Liste.
@@ -99,7 +105,8 @@ class MainActivity : ComponentActivity() {
                         onGartenLoeschen = viewModel::loescheGarten,
                         onGrundstueckAufloesen = viewModel::loeseGrundstueckAuf,
                         onGrundstueckMitGaertenLoeschen = viewModel::loescheGrundstueckMitGaerten,
-                        onPflanzenTest = { pflanzenTest = true },
+                        onKatalog = { katalogOffen = true },
+                        onUeber = { ueberOffen = true },
                     )
                 }
             }

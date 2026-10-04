@@ -16,9 +16,15 @@
   "angaben": [
     {
       "abschnitt": "Herkunft",
-      "text": "Die Weiße Seerose kommt überwiegend in Europa vor. Sie kommt fast im gesamten Europa mit Ausnahme des hohen Nordens (bis 63° nördlicher Breite), großer Teile Spaniens und des östlichen Russlands vor. Südwärts reicht ihre Verbreitung bis Nordafrika, Griechenland, bis zur Türkei, dem Kaukasusraum, Irak, Iran, Jammu und Kaschmir in Indien und Tscheljabinsk in Sibirien. In Israel ist die Weiße Seerose ausgestorben.",
+      "text": "Die Weiße Seerose kommt überwiegend in Europa vor. Sie kommt fast im gesamten Europa mit Ausnahme des hohen Nordens (bis 63° nördlicher Breite), großer Teile Spaniens und des östlichen Russlands vor. Südwärts reicht ihre Verbreitung bis Nordafrika, Griechenland, bis zur Türkei, dem Kaukasusraum, Irak, Iran, Jammu und Kaschmir in Indien und Tscheljabinsk in Sibirien. In Israel ist die Weiße Seerose ausgestorben.\n\nDie Weiße Seerose braucht nährstoffreiche, langsam fließende oder stehende Gewässer, die vor allem in der Vegetationszeit nicht zu kalt sein sollten. Nymphaea alba ist in Mitteleuropa eine Charakterart des Nymphaeetum albae, kommt aber auch in anderen Pflanzengesellschaften des Verbands Nymphaeion vor.\n\nDas Rhizom kriecht im humus- und nährstoffreichen Schlamm.",
       "quelle": "wp-nymphaea-alba",
-      "auszug": false
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Die Weiße Seerose braucht nährstoffreiche, langsam fließende oder stehende Gewässer, die vor allem in der Vegetationszeit nicht zu kalt sein sollten. Nymphaea alba ist in Mitteleuropa eine Charakterart des Nymphaeetum albae, kommt aber auch in anderen Pflanzengesellschaften des Verbands Nymphaeion vor.\n\nDas Rhizom kriecht im humus- und nährstoffreichen Schlamm.\n\nDie ökologischen Zeigerwerte nach Landolt et al. 2010 sind in der Schweiz: Feuchtezahl F = 5v (überschwemmt mit schwimmenden Organen), Lichtzahl L = 4 (hell), Reaktionszahl R = 3 (schwach sauer bis neutral), Temperaturzahl T = 4 (kollin), Nährstoffzahl N = 3 (mäßig nährstoffarm bis mäßig nährstoffreich), Kontinentalitätszahl K = 2 (subozeanisch).",
+      "quelle": "wp-nymphaea-alba",
+      "auszug": true
     },
     {
       "abschnitt": "Wuchs und Laub",

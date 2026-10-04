@@ -8,15 +8,6 @@
     "abrufdatum": null,
     "aenderung": null
   },
-  "wikidata": {
-    "art": "Wikidata",
-    "titel": "Wikidata (Bezeichnungen, Aliase)",
-    "adresse": "https://www.wikidata.org",
-    "version": null,
-    "lizenz": "CC0 1.0",
-    "abrufdatum": "2026-10-03",
-    "aenderung": null
-  },
   "wp-achillea-millefolium": {
     "art": "Wikipedia",
     "titel": "Wikipedia: Gemeine Schafgarbe",
@@ -25,6 +16,15 @@
     "lizenz": "CC BY-SA 4.0",
     "abrufdatum": "2026-10-03",
     "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
+  },
+  "wikidata": {
+    "art": "Wikidata",
+    "titel": "Wikidata (Bezeichnungen, Aliase)",
+    "adresse": "https://www.wikidata.org",
+    "version": null,
+    "lizenz": "CC0 1.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": null
   },
   "wp-aconitum-napellus": {
     "art": "Wikipedia",

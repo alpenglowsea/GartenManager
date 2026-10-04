@@ -26,9 +26,15 @@
   "angaben": [
     {
       "abschnitt": "Herkunft",
-      "text": "Obwohl es bei der Weiß-Tanne Unterschiede je nach Herkunft gibt, wird die Art Abies alba nicht in Unterarten oder Varietäten unterteilt. Bäume aus Südosteuropa unterscheiden sich genetisch von denen aus dem westlichen und südwestlichen Verbreitungsgebiet; ihre Wuchskraft ist höher und sie sind ökologisch anpassungsfähiger. Bäume aus Mittel- und Westeuropa unterscheiden sich nur in der Zusammensetzung der Monoterpene des Nadelharzes. Eine der Ursachen für die innerartlichen Unterschiede könnte eine primäre Selektion durch die unterschiedlichen klimatischen Bedingungen in den eiszeitlichen Refugien darstellen. Weitere Ursachen könnte eine sekundäre Selektion durch die Länge und Dauer der Rückwanderung sowie durch konkurrierende Baumarten sein.\n\nEinen Einfluss auf die Herkunftsunterschiede könnten Bastardisierungen mit der Griechischen Tanne (Abies cephalonica) und der Nebrodi-Tanne (Abies nebrodensis) haben, zu denen es während der letzten Eiszeit in Griechenland und in Süditalien kam.",
+      "text": "Von allen europäischen Waldbaumarten deckt sich die Verbreitung der Weiß-Tanne am deutlichsten mit dem Alpinen System (“European Mountain System” oder “European Alpine System”), womit ihre Verbreitungsgrenzen zu einem florenhistorisch zusammenhängenden subozeanischen Gebirgsraum Europas deckungsgleich sind. Sie ist innerhalb dieses europäischen temperaten Gebirgsgürtels von den Pyrenäen bis zur Balkanhalbinsel nördlich der sogenannten „Adamović-Linie“ verbreitet. Sie fehlt damit sowohl in kollinen Stufen Nordmitteleuropas, in subkontinentalen Flachländern Osteuropas als auch in typisch mediterranen Gebirgen Südeuropas, wo sie von nah verwandten vikariierenden und ausgesprochen reliktischen „Trocken-Tannen“ der subtropischen Mediterraneis abgelöst wird. Darüber hinaus bilden auch die Tannen der subozeanischen Klimate im Kaukasus sowie im nördlichen Kleinasien eigene Sippen.",
       "quelle": "wp-abies-alba",
-      "auszug": false
+      "auszug": true
+    },
+    {
+      "abschnitt": "Standort",
+      "text": "Von allen europäischen Waldbaumarten deckt sich die Verbreitung der Weiß-Tanne am deutlichsten mit dem Alpinen System (“European Mountain System” oder “European Alpine System”), womit ihre Verbreitungsgrenzen zu einem florenhistorisch zusammenhängenden subozeanischen Gebirgsraum Europas deckungsgleich sind. Sie ist innerhalb dieses europäischen temperaten Gebirgsgürtels von den Pyrenäen bis zur Balkanhalbinsel nördlich der sogenannten „Adamović-Linie“ verbreitet. Sie fehlt damit sowohl in kollinen Stufen Nordmitteleuropas, in subkontinentalen Flachländern Osteuropas als auch in typisch mediterranen Gebirgen Südeuropas, wo sie von nah verwandten vikariierenden und ausgesprochen reliktischen „Trocken-Tannen“ der subtropischen Mediterraneis abgelöst wird. Darüber hinaus bilden auch die Tannen der subozeanischen Klimate im Kaukasus sowie im nördlichen Kleinasien eigene Sippen.",
+      "quelle": "wp-abies-alba",
+      "auszug": true
     },
     {
       "abschnitt": "Wuchs und Laub",
