@@ -351,3 +351,10 @@ Als Nächstes:
 - Entscheidung: Standort-Texte aus Wikipedia, die das Vorkommen in der Natur beschreiben ("Verbreitung und Standort"), kommen nur noch unter Herkunft. Reine "Standort"-Abschnitte bleiben (46 Pflanzen, 8 %), wir prüfen, ob sie nützlich sind. Gartenstandort-Angaben (Licht, Boden) bleiben eine offene Datenfrage.
 - Plan: Pflanzenbild pro Pflanze (Wikimedia Commons, Lizenz je Bild), kleines Bild im Katalog statt Piktogramm, großes Bild oben im Info-Fenster, Piktogramm als Ersatz ohne Bild. Gruppenfarben auf den Kacheln (Stil B: Tönung plus Farbstreifen) mit neu abgestimmten Grüntönen (engster Farbabstand von 7,6 auf 20,0).
 - Stufen: 1 Daten + Farben, 2 Bildquelle prüfen (Testlauf), 3 Abruf + Bildkontrolle, 4 Bilder in Datenbank und App, 5 Feinschliff.
+
+### 09.10.2026 (abends): Bilder, Stufe 2 und 3 abgeschlossen, Stufe 4 geliefert
+- Bildabruf (`hole_bilder.py`): 504 von 526 Pflanzen (nach lateinischem Namen) mit freiem Bild (95 %), 22 ohne: 10 wegen fehlendem Urheber auf Commons (bewusst abgelehnt), 6 zu klein (unter 500 Pixel), 6 ohne Bild. Lizenzen überwiegend CC BY-SA, dazu CC BY, CC0, gemeinfrei. Geschätzte App-Größe der Bilder: 17 MB bei 480 px, rund 30 MB bei 640 px (Schätzung).
+- maxlag bei Wikimedia war oft überschritten; Standard in `hole_bilder.py` jetzt 30 s, per `--maxlag` einstellbar.
+- Entscheidungen: Kachel zeigt das Foto statt des Piktogramms (Piktogramm als Ersatz); Info-Fenster zeigt oben einen Bildausschnitt mit Erweitern-Knopf, der die Vollansicht ohne Zuschnitt öffnet (Namensnennung dort und im Block "Quellen und Lizenzen"); später (Stufe 5) Ausschnitt-Editor mit Mittelpunkt und Zoom, gespeichert in der eigenen Datenbank (Version 6).
+- Stufe 4 (ungetestet): `baue_bilder.py` (WebP, Standard 640 px), neue Tabelle `bild` in den Grunddaten, `PflanzenBild.kt` (Laden, Kachelbild, Kopfbild, Vollansicht mit Zoom), Info-Fenster und Über-Seite angepasst. Eigene Fotos möglich über `daten/bilder_eigen/eigene_bilder.json`.
+- Außerdem: Kachel-Layout (Gruppe in eigener Zeile, Name über die volle Breite), Stauden jetzt Blauviolett.

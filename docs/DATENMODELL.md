@@ -1,6 +1,8 @@
 # GartenManager: Entwurf des Datenmodells
 
-Stand: 29.09.2026, Version 0.2 (Fragen a bis c entschieden; Auszug-Regel als Vorschlag)
+Stand: 03.10.2026, Version 0.3 (Lizenznachtrag nach BfN-Antwort; Datenmodell sonst unverändert; Vorschlag: leere Tabelle "Merkmal" für spätere Filter, siehe PFLANZEN.md)
+
+Vorher: Stand 29.09.2026, Version 0.2 (Fragen a bis c entschieden; Auszug-Regel als Vorschlag)
 
 Dieses Dokument beschreibt, **was die App speichert und wie die Teile zusammenhängen**. Es enthält keinen Code. Es ist die Bauzeichnung der Datenbank: Wenn hier etwas falsch ist, ist es später teuer zu ändern. Deshalb prüfen wir es gemeinsam, bevor programmiert wird.
 
@@ -183,7 +185,7 @@ Vorteile:
 
 Ablauf pro Pflanze:
 1. Ausgang: unsere Pflanzenliste (Name, lateinischer Name, Gruppen).
-2. Wikidata abfragen: Namen, Aliase, Wikipedia-Titel (wie im Probelauf). Optional zusätzlich die FloraWeb-Schnittstelle als Namensprüfung für Wildpflanzen und eingebürgerte Arten (akzeptierter Name, Synonyme). Sie liefert keine Standort-, Wuchs- oder Pflegedaten. Die Lizenz ist noch nicht schriftlich geklärt, daher bisher nur Prüfung, keine Übernahme.
+2. Wikidata abfragen: Namen, Aliase, Wikipedia-Titel (wie im Probelauf). Optional zusätzlich die FloraWeb-Schnittstelle als reine Namensprüfung auf deinem Rechner für Wildpflanzen und eingebürgerte Arten (akzeptierter Name, Synonyme). Nach der BfN-Antwort vom 03.10.2026 übernehmen wir **keine** FloraWeb-Inhalte und speichern keine FloraWeb-Kennungen (sie können sich noch ändern).
 3. Wikipedia-Artikel abrufen, nach Überschriften in Abschnitte zerlegen (Regeln in Abschnitt 4.1).
 4. Ergebnis als Textdatei speichern, mit allen Quellenangaben.
 5. Stichprobenweise Prüfung durch Menschen.
@@ -227,6 +229,8 @@ Bekannte Schwächen, aus dem Probelauf:
 ## 5. Herkunft, Lizenz und Danke-Liste
 
 **Entschieden:** Das Datenpaket steht unter CC BY-SA 4.0, weil Wikipedia-Text darin steckt.
+
+**Nachtrag 03.10.2026 (Hinweis des BfN, kein Rechtsrat, nicht juristisch geprüft):** Eine Lizenz wie CC BY-SA kann man nur für ein **eigenständiges neues Werk** vergeben. Teile, die wir unverändert weitergeben, behalten ihre **ursprüngliche** Lizenz. Für uns heißt das: Jede Zeile hat ihre Quelle samt Lizenz (Tabelle Quelle, 2.5). Wikipedia-Auszüge: CC BY-SA 4.0. Wikidata-Angaben: CC0. Unsere eigene Zusammenstellung und Sortierung: CC BY-SA 4.0. Käme jemals eine Quelle mit anderer Lizenz hinzu (zum Beispiel CC BY), behält sie diese, und der Abschnitt "Quellen und Lizenzen" muss es ausweisen. Der Text für "Über GartenManager" muss das so formulieren, nicht pauschal "alles CC BY-SA".
 
 - Jede Zeile in Angabe und Name hat eine Quelle (2.5).
 - Im Modal zeigt der nicht wegklappbare Abschnitt "Quellen und Lizenzen" für die jeweilige Pflanze: Artikelname, Link, Versionsnummer, Lizenz, Änderungshinweis.
@@ -290,3 +294,6 @@ Ich habe die Zuordnung der Überschriften bei der Wald-Erdbeere anhand der Über
 - Import einer Sicherung aus einer neueren App-Version (Abschnitt 6).
 - Größe der fertigen Grunddaten-Datei. **Schätzung:** 539 Pflanzen mit je einigen Kilobyte Text ergeben wenige Megabyte. Ich habe es nicht nachgerechnet, ein Problem für die App-Größe sehe ich aber nicht.
 - Die Datenstruktur für den gezeichneten Garten (kommt in einem eigenen Dokument).
+
+## Nachtrag 09.10.2026: Tabelle `bild` (Grunddaten, Datei 1)
+`bild(pflanze_id PRIMARY KEY, datei, urheber, lizenz, lizenz_url, seite, titel, herkunft, abruf)`. Ein Bild je Pflanze; die Bilddatei liegt als WebP in `assets/bilder/<lateinischer-slug>.webp`, Pflanzen mit gleichem lateinischen Namen teilen sich eine Datei. Die Metadaten stehen in `daten/bilder.json` (erzeugt von `tools/baue_bilder.py`). Der persönliche Bildausschnitt (Mittelpunkt, Zoom) kommt in Stufe 5 in die eigene Datenbank (Datei 2).

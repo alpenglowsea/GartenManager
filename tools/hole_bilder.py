@@ -5,6 +5,7 @@ Aufruf (im Hauptordner des Projekts):
     python3 tools/hole_bilder.py --test 20      # Testlauf: 20 gleichmäßig verteilte Pflanzen
     python3 tools/hole_bilder.py                # alle Pflanzen (fortsetzbar)
     python3 tools/hole_bilder.py --ersatz       # für Bilder aus daten/bilder_ausschluss.txt das nächste Bild suchen
+    python3 tools/hole_bilder.py --maxlag 60    # Server darf stärker verzögert sein, bevor wir warten (Standard 30)
     python3 tools/hole_bilder.py --berichte     # nur Bericht und Kontaktbögen neu schreiben (kein Abruf)
 
 Voraussetzung: hole_daten.py ist gelaufen (wir brauchen die Wikidata-Nummer in rohdaten/).
@@ -36,7 +37,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from hole_daten import Netzfehler, PAUSE, USER_AGENT, abfragen, aussagen, wikidata_entitaeten  # noqa: E402
+from hole_daten import Netzfehler, PAUSE, USER_AGENT, abfragen  # noqa: E402
 from pflanzenliste import WURZEL, finde_liste, lies_liste, slug  # noqa: E402
 
 BREITE = 960          # Breite der heruntergeladenen Fassung (ein Standardmaß von Wikimedia)
@@ -47,6 +48,22 @@ BOGEN_GROESSE = 60
 
 
 # ---------- Hilfen ----------
+
+API_MAXLAG = 30  # Sekunden; wird mit --maxlag geändert (0 = Angabe weglassen)
+
+
+def api(url):
+    """Ruft eine API-Adresse ab; der Wert für maxlag kommt aus API_MAXLAG statt aus der Adresse."""
+    url = re.sub(r"&?maxlag=\d+", "", url)
+    if API_MAXLAG:
+        url += "&maxlag=%d" % API_MAXLAG
+    return abfragen(url)
+
+
+def wikidata_claims(eid):
+    url = "https://www.wikidata.org/w/api.php?" + urllib.parse.urlencode({
+        "action": "wbgetentities", "ids": eid, "props": "claims", "format": "json"})
+    return api(url).get("entities", {}).get(eid, {})
 
 def lade_datei(url, ziel):
     """Lädt eine Datei herunter (bis zu 4 Versuche). Wirft Netzfehler."""
@@ -111,7 +128,7 @@ def commons_info(titel_liste):
         "action": "query", "titles": "|".join(titel_liste), "prop": "imageinfo", "redirects": 1,
         "iiprop": "url|size|mime|extmetadata", "iiurlwidth": BREITE, "format": "json", "maxlag": 5,
     })
-    antwort = abfragen(url)
+    antwort = api(url)
     q = antwort.get("query", {})
     umbenennung = {}
     for liste in (q.get("normalized", []), q.get("redirects", [])):
@@ -139,7 +156,7 @@ def kandidaten_fuer(roh):
     liste = []
     eid = roh.get("wikidata_id")
     if eid:
-        e = wikidata_entitaeten([eid], props="claims").get(eid, {})
+        e = wikidata_claims(eid)
         bevorzugt, normal = [], []
         for a in e.get("claims", {}).get("P18", []):
             w = a.get("mainsnak", {}).get("datavalue", {}).get("value")
@@ -154,7 +171,7 @@ def kandidaten_fuer(roh):
             "action": "query", "prop": "pageimages", "piprop": "name", "titles": dewiki,
             "redirects": 1, "format": "json", "maxlag": 5,
         })
-        for seite in abfragen(url).get("query", {}).get("pages", {}).values():
+        for seite in api(url).get("query", {}).get("pages", {}).values():
             if seite.get("pageimage"):
                 liste.append((datei_titel(seite["pageimage"]), "Titelbild des Wikipedia-Artikels"))
     gesehen, eindeutig = set(), []
@@ -352,8 +369,12 @@ def main():
     ap.add_argument("--test", type=int, default=0, help="nur N gleichmäßig verteilte Pflanzen")
     ap.add_argument("--ersatz", action="store_true", help="Ersatz für Bilder aus daten/bilder_ausschluss.txt suchen")
     ap.add_argument("--berichte", action="store_true", help="nur Bericht und Kontaktbögen neu schreiben")
+    ap.add_argument("--maxlag", type=int, default=30,
+                    help="Wie stark der Wikimedia-Server verzögert sein darf, bevor wir warten (Sekunden, Standard 30; 0 = nie warten)")
     ap.add_argument("--wurzel", default=WURZEL)
     args = ap.parse_args()
+    global API_MAXLAG
+    API_MAXLAG = args.maxlag
 
     pflanzen = lies_liste(finde_liste(args.wurzel))
     roh_ordner = os.path.join(args.wurzel, "rohdaten")

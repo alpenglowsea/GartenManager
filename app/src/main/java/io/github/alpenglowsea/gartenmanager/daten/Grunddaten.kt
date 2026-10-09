@@ -17,6 +17,20 @@ data class PflanzeTreffer(
     val hauptgruppe: String,
     /** Der Name, über den die Pflanze gefunden wurde (nur wenn er vom Hauptnamen abweicht). */
     val gefundenUeber: String?,
+    /** Dateiname des Bildes in assets/bilder, oder null. */
+    val bild: String? = null,
+)
+
+/** Das Foto einer Pflanze samt Nachweis (Urheber, Lizenz, Quelle). */
+data class BildInfo(
+    val datei: String,
+    val urheber: String?,
+    val lizenz: String,
+    val lizenzUrl: String?,
+    val seite: String?,
+    val titel: String?,
+    val herkunft: String?,
+    val abruf: String?,
 )
 
 data class QuelleInfo(
@@ -48,6 +62,7 @@ data class PflanzeDetail(
     val angaben: List<AngabeInfo>,
     /** Quellen der Angaben und Namen dieser Pflanze, in der Reihenfolge des ersten Auftretens. */
     val quellen: List<QuelleInfo>,
+    val bild: BildInfo? = null,
 )
 
 /** Eine Zeile der Quellenübersicht: Art (zum Beispiel Wikipedia), Lizenz und Anzahl. */
@@ -135,7 +150,8 @@ object Grunddaten {
         val sb = StringBuilder(
             "SELECT p.id, p.hauptname, p.lateinisch, " +
                 "(SELECT g.name FROM pflanze_gruppe pg JOIN gruppe g ON g.id = pg.gruppe_id " +
-                "WHERE pg.pflanze_id = p.id AND pg.haupt = 1), $gefunden " +
+                "WHERE pg.pflanze_id = p.id AND pg.haupt = 1), $gefunden, " +
+                "(SELECT b.datei FROM bild b WHERE b.pflanze_id = p.id) " +
                 "FROM pflanze p WHERE p.veraltet = 0"
         )
         if (mitText) {
@@ -154,7 +170,7 @@ object Grunddaten {
                 val name = c.getString(1)
                 val lat = c.getString(2)
                 val ueber = c.getString(4)?.takeIf { it != name && it != lat }
-                liste += PflanzeTreffer(c.getLong(0), name, lat, c.getString(3) ?: "", ueber)
+                liste += PflanzeTreffer(c.getLong(0), name, lat, c.getString(3) ?: "", ueber, c.getString(5))
             }
             liste
         }
@@ -203,7 +219,17 @@ object Grunddaten {
             }
         }
         val quellen = quellenSchluessel.mapNotNull { quelle(d, it) }
-        return PflanzeDetail(id, kopf[0], kopf[1], kopf[2], kopf[3], kopf[4], haupt, gruppen, namen, angaben, quellen)
+        val bild = d.rawQuery(
+            "SELECT datei, urheber, lizenz, lizenz_url, seite, titel, herkunft, abruf FROM bild WHERE pflanze_id = ?", arg,
+        ).use { c ->
+            if (!c.moveToFirst()) null
+            else BildInfo(
+                c.getString(0), c.getString(1)?.takeIf { it.isNotBlank() }, c.getString(2),
+                c.getString(3)?.takeIf { it.isNotBlank() }, c.getString(4)?.takeIf { it.isNotBlank() },
+                c.getString(5)?.takeIf { it.isNotBlank() }, c.getString(6), c.getString(7),
+            )
+        }
+        return PflanzeDetail(id, kopf[0], kopf[1], kopf[2], kopf[3], kopf[4], haupt, gruppen, namen, angaben, quellen, bild)
     }
 
     private fun quelle(d: SQLiteDatabase, schluessel: String): QuelleInfo? =
@@ -226,6 +252,16 @@ object Grunddaten {
         ).use { c ->
             val liste = mutableListOf<QuellenZaehlung>()
             while (c.moveToNext()) liste += QuellenZaehlung(c.getString(0), c.getString(1), c.getInt(2))
+            liste
+        }
+    }
+
+    /** Wie viele Pflanzenfotos unter welcher Lizenz stehen (für "Über GartenManager"). */
+    fun bilderUebersicht(context: Context): List<Pair<String, Int>> {
+        val d = oeffne(context)
+        return d.rawQuery("SELECT lizenz, COUNT(*) FROM bild GROUP BY lizenz ORDER BY COUNT(*) DESC, lizenz", null).use { c ->
+            val liste = mutableListOf<Pair<String, Int>>()
+            while (c.moveToNext()) liste += c.getString(0) to c.getInt(1)
             liste
         }
     }

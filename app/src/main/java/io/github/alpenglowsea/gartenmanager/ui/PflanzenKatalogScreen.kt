@@ -187,7 +187,7 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
-                                PflanzenSymbol(gruppe = t.hauptgruppe, name = t.hauptname, groesse = 44.dp)
+                                PflanzenKachelBild(bild = t.bild, gruppe = t.hauptgruppe, name = t.hauptname)
                                 Column(Modifier.weight(1f)) {
                                     Text(t.hauptname, style = MaterialTheme.typography.titleMedium)
                                     Text(

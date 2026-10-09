@@ -227,4 +227,16 @@
     <string name="ueber_quellen_zeile">%1$d × %2$s (Lizenz: %3$s)</string>
     <string name="ueber_hinweis_titel">Hinweis</string>
     <string name="ueber_hinweis_text">Die Pflanzeninformationen wurden größtenteils automatisch aus freien Quellen übernommen und können Fehler oder Lücken enthalten. Sie ersetzen keine fachliche Beratung. Besonders bei Giftigkeit, Essbarkeit und Heilwirkung solltest du dich auf mehrere verlässliche Quellen stützen.</string>
+
+    <!-- Pflanzenfotos -->
+    <string name="info_bild_gross">Bild in voller Größe</string>
+    <string name="info_foto_mit">Foto: %1$s · %2$s</string>
+    <string name="info_foto_ohne">Foto: %1$s</string>
+    <string name="info_bild_titel">Foto</string>
+    <string name="info_bild_urheber">Urheber: %1$s</string>
+    <string name="info_bild_datei">Datei auf Wikimedia Commons: %1$s</string>
+    <string name="info_bild_zoomhinweis">Zum Zoomen zwei Finger benutzen, Doppeltipp setzt zurück.</string>
+    <string name="ueber_bilder_titel">Pflanzenfotos</string>
+    <string name="ueber_bilder_text">Die Fotos stammen überwiegend von Wikimedia Commons. Jedes Foto hat seine eigene Lizenz, Urheber und Quelle stehen im Info-Fenster der Pflanze. Verteilung der Lizenzen in dieser Datenversion:</string>
+    <string name="ueber_bilder_zeile">%1$d × %2$s</string>
 </resources>

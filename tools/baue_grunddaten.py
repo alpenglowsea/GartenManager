@@ -13,6 +13,9 @@ daten/nummern.csv eingetragen und nie wieder vergeben. Nur Python-Standardbiblio
 """
 import csv, hashlib, json, os, re, sqlite3, sys, unicodedata
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from pflanzenliste import slug  # noqa: E402
+
 WURZEL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATEN = os.path.join(WURZEL, "daten")
 ASSETS = os.path.join(WURZEL, "app", "src", "main", "assets")
@@ -98,6 +101,8 @@ def main():
         text TEXT NOT NULL, von_monat INTEGER NOT NULL, bis_monat INTEGER NOT NULL, quelle TEXT NOT NULL);
     CREATE TABLE merkmal (id INTEGER PRIMARY KEY, pflanze_id INTEGER NOT NULL, schluessel TEXT NOT NULL, wert TEXT NOT NULL);
     CREATE TABLE danke (id INTEGER PRIMARY KEY, text TEXT NOT NULL);
+    CREATE TABLE bild (pflanze_id INTEGER PRIMARY KEY, datei TEXT NOT NULL, urheber TEXT, lizenz TEXT NOT NULL,
+        lizenz_url TEXT, seite TEXT, titel TEXT, herkunft TEXT, abruf TEXT);
     """)
 
     for i, name in enumerate(gruppen, 1):
@@ -109,6 +114,11 @@ def main():
                    (k, q["art"], q["titel"], q.get("adresse"), q.get("version"),
                     q.get("lizenz"), q.get("abrufdatum"), q.get("aenderung")))
 
+    bilder = {}
+    bilder_pfad = os.path.join(DATEN, "bilder.json")
+    if os.path.exists(bilder_pfad):
+        bilder = lade_json(bilder_pfad)
+    bilder_benutzt = set()
     anzahl_namen = 0
     gesehen_namen = set()
     for fn in dateien:
@@ -125,6 +135,14 @@ def main():
         db.execute("INSERT INTO pflanze VALUES (?,?,?,?,?,?,?,?,?)",
                    (pid, p["hauptname"], p["lateinisch"], gattung, p.get("wikidata"), p.get("wikipedia"),
                     None, 1 if p.get("veraltet") else 0, normalisiere(p["hauptname"])))
+        b = bilder.get(slug(p["lateinisch"]))
+        if b:
+            if not os.path.exists(os.path.join(ASSETS, "bilder", b["datei"])):
+                fehler(f"{wo}: Bilddatei fehlt in assets/bilder: {b['datei']} (baue_bilder.py laufen lassen)")
+            db.execute("INSERT INTO bild VALUES (?,?,?,?,?,?,?,?,?)",
+                       (pid, b["datei"], b.get("urheber"), b["lizenz"], b.get("lizenz_url"), b.get("seite"),
+                        b.get("titel"), b.get("herkunft"), b.get("abruf")))
+            bilder_benutzt.add(slug(p["lateinisch"]))
         namen = [(p["hauptname"], "haupt", None), (p["lateinisch"], "lateinisch", None)]
         for n in p.get("namen", []):
             if n["art"] not in NAMENSARTEN:
@@ -151,6 +169,9 @@ def main():
             if not (1 <= h["von_monat"] <= 12 and 1 <= h["bis_monat"] <= 12):
                 fehler(f"{wo}: Monat ausserhalb 1-12")
 
+    unbenutzt = sorted(set(bilder) - bilder_benutzt)
+    if unbenutzt:
+        print(f"Hinweis: {len(unbenutzt)} Bilder in daten/bilder.json gehören zu keiner Pflanze, zum Beispiel: {unbenutzt[:3]}")
     db.execute("INSERT INTO meta VALUES ('version', ?)", (str(version),))
     db.execute("INSERT INTO meta VALUES ('testdaten', ?)", ("1" if testdaten else "0",))
     db.execute("PRAGMA user_version=%d" % version)
@@ -161,7 +182,7 @@ def main():
     sha = hashlib.sha256(open(DB, "rb").read()).hexdigest()[:8]
     with open(os.path.join(ASSETS, "grunddaten.version"), "w") as f:
         f.write(f"{version}:{sha}")
-    print(f"Fertig: {len(dateien)} Pflanzen, {anzahl_namen} Namen, Version {version}:{sha}")
+    print(f"Fertig: {len(dateien)} Pflanzen, {anzahl_namen} Namen, {len(bilder_benutzt)} Bilder, Version {version}:{sha}")
     print("Datei:", DB)
 
 

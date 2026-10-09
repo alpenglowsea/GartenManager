@@ -26,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +56,12 @@ internal fun lizenzAdresse(lizenz: String?): String? = when {
     lizenz == null -> null
     lizenz.startsWith("CC BY-SA 4.0") -> "https://creativecommons.org/licenses/by-sa/4.0/deed.de"
     lizenz.startsWith("CC0") -> "https://creativecommons.org/publicdomain/zero/1.0/deed.de"
-    else -> null
+    else -> {
+        // Zum Beispiel "CC BY 2.5" oder "CC BY-SA 3.0 de": Art und Version stehen im Namen
+        val m = Regex("""CC BY(-SA)? (\d\.\d)""").find(lizenz)
+        if (m == null) null
+        else "https://creativecommons.org/licenses/by" + (if (m.groupValues[1].isEmpty()) "" else "-sa") + "/" + m.groupValues[2] + "/"
+    }
 }
 
 /** Eine antippbare Internetadresse. Das öffnet den Browser des Geräts; die App selbst braucht kein Internet. */
@@ -89,6 +95,7 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
     var detail by remember(pflanzeId) { mutableStateOf<PflanzeDetail?>(null) }
     var fehler by remember(pflanzeId) { mutableStateOf<String?>(null) }
     var zugeklappt by remember(pflanzeId) { mutableStateOf(merker.zugeklappt(pflanzeId)) }
+    var voll by rememberSaveable(pflanzeId) { mutableStateOf(false) }
 
     LaunchedEffect(pflanzeId) {
         try {
@@ -97,6 +104,12 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
         } catch (e: Exception) {
             fehler = context.getString(R.string.info_laden_fehler, e.toString())
         }
+    }
+
+    val grossesBild = detail?.bild
+    if (voll && grossesBild != null) {
+        BildVollansicht(grossesBild, detail?.hauptname ?: "") { voll = false }
+        return
     }
 
     Scaffold(
@@ -123,7 +136,7 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 Text(fehler ?: "", color = MaterialTheme.colorScheme.error)
             }
             if (d != null) {
-                Kopf(d)
+                Kopf(d) { voll = true }
                 Spacer(Modifier.height(8.dp))
                 for (abschnitt in ABSCHNITTE) {
                     val zu = abschnitt in zugeklappt
@@ -146,13 +159,29 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
 }
 
 @Composable
-private fun Kopf(d: PflanzeDetail) {
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        PflanzenSymbol(d.hauptgruppe, d.hauptname, 72.dp, mitInitialen = true)
+private fun Kopf(d: PflanzeDetail, onVoll: () -> Unit) {
+    val bild = d.bild
+    if (bild != null) {
         Column {
+            PflanzenKopfbild(bild, d.hauptname, onVoll)
+            Text(
+                fotoZeile(bild),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
+            )
             Text(d.hauptname, style = MaterialTheme.typography.headlineSmall)
             Text(d.lateinisch, style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
             Text(d.hauptgruppe, style = MaterialTheme.typography.labelLarge)
+        }
+    } else {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            PflanzenSymbol(d.hauptgruppe, d.hauptname, 72.dp, mitInitialen = true)
+            Column {
+                Text(d.hauptname, style = MaterialTheme.typography.headlineSmall)
+                Text(d.lateinisch, style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
+                Text(d.hauptgruppe, style = MaterialTheme.typography.labelLarge)
+            }
         }
     }
 }
@@ -221,6 +250,8 @@ private fun QuellenUndLizenzen(d: PflanzeDetail) {
                 if (d.wikidata != null) Text(stringResource(R.string.info_wikidata, d.wikidata), style = MaterialTheme.typography.bodySmall)
             }
         }
+        val bild = d.bild
+        if (bild != null) BildNachweis(bild)
         for (q in d.quellen) QuelleBlock(q)
         Text(stringResource(R.string.info_zusammenstellung), style = MaterialTheme.typography.bodySmall)
     }

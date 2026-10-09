@@ -43,14 +43,17 @@ fun UeberScreen(onZurueck: () -> Unit) {
     val context = LocalContext.current
     var info by remember { mutableStateOf<GrunddatenInfo?>(null) }
     var quellen by remember { mutableStateOf<List<QuellenZaehlung>>(emptyList()) }
+    var bilder by remember { mutableStateOf<List<Pair<String, Int>>>(emptyList()) }
 
     LaunchedEffect(Unit) {
         try {
             withContext(Dispatchers.IO) {
                 val i = Grunddaten.info(context)
                 val q = Grunddaten.quellenUebersicht(context)
+                val b = Grunddaten.bilderUebersicht(context)
                 info = i
                 quellen = q
+                bilder = b
             }
         } catch (e: Exception) {
             // Ohne Grunddaten bleibt der Datenteil einfach leer.
@@ -116,6 +119,15 @@ fun UeberScreen(onZurueck: () -> Unit) {
                         stringResource(R.string.ueber_quellen_zeile, q.anzahl, q.art, q.lizenz ?: "–"),
                         style = MaterialTheme.typography.bodySmall,
                     )
+                }
+            }
+
+            if (bilder.isNotEmpty()) {
+                HorizontalDivider()
+                Text(stringResource(R.string.ueber_bilder_titel), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.ueber_bilder_text), style = MaterialTheme.typography.bodyMedium)
+                for ((lizenz, anzahl) in bilder) {
+                    Text(stringResource(R.string.ueber_bilder_zeile, anzahl, lizenz), style = MaterialTheme.typography.bodySmall)
                 }
             }
 
