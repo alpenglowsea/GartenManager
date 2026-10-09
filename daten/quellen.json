@@ -8,15 +8,6 @@
     "abrufdatum": null,
     "aenderung": null
   },
-  "wp-achillea-millefolium": {
-    "art": "Wikipedia",
-    "titel": "Wikipedia: Gemeine Schafgarbe",
-    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Schafgarbe&oldid=270884873",
-    "version": "270884873",
-    "lizenz": "CC BY-SA 4.0",
-    "abrufdatum": "2026-10-03",
-    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
-  },
   "wikidata": {
     "art": "Wikidata",
     "titel": "Wikidata (Bezeichnungen, Aliase)",
@@ -25,6 +16,15 @@
     "lizenz": "CC0 1.0",
     "abrufdatum": "2026-10-03",
     "aenderung": null
+  },
+  "wp-achillea-millefolium": {
+    "art": "Wikipedia",
+    "titel": "Wikipedia: Gemeine Schafgarbe",
+    "adresse": "https://de.wikipedia.org/w/index.php?title=Gemeine_Schafgarbe&oldid=270884873",
+    "version": "270884873",
+    "lizenz": "CC BY-SA 4.0",
+    "abrufdatum": "2026-10-03",
+    "aenderung": "Text einem Abschnitt zugeordnet und gegebenenfalls zum Auszug gekürzt"
   },
   "wp-aconitum-napellus": {
     "art": "Wikipedia",

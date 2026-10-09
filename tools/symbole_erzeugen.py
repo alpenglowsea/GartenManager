@@ -163,17 +163,17 @@ def zwiebel(g):
 
 # Name der Gruppe (wie in daten/gruppen.json), Gruppenfarbe, Zeichenfunktion
 GRUPPEN = [
-    ("Stauden", 0x608C4A, stauden),
-    ("Sträucher", 0x3E825E, straucher),
+    ("Stauden", 0x5B5FC7, stauden),
+    ("Sträucher", 0x2F7D55, straucher),
     ("Bäume", 0x6E5A3C, baum),
-    ("Heckenpflanzen", 0x326E46, hecke),
-    ("Gräser", 0x96A03C, graeser),
-    ("Kletterpflanzen", 0x568C82, kletter),
+    ("Heckenpflanzen", 0x1F4D33, hecke),
+    ("Gräser", 0xC2C84A, graeser),
+    ("Kletterpflanzen", 0x4FB5A5, kletter),
     ("Obstgehölze", 0xC85A46, obst),
-    ("Beerensträucher", 0xA6466E, beeren),
-    ("Kräuter", 0x6EA05A, kraeuter),
+    ("Beerensträucher", 0x9C3B66, beeren),
+    ("Kräuter", 0x8FD16A, kraeuter),
     ("Gemüsepflanzen", 0xD68232, gemuese),
-    ("Blumen", 0xC86496, blumen),
+    ("Blumen", 0xE58AB8, blumen),
     ("Wasserpflanzen", 0x3C82BE, wasser),
     ("Zwiebel- und Knollenblumen", 0x965AB4, zwiebel),
 ]

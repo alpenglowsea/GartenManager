@@ -1,7 +1,20 @@
 package io.github.alpenglowsea.gartenmanager.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -144,21 +157,54 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
             HorizontalDivider()
             LazyColumn(Modifier.fillMaxSize()) {
                 items(treffer, key = { it.id }) { t ->
-                    ListItem(
-                        modifier = Modifier.clickable { offen = t.id },
-                        leadingContent = { PflanzenSymbol(gruppe = t.hauptgruppe, name = t.hauptname, groesse = 44.dp) },
-                        headlineContent = { Text(t.hauptname) },
-                        supportingContent = {
-                            Column {
-                                Text(t.lateinisch, fontStyle = FontStyle.Italic)
-                                if (t.gefundenUeber != null) {
-                                    Text(stringResource(R.string.pflanzen_test_gefunden_ueber, t.gefundenUeber))
+                    // Kachel: heller Hintergrund in der Gruppenfarbe, kräftiger Streifen links (Stil B)
+                    val farbe = gruppenFarbe(t.hauptgruppe)
+                    val hintergrund = lerp(MaterialTheme.colorScheme.surface, farbe, 0.16f)
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 4.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .height(IntrinsicSize.Min),
+                    ) {
+                        Box(Modifier.width(8.dp).fillMaxHeight().background(farbe))
+                        Column(
+                            Modifier
+                                .weight(1f)
+                                .background(hintergrund)
+                                .clickable { offen = t.id }
+                                .padding(start = 12.dp, end = 12.dp, top = 6.dp, bottom = 10.dp),
+                        ) {
+                            // Schmale Zeile für die Gruppe, damit der Name die ganze übrige Breite bekommt
+                            Text(
+                                t.hauptgruppe,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.End,
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            ) {
+                                PflanzenSymbol(gruppe = t.hauptgruppe, name = t.hauptname, groesse = 44.dp)
+                                Column(Modifier.weight(1f)) {
+                                    Text(t.hauptname, style = MaterialTheme.typography.titleMedium)
+                                    Text(
+                                        t.lateinisch,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontStyle = FontStyle.Italic,
+                                    )
+                                    if (t.gefundenUeber != null) {
+                                        Text(
+                                            stringResource(R.string.pflanzen_test_gefunden_ueber, t.gefundenUeber),
+                                            style = MaterialTheme.typography.bodySmall,
+                                        )
+                                    }
                                 }
                             }
-                        },
-                        trailingContent = { Text(t.hauptgruppe, style = MaterialTheme.typography.labelMedium) },
-                    )
-                    HorizontalDivider()
+                        }
+                    }
                 }
             }
         }
