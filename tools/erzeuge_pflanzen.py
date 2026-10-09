@@ -7,7 +7,7 @@ Regeln (siehe DATENMODELL.md, Abschnitte 2.2, 4.1, 4.2):
 - Hauptname = Name aus unserer Pflanzenliste. Weitere Namen aus Wikidata/Wikipedia; lateinisch
   aussehende Namen werden als lateinisches Synonym eingeordnet.
 - Ein Wikipedia-Abschnitt wird nur übernommen, wenn seine Überschrift zu GENAU EINEM unserer
-  Abschnitte passt (Ausnahme: Überschriften, die Herkunft UND Standort betreffen, kommen in beide). Unklare Überschriften werden weggelassen und im Bericht gezählt.
+  Abschnitte passt (Ausnahme: Überschriften, die Herkunft UND Standort betreffen, kommen nur in Herkunft). Unklare Überschriften werden weggelassen und im Bericht gezählt.
 - Es zählt nur der eigene Text eines Abschnitts mit passender Überschrift (Unterabschnitte ohne Treffer
   werden nicht angehängt). Absätze über Chromosomenzahlen werden weggelassen.
 - Texte werden als Auszug von etwa 1.000 Zeichen aus Originalsätzen übernommen (ganze Absätze;
@@ -86,7 +86,11 @@ def sortiere(abschnitte, mehrdeutig, nicht_zugeordnet):
         if a["ebene"] == 1:
             continue
         gefunden = treffer[i]
-        if len(gefunden) > 1 and set(gefunden) != {"Herkunft", "Standort"}:
+        if set(gefunden) == {"Herkunft", "Standort"}:
+            # "Verbreitung und Standort": beschreibt das Vorkommen in der Natur, nicht den Gartenstandort
+            # (Entscheidung 09.10.2026, ersetzt die vom 03.10.2026) -> nur Herkunft
+            gefunden = ["Herkunft"]
+        if len(gefunden) > 1:
             mehrdeutig[a["titel"]] += 1
             continue
         if not gefunden:
@@ -95,7 +99,6 @@ def sortiere(abschnitte, mehrdeutig, nicht_zugeordnet):
             continue
         absaetze = [ab for ab in a["absaetze"] if "chromosom" not in ab.lower()]
         if absaetze:
-            # "Verbreitung und Standort" (entschieden am 03.10.2026) kommt in beide Abschnitte
             for z in gefunden:
                 ziel[z].append((a["titel"], absaetze))
     return ziel

@@ -346,3 +346,8 @@ Als Nächstes:
 - Neu in 4c: 13 Piktogramme (im Code gezeichnet, Gruppenfarbe, optional mit Initialen), **Pflanzenkatalog** (Suche, Gruppenfilter, Liste), **Info-Fenster** mit acht Abschnitten (zuklappbar, Zustand pro Pflanzenart gemerkt), Block "Quellen und Lizenzen", **"Über GartenManager"** (Menü ⋮ in der Gartenliste). Der alte Testbildschirm ist ersetzt.
 - Status: **ungetestet**, nicht kompiliert. Texte zu Lizenzen und Hinweis sind Entwürfe, keine Rechtsprüfung. Der Merker für zugeklappte Abschnitte liegt vorerst in SharedPreferences (nicht im Backup), zieht in 4d in die Datenbank.
 - Als Nächstes: 4d (Pflanzen im Garten platzieren, Datenbank Version 6).
+
+### 09.10.2026: Neue Phase "Bilder und Farben" (vor 4d), Stufe 1
+- Entscheidung: Standort-Texte aus Wikipedia, die das Vorkommen in der Natur beschreiben ("Verbreitung und Standort"), kommen nur noch unter Herkunft. Reine "Standort"-Abschnitte bleiben (46 Pflanzen, 8 %), wir prüfen, ob sie nützlich sind. Gartenstandort-Angaben (Licht, Boden) bleiben eine offene Datenfrage.
+- Plan: Pflanzenbild pro Pflanze (Wikimedia Commons, Lizenz je Bild), kleines Bild im Katalog statt Piktogramm, großes Bild oben im Info-Fenster, Piktogramm als Ersatz ohne Bild. Gruppenfarben auf den Kacheln (Stil B: Tönung plus Farbstreifen) mit neu abgestimmten Grüntönen (engster Farbabstand von 7,6 auf 20,0).
+- Stufen: 1 Daten + Farben, 2 Bildquelle prüfen (Testlauf), 3 Abruf + Bildkontrolle, 4 Bilder in Datenbank und App, 5 Feinschliff.
