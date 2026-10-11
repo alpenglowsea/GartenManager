@@ -358,3 +358,8 @@ Als Nächstes:
 - Entscheidungen: Kachel zeigt das Foto statt des Piktogramms (Piktogramm als Ersatz); Info-Fenster zeigt oben einen Bildausschnitt mit Erweitern-Knopf, der die Vollansicht ohne Zuschnitt öffnet (Namensnennung dort und im Block "Quellen und Lizenzen"); später (Stufe 5) Ausschnitt-Editor mit Mittelpunkt und Zoom, gespeichert in der eigenen Datenbank (Version 6).
 - Stufe 4 (ungetestet): `baue_bilder.py` (WebP, Standard 640 px), neue Tabelle `bild` in den Grunddaten, `PflanzenBild.kt` (Laden, Kachelbild, Kopfbild, Vollansicht mit Zoom), Info-Fenster und Über-Seite angepasst. Eigene Fotos möglich über `daten/bilder_eigen/eigene_bilder.json`.
 - Außerdem: Kachel-Layout (Gruppe in eigener Zeile, Name über die volle Breite), Stauden jetzt Blauviolett.
+
+### 11.10.2026: Stufe 4 getestet, Stufe 5 (Bildausschnitt) geliefert
+- Test Stufe 4: Katalog, Info-Fenster, Vollansicht, Quellen und Lizenzen, Über-Seite laufen ohne Beanstandung. Aussortiert wurden 45 Bilder (Liste `daten/bilder_ausschluss.txt`); einige Bilder hatten zusätzlich einen unpassenden Ausschnitt (nicht gezählt).
+- Stufe 5 (ungetestet): persönlicher Bildausschnitt je Pflanze. In der Vollansicht "Ausschnitt anpassen": Bild mit zwei Rahmen (weiß = Kachel, gelb = Info-Fenster), ein Finger verschiebt, zwei Finger zoomen, Vorschau von beiden, Speichern / Zurücksetzen / Abbrechen. Gilt für Kachel und Info-Fenster. Datenbank "Meine Daten" Version 6 (neue Tabelle `bild_ausschnitt`), mit echter Migration 5 -> 6, bestehende Gärten bleiben erhalten.
+- Offen für später: Standard-Mittelpunkt in den Grunddaten für alle Nutzer (Idee, nicht entschieden); Ausschnitt-Backup mit dem Export in den Einstellungen.

@@ -23,6 +23,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,11 +41,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.R
+import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
+import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.Merker
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeDetail
 import io.github.alpenglowsea.gartenmanager.daten.QuelleInfo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /** Die acht Abschnitte des Info-Fensters. Die Namen der Textabschnitte entsprechen denen in den Grunddaten. */
@@ -96,6 +101,9 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
     var fehler by remember(pflanzeId) { mutableStateOf<String?>(null) }
     var zugeklappt by remember(pflanzeId) { mutableStateOf(merker.zugeklappt(pflanzeId)) }
     var voll by rememberSaveable(pflanzeId) { mutableStateOf(false) }
+    val dao = remember { MeineDatenDb.holen(context).gartenDao() }
+    val ausschnitt by remember(pflanzeId) { dao.ausschnittFuer(pflanzeId) }.collectAsState(initial = null)
+    val bereich = rememberCoroutineScope()
 
     LaunchedEffect(pflanzeId) {
         try {
@@ -108,7 +116,14 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
 
     val grossesBild = detail?.bild
     if (voll && grossesBild != null) {
-        BildVollansicht(grossesBild, detail?.hauptname ?: "") { voll = false }
+        BildVollansicht(
+            bild = grossesBild,
+            name = detail?.hauptname ?: "",
+            ausschnitt = ausschnitt,
+            onSpeichern = { x, y, z -> bereich.launch { dao.speichereAusschnitt(BildAusschnitt(pflanzeId, x, y, z)) } },
+            onZuruecksetzen = { bereich.launch { dao.loescheAusschnitt(pflanzeId) } },
+            onZurueck = { voll = false },
+        )
         return
     }
 
@@ -136,7 +151,7 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 Text(fehler ?: "", color = MaterialTheme.colorScheme.error)
             }
             if (d != null) {
-                Kopf(d) { voll = true }
+                Kopf(d, ausschnitt) { voll = true }
                 Spacer(Modifier.height(8.dp))
                 for (abschnitt in ABSCHNITTE) {
                     val zu = abschnitt in zugeklappt
@@ -159,11 +174,11 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
 }
 
 @Composable
-private fun Kopf(d: PflanzeDetail, onVoll: () -> Unit) {
+private fun Kopf(d: PflanzeDetail, ausschnitt: BildAusschnitt?, onVoll: () -> Unit) {
     val bild = d.bild
     if (bild != null) {
         Column {
-            PflanzenKopfbild(bild, d.hauptname, onVoll)
+            PflanzenKopfbild(bild, d.hauptname, ausschnitt, onVoll)
             Text(
                 fotoZeile(bild),
                 style = MaterialTheme.typography.bodySmall,

@@ -239,4 +239,12 @@
     <string name="ueber_bilder_titel">Pflanzenfotos</string>
     <string name="ueber_bilder_text">Die Fotos stammen überwiegend von Wikimedia Commons. Jedes Foto hat seine eigene Lizenz, Urheber und Quelle stehen im Info-Fenster der Pflanze. Verteilung der Lizenzen in dieser Datenversion:</string>
     <string name="ueber_bilder_zeile">%1$d × %2$s</string>
+
+    <!-- Bildausschnitt -->
+    <string name="ausschnitt_anpassen">Ausschnitt anpassen</string>
+    <string name="ausschnitt_titel">Ausschnitt anpassen</string>
+    <string name="ausschnitt_hinweis">Mit einem Finger den Rahmen verschieben, mit zwei Fingern zoomen. Weiß: Kachel im Katalog, gelb: Bild im Info-Fenster. Unten die Vorschau.</string>
+    <string name="ausschnitt_speichern">Speichern</string>
+    <string name="ausschnitt_zuruecksetzen">Zurücksetzen</string>
+    <string name="ausschnitt_abbrechen">Abbrechen</string>
 </resources>

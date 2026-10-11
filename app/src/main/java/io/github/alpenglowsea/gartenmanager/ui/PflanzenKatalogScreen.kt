@@ -37,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,6 +53,7 @@ import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
 import io.github.alpenglowsea.gartenmanager.daten.GrunddatenInfo
 import io.github.alpenglowsea.gartenmanager.daten.GruppeMitAnzahl
+import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeTreffer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -71,6 +73,9 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
     var gewaehlt by remember { mutableStateOf<Set<Long>>(emptySet()) }
     var treffer by remember { mutableStateOf<List<PflanzeTreffer>>(emptyList()) }
     var offen by rememberSaveable { mutableStateOf<Long?>(null) }
+    val dao = remember { MeineDatenDb.holen(context).gartenDao() }
+    val ausschnitte by remember { dao.alleAusschnitte() }.collectAsState(initial = emptyList())
+    val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
 
     LaunchedEffect(Unit) {
         try {
@@ -187,7 +192,12 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
-                                PflanzenKachelBild(bild = t.bild, gruppe = t.hauptgruppe, name = t.hauptname)
+                                PflanzenKachelBild(
+                                    bild = t.bild,
+                                    gruppe = t.hauptgruppe,
+                                    name = t.hauptname,
+                                    ausschnitt = ausschnittNachId[t.id],
+                                )
                                 Column(Modifier.weight(1f)) {
                                     Text(t.hauptname, style = MaterialTheme.typography.titleMedium)
                                     Text(

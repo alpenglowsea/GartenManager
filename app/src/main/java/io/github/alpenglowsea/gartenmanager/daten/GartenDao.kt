@@ -2,12 +2,25 @@ package io.github.alpenglowsea.gartenmanager.daten
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class GartenDao {
+
+    @Query("SELECT * FROM bild_ausschnitt")
+    abstract fun alleAusschnitte(): Flow<List<BildAusschnitt>>
+
+    @Query("SELECT * FROM bild_ausschnitt WHERE pflanzeId = :pflanzeId")
+    abstract fun ausschnittFuer(pflanzeId: Long): Flow<BildAusschnitt?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun speichereAusschnitt(ausschnitt: BildAusschnitt)
+
+    @Query("DELETE FROM bild_ausschnitt WHERE pflanzeId = :pflanzeId")
+    abstract suspend fun loescheAusschnitt(pflanzeId: Long)
 
     @Query("SELECT * FROM grundstueck ORDER BY name COLLATE NOCASE")
     abstract fun grundstuecke(): Flow<List<Grundstueck>>

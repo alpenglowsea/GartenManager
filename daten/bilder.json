@@ -131,18 +131,6 @@
   "titel": "File:Actinidia-arguta-habit.jpg",
   "urheber": "Sten Porse"
  },
- "actinidia-deliciosa": {
-  "abruf": "2026-10-09",
-  "breite": 640,
-  "datei": "actinidia-deliciosa.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 480,
-  "lizenz": "CC BY-SA 3.0",
-  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
-  "seite": "https://commons.wikimedia.org/wiki/File:Kiwis_006eue.jpg",
-  "titel": "File:Kiwis 006eue.jpg",
-  "urheber": "Luis Miguel Bugallo Sánchez (Lmbuga) Copyright: GFDL (GNU Free Documentation License) Publicada por/Publish by: Luis Miguel Bugallo Sánchez"
- },
  "aesculus-hippocastanum": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -252,16 +240,16 @@
   "urheber": "Mehdi"
  },
  "allium-cepa-var-aggregatum": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "allium-cepa-var-aggregatum.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 361,
-  "lizenz": "CC BY-SA 3.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Shallots-Whole.jpg",
-  "titel": "File:Shallots-Whole.jpg",
-  "urheber": "Evan-Amos"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 414,
+  "lizenz": "Public domain",
+  "lizenz_url": "",
+  "seite": "https://commons.wikimedia.org/wiki/File:Shallots_-_sliced_and_whole.jpg",
+  "titel": "File:Shallots - sliced and whole.jpg",
+  "urheber": "No machine-readable author provided. Charles P. assumed (based on copyright claims)."
  },
  "allium-giganteum": {
   "abruf": "2026-10-09",
@@ -300,16 +288,16 @@
   "urheber": "Prozentzwanzig"
  },
  "allium-sativum": {
-  "abruf": "2026-10-09",
-  "breite": 640,
+  "abruf": "2026-10-11",
+  "breite": 480,
   "datei": "allium-sativum.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 427,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Garlic_bulbs_and_cloves.jpg",
-  "titel": "File:Garlic bulbs and cloves.jpg",
-  "urheber": "Ivar Leidus"
+  "hoehe": 640,
+  "lizenz": "CC0",
+  "lizenz_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "seite": "https://commons.wikimedia.org/wiki/File:Allium_sativum_-_Copenhagen_Botanical_Garden_-_DSC07941.JPG",
+  "titel": "File:Allium sativum - Copenhagen Botanical Garden - DSC07941.JPG",
+  "urheber": "Daderot"
  },
  "allium-schoenoprasum": {
   "abruf": "2026-10-09",
@@ -396,16 +384,16 @@
   "urheber": "H. Zell"
  },
  "althaea-officinalis": {
-  "abruf": "2026-10-09",
-  "breite": 298,
+  "abruf": "2026-10-11",
+  "breite": 480,
   "datei": "althaea-officinalis.webp",
-  "herkunft": "Wikidata P18",
+  "herkunft": "Titelbild des Wikipedia-Artikels",
   "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Dettaglio_-_Malvaceae_Althaea_officinalis_Lin._Erbario_Frizzi_Perugia_n._1202.jpg",
-  "titel": "File:Dettaglio - Malvaceae Althaea officinalis Lin. Erbario Frizzi Perugia n. 1202.jpg",
-  "urheber": "Giuseppe Frizzi"
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Guimauve_officinale_dans_les_pr%C3%A9s_sal%C3%A9s_de_la_plage_de_Donnant.JPG",
+  "titel": "File:Guimauve officinale dans les prés salés de la plage de Donnant.JPG",
+  "urheber": "Patrice78500"
  },
  "amelanchier-lamarckii": {
   "abruf": "2026-10-09",
@@ -659,29 +647,17 @@
   "titel": "File:Asarum europaeum 170406.jpg",
   "urheber": "Bernd Haynold"
  },
- "asparagus-officinalis": {
-  "abruf": "2026-10-09",
-  "breite": 402,
-  "datei": "asparagus-officinalis.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Asparagus_officinalis0b.jpg",
-  "titel": "File:Illustration Asparagus officinalis0b.jpg",
-  "urheber": "CSvBibra"
- },
  "asplenium-scolopendrium": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "asplenium-scolopendrium.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 480,
-  "lizenz": "CC BY-SA 2.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/2.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Asplenium_scolopendrium_ssp._scolopendrium_20150705_110346_(18816757464).jpg",
-  "titel": "File:Asplenium scolopendrium ssp. scolopendrium 20150705 110346 (18816757464).jpg",
-  "urheber": "Erwin Gruber from Frohnleiten, Österreich, Steiermark"
+  "lizenz": "CC BY 2.5",
+  "lizenz_url": "https://creativecommons.org/licenses/by/2.5",
+  "seite": "https://commons.wikimedia.org/wiki/File:Asplenium_scolopendrium.jpg",
+  "titel": "File:Asplenium scolopendrium.jpg",
+  "urheber": "No machine-readable author provided. MPF assumed (based on copyright claims)."
  },
  "aster-amellus": {
   "abruf": "2026-10-09",
@@ -826,18 +802,6 @@
   "seite": "https://commons.wikimedia.org/wiki/File:Bergenia-cordifolia.JPG",
   "titel": "File:Bergenia-cordifolia.JPG",
   "urheber": "Sten at da.wikipedia"
- },
- "beta-vulgaris-subsp-vulgaris": {
-  "abruf": "2026-10-09",
-  "breite": 640,
-  "datei": "beta-vulgaris-subsp-vulgaris.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 429,
-  "lizenz": "CC0",
-  "lizenz_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-  "seite": "https://commons.wikimedia.org/wiki/File:Beets-Bundle.jpg",
-  "titel": "File:Beets-Bundle.jpg",
-  "urheber": "Evan-Amos"
  },
  "betula-pendula": {
   "abruf": "2026-10-09",
@@ -1007,18 +971,6 @@
   "titel": "File:Cxacutiflora.jpg",
   "urheber": "Bildoj"
  },
- "calendula-officinalis": {
-  "abruf": "2026-10-09",
-  "breite": 427,
-  "datei": "calendula-officinalis.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Calendula_officinalis_-_001x.jpg",
-  "titel": "File:Calendula officinalis - 001x.jpg",
-  "urheber": "Oceancetaceen - Alice Chodura"
- },
  "calla-palustris": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -1128,16 +1080,16 @@
   "urheber": "W. Bulach"
  },
  "capsicum-annuum": {
-  "abruf": "2026-10-09",
-  "breite": 517,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "capsicum-annuum.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-027.jpg",
-  "titel": "File:Capsicum annuum - Köhler–s Medizinal-Pflanzen-027.jpg",
-  "urheber": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen"
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Red_pepper_from_Ivory_Coast_01.jpg",
+  "titel": "File:Red pepper from Ivory Coast 01.jpg",
+  "urheber": "Kod B"
  },
  "cardamine-pratensis": {
   "abruf": "2026-10-09",
@@ -1236,28 +1188,28 @@
   "urheber": "H. Zell"
  },
  "caryopteris-x-clandonensis": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "caryopteris-x-clandonensis.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 425,
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 480,
   "lizenz": "Public domain",
   "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Caryopteris_clandonensis_C.jpg",
-  "titel": "File:Caryopteris clandonensis C.jpg",
-  "urheber": "Wouter Hagens"
+  "seite": "https://commons.wikimedia.org/wiki/File:Caryopteris_clandonensis.jpg",
+  "titel": "File:Caryopteris clandonensis.jpg",
+  "urheber": "Simone"
  },
  "castanea-sativa": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "castanea-sativa.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 480,
-  "lizenz": "CC BY 2.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by/2.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Casta%C3%B1o_centenario_(Castanea_sativa)_(45032673662).jpg",
-  "titel": "File:Castaño centenario (Castanea sativa) (45032673662).jpg",
-  "urheber": "Miguel Angel Masegosa Martínez"
+  "hoehe": 427,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Lajen_Edelkastanie_Unterbuchfelder_Lajen_Ried_Strasse.jpg",
+  "titel": "File:Lajen Edelkastanie Unterbuchfelder Lajen Ried Strasse.jpg",
+  "urheber": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention me as the author and send me a message. This image is not in the public domain. Please respect the copyright protection. It may only be used according to the rules mentioned here. This specifically excludes use in social media, if applicable terms of the licenses listed here not appropriate. Please do not upload an updated image here without consultation with the Author. The author would like to make corrections only at his own source. This ensures that the changes are preserved.Please if you think that any changes should be required, please inform the author.Otherwise you can upload a new image with a new name. Please use one of the templates derivative or extract."
  },
  "catalpa-bignonioides": {
   "abruf": "2026-10-09",
@@ -1403,29 +1355,17 @@
   "titel": "File:Lawson's Cypress, Six Rivers National Forest, Klamath, California 1.jpg",
   "urheber": "jonleebotany"
  },
- "cichorium-endivia": {
-  "abruf": "2026-10-09",
-  "breite": 640,
-  "datei": "cichorium-endivia.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 398,
-  "lizenz": "CC BY-SA 3.0",
-  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
-  "seite": "https://commons.wikimedia.org/wiki/File:Cichorium_endivia_field.jpg",
-  "titel": "File:Cichorium endivia field.jpg",
-  "urheber": "Montréalais"
- },
  "cichorium-intybus": {
-  "abruf": "2026-10-09",
-  "breite": 391,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "cichorium-intybus.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Cichorium_intybus0_clean.jpg",
-  "titel": "File:Illustration Cichorium intybus0 clean.jpg",
-  "urheber": "Original book source: Prof. Dr. Otto Wilhelm Thomé Flora von Deutschland, Österreich und der Schweiz 1885, Gera, Germany"
+  "hoehe": 539,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "seite": "https://commons.wikimedia.org/wiki/File:Cichorium_intybus1.jpg",
+  "titel": "File:Cichorium intybus1.jpg",
+  "urheber": "J.F. Gaffard Jeffdelonge at fr.wikipedia"
  },
  "citrullus-lanatus": {
   "abruf": "2026-10-09",
@@ -1751,29 +1691,17 @@
   "titel": "File:Cucumis sativus20090812 497.jpg",
   "urheber": "Bff"
  },
- "cucurbita-maxima": {
-  "abruf": "2026-10-09",
-  "breite": 447,
-  "datei": "cucurbita-maxima.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Cucurbita_maxima_Blanco2.320.png",
-  "titel": "File:Cucurbita maxima Blanco2.320.png",
-  "urheber": "Francisco Manuel Blanco (1778 – 1845) (O.S.A.)"
- },
  "cucurbita-pepo": {
-  "abruf": "2026-10-09",
-  "breite": 640,
+  "abruf": "2026-10-11",
+  "breite": 424,
   "datei": "cucurbita-pepo.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 529,
-  "lizenz": "CC BY-SA 1.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/1.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Cucurbita_pepo_collage_1.png",
-  "titel": "File:Cucurbita pepo collage 1.png",
-  "urheber": "Various"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 640,
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:0.2014_Cucurbita_pepo_subsp._pepo_convar._giromontiina_-_Sanok.JPG",
+  "titel": "File:0.2014 Cucurbita pepo subsp. pepo convar. giromontiina - Sanok.JPG",
+  "urheber": "Silar"
  },
  "cupressus-x-leylandii": {
   "abruf": "2026-10-09",
@@ -2052,15 +1980,15 @@
   "urheber": "KENPEI"
  },
  "eranthis-hyemalis": {
-  "abruf": "2026-10-09",
-  "breite": 396,
+  "abruf": "2026-10-11",
+  "breite": 367,
   "datei": "eranthis-hyemalis.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
   "lizenz": "Public domain",
   "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:The_Botanical_Magazine,_Plate_3_(Volume_1,_1787).png",
-  "titel": "File:The Botanical Magazine, Plate 3 (Volume 1, 1787).png",
+  "seite": "https://commons.wikimedia.org/wiki/File:Helleborus_hyemalis-1797.jpg",
+  "titel": "File:Helleborus hyemalis-1797.jpg",
   "urheber": "Sydenham Edwards / William Curtis"
  },
  "erica-carnea": {
@@ -2088,16 +2016,16 @@
   "urheber": "W. Bulach"
  },
  "eruca-vesicaria": {
-  "abruf": "2026-10-09",
-  "breite": 481,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "eruca-vesicaria.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "CC0",
-  "lizenz_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-  "seite": "https://commons.wikimedia.org/wiki/File:Eruca_vesicaria_BM010755249.jpg",
-  "titel": "File:Eruca vesicaria BM010755249.jpg",
-  "urheber": "Unknown authorUnknown author"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 480,
+  "lizenz": "Public domain",
+  "lizenz_url": "",
+  "seite": "https://commons.wikimedia.org/wiki/File:Eruca_versicaria_FlowersCloseup_12April2009_CampodeCalatrava.jpg",
+  "titel": "File:Eruca versicaria FlowersCloseup 12April2009 CampodeCalatrava.jpg",
+  "urheber": "Javier martin"
  },
  "eryngium-planum": {
   "abruf": "2026-10-09",
@@ -2700,16 +2628,16 @@
   "urheber": "Anneli Salo"
  },
  "hibiscus-syriacus": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "hibiscus-syriacus.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 529,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Ruhland,_Grenzstr._3,_Straucheibisch,_Bl%C3%BCte,_Fr%C3%BChling,_05.jpg",
-  "titel": "File:Ruhland, Grenzstr. 3, Straucheibisch, Blüte, Frühling, 05.jpg",
-  "urheber": "Wilhelm Zimmerling PAR"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 427,
+  "lizenz": "CC0",
+  "lizenz_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "seite": "https://commons.wikimedia.org/wiki/File:Hibiscus_syriacus_9961.JPG",
+  "titel": "File:Hibiscus syriacus 9961.JPG",
+  "urheber": "I.Sáček, senior"
  },
  "hippophae-rhamnoides": {
   "abruf": "2026-10-09",
@@ -2748,16 +2676,16 @@
   "urheber": "Sten Porse"
  },
  "hottonia-palustris": {
-  "abruf": "2026-10-09",
-  "breite": 385,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "hottonia-palustris.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Hottonia_palustris0.jpg",
-  "titel": "File:Illustration Hottonia palustris0.jpg",
-  "urheber": ""
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 470,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:HottoniaPalustrisAspect.jpg",
+  "titel": "File:HottoniaPalustrisAspect.jpg",
+  "urheber": "Christian Fischer"
  },
  "humulus-lupulus": {
   "abruf": "2026-10-09",
@@ -2891,18 +2819,6 @@
   "titel": "File:Hyssopus officinalis RF.jpg",
   "urheber": "Robert Flogaus-Faust"
  },
- "ilex-aquifolium": {
-  "abruf": "2026-10-09",
-  "breite": 381,
-  "datei": "ilex-aquifolium.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Ilex_aquifolium0.jpg",
-  "titel": "File:Illustration Ilex aquifolium0.jpg",
-  "urheber": ""
- },
  "impatiens-walleriana": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -2964,16 +2880,16 @@
   "urheber": "W. Bulach"
  },
  "iris-x-germanica": {
-  "abruf": "2026-10-09",
-  "breite": 427,
+  "abruf": "2026-10-11",
+  "breite": 495,
   "datei": "iris-x-germanica.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:00_1238_Deutsche_Schwertlilie_(Iris_%C3%97_germanica).jpg",
-  "titel": "File:00 1238 Deutsche Schwertlilie (Iris × germanica).jpg",
-  "urheber": "W. Bulach"
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "seite": "https://commons.wikimedia.org/wiki/File:Iris_germanica_001.jpg",
+  "titel": "File:Iris germanica 001.jpg",
+  "urheber": "Za"
  },
  "jasminum-nudiflorum": {
   "abruf": "2026-10-09",
@@ -3131,18 +3047,6 @@
   "titel": "File:Lathyrus odoratus Painted Lady.jpg",
   "urheber": "vinceconnare"
  },
- "laurus-nobilis": {
-  "abruf": "2026-10-09",
-  "breite": 450,
-  "datei": "laurus-nobilis.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:K%C3%B6hler%27s_Medizinal-Pflanzen_in_naturgetreuen_Abbildungen_mit_kurz_erl%C3%A4uterndem_Texte_(Plate_1)_BHL303564.jpg",
-  "titel": "File:Köhler's Medizinal-Pflanzen in naturgetreuen Abbildungen mit kurz erläuterndem Texte (Plate 1) BHL303564.jpg",
-  "urheber": "Brandt, Wilhelm; Gürke, M.; Köhler, F. E.; Pabst, G.; Schellenberg, G.; Vogtherr, Max."
- },
  "lepidium-sativum": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -3166,18 +3070,6 @@
   "seite": "https://commons.wikimedia.org/wiki/File:Leucanthemum_vulgare15.06.07.JPG",
   "titel": "File:Leucanthemum vulgare15.06.07.JPG",
   "urheber": "Victor M. Vicente Selvas"
- },
- "leucanthemum-x-superbum": {
-  "abruf": "2026-10-09",
-  "breite": 640,
-  "datei": "leucanthemum-x-superbum.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 480,
-  "lizenz": "CC BY-SA 3.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Leucanthemum_x_superbum_%27Becky%27_in_NH.jpg",
-  "titel": "File:Leucanthemum x superbum 'Becky' in NH.jpg",
-  "urheber": "Captain-tucker"
  },
  "leucojum-aestivum": {
   "abruf": "2026-10-09",
@@ -3360,16 +3252,16 @@
   "urheber": "Rasbak"
  },
  "lonicera-caerulea": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "lonicera-caerulea.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 480,
-  "lizenz": "CC BY 2.5",
-  "lizenz_url": "https://creativecommons.org/licenses/by/2.5",
-  "seite": "https://commons.wikimedia.org/wiki/File:Lonicera_coerulea_a3.jpg",
-  "titel": "File:Lonicera coerulea a3.jpg",
-  "urheber": "Opioła Jerzy (Poland)"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 519,
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:%D0%96%D0%B8%D0%BC%D0%BE%D0%BB%D0%BE%D1%81%D1%82%D1%8C_%D0%B3%D0%BE%D0%BB%D1%83%D0%B1%D0%B0%D1%8F_%D1%8F%D0%B3%D0%BE%D0%B4%D1%8B_%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2.jpg",
+  "titel": "File:Жимолость голубая ягоды Саратов.jpg",
+  "urheber": "ИринаЯ"
  },
  "lonicera-caprifolium": {
   "abruf": "2026-10-09",
@@ -3732,16 +3624,16 @@
   "urheber": "Burkhard Mücke"
  },
  "morus-nigra": {
-  "abruf": "2026-10-09",
-  "breite": 429,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "morus-nigra.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Morus_nigra0.jpg",
-  "titel": "File:Illustration Morus nigra0.jpg",
-  "urheber": ""
+  "hoehe": 464,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Morus-nigra.JPG",
+  "titel": "File:Morus-nigra.JPG",
+  "urheber": "Sten Porse"
  },
  "muscari-armeniacum": {
   "abruf": "2026-10-09",
@@ -3780,16 +3672,16 @@
   "urheber": "André Karwath aka Aka"
  },
  "myrrhis-odorata": {
-  "abruf": "2026-10-09",
-  "breite": 368,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "myrrhis-odorata.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Myrrhis_odorata0.jpg",
-  "titel": "File:Illustration Myrrhis odorata0.jpg",
-  "urheber": ""
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 638,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Myrrhis_odorata,_Roomse_kervel_plant.jpg",
+  "titel": "File:Myrrhis odorata, Roomse kervel plant.jpg",
+  "urheber": "Rasbak"
  },
  "narcissus-poeticus": {
   "abruf": "2026-10-09",
@@ -4068,16 +3960,16 @@
   "urheber": ""
  },
  "parthenocissus-tricuspidata": {
-  "abruf": "2026-10-09",
-  "breite": 427,
+  "abruf": "2026-10-11",
+  "breite": 480,
   "datei": "parthenocissus-tricuspidata.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
   "lizenz": "CC BY-SA 4.0",
   "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:%E5%A7%AB%E8%B7%AF%E3%83%A2%E3%83%8E%E3%83%AC%E3%83%BC%E3%83%AB%E8%B7%A1-06.jpg",
-  "titel": "File:姫路モノレール跡-06.jpg",
-  "urheber": "Gohachiyasu1214"
+  "seite": "https://commons.wikimedia.org/wiki/File:Parthenocissus_tricuspidata_IMG_4658.jpg",
+  "titel": "File:Parthenocissus tricuspidata IMG 4658.jpg",
+  "urheber": "あおもりくま,(Aomorikuma)"
  },
  "passiflora-caerulea": {
   "abruf": "2026-10-09",
@@ -4176,16 +4068,16 @@
   "urheber": "W. Bulach"
  },
  "phaseolus-coccineus": {
-  "abruf": "2026-10-09",
-  "breite": 391,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "phaseolus-coccineus.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Phaseolus_coccineus0.jpg",
-  "titel": "File:Illustration Phaseolus coccineus0.jpg",
-  "urheber": ""
+  "hoehe": 426,
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Haricot_d%27Espagne_-_Phaseolus_coccineus_-_2_-_par_Mickael_Schauli.jpg",
+  "titel": "File:Haricot d'Espagne - Phaseolus coccineus - 2 - par Mickael Schauli.jpg",
+  "urheber": "Mickaël Schauli"
  },
  "phaseolus-vulgaris": {
   "abruf": "2026-10-09",
@@ -4272,28 +4164,16 @@
   "urheber": "Ivar Leidus"
  },
  "picea-pungens": {
-  "abruf": "2026-10-09",
-  "breite": 429,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "picea-pungens.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "CC BY-SA 2.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/2.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Picea_pungens_Bryce_Canyon_NP_2.jpg",
-  "titel": "File:Picea pungens Bryce Canyon NP 2.jpg",
-  "urheber": "Quinn Dombrowski from Chicago, USA"
- },
- "pimpinella-anisum": {
-  "abruf": "2026-10-09",
-  "breite": 378,
-  "datei": "pimpinella-anisum.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Pimpinella_anisum0.jpg",
-  "titel": "File:Illustration Pimpinella anisum0.jpg",
-  "urheber": "Prof. Dr. Otto Wilhelm Thomé"
+  "hoehe": 581,
+  "lizenz": "CC BY 2.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by/2.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Picea_pungens_foliage_Pecos_Wilderness.jpg",
+  "titel": "File:Picea pungens foliage Pecos Wilderness.jpg",
+  "urheber": "JustTooLazy"
  },
  "pinus-nigra": {
   "abruf": "2026-10-09",
@@ -4463,18 +4343,6 @@
   "titel": "File:20140317Prunus cerasifera Hockenheimer Rheinbogen5.jpg",
   "urheber": "AnRo0002"
  },
- "prunus-cerasus": {
-  "abruf": "2026-10-09",
-  "breite": 392,
-  "datei": "prunus-cerasus.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Prunus_cerasus0.jpg",
-  "titel": "File:Illustration Prunus cerasus0.jpg",
-  "urheber": ""
- },
  "prunus-domestica-subsp-italica": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -4500,16 +4368,16 @@
   "urheber": "Avalokitesvara"
  },
  "prunus-dulcis": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "prunus-dulcis.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 427,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg",
-  "titel": "File:Almonds - in shell, shell cracked open, shelled, blanched.jpg",
-  "urheber": "Ivar Leidus"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 477,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "seite": "https://commons.wikimedia.org/wiki/File:Almond_Prunus_dulcis.jpg",
+  "titel": "File:Almond Prunus dulcis.jpg",
+  "urheber": "Manfred Heyde"
  },
  "prunus-laurocerasus": {
   "abruf": "2026-10-09",
@@ -4692,16 +4560,16 @@
   "urheber": "Algirdas at Lithuanian Wikipedia"
  },
  "ranunculus-aquatilis": {
-  "abruf": "2026-10-09",
-  "breite": 386,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "ranunculus-aquatilis.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Ranunculus_aquatilis0.jpg",
-  "titel": "File:Illustration Ranunculus aquatilis0.jpg",
-  "urheber": ""
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 480,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Ranunculus_aquatilis_(plants).jpg",
+  "titel": "File:Ranunculus aquatilis (plants).jpg",
+  "urheber": "Hans Hillewaert"
  },
  "ranunculus-asiaticus": {
   "abruf": "2026-10-09",
@@ -4896,16 +4764,16 @@
   "urheber": "Velela"
  },
  "rubus-idaeus": {
-  "abruf": "2026-10-09",
-  "breite": 430,
+  "abruf": "2026-10-11",
+  "breite": 640,
   "datei": "rubus-idaeus.webp",
   "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:(MHNT)_Rubus_idaeus_-_Feuillage.jpg",
-  "titel": "File:(MHNT) Rubus idaeus - Feuillage.jpg",
-  "urheber": "Didier Descouens"
+  "hoehe": 427,
+  "lizenz": "CC BY 2.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by/2.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Wild_Rubus_idaeus.jpg",
+  "titel": "File:Wild Rubus idaeus.jpg",
+  "urheber": "mako from Kangasala, Suomi (Finland)"
  },
  "rudbeckia-fulgida": {
   "abruf": "2026-10-09",
@@ -5016,16 +4884,16 @@
   "urheber": "Kurt Stüber [1]"
  },
  "salvia-pratensis": {
-  "abruf": "2026-10-09",
-  "breite": 640,
+  "abruf": "2026-10-11",
+  "breite": 426,
   "datei": "salvia-pratensis.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 350,
-  "lizenz": "CC BY-SA 4.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Gallocresta_(Salvia_pratensis),_Hartelholz,_M%C3%BAnich,_Alemania,_2020-06-20,_DD_73-82_FS.jpg",
-  "titel": "File:Gallocresta (Salvia pratensis), Hartelholz, Múnich, Alemania, 2020-06-20, DD 73-82 FS.jpg",
-  "urheber": "Diego Delso"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 640,
+  "lizenz": "CC BY-SA 3.0 de",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+  "seite": "https://commons.wikimedia.org/wiki/File:Salvia_pratensis_LC0340.jpg",
+  "titel": "File:Salvia pratensis LC0340.jpg",
+  "urheber": "Jörg Hempel"
  },
  "salvia-rosmarinus": {
   "abruf": "2026-10-09",
@@ -5148,16 +5016,16 @@
   "urheber": "Kurt Stüber [1]"
  },
  "schoenoplectus-lacustris": {
-  "abruf": "2026-10-09",
-  "breite": 427,
+  "abruf": "2026-10-11",
+  "breite": 469,
   "datei": "schoenoplectus-lacustris.webp",
-  "herkunft": "Wikidata P18",
+  "herkunft": "Titelbild des Wikipedia-Artikels",
   "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Schoenoplectus_acutus_var_occidentalis.jpg",
-  "titel": "File:Schoenoplectus acutus var occidentalis.jpg",
-  "urheber": ""
+  "lizenz": "CC BY 2.5",
+  "lizenz_url": "https://creativecommons.org/licenses/by/2.5",
+  "seite": "https://commons.wikimedia.org/wiki/File:Schoenoplectus_lacustris_260605.jpg",
+  "titel": "File:Schoenoplectus lacustris 260605.jpg",
+  "urheber": "Bernd Haynold"
  },
  "scilla-siberica": {
   "abruf": "2026-10-09",
@@ -5256,16 +5124,16 @@
   "urheber": "Joydeep"
  },
  "solanum-tuberosum": {
-  "abruf": "2026-10-09",
-  "breite": 426,
+  "abruf": "2026-10-11",
+  "breite": 480,
   "datei": "solanum-tuberosum.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:234_Solanum_tuberosum_L.jpg",
-  "titel": "File:234 Solanum tuberosum L.jpg",
-  "urheber": "Amédée Masclef"
+  "lizenz": "CC BY 3.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by/3.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Starr_080914-9946_Solanum_tuberosum.jpg",
+  "titel": "File:Starr 080914-9946 Solanum tuberosum.jpg",
+  "urheber": "Forest & Kim Starr"
  },
  "solidago-virgaurea": {
   "abruf": "2026-10-09",
@@ -5496,16 +5364,16 @@
   "urheber": "Nedelin"
  },
  "tagetes-erecta": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "tagetes-erecta.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 605,
-  "lizenz": "CC BY-SA 3.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by-sa/3.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Aztec_Marigold_Tagetes_erecta.jpg",
-  "titel": "File:Aztec Marigold Tagetes erecta.jpg",
-  "urheber": "HitroMilanese"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 373,
+  "lizenz": "CC BY-SA 2.5",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/2.5",
+  "seite": "https://commons.wikimedia.org/wiki/File:Tagetes_erecta_(aka).jpg",
+  "titel": "File:Tagetes erecta (aka).jpg",
+  "urheber": "André Karwath aka Aka"
  },
  "tagetes-patula": {
   "abruf": "2026-10-09",
@@ -5530,18 +5398,6 @@
   "seite": "https://commons.wikimedia.org/wiki/File:Tansy_and_Queen_of_Spain_Fritilllary.JPG",
   "titel": "File:Tansy and Queen of Spain Fritilllary.JPG",
   "urheber": "Lienhard Schulz"
- },
- "taraxacum-officinale": {
-  "abruf": "2026-10-09",
-  "breite": 465,
-  "datei": "taraxacum-officinale.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Taraxacum_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-135.jpg",
-  "titel": "File:Taraxacum officinale - Köhler–s Medizinal-Pflanzen-135.jpg",
-  "urheber": "Walther Otto Müller"
  },
  "taxus-baccata": {
   "abruf": "2026-10-09",
@@ -5640,16 +5496,16 @@
   "urheber": "Chmee2"
  },
  "tragopogon-pratensis": {
-  "abruf": "2026-10-09",
-  "breite": 379,
+  "abruf": "2026-10-11",
+  "breite": 405,
   "datei": "tragopogon-pratensis.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Tragopogon_pratensis0.jpg",
-  "titel": "File:Illustration Tragopogon pratensis0.jpg",
-  "urheber": ""
+  "lizenz": "CC BY 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:COI00041092_-_Tragopogon_pratensis_-_Costa_y_Cuxart,_Antonio_Cipriano_-_115.jpg",
+  "titel": "File:COI00041092 - Tragopogon pratensis - Costa y Cuxart, Antonio Cipriano - 115.jpg",
+  "urheber": "Herbarium of the University of Coimbra (COI)"
  },
  "trollius-europaeus": {
   "abruf": "2026-10-09",
@@ -5674,18 +5530,6 @@
   "seite": "https://commons.wikimedia.org/wiki/File:Tropaeolum_majus_2005_G1.jpg",
   "titel": "File:Tropaeolum majus 2005 G1.jpg",
   "urheber": "George Chernilevsky"
- },
- "tulipa-gesneriana": {
-  "abruf": "2026-10-09",
-  "breite": 482,
-  "datei": "tulipa-gesneriana.webp",
-  "herkunft": "Titelbild des Wikipedia-Artikels",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Gc16_tulipa_gesneriana.jpg",
-  "titel": "File:Gc16 tulipa gesneriana.jpg",
-  "urheber": "Hans-Simon Holtzbecker"
  },
  "tulipa-sylvestris": {
   "abruf": "2026-10-09",
@@ -5723,18 +5567,6 @@
   "titel": "File:Lisdodde.jpg",
   "urheber": "Andrawaag"
  },
- "urtica-dioica": {
-  "abruf": "2026-10-09",
-  "breite": 398,
-  "datei": "urtica-dioica.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Urtica_dioica0.jpg",
-  "titel": "File:Illustration Urtica dioica0.jpg",
-  "urheber": ""
- },
  "vaccinium-corymbosum": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -5760,16 +5592,16 @@
   "urheber": "Photo by Keith Weller"
  },
  "vaccinium-myrtillus": {
-  "abruf": "2026-10-09",
-  "breite": 457,
+  "abruf": "2026-10-11",
+  "breite": 599,
   "datei": "vaccinium-myrtillus.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "Public domain",
-  "lizenz_url": "",
-  "seite": "https://commons.wikimedia.org/wiki/File:203_Vaccinum_myrtillus_L.jpg",
-  "titel": "File:203 Vaccinum myrtillus L.jpg",
-  "urheber": "Amédée Masclef"
+  "herkunft": "Titelbild des Wikipedia-Artikels",
+  "hoehe": 450,
+  "lizenz": "CC BY-SA 3.0",
+  "lizenz_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "seite": "https://commons.wikimedia.org/wiki/File:Bieszczady_Flora.jpg",
+  "titel": "File:Bieszczady Flora.jpg",
+  "urheber": "Marek Silarski"
  },
  "vaccinium-vitis-idaea": {
   "abruf": "2026-10-09",
@@ -5963,18 +5795,6 @@
   "titel": "File:ViolaWittrockiana001.JPG",
   "urheber": "Hugo.arg"
  },
- "vitis-vinifera": {
-  "abruf": "2026-10-09",
-  "breite": 399,
-  "datei": "vitis-vinifera.webp",
-  "herkunft": "Wikidata P18",
-  "hoehe": 640,
-  "lizenz": "CC0",
-  "lizenz_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-  "seite": "https://commons.wikimedia.org/wiki/File:Illustration_Vitis_vinifera_Prof._Dr._Otto_Wilhelm_Thom%C3%A9_1885.png",
-  "titel": "File:Illustration Vitis vinifera Prof. Dr. Otto Wilhelm Thomé 1885.png",
-  "urheber": "Birkho"
- },
  "waldsteinia-ternata": {
   "abruf": "2026-10-09",
   "breite": 640,
@@ -6012,16 +5832,16 @@
   "urheber": "RedCoat"
  },
  "xerochrysum-bracteatum": {
-  "abruf": "2026-10-09",
+  "abruf": "2026-10-11",
   "breite": 640,
   "datei": "xerochrysum-bracteatum.webp",
   "herkunft": "Wikidata P18",
   "hoehe": 480,
-  "lizenz": "CC BY 2.0",
-  "lizenz_url": "https://creativecommons.org/licenses/by/2.0",
-  "seite": "https://commons.wikimedia.org/wiki/File:Xerochrysum_bracteatum_leaf2_-_Flickr_-_Macleay_Grass_Man.jpg",
-  "titel": "File:Xerochrysum bracteatum leaf2 - Flickr - Macleay Grass Man.jpg",
-  "urheber": "Harry Rose from Dungog, Australia"
+  "lizenz": "CC BY-SA 4.0",
+  "lizenz_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "seite": "https://commons.wikimedia.org/wiki/File:Xerochrysum_bracteatum_Kew_34.jpg",
+  "titel": "File:Xerochrysum bracteatum Kew 34.jpg",
+  "urheber": "Emőke Dénes"
  },
  "zea-mays": {
   "abruf": "2026-10-09",

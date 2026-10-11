@@ -194,3 +194,16 @@ data class Gegenstandspunkt(
     val y: Float,
     val rund: Boolean = true,
 )
+
+/**
+ * Persönlicher Bildausschnitt einer Pflanze aus den Grunddaten: Mittelpunkt (0 bis 1, vom oberen
+ * linken Eck des Bildes aus) und Zoom (1 = größtmöglicher Ausschnitt). Gilt für Kachel und Info-Fenster.
+ * Fehlt die Zeile, wird aus der Mitte ausgeschnitten.
+ */
+@Entity(tableName = "bild_ausschnitt")
+data class BildAusschnitt(
+    @PrimaryKey val pflanzeId: Long,
+    val mitteX: Float,
+    val mitteY: Float,
+    val zoom: Float,
+)

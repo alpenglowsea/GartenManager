@@ -297,3 +297,6 @@ Ich habe die Zuordnung der Überschriften bei der Wald-Erdbeere anhand der Über
 
 ## Nachtrag 09.10.2026: Tabelle `bild` (Grunddaten, Datei 1)
 `bild(pflanze_id PRIMARY KEY, datei, urheber, lizenz, lizenz_url, seite, titel, herkunft, abruf)`. Ein Bild je Pflanze; die Bilddatei liegt als WebP in `assets/bilder/<lateinischer-slug>.webp`, Pflanzen mit gleichem lateinischen Namen teilen sich eine Datei. Die Metadaten stehen in `daten/bilder.json` (erzeugt von `tools/baue_bilder.py`). Der persönliche Bildausschnitt (Mittelpunkt, Zoom) kommt in Stufe 5 in die eigene Datenbank (Datei 2).
+
+## Nachtrag 11.10.2026: Tabelle `bild_ausschnitt` (Meine Daten, Datei 2, ab Version 6)
+`bild_ausschnitt(pflanzeId PRIMARY KEY, mitteX, mitteY, zoom)`. Mittelpunkt 0 bis 1 vom oberen linken Eck des Bildes, Zoom 1 bis 5 (1 = größtmöglicher Ausschnitt). Gilt für Kachel und Info-Fenster. Ohne Zeile: Mitte, Zoom 1. Schlüssel ist die stabile Pflanzennummer aus den Grunddaten. Gehört ins Backup.
