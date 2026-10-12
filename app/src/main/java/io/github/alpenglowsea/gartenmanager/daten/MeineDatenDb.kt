@@ -21,7 +21,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         Grundstueck::class, Garten::class, Ebene::class, Flaeche::class, Punkt::class,
         Gegenstand::class, Gegenstandspunkt::class, BildAusschnitt::class,
     ],
-    version = 6,
+    version = 7,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
@@ -39,6 +39,20 @@ abstract class MeineDatenDb : RoomDatabase() {
             }
         }
 
+        /**
+         * Version 6 -> 7: gesetzte Pflanzen. Sie sind Gegenstände mit vier zusätzlichen Spalten
+         * (Nummer in den Grunddaten und eine Notfall-Kopie von Name, lateinischem Namen und Gruppe).
+         * Bestehende Gärten bleiben erhalten.
+         */
+        private val VON_6_AUF_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `pflanzeId` INTEGER")
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `pflanzeName` TEXT")
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `pflanzeLatein` TEXT")
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `pflanzeGruppe` TEXT")
+            }
+        }
+
         @Volatile
         private var instanz: MeineDatenDb? = null
 
@@ -49,7 +63,7 @@ abstract class MeineDatenDb : RoomDatabase() {
                     MeineDatenDb::class.java,
                     "meine_daten.db",
                 )
-                    .addMigrations(VON_5_AUF_6)
+                    .addMigrations(VON_5_AUF_6, VON_6_AUF_7)
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { instanz = it }

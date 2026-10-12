@@ -83,6 +83,15 @@ import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.draw.alpha
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.Dialog
+import io.github.alpenglowsea.gartenmanager.daten.ART_PFLANZE
+import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.foundation.gestures.detectDragGestures
 import kotlin.math.sin
 import kotlin.math.cos
@@ -263,6 +272,14 @@ private fun angepasst(
     marken: MutableList<Offset>? = null,
 ): Gegenstand {
     val o = z.original
+    if (z.modus == GModus.GROESSE && o.art == ART_PFLANZE) {
+        // Pflanze (Kreis): Der Durchmesser wächst um das Doppelte der Bewegung des Fingers entlang der
+        // Diagonale des Griffs; die Mitte bleibt stehen.
+        val d = z.aktuell - z.start
+        val dr = (z.sx * d.x + z.sy * d.y) * 0.7071f
+        val neu = maxOf(minGroesse, o.breite + 2f * dr)
+        return o.copy(breite = neu, hoehe = neu)
+    }
     return when (z.modus) {
         GModus.PUNKT -> o // Beim Ziehen eines Gebäudepunkts bleibt der Gegenstand selbst, nur der Punkt wandert.
         GModus.VERSCHIEBEN -> {
@@ -454,6 +471,27 @@ fun GartenScreen(
     val formAuswahl = viewModel.formAuswahl
     val einrasten = viewModel.einrasten
     val gartenId = garten.id
+    val context = LocalContext.current
+
+    // Pflanzen im Garten: Bilddateien der Grunddaten, persönliche Ausschnitte und geladene Fotos
+    val ausschnitteListe by viewModel.ausschnitte.collectAsState()
+    val ausschnittNachId = remember(ausschnitteListe) { ausschnitteListe.associateBy { it.pflanzeId } }
+    var bildDateien by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
+    LaunchedEffect(Unit) {
+        bildDateien = try {
+            withContext(Dispatchers.IO) { Grunddaten.bildDateien(context) }
+        } catch (e: Exception) {
+            emptyMap()
+        }
+    }
+    val fotos = remember { mutableStateMapOf<String, ImageBitmap>() }
+    val pflanzenPinsel = remember {
+        android.graphics.Paint().apply {
+            isAntiAlias = true
+            textAlign = android.graphics.Paint.Align.CENTER
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+        }
+    }
 
     // Ansicht pro Garten neu aus den gespeicherten Werten starten (nur beim Öffnen).
     var zoom by remember(gartenId) { mutableFloatStateOf(garten.ansichtZoom) }
@@ -522,6 +560,8 @@ fun GartenScreen(
     var gNamenDialog by remember { mutableStateOf(false) }
     var gLoeschenDialog by remember { mutableStateOf(false) }
     var infoGegenstandId by remember { mutableStateOf<Long?>(null) }
+    var pflanzenInfoId by remember { mutableStateOf<Long?>(null) } // Info-Fenster einer gesetzten Pflanze
+    var pflanzeWechselnDialog by remember { mutableStateOf(false) }
 
     // Dialoge
     var hilfeDialog by remember { mutableStateOf(false) }
@@ -549,6 +589,20 @@ fun GartenScreen(
     }
 
     val faktor = zoom * dichte
+
+    // Fotos nur für Pflanzen laden, deren Kreis auf dem Bildschirm groß genug ist (sonst reicht das Piktogramm).
+    val gebrauchteFotos: Set<String> = gegenstaende.asSequence()
+        .filter { istPflanze(it) && it.breite * faktor >= FOTO_BEGINN_DP * dichte }
+        .mapNotNull { g -> g.pflanzeId?.let { bildDateien[it] } }
+        .toSet()
+    LaunchedEffect(gebrauchteFotos) {
+        for (datei in gebrauchteFotos) {
+            if (datei in fotos) continue
+            val bild = withContext(Dispatchers.IO) { ladeBild(context, datei, FOTO_KANTE_GARTEN) }
+            if (bild != null) fotos[datei] = bild
+        }
+    }
+
     fun zuSkizze(bild: Offset) = Offset((bild.x - verschiebungX) / faktor, (bild.y - verschiebungY) / faktor)
     fun zuBildschirm(skizze: Offset) = Offset(skizze.x * faktor + verschiebungX, skizze.y * faktor + verschiebungY)
 
@@ -718,6 +772,23 @@ fun GartenScreen(
         val h = g.hoehe * faktor
         val eckRadius = (minOf(w, h) * 0.35f).coerceIn(14f * dichte, 26f * dichte)
         val liste = mutableListOf<GriffInfo>()
+        if (istPflanze(g)) {
+            // Pflanze (Kreis): Größe über Griffe auf der Kreislinie, kein Drehgriff. Kleine Pflanzen bekommen
+            // einen einzelnen Griff außerhalb an einem Stiel, damit die Mitte zum Verschieben frei bleibt.
+            val r = w / 2f
+            if (w < 48f * dichte) {
+                val e = r * 0.7071f
+                val a = (r + 28f * dichte) * 0.7071f
+                liste.add(GriffInfo(1, 1, false, gBild(g, a, a), 22f * dichte, gBild(g, e, e)))
+            } else {
+                val d = r * 0.7071f
+                val rad = (w * 0.3f).coerceIn(12f * dichte, 26f * dichte)
+                for (sx in listOf(-1, 1)) {
+                    for (sy in listOf(-1, 1)) liste.add(GriffInfo(sx, sy, false, gBild(g, sx * d, sy * d), rad))
+                }
+            }
+            return liste
+        }
         if (istGebaeude(g)) {
             // Freies Gebäude: nur der Drehgriff (die Form ändern die Punkte)
             val minY = gPunkteLive(g).minOfOrNull { it.y * faktor } ?: (-h / 2f)
@@ -777,6 +848,10 @@ fun GartenScreen(
         val dy = pos.y - c.y
         val lx = dx * cs + dy * sn
         val ly = -dx * sn + dy * cs
+        if (istPflanze(g)) {
+            val rad = maxOf(g.breite * faktor / 2f, 12f * dichte)
+            return lx * lx + ly * ly <= rad * rad
+        }
         if (istGebaeude(g)) {
             val ps = gPunkteLive(g)
             return ps.size >= 3 &&
@@ -1242,11 +1317,13 @@ fun GartenScreen(
                         if (pu != null) viewModel.setzeGebaeudePunktRund(gartenId, pu.id, !pu.rund)
                     },
                     platzieren = viewModel.platzieren,
+                    platzierenPflanze = viewModel.platzierenPflanze,
                     gewaehlterPunkt = gewaehlterPunkt,
                     punktLoeschenMoeglich = gewaehltePunkte.size > 3,
                     onFlaecheZeichnen = viewModel::starteZeichnung,
                     onFormenWaehlen = { formenDialog = true },
                     onGegenstand = viewModel::starteGegenstandPlatzieren,
+                    onPflanze = viewModel::startePflanzePlatzieren,
                     onPlatzierenAbbrechen = viewModel::brichPlatzierenAb,
                     onRueckgaengig = {
                         if (zeichnung != null) viewModel.entferneLetztenPunkt() else viewModel.macheRueckgaengig(gartenId)
@@ -1325,7 +1402,24 @@ fun GartenScreen(
                         val imInfo = !bearbeiten && gegenstand.id == infoGegenstandId
                         val umrissFarbe = if (imInfo) achsenFarbe else if (inDerHandG) rahmenFarbe else null
                         val umrissDicke = (if (imInfo) 4f else 6f) * dichte
-                        if (istGebaeude(live)) {
+                        if (istPflanze(live)) {
+                            val pGruppe = live.pflanzeGruppe.orEmpty()
+                            val pDatei = live.pflanzeId?.let { bildDateien[it] }
+                            zeichneGartenPflanze(
+                                mitte = zuBildschirm(Offset(live.mitteX, live.mitteY)),
+                                durchmesser = live.breite * faktor,
+                                farbe = live.farbe?.let { Color(it) } ?: gruppenFarbe(pGruppe),
+                                gruppe = pGruppe,
+                                namePerInitialen = live.pflanzeName ?: live.name.orEmpty(),
+                                dichte = dichte,
+                                foto = pDatei?.let { fotos[it] },
+                                ausschnitt = live.pflanzeId?.let { ausschnittNachId[it] },
+                                pinsel = pflanzenPinsel,
+                                inDerHand = inDerHandG,
+                                umriss = umrissFarbe,
+                                umrissBreite = umrissDicke,
+                            )
+                        } else if (istGebaeude(live)) {
                             zeichneGebaeude(
                                 live,
                                 gPunkteLive(live),
@@ -1489,6 +1583,13 @@ fun GartenScreen(
                                 }
                             }
                         }
+                    } else if (istPflanze(ausgewaehlt)) {
+                        drawCircle(
+                            rahmenFarbe,
+                            radius = ausgewaehlt.breite * faktor / 2f,
+                            center = zuBildschirm(Offset(ausgewaehlt.mitteX, ausgewaehlt.mitteY)),
+                            style = Stroke(width = 3f * dichte),
+                        )
                     } else {
                         val w2 = ausgewaehlt.breite * faktor / 2f
                         val h2 = ausgewaehlt.hoehe * faktor / 2f
@@ -1704,6 +1805,33 @@ fun GartenScreen(
                     shadowElevation = 4.dp,
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+                      if (istPflanze(infoG)) {
+                        Text(
+                            text = pflanzenAnzeigename(infoG) ?: stringResource(R.string.pflanze_ohne_namen),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        if (infoG.name != null && infoG.pflanzeName != null) {
+                            Text(infoG.pflanzeName, style = MaterialTheme.typography.bodyMedium)
+                        }
+                        if (infoG.pflanzeLatein != null) {
+                            Text(
+                                infoG.pflanzeLatein,
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            )
+                        }
+                        Text(
+                            text = stringResource(R.string.pflanze_durchmesser, zahlText(infoG.breite / garten.massstab)),
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(top = 6.dp),
+                        )
+                        val infoNummer = infoG.pflanzeId
+                        if (infoNummer != null) {
+                            TextButton(onClick = { pflanzenInfoId = infoNummer }) {
+                                Text(stringResource(R.string.pflanze_mehr_info))
+                            }
+                        }
+                      } else {
                         Text(
                             text = infoG.name ?: stringResource(gart.nameRes),
                             style = MaterialTheme.typography.titleMedium,
@@ -1738,6 +1866,7 @@ fun GartenScreen(
                                 modifier = Modifier.padding(top = 6.dp),
                             )
                         }
+                      }
                     }
                 }
             }
@@ -1746,6 +1875,19 @@ fun GartenScreen(
             if (gMenuePos != null && gewaehlterGegenstand != null) {
                 Box(modifier = Modifier.offset { IntOffset(gMenuePos.x.toInt(), gMenuePos.y.toInt()) }) {
                     DropdownMenu(expanded = true, onDismissRequest = { gegenstandMenue = null }) {
+                        if (istPflanze(gewaehlterGegenstand)) {
+                            val nummer = gewaehlterGegenstand.pflanzeId
+                            if (nummer != null) {
+                                MenuePunkt(R.string.menue_pflanzeninfo) {
+                                    gegenstandMenue = null
+                                    pflanzenInfoId = nummer
+                                }
+                            }
+                            MenuePunkt(R.string.menue_pflanze_wechseln) {
+                                gegenstandMenue = null
+                                pflanzeWechselnDialog = true
+                            }
+                        }
                         MenuePunkt(R.string.menue_name_aendern) {
                             gegenstandMenue = null
                             gNamenDialog = true
@@ -1758,12 +1900,14 @@ fun GartenScreen(
                             gegenstandMenue = null
                             viewModel.dupliziereGegenstand(gartenId, gewaehlterGegenstand.id, garten.massstab)
                         }
-                        MenuePunkt(R.string.menue_drehen90) {
-                            gegenstandMenue = null
-                            viewModel.setzeGegenstandLage(
-                                gartenId,
-                                gewaehlterGegenstand.copy(drehung = (gewaehlterGegenstand.drehung + 90f) % 360f),
-                            )
+                        if (!istPflanze(gewaehlterGegenstand)) {
+                            MenuePunkt(R.string.menue_drehen90) {
+                                gegenstandMenue = null
+                                viewModel.setzeGegenstandLage(
+                                    gartenId,
+                                    gewaehlterGegenstand.copy(drehung = (gewaehlterGegenstand.drehung + 90f) % 360f),
+                                )
+                            }
                         }
                         MenuePunkt(R.string.menue_nach_vorn) {
                             gegenstandMenue = null
@@ -1926,7 +2070,31 @@ fun GartenScreen(
         )
     }
     val ortFuerKatalog = platzOrt
-    if (ortFuerKatalog != null && viewModel.platzieren) {
+    if (ortFuerKatalog != null && viewModel.platzieren && viewModel.platzierenPflanze) {
+        PflanzenWahlDialog(
+            onWahl = { t ->
+                platzOrt = null
+                val durchmesser = standardDurchmesserCm(t.hauptgruppe) / 100f * garten.massstab
+                viewModel.legeGegenstandAn(
+                    gartenId,
+                    Gegenstand(
+                        gartenId = gartenId,
+                        ebeneId = 0,
+                        art = ART_PFLANZE,
+                        mitteX = ortFuerKatalog.x,
+                        mitteY = ortFuerKatalog.y,
+                        breite = durchmesser,
+                        hoehe = durchmesser,
+                        pflanzeId = t.id,
+                        pflanzeName = t.hauptname,
+                        pflanzeLatein = t.lateinisch,
+                        pflanzeGruppe = t.hauptgruppe,
+                    ),
+                )
+            },
+            onAbbrechen = { platzOrt = null },
+        )
+    } else if (ortFuerKatalog != null && viewModel.platzieren) {
         KatalogDialog(
             onWahl = { art ->
                 platzOrt = null
@@ -1956,6 +2124,27 @@ fun GartenScreen(
             onAbbrechen = { platzOrt = null },
         )
     }
+    if (pflanzeWechselnDialog && gewaehlterGegenstand != null && istPflanze(gewaehlterGegenstand)) {
+        PflanzenWahlDialog(
+            onWahl = { t ->
+                pflanzeWechselnDialog = false
+                viewModel.wechslePflanzenart(gartenId, gewaehlterGegenstand.id, t.id, t.hauptname, t.lateinisch, t.hauptgruppe)
+            },
+            onAbbrechen = { pflanzeWechselnDialog = false },
+        )
+    }
+    val infoPflanzeId = pflanzenInfoId
+    if (infoPflanzeId != null) {
+        // Das Info-Fenster liegt als Vollbild-Fenster über dem Garten; der Garten behält so Ansicht und Auswahl.
+        Dialog(
+            onDismissRequest = { pflanzenInfoId = null },
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                PflanzenInfoScreen(pflanzeId = infoPflanzeId, onZurueck = { pflanzenInfoId = null })
+            }
+        }
+    }
     if (flaechenFarbeDialog && gewaehlteFlaeche != null) {
         FarbDialog(
             aktuell = gewaehlteFlaeche.farbe,
@@ -1978,7 +2167,7 @@ fun GartenScreen(
     }
     if (gNamenDialog && gewaehlterGegenstand != null) {
         NameDialog(
-            titel = stringResource(R.string.gegenstand_name_titel),
+            titel = stringResource(if (istPflanze(gewaehlterGegenstand)) R.string.pflanze_name_titel else R.string.gegenstand_name_titel),
             startwert = gewaehlterGegenstand.name.orEmpty(),
             bestaetigenText = stringResource(R.string.speichern),
             onBestaetigt = { name ->
@@ -1990,8 +2179,8 @@ fun GartenScreen(
     }
     if (gLoeschenDialog && gewaehlterGegenstand != null) {
         BestaetigenDialog(
-            titel = stringResource(R.string.gegenstand_loeschen_titel),
-            text = stringResource(R.string.gegenstand_loeschen_text),
+            titel = stringResource(if (istPflanze(gewaehlterGegenstand)) R.string.pflanze_loeschen_titel else R.string.gegenstand_loeschen_titel),
+            text = stringResource(if (istPflanze(gewaehlterGegenstand)) R.string.pflanze_loeschen_text else R.string.gegenstand_loeschen_text),
             bestaetigenText = stringResource(R.string.loeschen),
             onBestaetigt = {
                 gLoeschenDialog = false
@@ -2017,6 +2206,8 @@ fun GartenScreen(
             flaecheGewaehlt = gewaehlteFlaeche != null,
             gegenstandGewaehlt = gewaehlterGegenstand != null,
             gebaeudeGewaehlt = gewaehlterGegenstand?.let { istGebaeude(it) } == true,
+            pflanzeGewaehlt = gewaehlterGegenstand?.let { istPflanze(it) } == true,
+            pflanzePlatziert = viewModel.platzierenPflanze,
             platziert = viewModel.platzieren,
             onSchliessen = { hilfeDialog = false },
         )
@@ -2096,11 +2287,13 @@ private fun Werkzeugleiste(
     onGebaeudePunktLoeschen: () -> Unit,
     onGebaeudePunktRund: () -> Unit,
     platzieren: Boolean,
+    platzierenPflanze: Boolean,
     gewaehlterPunkt: Punkt?,
     punktLoeschenMoeglich: Boolean,
     onFlaecheZeichnen: () -> Unit,
     onFormenWaehlen: () -> Unit,
     onGegenstand: () -> Unit,
+    onPflanze: () -> Unit,
     onPlatzierenAbbrechen: () -> Unit,
     onRueckgaengig: () -> Unit,
     onAbbrechen: () -> Unit,
@@ -2135,7 +2328,10 @@ private fun Werkzeugleiste(
                     KnopfUmriss(R.string.andere_form, onFormenWaehlen, Modifier.weight(1f))
                 }
             } else if (platzieren) {
-                Text(stringResource(R.string.platzieren_hinweis), style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    stringResource(if (platzierenPflanze) R.string.platzieren_hinweis_pflanze else R.string.platzieren_hinweis),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     KnopfUmriss(R.string.abbrechen, onPlatzierenAbbrechen, Modifier.weight(1f))
                 }
@@ -2172,9 +2368,12 @@ private fun Werkzeugleiste(
             } else {
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     KnopfVoll(R.string.zeichnen, onFlaecheZeichnen, Modifier.weight(1f))
-                    KnopfVoll(R.string.form_waehlen, onFormenWaehlen, Modifier.weight(1f))
-                    KnopfVoll(R.string.gegenstand_knopf, onGegenstand, Modifier.weight(1.25f))
-                    KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1.25f), enabled = kannRueckgaengig)
+                    KnopfVoll(R.string.form_waehlen, onFormenWaehlen, Modifier.weight(0.8f))
+                    KnopfVoll(R.string.gegenstand_knopf, onGegenstand, Modifier.weight(1.3f))
+                    KnopfVoll(R.string.pflanze_knopf, onPflanze, Modifier.weight(1.1f))
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    KnopfUmriss(R.string.rueckgaengig, onRueckgaengig, Modifier.weight(1f), enabled = kannRueckgaengig)
                 }
             }
         }
@@ -2276,6 +2475,8 @@ private fun HilfeDialog(
     flaecheGewaehlt: Boolean,
     gegenstandGewaehlt: Boolean,
     gebaeudeGewaehlt: Boolean,
+    pflanzeGewaehlt: Boolean,
+    pflanzePlatziert: Boolean,
     platziert: Boolean,
     onSchliessen: () -> Unit,
 ) {
@@ -2294,9 +2495,10 @@ private fun HilfeDialog(
                     if (zeichnet) Text(stringResource(R.string.hilfe_zeichnen))
                     if (formModus) Text(stringResource(R.string.hilfe_form))
                     if (flaecheGewaehlt) Text(stringResource(R.string.hilfe_auswahl))
-                    if (platziert) Text(stringResource(R.string.hilfe_platzieren))
-                    if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_gegenstand))
-                    if (gegenstandGewaehlt) Text(stringResource(R.string.hilfe_schmal))
+                    if (platziert) Text(stringResource(if (pflanzePlatziert) R.string.hilfe_platzieren_pflanze else R.string.hilfe_platzieren))
+                    if (gegenstandGewaehlt && pflanzeGewaehlt) Text(stringResource(R.string.hilfe_pflanze))
+                    if (gegenstandGewaehlt && !pflanzeGewaehlt) Text(stringResource(R.string.hilfe_gegenstand))
+                    if (gegenstandGewaehlt && !pflanzeGewaehlt) Text(stringResource(R.string.hilfe_schmal))
                     if (gebaeudeGewaehlt) Text(stringResource(R.string.hilfe_gebaeude))
                     if (!zeichnet && !formModus && !flaecheGewaehlt && !platziert && !gegenstandGewaehlt) {
                         Text(stringResource(R.string.hilfe_werkzeuge))
@@ -3113,7 +3315,21 @@ private fun EbenenListe(
                                 .padding(start = 8.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            if (g != null) {
+                            if (g != null && istPflanze(g)) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .background(g.farbe?.let { Color(it) } ?: gruppenFarbe(g.pflanzeGruppe.orEmpty()), CircleShape),
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Text(
+                                    text = pflanzenAnzeigename(g) ?: stringResource(R.string.pflanze_ohne_namen),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.weight(1f),
+                                )
+                            } else if (g != null) {
                                 val gart = GegenstandsArt.vonSchluessel(g.art)
                                 Box(
                                     modifier = Modifier

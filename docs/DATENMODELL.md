@@ -300,3 +300,6 @@ Ich habe die Zuordnung der Überschriften bei der Wald-Erdbeere anhand der Über
 
 ## Nachtrag 11.10.2026: Tabelle `bild_ausschnitt` (Meine Daten, Datei 2, ab Version 6)
 `bild_ausschnitt(pflanzeId PRIMARY KEY, mitteX, mitteY, zoom)`. Mittelpunkt 0 bis 1 vom oberen linken Eck des Bildes, Zoom 1 bis 5 (1 = größtmöglicher Ausschnitt). Gilt für Kachel und Info-Fenster. Ohne Zeile: Mitte, Zoom 1. Schlüssel ist die stabile Pflanzennummer aus den Grunddaten. Gehört ins Backup.
+
+## Nachtrag 11.10.2026: Gesetzte Pflanzen (Meine Daten, Datei 2, ab Version 7)
+Eine im Garten gesetzte Pflanze ist eine Zeile der Tabelle `gegenstand` mit `art = 'pflanze'`. Neue Spalten (alle leer erlaubt): `pflanzeId` (stabile Nummer aus den Grunddaten), `pflanzeName`, `pflanzeLatein`, `pflanzeGruppe` (Notfall-Kopie, falls die Nummer in den Grunddaten einmal fehlt). `breite` und `hoehe` sind gleich und sind der Durchmesser in Skizzeneinheiten (Maßstab des Gartens). `name` bleibt der eigene Name des Nutzers, `farbe` überschreibt die Gruppenfarbe. Abweichung von Abschnitt 6 ("eigene Tabelle Pflanzung"): bewusste Vereinfachung, siehe PFLANZEN.md. Pflanzdatum und Notiz kommen mit Schritt 4e.

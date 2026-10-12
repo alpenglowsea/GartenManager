@@ -265,4 +265,14 @@ object Grunddaten {
             liste
         }
     }
+
+    /** Bilddatei jeder Pflanze, die ein Bild hat (Nummer -> Dateiname), für die Fotos im Gartenplan. */
+    fun bildDateien(context: Context): Map<Long, String> {
+        val d = oeffne(context)
+        return d.rawQuery("SELECT pflanze_id, datei FROM bild", null).use { c ->
+            val karte = HashMap<Long, String>()
+            while (c.moveToNext()) karte[c.getLong(0)] = c.getString(1)
+            karte
+        }
+    }
 }

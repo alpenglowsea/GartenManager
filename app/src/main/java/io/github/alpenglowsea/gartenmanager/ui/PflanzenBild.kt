@@ -90,7 +90,7 @@ private object BildCache {
  * Liest ein Bild aus den Assets und verkleinert es beim Lesen so, dass die kürzere Seite nicht kleiner
  * als [maxKante] Pixel wird. Gibt null zurück, wenn das Bild fehlt oder nicht lesbar ist.
  */
-private fun ladeBild(context: Context, datei: String, maxKante: Int): ImageBitmap? {
+internal fun ladeBild(context: Context, datei: String, maxKante: Int): ImageBitmap? {
     val schluessel = "$datei@$maxKante"
     BildCache.hole(schluessel)?.let { return it }
     return try {

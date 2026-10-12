@@ -108,7 +108,7 @@ internal fun DrawScope.zeichneSymbolFormen(befehle: List<SymbolBefehl>, ursprung
 
 /**
  * Zeichnet eine ganze Pflanze: Kreis in [farbe], dunklerer Rand, Piktogramm der [gruppe].
- * Mit [mitInitialen] wird das Piktogramm kleiner und oben gezeichnet, Platz für die Initialen unten.
+ * Mit [mitInitialen] sitzt das Piktogramm etwas höher, unten bleibt Platz für die Initialen (die der Aufrufer zeichnet).
  * Wird in 4d auch für Pflanzen im Gartenplan verwendet.
  */
 internal fun DrawScope.zeichnePflanzenKreis(
@@ -129,8 +129,10 @@ internal fun DrawScope.zeichnePflanzenKreis(
     val symbol = SYMBOLE[gruppe] ?: return
     val akzent = dunkler(farbe, 0.55f)
     if (mitInitialen) {
-        val kante = durchmesser * 0.54f
-        zeichneSymbolFormen(symbol.befehle, Offset(mitte.x - kante / 2f, mitte.y - r + durchmesser * 0.10f), kante, akzent)
+        // Der Kreis ist größer als ohne Initialen: Das Piktogramm behält seine Größe (0,60 vom Durchmesser
+        // entspricht dem Piktogramm im Kreis ohne Initialen) und sitzt etwas höher, unten ist Platz für die Buchstaben.
+        val kante = durchmesser * 0.60f
+        zeichneSymbolFormen(symbol.befehle, Offset(mitte.x - kante / 2f, mitte.y - durchmesser * 0.10f - kante / 2f), kante, akzent)
     } else {
         val kante = durchmesser * 0.84f
         zeichneSymbolFormen(symbol.befehle, Offset(mitte.x - kante / 2f, mitte.y - kante / 2f), kante, akzent)
@@ -178,7 +180,7 @@ fun PflanzenSymbol(
                 fontSize = schrift,
                 maxLines = 1,
                 softWrap = false,
-                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = groesse * 0.14f),
+                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = groesse * 0.09f),
             )
         }
     }

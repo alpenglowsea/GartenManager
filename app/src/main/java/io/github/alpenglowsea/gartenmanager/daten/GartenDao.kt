@@ -240,6 +240,19 @@ abstract class GartenDao {
     @Query("UPDATE gegenstand SET name = :name WHERE id = :id")
     abstract suspend fun benenneGegenstandUm(id: Long, name: String?)
 
+    /** Tauscht die Pflanzenart einer gesetzten Pflanze aus (Lage und Größe bleiben). */
+    @Query(
+        "UPDATE gegenstand SET pflanzeId = :pflanzeId, pflanzeName = :pflanzeName, " +
+            "pflanzeLatein = :pflanzeLatein, pflanzeGruppe = :pflanzeGruppe WHERE id = :id",
+    )
+    abstract suspend fun setzePflanzenart(
+        id: Long,
+        pflanzeId: Long,
+        pflanzeName: String,
+        pflanzeLatein: String,
+        pflanzeGruppe: String,
+    )
+
     @Query("UPDATE gegenstand SET ebeneId = :ebeneId, reihenfolge = :reihenfolge WHERE id = :id")
     abstract suspend fun setzeGegenstandEbene(id: Long, ebeneId: Long, reihenfolge: Int)
 

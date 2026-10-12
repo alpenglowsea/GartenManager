@@ -247,4 +247,19 @@
     <string name="ausschnitt_speichern">Speichern</string>
     <string name="ausschnitt_zuruecksetzen">Zurücksetzen</string>
     <string name="ausschnitt_abbrechen">Abbrechen</string>
+
+    <!-- Teilschritt 4d1: Pflanzen im Garten -->
+    <string name="pflanze_knopf">Pflanze</string>
+    <string name="pflanze_waehlen_titel">Pflanze wählen</string>
+    <string name="platzieren_hinweis_pflanze">Tippe auf die Stelle im Garten, an die die Pflanze kommen soll.</string>
+    <string name="menue_pflanzeninfo">Pflanzeninfo</string>
+    <string name="menue_pflanze_wechseln">Pflanze wechseln</string>
+    <string name="pflanze_name_titel">Eigener Name der Pflanze</string>
+    <string name="pflanze_loeschen_titel">Pflanze löschen?</string>
+    <string name="pflanze_loeschen_text">Die Pflanze wird aus dem Garten entfernt. Mit „Rückgängig“ holst du sie zurück, solange du im Bearbeitungsmodus bleibst.</string>
+    <string name="pflanze_durchmesser">Durchmesser ca. %1$s m</string>
+    <string name="pflanze_ohne_namen">Pflanze</string>
+    <string name="pflanze_mehr_info">Mehr zur Pflanze</string>
+    <string name="hilfe_platzieren_pflanze">Pflanze setzen: Tippe auf die Stelle im Garten. Dann öffnet sich die Pflanzenauswahl mit Suche und Gruppenfilter; mit einem Tipp auf einen Eintrag erscheint die Pflanze dort als Kreis. Die Startgröße richtet sich nach der Gruppe (grobe Schätzwerte) und lässt sich danach ändern. Neue Pflanzen kommen in die aktive Ebene.</string>
+    <string name="hilfe_pflanze">Ausgewählte Pflanze: Ziehe sie, um sie zu verschieben. Die Quadrate auf der Kreislinie ändern die Größe, der Mittelpunkt bleibt dabei stehen (bei sehr kleinen Pflanzen gibt es einen Griff außerhalb an einem Stiel). Halte den Finger lange auf die Pflanze, dann öffnet sich ihr Menü: Pflanzeninfo, Pflanze wechseln, eigener Name, Farbe, Duplizieren, Ebene wechseln, Löschen. Wenn du näher heranzoomst, zeigt der Kreis das Foto der Pflanze (soweit vorhanden); am farbigen Ring erkennst du die Gruppe.</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
 import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
@@ -38,6 +39,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     val gaerten: StateFlow<List<Garten>?> =
         dao.gaerten().stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    /** Persönliche Bildausschnitte der Pflanzenfotos (für die Fotos im Gartenplan). */
+    val ausschnitte: StateFlow<List<BildAusschnitt>> =
+        dao.alleAusschnitte().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /** Welche Grundstücke in der Liste aufgeklappt sind (nur für die laufende Sitzung). */
     var aufgeklappt by mutableStateOf(setOf<Long>())
@@ -196,15 +201,29 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     var platzieren by mutableStateOf(false)
         private set
 
+    /** Platzieren einer Pflanze statt eines Gegenstands (gilt nur, solange [platzieren] gesetzt ist). */
+    var platzierenPflanze by mutableStateOf(false)
+        private set
+
     fun starteGegenstandPlatzieren() {
         zeichnung = null
         formAuswahl = null
         waehleFlaeche(null)
+        platzierenPflanze = false
+        platzieren = true
+    }
+
+    fun startePflanzePlatzieren() {
+        zeichnung = null
+        formAuswahl = null
+        waehleFlaeche(null)
+        platzierenPflanze = true
         platzieren = true
     }
 
     fun brichPlatzierenAb() {
         platzieren = false
+        platzierenPflanze = false
     }
 
     /** Gerade angelegte Fläche, für die noch die Oberfläche gewählt wird (Dialog offen). */
@@ -228,6 +247,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     fun starteZeichnung() {
         formAuswahl = null
         platzieren = false
+        platzierenPflanze = false
         zeichnung = emptyList()
         zeichnungRund = true
         waehleFlaeche(null)
@@ -236,6 +256,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     fun waehleForm(form: Form) {
         zeichnung = null
         platzieren = false
+        platzierenPflanze = false
         formAuswahl = form
         waehleFlaeche(null)
     }
@@ -416,6 +437,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     /** Legt einen neuen Gegenstand in der aktiven Ebene an und wählt ihn aus. */
     fun legeGegenstandAn(gartenId: Long, vorlage: Gegenstand, punkte: List<Gegenstandspunkt> = emptyList()) {
         platzieren = false
+        platzierenPflanze = false
         aendere(gartenId) {
             val id = dao.legeGegenstandAn(gartenId, aktiveEbeneId, vorlage, punkte, jetzt())
             waehleGegenstand(id)
@@ -479,6 +501,11 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.setzeEbenePlatz(gartenId, ebeneId, neuerPlatz) }
     }
 
+    /** Tauscht die Pflanzenart einer gesetzten Pflanze aus (ein Schritt für "Rückgängig"). */
+    fun wechslePflanzenart(gartenId: Long, id: Long, pflanzeId: Long, name: String, latein: String, gruppe: String) {
+        aendere(gartenId) { dao.setzePflanzenart(id, pflanzeId, name, latein, gruppe) }
+    }
+
     fun benenneGegenstandUm(gartenId: Long, id: Long, name: String) {
         aendere(gartenId) { dao.benenneGegenstandUm(id, name.trim().ifEmpty { null }) }
     }
@@ -539,6 +566,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         zeichnung = null
         formAuswahl = null
         platzieren = false
+        platzierenPflanze = false
         neueFlaecheId = null
         waehleFlaeche(null)
         viewModelScope.launch {

@@ -136,6 +136,11 @@ data class Punkt(
  * ([breite], [hoehe]) sind Skizzeneinheiten, der Maßstab des Gartens macht daraus Meter.
  * [drehung] in Grad. [farbe] ist die Hauptfarbe (leer = Standard). [reihenfolge] teilt
  * sich den Zähler mit den Flächen (höhere Zahl = weiter oben).
+ *
+ * Eine im Garten gesetzte Pflanze ist ein Gegenstand mit [art] = [ART_PFLANZE] (Teilschritt 4d). Breite
+ * und Höhe sind dann gleich (der Durchmesser). [pflanzeId] ist die Nummer in den Grunddaten; Name,
+ * lateinischer Name und Gruppe sind eine Notfall-Kopie, damit die Pflanze auch dann sinnvoll
+ * erscheint, wenn die Nummer in den Grunddaten einmal fehlt. [name] bleibt der eigene Name des Nutzers.
  */
 @Entity(
     tableName = "gegenstand",
@@ -168,7 +173,14 @@ data class Gegenstand(
     val drehung: Float = 0f,
     val farbe: Int? = null,
     val reihenfolge: Int = 0,
+    val pflanzeId: Long? = null,
+    val pflanzeName: String? = null,
+    val pflanzeLatein: String? = null,
+    val pflanzeGruppe: String? = null,
 )
+
+/** Schlüssel in [Gegenstand.art] für eine gesetzte Pflanze. */
+const val ART_PFLANZE = "pflanze"
 
 /**
  * Ein Punkt eines Gebäudes in freier Form (nur dafür). Die Lage ist relativ zur Mitte des
