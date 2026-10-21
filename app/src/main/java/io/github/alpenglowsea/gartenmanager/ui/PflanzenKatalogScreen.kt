@@ -55,6 +55,8 @@ import io.github.alpenglowsea.gartenmanager.daten.GrunddatenInfo
 import io.github.alpenglowsea.gartenmanager.daten.GruppeMitAnzahl
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeTreffer
+import io.github.alpenglowsea.gartenmanager.daten.sucheMitEigenen
+import androidx.compose.material3.TextButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -76,6 +78,8 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
     val dao = remember { MeineDatenDb.holen(context).gartenDao() }
     val ausschnitte by remember { dao.alleAusschnitte() }.collectAsState(initial = emptyList())
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
+    val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
+    var editorOffen by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         try {
@@ -89,10 +93,10 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
             fehler = e.toString()
         }
     }
-    LaunchedEffect(suchtext, gewaehlt, info) {
+    LaunchedEffect(suchtext, gewaehlt, info, gruppen, eigenePflanzen) {
         if (info == null) return@LaunchedEffect
         try {
-            treffer = withContext(Dispatchers.IO) { Grunddaten.suche(context, suchtext, gewaehlt) }
+            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen) }
         } catch (e: Exception) {
             fehler = e.toString()
         }
@@ -103,6 +107,10 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
         BackHandler { offen = null }
         PflanzenInfoScreen(pflanzeId = offeneId, onZurueck = { offen = null })
         return
+    }
+
+    if (editorOffen) {
+        EigenePflanzeDialog(id = 0L, onFertig = { editorOffen = false })
     }
 
     Scaffold(
@@ -154,11 +162,18 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                     )
                 }
             }
-            Text(
-                stringResource(R.string.pflanzen_test_treffer, treffer.size),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            )
+            Row(
+                Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    stringResource(R.string.pflanzen_test_treffer, treffer.size),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(vertical = 12.dp),
+                )
+                TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
+            }
             HorizontalDivider()
             LazyColumn(Modifier.fillMaxSize()) {
                 items(treffer, key = { it.id }) { t ->
@@ -205,7 +220,13 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                                         style = MaterialTheme.typography.bodyMedium,
                                         fontStyle = FontStyle.Italic,
                                     )
-                                    if (t.gefundenUeber != null) {
+                                    if (t.eigene) {
+                                        Text(
+                                            stringResource(R.string.eigene_pflanze_marke),
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.primary,
+                                        )
+                                    } else if (t.gefundenUeber != null) {
                                         Text(
                                             stringResource(R.string.pflanzen_test_gefunden_ueber, t.gefundenUeber),
                                             style = MaterialTheme.typography.bodySmall,

@@ -42,11 +42,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
+import io.github.alpenglowsea.gartenmanager.daten.EIGENE_BASIS
+import io.github.alpenglowsea.gartenmanager.daten.EigeneAngabe
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
-import io.github.alpenglowsea.gartenmanager.daten.Merker
+import io.github.alpenglowsea.gartenmanager.daten.MerkerZeile
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeDetail
+import io.github.alpenglowsea.gartenmanager.daten.QUELLE_EIGEN
 import io.github.alpenglowsea.gartenmanager.daten.QuelleInfo
+import io.github.alpenglowsea.gartenmanager.daten.baueEigenesDetail
+import io.github.alpenglowsea.gartenmanager.daten.istEigenePflanze
+import io.github.alpenglowsea.gartenmanager.daten.uebernehmeAlteMerker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -96,29 +102,41 @@ internal fun LinkText(adresse: String, modifier: Modifier = Modifier, anzeige: S
 @Composable
 fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
     val context = LocalContext.current
-    val merker = remember { Merker(context) }
+    val eigene = istEigenePflanze(pflanzeId)
     var detail by remember(pflanzeId) { mutableStateOf<PflanzeDetail?>(null) }
     var fehler by remember(pflanzeId) { mutableStateOf<String?>(null) }
-    var zugeklappt by remember(pflanzeId) { mutableStateOf(merker.zugeklappt(pflanzeId)) }
     var voll by rememberSaveable(pflanzeId) { mutableStateOf(false) }
     val dao = remember { MeineDatenDb.holen(context).gartenDao() }
     val ausschnitt by remember(pflanzeId) { dao.ausschnittFuer(pflanzeId) }.collectAsState(initial = null)
     val bereich = rememberCoroutineScope()
+    // Zugeklappte Abschnitte (null = noch nicht gelesen), eigene Texte, bei eigenen Pflanzen die Pflanze selbst
+    val zugeklappt by remember(pflanzeId) { dao.merkerFuer(pflanzeId) }.collectAsState(initial = null)
+    val meineAngaben by remember(pflanzeId) { dao.eigeneAngabenFuer(pflanzeId) }.collectAsState(initial = emptyList())
+    val eigenePflanze by remember(pflanzeId) { dao.eigenePflanzeFlow(pflanzeId - EIGENE_BASIS) }.collectAsState(initial = null)
+    var notizAbschnitt by remember(pflanzeId) { mutableStateOf<String?>(null) }
+    var editorOffen by remember(pflanzeId) { mutableStateOf(false) }
+    var loeschenFrage by remember(pflanzeId) { mutableStateOf(false) }
 
     LaunchedEffect(pflanzeId) {
         try {
-            val d = withContext(Dispatchers.IO) { Grunddaten.pflanze(context, pflanzeId) }
-            if (d == null) fehler = context.getString(R.string.info_nicht_gefunden) else detail = d
+            withContext(Dispatchers.IO) { uebernehmeAlteMerker(context, dao) }
+            if (eigene) {
+                if (dao.eigenePflanze(pflanzeId - EIGENE_BASIS) == null) fehler = context.getString(R.string.info_nicht_gefunden)
+            } else {
+                val d = withContext(Dispatchers.IO) { Grunddaten.pflanze(context, pflanzeId) }
+                if (d == null) fehler = context.getString(R.string.info_nicht_gefunden) else detail = d
+            }
         } catch (e: Exception) {
             fehler = context.getString(R.string.info_laden_fehler, e.toString())
         }
     }
+    val anzeige: PflanzeDetail? = if (eigene) eigenePflanze?.let { baueEigenesDetail(it, meineAngaben) } else detail
 
-    val grossesBild = detail?.bild
+    val grossesBild = anzeige?.bild
     if (voll && grossesBild != null) {
         BildVollansicht(
             bild = grossesBild,
-            name = detail?.hauptname ?: "",
+            name = anzeige?.hauptname ?: "",
             ausschnitt = ausschnitt,
             onSpeichern = { x, y, z -> bereich.launch { dao.speichereAusschnitt(BildAusschnitt(pflanzeId, x, y, z)) } },
             onZuruecksetzen = { bereich.launch { dao.loescheAusschnitt(pflanzeId) } },
@@ -130,10 +148,18 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(detail?.hauptname ?: "") },
+                title = { Text(anzeige?.hauptname ?: "") },
                 navigationIcon = {
                     IconButton(onClick = onZurueck) {
                         Icon(painterResource(R.drawable.ic_zurueck), contentDescription = stringResource(R.string.zurueck))
+                    }
+                },
+                actions = {
+                    if (eigene && eigenePflanze != null) {
+                        IconButton(onClick = { editorOffen = true }) {
+                            Icon(painterResource(R.drawable.ic_stift), contentDescription = stringResource(R.string.eigene_pflanze_aendern_titel))
+                        }
+                        TextButton(onClick = { loeschenFrage = true }) { Text(stringResource(R.string.loeschen)) }
                     }
                 },
             )
@@ -146,30 +172,86 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
-            val d = detail
+            val d = anzeige
+            val zuListe = zugeklappt
             if (fehler != null) {
                 Text(fehler ?: "", color = MaterialTheme.colorScheme.error)
             }
-            if (d != null) {
+            if (d != null && zuListe != null) {
                 Kopf(d, ausschnitt) { voll = true }
                 Spacer(Modifier.height(8.dp))
                 for (abschnitt in ABSCHNITTE) {
-                    val zu = abschnitt in zugeklappt
+                    val zu = abschnitt in zuListe
                     AbschnittKopf(abschnitt, zu) {
-                        merker.setze(pflanzeId, abschnitt, !zu)
-                        zugeklappt = merker.zugeklappt(pflanzeId)
+                        bereich.launch {
+                            if (zu) dao.loescheMerker(pflanzeId, abschnitt) else dao.setzeMerker(MerkerZeile(pflanzeId, abschnitt))
+                        }
                     }
                     if (!zu) {
                         Column(Modifier.padding(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            AbschnittInhalt(abschnitt, d)
+                            AbschnittInhalt(
+                                abschnitt = abschnitt,
+                                d = d,
+                                eigenePflanze = eigene,
+                                notiz = meineAngaben.firstOrNull { it.abschnitt == abschnitt }?.text,
+                                onNotiz = { notizAbschnitt = abschnitt },
+                            )
                         }
                     }
                 }
                 Spacer(Modifier.height(8.dp))
-                QuellenUndLizenzen(d)
+                if (eigene) {
+                    HorizontalDivider(thickness = 2.dp)
+                    Text(
+                        stringResource(R.string.info_quellen_titel),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(vertical = 14.dp),
+                    )
+                    Text(stringResource(R.string.eigene_pflanze_quellen), style = MaterialTheme.typography.bodySmall)
+                } else {
+                    QuellenUndLizenzen(d)
+                }
                 Spacer(Modifier.height(24.dp))
             }
         }
+    }
+
+    val bearbeiteterAbschnitt = notizAbschnitt
+    if (bearbeiteterAbschnitt != null && !eigene) {
+        NotizDialog(
+            titel = stringResource(R.string.meine_notiz_titel, bearbeiteterAbschnitt),
+            startwert = meineAngaben.firstOrNull { it.abschnitt == bearbeiteterAbschnitt }?.text.orEmpty(),
+            maxLaenge = MAX_ABSCHNITT_NOTIZ,
+            onSpeichern = { text ->
+                notizAbschnitt = null
+                bereich.launch {
+                    if (text.isBlank()) {
+                        dao.loescheAngabe(pflanzeId, bearbeiteterAbschnitt)
+                    } else {
+                        dao.speichereAngabe(EigeneAngabe(pflanzeId, bearbeiteterAbschnitt, text, System.currentTimeMillis()))
+                    }
+                }
+            },
+            onAbbruch = { notizAbschnitt = null },
+        )
+    }
+    if (editorOffen && eigene) {
+        EigenePflanzeDialog(id = pflanzeId - EIGENE_BASIS, onFertig = { editorOffen = false })
+    }
+    if (loeschenFrage && eigene) {
+        BestaetigenDialog(
+            titel = stringResource(R.string.eigene_pflanze_loeschen_titel),
+            text = stringResource(R.string.eigene_pflanze_loeschen_text),
+            bestaetigenText = stringResource(R.string.loeschen),
+            onBestaetigt = {
+                loeschenFrage = false
+                bereich.launch {
+                    dao.loescheEigenePflanze(pflanzeId - EIGENE_BASIS)
+                    onZurueck()
+                }
+            },
+            onAbbruch = { loeschenFrage = false },
+        )
     }
 }
 
@@ -215,7 +297,13 @@ private fun AbschnittKopf(titel: String, zugeklappt: Boolean, onKlick: () -> Uni
 }
 
 @Composable
-private fun AbschnittInhalt(abschnitt: String, d: PflanzeDetail) {
+private fun AbschnittInhalt(
+    abschnitt: String,
+    d: PflanzeDetail,
+    eigenePflanze: Boolean,
+    notiz: String?,
+    onNotiz: () -> Unit,
+) {
     when (abschnitt) {
         "Bezeichnung" -> {
             Text(d.hauptname, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
@@ -227,23 +315,47 @@ private fun AbschnittInhalt(abschnitt: String, d: PflanzeDetail) {
             Text(stringResource(R.string.info_gruppen, d.gruppen.joinToString(", ")))
         }
         "Gattung" -> {
-            Text(d.gattung, style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
+            if (d.gattung.isBlank()) {
+                Text(stringResource(R.string.info_keine_angaben), style = MaterialTheme.typography.bodyMedium)
+            } else {
+                Text(d.gattung, style = MaterialTheme.typography.bodyLarge, fontStyle = FontStyle.Italic)
+            }
         }
         else -> {
             val angaben = d.angaben.filter { it.abschnitt == abschnitt }
             if (angaben.isEmpty()) {
                 Text(stringResource(R.string.info_keine_angaben), style = MaterialTheme.typography.bodyMedium)
-                // Wird in Teilschritt 4e freigeschaltet
-                TextButton(onClick = {}, enabled = false) { Text(stringResource(R.string.info_selbst_ergaenzen)) }
             } else {
                 for (a in angaben) {
                     Text(a.text, style = MaterialTheme.typography.bodyMedium)
-                    val titel = d.quellen.firstOrNull { it.schluessel == a.quelle }?.titel ?: a.quelle
+                    if (a.quelle == QUELLE_EIGEN) {
+                        Text(
+                            stringResource(R.string.info_eigene_angabe),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    } else {
+                        val titel = d.quellen.firstOrNull { it.schluessel == a.quelle }?.titel ?: a.quelle
+                        Text(
+                            stringResource(if (a.auszug) R.string.info_auszug_quelle else R.string.info_ganz_quelle, titel),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
+            if (!eigenePflanze) {
+                // Eigener Text des Nutzers zu diesem Abschnitt (bleibt auf dem Gerät, wird nicht eingereicht)
+                if (!notiz.isNullOrBlank()) {
                     Text(
-                        stringResource(if (a.auszug) R.string.info_auszug_quelle else R.string.info_ganz_quelle, titel),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        stringResource(R.string.meine_notiz_label),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
                     )
+                    Text(notiz, style = MaterialTheme.typography.bodyMedium)
+                }
+                TextButton(onClick = onNotiz) {
+                    Text(stringResource(if (notiz.isNullOrBlank()) R.string.info_selbst_ergaenzen else R.string.meine_notiz_aendern))
                 }
             }
         }

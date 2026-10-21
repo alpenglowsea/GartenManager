@@ -261,5 +261,48 @@
     <string name="pflanze_ohne_namen">Pflanze</string>
     <string name="pflanze_mehr_info">Mehr zur Pflanze</string>
     <string name="hilfe_platzieren_pflanze">Pflanze setzen: Tippe auf die Stelle im Garten. Dann öffnet sich die Pflanzenauswahl mit Suche und Gruppenfilter; mit einem Tipp auf einen Eintrag erscheint die Pflanze dort als Kreis. Die Startgröße richtet sich nach der Gruppe (grobe Schätzwerte) und lässt sich danach ändern. Neue Pflanzen kommen in die aktive Ebene.</string>
-    <string name="hilfe_pflanze">Ausgewählte Pflanze: Ziehe sie, um sie zu verschieben. Die Quadrate auf der Kreislinie ändern die Größe, der Mittelpunkt bleibt dabei stehen (bei sehr kleinen Pflanzen gibt es einen Griff außerhalb an einem Stiel). Halte den Finger lange auf die Pflanze, dann öffnet sich ihr Menü: Pflanzeninfo, Pflanze wechseln, eigener Name, Farbe, Duplizieren, Ebene wechseln, Löschen. Wenn du näher heranzoomst, zeigt der Kreis das Foto der Pflanze (soweit vorhanden); am farbigen Ring erkennst du die Gruppe.</string>
+    <string name="hilfe_pflanze">Ausgewählte Pflanze: Ziehe sie, um sie zu verschieben. Die Quadrate auf der Kreislinie ändern die Größe, der Mittelpunkt bleibt dabei stehen (bei sehr kleinen Pflanzen gibt es einen Griff außerhalb an einem Stiel). Halte den Finger lange auf die Pflanze, dann öffnet sich ihr Menü: Pflanzeninfo, Pflanze wechseln, Pflanzdatum, Notiz, eigener Name, Farbe, Duplizieren, Ebene wechseln, Löschen. Wenn du näher heranzoomst, zeigt der Kreis das Foto der Pflanze (soweit vorhanden); am farbigen Ring erkennst du die Gruppe.</string>
+
+    <!-- Teilschritte 4d2/4e: Pflanzdatum, Notizen, eigene Pflanzen -->
+    <string name="menue_pflanzdatum">Pflanzdatum</string>
+    <string name="menue_pflanznotiz">Notiz</string>
+    <string name="pflanznotiz_titel">Notiz zur Pflanze</string>
+    <string name="pflanzdatum_entfernen">Datum entfernen</string>
+    <string name="pflanze_gepflanzt">Gepflanzt am %1$s (%2$s)</string>
+    <string name="pflanze_heute_gepflanzt">Heute gepflanzt (%1$s)</string>
+    <string name="pflanze_geplant">Geplant für %1$s</string>
+    <plurals name="alter_jahre">
+        <item quantity="one">%d Jahr</item>
+        <item quantity="other">%d Jahre</item>
+    </plurals>
+    <plurals name="alter_monate">
+        <item quantity="one">%d Monat</item>
+        <item quantity="other">%d Monate</item>
+    </plurals>
+    <plurals name="alter_wochen">
+        <item quantity="one">%d Woche</item>
+        <item quantity="other">%d Wochen</item>
+    </plurals>
+    <plurals name="alter_tage">
+        <item quantity="one">%d Tag</item>
+        <item quantity="other">%d Tage</item>
+    </plurals>
+    <string name="meine_notiz_label">Meine Notiz</string>
+    <string name="meine_notiz_aendern">Meine Notiz ändern</string>
+    <string name="meine_notiz_titel">Meine Notiz zu „%1$s“</string>
+    <string name="info_eigene_angabe">Von dir geschrieben</string>
+    <string name="eigene_pflanze_anlegen">+ Eigene Pflanze</string>
+    <string name="eigene_pflanze_kurz">+ Eigene</string>
+    <string name="eigene_pflanze_marke">Eigene Pflanze</string>
+    <string name="eigene_pflanze_neu_titel">Eigene Pflanze anlegen</string>
+    <string name="eigene_pflanze_aendern_titel">Eigene Pflanze ändern</string>
+    <string name="eigene_pflanze_hinweis">Pflicht sind nur Name und Gruppe. Alles andere kannst du leer lassen oder später ergänzen. Die Angaben bleiben auf deinem Gerät.</string>
+    <string name="eigene_pflanze_name">Name *</string>
+    <string name="eigene_pflanze_gruppe">Gruppe *</string>
+    <string name="eigene_pflanze_gruppe_waehlen">Gruppe wählen</string>
+    <string name="eigene_pflanze_latein">Lateinischer Name</string>
+    <string name="eigene_pflanze_gattung">Gattung</string>
+    <string name="eigene_pflanze_quellen">Diese Pflanze und alle Angaben hast du selbst angelegt. Sie bleiben auf deinem Gerät und gehören dir.</string>
+    <string name="eigene_pflanze_loeschen_titel">Eigene Pflanze löschen?</string>
+    <string name="eigene_pflanze_loeschen_text">Die Pflanze und alle ihre Angaben werden gelöscht. Bereits gesetzte Pflanzen in deinen Gärten bleiben mit ihrem Namen erhalten, das Info-Fenster dazu ist dann leer.</string>
 </resources>

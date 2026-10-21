@@ -22,6 +22,96 @@ abstract class GartenDao {
     @Query("DELETE FROM bild_ausschnitt WHERE pflanzeId = :pflanzeId")
     abstract suspend fun loescheAusschnitt(pflanzeId: Long)
 
+    // ---- Eigene Pflanzen, eigene Texte, Merker (Teilschritt 4e) ----
+
+    @Query("SELECT * FROM eigene_pflanze ORDER BY name COLLATE NOCASE")
+    abstract fun eigenePflanzen(): Flow<List<EigenePflanze>>
+
+    @Query("SELECT * FROM eigene_pflanze ORDER BY name COLLATE NOCASE")
+    abstract suspend fun eigenePflanzenListe(): List<EigenePflanze>
+
+    @Query("SELECT * FROM eigene_pflanze WHERE id = :id")
+    abstract fun eigenePflanzeFlow(id: Long): Flow<EigenePflanze?>
+
+    @Query("SELECT * FROM eigene_pflanze WHERE id = :id")
+    abstract suspend fun eigenePflanze(id: Long): EigenePflanze?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun speichereEigenePflanzeZeile(pflanze: EigenePflanze): Long
+
+    @Query("SELECT * FROM eigene_angabe WHERE pflanzeId = :pflanzeId")
+    abstract fun eigeneAngabenFuer(pflanzeId: Long): Flow<List<EigeneAngabe>>
+
+    @Query("SELECT * FROM eigene_angabe WHERE pflanzeId = :pflanzeId")
+    abstract suspend fun eigeneAngabenListe(pflanzeId: Long): List<EigeneAngabe>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun speichereAngabe(angabe: EigeneAngabe)
+
+    @Query("DELETE FROM eigene_angabe WHERE pflanzeId = :pflanzeId AND abschnitt = :abschnitt")
+    abstract suspend fun loescheAngabe(pflanzeId: Long, abschnitt: String)
+
+    @Query("DELETE FROM eigene_angabe WHERE pflanzeId = :pflanzeId")
+    abstract suspend fun loescheAngabenDerPflanze(pflanzeId: Long)
+
+    @Query("DELETE FROM eigene_pflanze WHERE id = :id")
+    abstract suspend fun loescheEigenePflanzeZeile(id: Long)
+
+    @Query("DELETE FROM merker WHERE pflanzeId = :pflanzeId")
+    abstract suspend fun loescheMerkerDerPflanze(pflanzeId: Long)
+
+    @Query(
+        "UPDATE gegenstand SET pflanzeName = :name, pflanzeLatein = :latein, pflanzeGruppe = :gruppe " +
+            "WHERE pflanzeId = :pflanzeId",
+    )
+    abstract suspend fun aktualisiereKopieDerPflanze(pflanzeId: Long, name: String, latein: String, gruppe: String)
+
+    /**
+     * Speichert eine eigene Pflanze (neu bei id = 0) samt ihrer Texte ([texte]: Abschnitt -> Text, leere Texte
+     * entfallen). Gibt die Nummer in der Tabelle zurück. Gesetzte Pflanzen im Garten bekommen den neuen Namen.
+     */
+    @Transaction
+    open suspend fun speichereEigenePflanze(pflanze: EigenePflanze, texte: Map<String, String>, jetzt: Long): Long {
+        val id = if (pflanze.id == 0L) {
+            speichereEigenePflanzeZeile(pflanze.copy(angelegtAm = jetzt))
+        } else {
+            speichereEigenePflanzeZeile(pflanze)
+            pflanze.id
+        }
+        val nummer = EIGENE_BASIS + id
+        loescheAngabenDerPflanze(nummer)
+        for ((abschnitt, text) in texte) {
+            if (text.isNotBlank()) speichereAngabe(EigeneAngabe(nummer, abschnitt, text.trim(), jetzt))
+        }
+        aktualisiereKopieDerPflanze(nummer, pflanze.name, pflanze.lateinisch, pflanze.gruppe)
+        return id
+    }
+
+    /** Löscht eine eigene Pflanze mit allen Texten, Merkern und dem Bildausschnitt. Gesetzte Pflanzen im Garten bleiben. */
+    @Transaction
+    open suspend fun loescheEigenePflanze(id: Long) {
+        val nummer = EIGENE_BASIS + id
+        loescheAngabenDerPflanze(nummer)
+        loescheMerkerDerPflanze(nummer)
+        loescheAusschnitt(nummer)
+        loescheEigenePflanzeZeile(id)
+    }
+
+    @Query("SELECT abschnitt FROM merker WHERE pflanzeId = :pflanzeId")
+    abstract fun merkerFuer(pflanzeId: Long): Flow<List<String>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun setzeMerker(zeile: MerkerZeile)
+
+    @Query("DELETE FROM merker WHERE pflanzeId = :pflanzeId AND abschnitt = :abschnitt")
+    abstract suspend fun loescheMerker(pflanzeId: Long, abschnitt: String)
+
+    @Query("UPDATE gegenstand SET pflanzdatum = :tag WHERE id = :id")
+    abstract suspend fun setzePflanzdatum(id: Long, tag: Long?)
+
+    @Query("UPDATE gegenstand SET notiz = :notiz WHERE id = :id")
+    abstract suspend fun setzePflanzNotiz(id: Long, notiz: String?)
+
     @Query("SELECT * FROM grundstueck ORDER BY name COLLATE NOCASE")
     abstract fun grundstuecke(): Flow<List<Grundstueck>>
 

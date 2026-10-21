@@ -19,6 +19,8 @@ data class PflanzeTreffer(
     val gefundenUeber: String?,
     /** Dateiname des Bildes in assets/bilder, oder null. */
     val bild: String? = null,
+    /** Vom Nutzer angelegte Pflanze (Nummer ab EIGENE_BASIS). */
+    val eigene: Boolean = false,
 )
 
 /** Das Foto einer Pflanze samt Nachweis (Urheber, Lizenz, Quelle). */

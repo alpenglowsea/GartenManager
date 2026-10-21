@@ -177,10 +177,22 @@ data class Gegenstand(
     val pflanzeName: String? = null,
     val pflanzeLatein: String? = null,
     val pflanzeGruppe: String? = null,
+    /** Pflanzdatum als Tag seit 01.01.1970 (LocalDate.toEpochDay), leer = unbekannt. */
+    val pflanzdatum: Long? = null,
+    /** Eigene Notiz zur gesetzten Pflanze (höchstens 500 Zeichen), leer = keine. */
+    val notiz: String? = null,
 )
 
 /** Schlüssel in [Gegenstand.art] für eine gesetzte Pflanze. */
 const val ART_PFLANZE = "pflanze"
+
+/**
+ * Eigene Pflanzen bekommen Nummern ab dieser Zahl (EIGENE_BASIS + Nummer in der Tabelle eigene_pflanze).
+ * So teilen sie sich mit den Pflanzen der Grunddaten einen Nummernraum und können nie kollidieren.
+ */
+const val EIGENE_BASIS = 1_000_000L
+
+fun istEigenePflanze(nummer: Long): Boolean = nummer >= EIGENE_BASIS
 
 /**
  * Ein Punkt eines Gebäudes in freier Form (nur dafür). Die Lage ist relativ zur Mitte des
@@ -219,3 +231,35 @@ data class BildAusschnitt(
     val mitteY: Float,
     val zoom: Float,
 )
+
+/** Eine vom Nutzer angelegte Pflanze, die es im Katalog nicht gibt (Teilschritt 4e). Die Texte stehen in [EigeneAngabe]. */
+@Entity(tableName = "eigene_pflanze")
+data class EigenePflanze(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val name: String,
+    val lateinisch: String = "",
+    val gattung: String = "",
+    val gruppe: String,
+    val angelegtAm: Long,
+)
+
+/**
+ * Ein eigener Text zu einem Abschnitt einer Pflanze: bei einer Pflanze aus den Grunddaten die "Meine Notiz",
+ * bei einer eigenen Pflanze der Inhalt des Abschnitts. [pflanzeId] ist die Pflanzennummer (bei eigenen Pflanzen
+ * mit [EIGENE_BASIS]).
+ */
+@Entity(tableName = "eigene_angabe", primaryKeys = ["pflanzeId", "abschnitt"])
+data class EigeneAngabe(
+    val pflanzeId: Long,
+    val abschnitt: String,
+    val text: String,
+    val geaendertAm: Long,
+)
+
+/** Ein zugeklappter Abschnitt im Info-Fenster einer Pflanze. */
+@Entity(tableName = "merker", primaryKeys = ["pflanzeId", "abschnitt"])
+data class MerkerZeile(
+    val pflanzeId: Long,
+    val abschnitt: String,
+)
+

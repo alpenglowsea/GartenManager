@@ -506,6 +506,14 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         aendere(gartenId) { dao.setzePflanzenart(id, pflanzeId, name, latein, gruppe) }
     }
 
+    fun setzePflanzdatum(gartenId: Long, id: Long, tag: Long?) {
+        aendere(gartenId) { dao.setzePflanzdatum(id, tag) }
+    }
+
+    fun setzePflanzNotiz(gartenId: Long, id: Long, notiz: String?) {
+        aendere(gartenId) { dao.setzePflanzNotiz(id, notiz?.trim()?.ifEmpty { null }) }
+    }
+
     fun benenneGegenstandUm(gartenId: Long, id: Long, name: String) {
         aendere(gartenId) { dao.benenneGegenstandUm(id, name.trim().ifEmpty { null }) }
     }

@@ -20,8 +20,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
     entities = [
         Grundstueck::class, Garten::class, Ebene::class, Flaeche::class, Punkt::class,
         Gegenstand::class, Gegenstandspunkt::class, BildAusschnitt::class,
+        EigenePflanze::class, EigeneAngabe::class, MerkerZeile::class,
     ],
-    version = 7,
+    version = 8,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
@@ -53,6 +54,30 @@ abstract class MeineDatenDb : RoomDatabase() {
             }
         }
 
+        /**
+         * Version 7 -> 8: Pflanzdatum und Notiz an gesetzten Pflanzen, eigene Pflanzen, eigene Texte zu
+         * Abschnitten und der Merker für zugeklappte Abschnitte (bisher in den App-Einstellungen).
+         */
+        private val VON_7_AUF_8 = object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `pflanzdatum` INTEGER")
+                db.execSQL("ALTER TABLE `gegenstand` ADD COLUMN `notiz` TEXT")
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `eigene_pflanze` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                        "`name` TEXT NOT NULL, `lateinisch` TEXT NOT NULL, `gattung` TEXT NOT NULL, " +
+                        "`gruppe` TEXT NOT NULL, `angelegtAm` INTEGER NOT NULL)",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `eigene_angabe` (`pflanzeId` INTEGER NOT NULL, `abschnitt` TEXT NOT NULL, " +
+                        "`text` TEXT NOT NULL, `geaendertAm` INTEGER NOT NULL, PRIMARY KEY(`pflanzeId`, `abschnitt`))",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `merker` (`pflanzeId` INTEGER NOT NULL, `abschnitt` TEXT NOT NULL, " +
+                        "PRIMARY KEY(`pflanzeId`, `abschnitt`))",
+                )
+            }
+        }
+
         @Volatile
         private var instanz: MeineDatenDb? = null
 
@@ -63,7 +88,7 @@ abstract class MeineDatenDb : RoomDatabase() {
                     MeineDatenDb::class.java,
                     "meine_daten.db",
                 )
-                    .addMigrations(VON_5_AUF_6, VON_6_AUF_7)
+                    .addMigrations(VON_5_AUF_6, VON_6_AUF_7, VON_7_AUF_8)
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { instanz = it }

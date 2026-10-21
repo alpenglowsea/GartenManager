@@ -562,6 +562,8 @@ fun GartenScreen(
     var infoGegenstandId by remember { mutableStateOf<Long?>(null) }
     var pflanzenInfoId by remember { mutableStateOf<Long?>(null) } // Info-Fenster einer gesetzten Pflanze
     var pflanzeWechselnDialog by remember { mutableStateOf(false) }
+    var pflanzdatumDialog by remember { mutableStateOf(false) }
+    var pflanzNotizDialog by remember { mutableStateOf(false) }
 
     // Dialoge
     var hilfeDialog by remember { mutableStateOf(false) }
@@ -1825,6 +1827,24 @@ fun GartenScreen(
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(top = 6.dp),
                         )
+                        val infoTag = infoG.pflanzdatum
+                        if (infoTag != null) {
+                            Text(
+                                text = pflanzdatumText(infoTag),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(top = 4.dp),
+                            )
+                        }
+                        val infoNotiz = infoG.notiz
+                        if (!infoNotiz.isNullOrBlank()) {
+                            Text(
+                                text = kuerze(infoNotiz, KARTE_NOTIZ_ZEICHEN),
+                                style = MaterialTheme.typography.bodySmall,
+                                maxLines = KARTE_NOTIZ_ZEILEN,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.padding(top = 4.dp),
+                            )
+                        }
                         val infoNummer = infoG.pflanzeId
                         if (infoNummer != null) {
                             TextButton(onClick = { pflanzenInfoId = infoNummer }) {
@@ -1886,6 +1906,14 @@ fun GartenScreen(
                             MenuePunkt(R.string.menue_pflanze_wechseln) {
                                 gegenstandMenue = null
                                 pflanzeWechselnDialog = true
+                            }
+                            MenuePunkt(R.string.menue_pflanzdatum) {
+                                gegenstandMenue = null
+                                pflanzdatumDialog = true
+                            }
+                            MenuePunkt(R.string.menue_pflanznotiz) {
+                                gegenstandMenue = null
+                                pflanzNotizDialog = true
                             }
                         }
                         MenuePunkt(R.string.menue_name_aendern) {
@@ -2131,6 +2159,28 @@ fun GartenScreen(
                 viewModel.wechslePflanzenart(gartenId, gewaehlterGegenstand.id, t.id, t.hauptname, t.lateinisch, t.hauptgruppe)
             },
             onAbbrechen = { pflanzeWechselnDialog = false },
+        )
+    }
+    if (pflanzdatumDialog && gewaehlterGegenstand != null && istPflanze(gewaehlterGegenstand)) {
+        PflanzdatumDialog(
+            startTag = gewaehlterGegenstand.pflanzdatum,
+            onSpeichern = { tag ->
+                pflanzdatumDialog = false
+                viewModel.setzePflanzdatum(gartenId, gewaehlterGegenstand.id, tag)
+            },
+            onAbbruch = { pflanzdatumDialog = false },
+        )
+    }
+    if (pflanzNotizDialog && gewaehlterGegenstand != null && istPflanze(gewaehlterGegenstand)) {
+        NotizDialog(
+            titel = stringResource(R.string.pflanznotiz_titel),
+            startwert = gewaehlterGegenstand.notiz.orEmpty(),
+            maxLaenge = MAX_PFLANZ_NOTIZ,
+            onSpeichern = { text ->
+                pflanzNotizDialog = false
+                viewModel.setzePflanzNotiz(gartenId, gewaehlterGegenstand.id, text)
+            },
+            onAbbruch = { pflanzNotizDialog = false },
         )
     }
     val infoPflanzeId = pflanzenInfoId

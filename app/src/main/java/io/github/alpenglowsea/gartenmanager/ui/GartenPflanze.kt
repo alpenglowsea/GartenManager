@@ -65,6 +65,7 @@ import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
 import io.github.alpenglowsea.gartenmanager.daten.GruppeMitAnzahl
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeTreffer
+import io.github.alpenglowsea.gartenmanager.daten.sucheMitEigenen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
@@ -185,6 +186,8 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
     val dao = remember { MeineDatenDb.holen(context).gartenDao() }
     val ausschnitte by remember { dao.alleAusschnitte() }.collectAsState(initial = emptyList())
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
+    val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
+    var editorOffen by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         try {
@@ -193,12 +196,16 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
             fehler = e.toString()
         }
     }
-    LaunchedEffect(suchtext, gewaehlt) {
+    LaunchedEffect(suchtext, gewaehlt, gruppen, eigenePflanzen) {
         try {
-            treffer = withContext(Dispatchers.IO) { Grunddaten.suche(context, suchtext, gewaehlt) }
+            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen) }
         } catch (e: Exception) {
             fehler = e.toString()
         }
+    }
+
+    if (editorOffen) {
+        EigenePflanzeDialog(id = 0L, onFertig = { editorOffen = false })
     }
 
     Dialog(
@@ -217,7 +224,10 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(stringResource(R.string.pflanze_waehlen_titel), style = MaterialTheme.typography.titleLarge)
-                    TextButton(onClick = onAbbrechen) { Text(stringResource(R.string.abbrechen)) }
+                    Row {
+                        TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_kurz)) }
+                        TextButton(onClick = onAbbrechen) { Text(stringResource(R.string.abbrechen)) }
+                    }
                 }
                 if (fehler != null) {
                     Text(
@@ -285,7 +295,10 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                                         style = MaterialTheme.typography.bodyMedium,
                                         fontStyle = FontStyle.Italic,
                                     )
-                                    Text(t.hauptgruppe, style = MaterialTheme.typography.labelSmall)
+                                    Text(
+                                        if (t.eigene) t.hauptgruppe + " · " + stringResource(R.string.eigene_pflanze_marke) else t.hauptgruppe,
+                                        style = MaterialTheme.typography.labelSmall,
+                                    )
                                 }
                             }
                         }

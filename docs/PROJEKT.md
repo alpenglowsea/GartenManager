@@ -369,3 +369,10 @@ Als Nächstes:
 - Entscheidungen zu 4d: Kreis in Gruppenfarbe mit Piktogramm und **Initialen im Kreis** (Kreis etwas größer, Piktogramm behält seine Größe); der volle Name wird nicht im Plan gezeigt; beim Hineinzoomen zeigt der Kreis das **Foto** der Pflanze; **Startgröße je Gruppe** (grobe Schätzwerte: Blumen 25 cm, Zwiebelblumen 20, Kräuter 30, Gräser 40, Gemüse 40, Stauden 50, Wasserpflanzen 60, Kletterpflanzen 60, Heckenpflanzen 80, Beerensträucher 100, Sträucher 120, Obstgehölze 300, Bäume 400).
 - Umsetzung (ungetestet, nicht kompiliert): gesetzte Pflanze = Gegenstand mit `art = pflanze` plus vier Spalten, Datenbank Version 7 mit echter Migration 6 -> 7. Dadurch laufen Verschieben, Rückgängig, Ebenenliste, Duplizieren ohne neuen Code. Neu: `GartenPflanze.kt` (Zeichnen, Auswahlfenster), Anpassungen in `GartenScreen.kt`, `GartenViewModel.kt`, `GartenDao.kt`.
 - Offen: Merker in die Datenbank (4d2), Backup, Pflanzdatum/Notiz (4e). Info-Fenster aus dem Garten öffnet als Vollbild-Fenster (Dialog); Zurück-Verhalten dort ist ein Testpunkt.
+
+### 21.10.2026: 4d1 getestet, 4d2 und 4e geliefert
+- Test 4d1: alle zwölf Punkte laufen (Setzen, Verschieben, Größe, Foto beim Zoomen, Info, Menü, Rückgängig, Ebenenliste, Karte, Duplizieren, Hilfe, viele Pflanzen).
+- Entscheidungen zu 4e: Altershinweis in der Info-Karte; Pflanzdatum und Notiz im Pflanzenmenü und in der Info-Karte, dort gekürzt (120 Zeichen, höchstens drei Zeilen, Zahl von mir festgelegt); eigene Pflanze mit nur Name und Gruppe als Pflicht, alle Abschnitte optional.
+- Umsetzung (ungetestet, nicht kompiliert): Datenbank Version 8 mit echter Migration 7 -> 8; neue Dateien `EigenePflanzen.kt`, `EigenePflanzeEditor.kt`, `PflanzenNotizen.kt`; Anpassungen in Info-Fenster, Katalog, Auswahlfenster und Gartenbildschirm. Der Merker liegt jetzt in der Datenbank.
+- Offen: Backup (Export/Import) in den Einstellungen, "Ersetzt-durch"-Logik, Foto für eigene Pflanzen.
+
