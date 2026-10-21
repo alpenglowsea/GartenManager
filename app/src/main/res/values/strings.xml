@@ -305,4 +305,7 @@
     <string name="eigene_pflanze_quellen">Diese Pflanze und alle Angaben hast du selbst angelegt. Sie bleiben auf deinem Gerät und gehören dir.</string>
     <string name="eigene_pflanze_loeschen_titel">Eigene Pflanze löschen?</string>
     <string name="eigene_pflanze_loeschen_text">Die Pflanze und alle ihre Angaben werden gelöscht. Bereits gesetzte Pflanzen in deinen Gärten bleiben mit ihrem Namen erhalten, das Info-Fenster dazu ist dann leer.</string>
+    <string name="notiz_mehr">Notiz ausklappen</string>
+    <string name="notiz_weniger">Notiz einklappen</string>
+    <string name="eigene_pflanzen_filter">Eigene Pflanzen</string>
 </resources>

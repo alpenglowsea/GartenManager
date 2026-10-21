@@ -1837,13 +1837,20 @@ fun GartenScreen(
                         }
                         val infoNotiz = infoG.notiz
                         if (!infoNotiz.isNullOrBlank()) {
+                            var notizAuf by remember(infoG.id) { mutableStateOf(false) }
+                            val notizLang = infoNotiz.trim().length > KARTE_NOTIZ_ZEICHEN || infoNotiz.trim().contains('\n')
                             Text(
-                                text = kuerze(infoNotiz, KARTE_NOTIZ_ZEICHEN),
+                                text = if (notizAuf) infoNotiz.trim() else kuerze(infoNotiz, KARTE_NOTIZ_ZEICHEN),
                                 style = MaterialTheme.typography.bodySmall,
-                                maxLines = KARTE_NOTIZ_ZEILEN,
+                                maxLines = if (notizAuf) Int.MAX_VALUE else KARTE_NOTIZ_ZEILEN,
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.padding(top = 4.dp),
                             )
+                            if (notizLang) {
+                                TextButton(onClick = { notizAuf = !notizAuf }) {
+                                    Text(stringResource(if (notizAuf) R.string.notiz_weniger else R.string.notiz_mehr))
+                                }
+                            }
                         }
                         val infoNummer = infoG.pflanzeId
                         if (infoNummer != null) {

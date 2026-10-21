@@ -188,6 +188,7 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
     val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
     var editorOffen by remember { mutableStateOf(false) }
+    var nurEigene by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         try {
@@ -196,9 +197,9 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
             fehler = e.toString()
         }
     }
-    LaunchedEffect(suchtext, gewaehlt, gruppen, eigenePflanzen) {
+    LaunchedEffect(suchtext, gewaehlt, gruppen, eigenePflanzen, nurEigene) {
         try {
-            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen) }
+            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen, nurEigene) }
         } catch (e: Exception) {
             fehler = e.toString()
         }
@@ -223,10 +224,13 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(stringResource(R.string.pflanze_waehlen_titel), style = MaterialTheme.typography.titleLarge)
-                    Row {
-                        TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_kurz)) }
-                        TextButton(onClick = onAbbrechen) { Text(stringResource(R.string.abbrechen)) }
+                    Text(
+                        stringResource(R.string.pflanze_waehlen_titel),
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    TextButton(onClick = onAbbrechen) {
+                        Text(stringResource(R.string.abbrechen), maxLines = 1, softWrap = false)
                     }
                 }
                 if (fehler != null) {
@@ -247,6 +251,13 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
+                    item(key = "eigene") {
+                        FilterChip(
+                            selected = nurEigene,
+                            onClick = { nurEigene = !nurEigene },
+                            label = { Text(stringResource(R.string.eigene_pflanzen_filter)) },
+                        )
+                    }
                     items(gruppen, key = { it.id }) { g ->
                         FilterChip(
                             selected = g.id in gewaehlt,
@@ -255,11 +266,18 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                         )
                     }
                 }
-                Text(
-                    stringResource(R.string.pflanzen_test_treffer, treffer.size),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
-                )
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        stringResource(R.string.pflanzen_test_treffer, treffer.size),
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(vertical = 10.dp),
+                    )
+                    TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
+                }
                 HorizontalDivider()
                 LazyColumn(Modifier.fillMaxSize()) {
                     items(treffer, key = { it.id }) { t ->

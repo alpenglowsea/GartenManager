@@ -57,6 +57,15 @@ import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.PflanzeTreffer
 import io.github.alpenglowsea.gartenmanager.daten.sucheMitEigenen
 import androidx.compose.material3.TextButton
+import androidx.compose.foundation.layout.PaddingValues as KopfPadding
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -80,6 +89,18 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
     val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
     var editorOffen by rememberSaveable { mutableStateOf(false) }
+    var nurEigene by rememberSaveable { mutableStateOf(false) }
+    // Kopf (Suche, Filter, Knopf) wandert beim Scrollen mit und blendet dabei aus; Hochscrollen holt ihn zurück.
+    var kopfHoehe by remember { mutableStateOf(0) }
+    var kopfVersatz by remember { mutableFloatStateOf(0f) }
+    val kopfVerbindung = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                kopfVersatz = (kopfVersatz + available.y).coerceIn(-kopfHoehe.toFloat(), 0f)
+                return Offset.Zero
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         try {
@@ -93,10 +114,10 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
             fehler = e.toString()
         }
     }
-    LaunchedEffect(suchtext, gewaehlt, info, gruppen, eigenePflanzen) {
+    LaunchedEffect(suchtext, gewaehlt, info, gruppen, eigenePflanzen, nurEigene) {
         if (info == null) return@LaunchedEffect
         try {
-            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen) }
+            treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen, nurEigene) }
         } catch (e: Exception) {
             fehler = e.toString()
         }
@@ -125,57 +146,10 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
             )
         },
     ) { innen ->
-        Column(Modifier.padding(innen).fillMaxSize()) {
-            if (fehler != null) {
-                Text(
-                    stringResource(R.string.pflanzen_test_fehler, fehler ?: ""),
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.padding(16.dp),
-                )
-            }
-            info?.let {
-                if (it.testdaten) {
-                    Text(
-                        stringResource(R.string.pflanzen_test_hinweis),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    )
-                }
-            }
-            OutlinedTextField(
-                value = suchtext,
-                onValueChange = { suchtext = it },
-                label = { Text(stringResource(R.string.pflanzen_test_suche)) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-            )
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(gruppen, key = { it.id }) { g ->
-                    FilterChip(
-                        selected = g.id in gewaehlt,
-                        onClick = { gewaehlt = if (g.id in gewaehlt) gewaehlt - g.id else gewaehlt + g.id },
-                        label = { Text("${g.name} (${g.anzahl})") },
-                    )
-                }
-            }
-            Row(
-                Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    stringResource(R.string.pflanzen_test_treffer, treffer.size),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(vertical = 12.dp),
-                )
-                TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
-            }
-            HorizontalDivider()
-            LazyColumn(Modifier.fillMaxSize()) {
+        Box(Modifier.padding(innen).fillMaxSize().nestedScroll(kopfVerbindung)) {
+            val kopfDp = with(LocalDensity.current) { kopfHoehe.toDp() }
+            // Die Liste liegt unter dem Kopf; der Kopf liegt darüber und wandert/blendet beim Scrollen aus.
+            LazyColumn(Modifier.fillMaxSize(), contentPadding = KopfPadding(top = kopfDp)) {
                 items(treffer, key = { it.id }) { t ->
                     // Kachel: heller Hintergrund in der Gruppenfarbe, kräftiger Streifen links (Stil B)
                     val farbe = gruppenFarbe(t.hauptgruppe)
@@ -237,6 +211,72 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                         }
                     }
                 }
+            }
+            Column(
+                Modifier
+                    .onSizeChanged { kopfHoehe = it.height }
+                    .graphicsLayer {
+                        translationY = kopfVersatz
+                        alpha = if (kopfHoehe > 0) (1f + kopfVersatz / kopfHoehe).coerceIn(0f, 1f) else 1f
+                    }
+                    .background(MaterialTheme.colorScheme.surface),
+            ) {
+                if (fehler != null) {
+                    Text(
+                        stringResource(R.string.pflanzen_test_fehler, fehler ?: ""),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(16.dp),
+                    )
+                }
+                info?.let {
+                    if (it.testdaten) {
+                        Text(
+                            stringResource(R.string.pflanzen_test_hinweis),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        )
+                    }
+                }
+                OutlinedTextField(
+                    value = suchtext,
+                    onValueChange = { suchtext = it },
+                    label = { Text(stringResource(R.string.pflanzen_test_suche)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    item(key = "eigene") {
+                        FilterChip(
+                            selected = nurEigene,
+                            onClick = { nurEigene = !nurEigene },
+                            label = { Text(stringResource(R.string.eigene_pflanzen_filter)) },
+                        )
+                    }
+                    items(gruppen, key = { it.id }) { g ->
+                        FilterChip(
+                            selected = g.id in gewaehlt,
+                            onClick = { gewaehlt = if (g.id in gewaehlt) gewaehlt - g.id else gewaehlt + g.id },
+                            label = { Text("${g.name} (${g.anzahl})") },
+                        )
+                    }
+                }
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        stringResource(R.string.pflanzen_test_treffer, treffer.size),
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(vertical = 12.dp),
+                    )
+                    TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
+                }
+                HorizontalDivider()
             }
         }
     }

@@ -6,7 +6,8 @@ import android.content.Context
 val TEXT_ABSCHNITTE = listOf("Herkunft", "Standort", "Wuchs und Laub", "Blüte", "Verwendung", "Pflege")
 
 /**
- * Sucht in den Pflanzen der Grunddaten und in den eigenen Pflanzen. Eigene Pflanzen stehen oben in der Liste.
+ * Sucht in den Pflanzen der Grunddaten und in den eigenen Pflanzen; beide stehen gemeinsam in alphabetischer
+ * Reihenfolge. Mit [nurEigene] zeigt die Liste nur die eigenen Pflanzen.
  * [gruppen] ordnet Gruppennamen den Nummern zu, mit denen der Gruppenfilter arbeitet.
  */
 suspend fun sucheMitEigenen(
@@ -14,8 +15,9 @@ suspend fun sucheMitEigenen(
     text: String,
     gruppenIds: Set<Long>,
     gruppen: List<GruppeMitAnzahl>,
+    nurEigene: Boolean = false,
 ): List<PflanzeTreffer> {
-    val ausGrunddaten = Grunddaten.suche(context, text, gruppenIds)
+    val ausGrunddaten = if (nurEigene) emptyList() else Grunddaten.suche(context, text, gruppenIds)
     val dao = MeineDatenDb.holen(context).gartenDao()
     val q = Grunddaten.normalisiere(text)
     val eigene = dao.eigenePflanzenListe().filter { p ->
@@ -33,7 +35,9 @@ suspend fun sucheMitEigenen(
             eigene = true,
         )
     }
-    return eigene + ausGrunddaten
+    if (eigene.isEmpty()) return ausGrunddaten
+    // Gemeinsam alphabetisch (dieselbe Normalisierung wie bei der Suche); die Reihenfolge innerhalb gleicher Namen bleibt.
+    return (ausGrunddaten + eigene).sortedBy { Grunddaten.normalisiere(it.hauptname) }
 }
 
 /** Baut aus einer eigenen Pflanze und ihren Texten dasselbe Datenpaket, das das Info-Fenster für Katalogpflanzen nutzt. */
