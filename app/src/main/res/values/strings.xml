@@ -308,4 +308,51 @@
     <string name="notiz_mehr">Notiz ausklappen</string>
     <string name="notiz_weniger">Notiz einklappen</string>
     <string name="eigene_pflanzen_filter">Eigene Pflanzen</string>
+    <!-- Teilschritt 5: Startseite und Meine Pflanzen -->
+    <string name="start_meine_gaerten">Meine Gärten</string>
+    <string name="start_pflanzen_pflege">Pflanzen und Pflege</string>
+    <string name="start_pflanzen_leer">Noch keine Pflanzen</string>
+    <string name="start_katalog_text">Suchen und nachlesen</string>
+    <string name="start_kalender">Pflegekalender</string>
+    <string name="start_kalender_bald">kommt später</string>
+    <plurals name="n_pflanzen">
+        <item quantity="one">%d Pflanze</item>
+        <item quantity="other">%d Pflanzen</item>
+    </plurals>
+    <plurals name="n_arten">
+        <item quantity="one">%d Art</item>
+        <item quantity="other">%d Arten</item>
+    </plurals>
+    <string name="mp_titel">Meine Pflanzen</string>
+    <string name="mp_hinzufuegen">Pflanze</string>
+    <string name="mp_nach_pflanze">Nach Pflanze</string>
+    <string name="mp_nach_garten">Nach Garten</string>
+    <string name="mp_filter_alle">Alle</string>
+    <string name="mp_filter_ohne_plan">Ohne Plan</string>
+    <string name="mp_ohne_plan">ohne Plan</string>
+    <string name="mp_ohne_garten">Ohne Garten</string>
+    <string name="mp_nur_eingetragen">nur eingetragen, nicht im Plan</string>
+    <string name="mp_leer">Hier steht, was du im Garten hast. Tippe auf „Pflanze“, um etwas einzutragen. Pflanzen, die du in einem Garten einzeichnest, erscheinen von selbst.</string>
+    <string name="mp_im_plan">Im Plan ›</string>
+    <string name="mp_aendern">Ändern</string>
+    <plurals name="mp_n_im_plan">
+        <item quantity="one">%d Pflanze im Plan</item>
+        <item quantity="other">%d Pflanzen im Plan</item>
+    </plurals>
+    <plurals name="mp_n_eingetragen">
+        <item quantity="one">%d Pflanze eingetragen</item>
+        <item quantity="other">%d Pflanzen eingetragen</item>
+    </plurals>
+    <string name="mp_anzahl">Anzahl</string>
+    <string name="mp_wo">Wo steht sie?</string>
+    <string name="mp_datum">Gepflanzt am (optional)</string>
+    <string name="mp_datum_waehlen">Datum wählen</string>
+    <string name="mp_notiz">Notiz (optional)</string>
+    <string name="mp_eintragen">Eintragen</string>
+    <string name="mp_loeschen_titel">Eintrag löschen?</string>
+    <string name="mp_loeschen_text">%1$s wird aus „Meine Pflanzen“ entfernt. Pflanzen, die in deinen Gärten eingezeichnet sind, bleiben unverändert.</string>
+    <string name="bestand_frage_titel">Eintrag anpassen?</string>
+    <string name="bestand_frage_text">In „Meine Pflanzen“ stehen noch %1$d × %2$s (%3$s). Soll dieser Eintrag um 1 verringert werden?</string>
+    <string name="bestand_frage_ja">Ja, um 1</string>
+    <string name="bestand_frage_nein">Nein</string>
 </resources>

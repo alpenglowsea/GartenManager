@@ -376,3 +376,10 @@ Als Nächstes:
 - Umsetzung (ungetestet, nicht kompiliert): Datenbank Version 8 mit echter Migration 7 -> 8; neue Dateien `EigenePflanzen.kt`, `EigenePflanzeEditor.kt`, `PflanzenNotizen.kt`; Anpassungen in Info-Fenster, Katalog, Auswahlfenster und Gartenbildschirm. Der Merker liegt jetzt in der Datenbank.
 - Offen: Backup (Export/Import) in den Einstellungen, "Ersetzt-durch"-Logik, Foto für eigene Pflanzen.
 
+
+### 22.10.2026: 4e getestet, Teilschritt 5 (Startseite, "Meine Pflanzen") geliefert
+- Test 4e/4e2: Notiz ausklappen, alphabetische Reihenfolge mit Filter "Eigene Pflanzen", "Abbrechen"-Umbruch, ausblendender Katalog-Kopf laufen. 4e3 (Pfeil statt Knopf, Info-Karte höchstens 280 dp breit, ausblendender Kopf im Auswahlfenster) ist committet, wird mit der nächsten größeren Runde getestet.
+- Entscheidungen: Startseite als Mix aus Entwurf C und A (Gärten oben, darunter Kacheln "Meine Pflanzen", "Pflanzenkatalog", "Pflegekalender"); "Meine Pflanzen" zeigt Pflanzen aus den Gärten und Einträge ohne Zeichnung in einer Liste, **eine Zeile pro Art mit Anzahl**, wahlweise nach Pflanze oder nach Garten sortiert; setzt man eine Pflanze, die als Eintrag ohne Plan existiert, **fragt die App jedes Mal nach**, ob der Eintrag um 1 verringert werden soll.
+- Umsetzung (ungetestet, nicht kompiliert): Datenbank Version 9 mit echter Migration 8 -> 9 (neue Tabelle `bestand`); neue Datei `MeinePflanzenScreen.kt`; `GartenListeScreen.kt` neu gestaltet (Karten statt Listenzeilen, Grundstücke und alle Menüs bleiben); Nachfrage im `GartenScreen.kt`.
+- Bewusst noch nicht enthalten: Aufgabenblock oben auf der Startseite (braucht den Pflegekalender), Vorschaubilder der Gärten (Anfangsbuchstabe als Platzhalter), Suche in "Meine Pflanzen", Markierung der Pflanze beim Sprung in den Garten, Rückgängig für Einträge in "Meine Pflanzen" (sie liegen außerhalb des Garten-Rückgängig).
+- Offen: Backup muss die Tabelle `bestand` mit exportieren.

@@ -3,6 +3,20 @@ package io.github.alpenglowsea.gartenmanager.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,14 +28,11 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,6 +79,8 @@ fun GartenListeScreen(
     grundstuecke: List<Grundstueck>?,
     gaerten: List<Garten>?,
     aufgeklappt: Set<Long>,
+    pflanzenZahl: Int,
+    artenZahl: Int,
     onSchalteAufgeklappt: (Long) -> Unit,
     onGartenOeffnen: (Long) -> Unit,
     onGartenBearbeiten: (Long) -> Unit,
@@ -81,6 +94,7 @@ fun GartenListeScreen(
     onGrundstueckAufloesen: (Long) -> Unit,
     onGrundstueckMitGaertenLoeschen: (Long) -> Unit,
     onKatalog: () -> Unit,
+    onMeinePflanzen: () -> Unit,
     onUeber: () -> Unit,
 ) {
     var dialog by remember { mutableStateOf<DialogZustand>(DialogZustand.Keiner) }
@@ -90,26 +104,6 @@ fun GartenListeScreen(
     val kopieZusatz = stringResource(R.string.kopie_zusatz)
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) },
-                actions = {
-                    TextButton(onClick = onKatalog) { Text(stringResource(R.string.katalog_menue)) }
-                    Box {
-                        IconButton(onClick = { ueberMenue = true }) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
-                        DropdownMenu(expanded = ueberMenue, onDismissRequest = { ueberMenue = false }) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.ueber_titel)) },
-                                onClick = {
-                                    ueberMenue = false
-                                    onUeber()
-                                },
-                            )
-                        }
-                    }
-                },
-            )
-        },
         floatingActionButton = {
             Box {
                 FloatingActionButton(onClick = { fabMenue = true }) {
@@ -137,11 +131,41 @@ fun GartenListeScreen(
         Box(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
             if (grundstuecke == null || gaerten == null) {
                 // Wird geladen: kurz nichts anzeigen, damit der Leer-Hinweis nicht aufblitzt.
-            } else if (grundstuecke.isEmpty() && gaerten.isEmpty()) {
-                LeerHinweis(onErstenGartenAnlegen = { dialog = DialogZustand.NeuerGarten(null) })
             } else {
                 val einzelne = gaerten.filter { it.grundstueckId == null }
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    // Kopf mit Name der App und Menü
+                    item(key = "kopf") {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 12.dp, bottom = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                text = stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.headlineMedium,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.weight(1f),
+                            )
+                            Box {
+                                IconButton(onClick = { ueberMenue = true }) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
+                                DropdownMenu(expanded = ueberMenue, onDismissRequest = { ueberMenue = false }) {
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(R.string.ueber_titel)) },
+                                        onClick = {
+                                            ueberMenue = false
+                                            onUeber()
+                                        },
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    item(key = "titel-gaerten") { Abschnittsname(stringResource(R.string.start_meine_gaerten)) }
+                    if (grundstuecke.isEmpty() && gaerten.isEmpty()) {
+                        item(key = "leer") {
+                            LeerHinweis(onErstenGartenAnlegen = { dialog = DialogZustand.NeuerGarten(null) })
+                        }
+                    }
                     for (grundstueck in grundstuecke) {
                         val seineGaerten = gaerten.filter { it.grundstueckId == grundstueck.id }
                         val offen = grundstueck.id in aufgeklappt
@@ -200,23 +224,13 @@ fun GartenListeScreen(
                             item(key = "hinzufuegen-${grundstueck.id}") {
                                 TextButton(
                                     onClick = { dialog = DialogZustand.NeuerGarten(grundstueck.id) },
-                                    modifier = Modifier.padding(start = 24.dp),
+                                    modifier = Modifier.padding(start = 32.dp),
                                 ) { Text(stringResource(R.string.garten_hinzufuegen)) }
                             }
                         }
                     }
                     if (grundstuecke.isNotEmpty() && einzelne.isNotEmpty()) {
-                        item(key = "trenner") {
-                            Column {
-                                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                                Text(
-                                    text = stringResource(R.string.einzelne_gaerten),
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                                )
-                            }
-                        }
+                        item(key = "trenner") { Abschnittsname(stringResource(R.string.einzelne_gaerten)) }
                     }
                     for (garten in einzelne) {
                         item(key = "garten-${garten.id}") {
@@ -250,8 +264,50 @@ fun GartenListeScreen(
                             )
                         }
                     }
+                    // Kacheln für Pflanzen und Pflege
+                    item(key = "titel-pflanzen") { Abschnittsname(stringResource(R.string.start_pflanzen_pflege)) }
+                    item(key = "kacheln") {
+                        val res = LocalContext.current.resources
+                        val meinePflanzenText = if (pflanzenZahl == 0) {
+                            stringResource(R.string.start_pflanzen_leer)
+                        } else {
+                            res.getQuantityString(R.plurals.n_pflanzen, pflanzenZahl, pflanzenZahl) + " · " +
+                                res.getQuantityString(R.plurals.n_arten, artenZahl, artenZahl)
+                        }
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
+                        ) {
+                            Kachel(
+                                titel = stringResource(R.string.mp_titel),
+                                text = meinePflanzenText,
+                                farbe = MaterialTheme.colorScheme.secondaryContainer,
+                                inhaltFarbe = MaterialTheme.colorScheme.onSecondaryContainer,
+                                onClick = onMeinePflanzen,
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                                Kachel(
+                                    titel = stringResource(R.string.katalog_menue),
+                                    text = stringResource(R.string.start_katalog_text),
+                                    farbe = MaterialTheme.colorScheme.primaryContainer,
+                                    inhaltFarbe = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    onClick = onKatalog,
+                                    modifier = Modifier.weight(1f),
+                                )
+                                Kachel(
+                                    titel = stringResource(R.string.start_kalender),
+                                    text = stringResource(R.string.start_kalender_bald),
+                                    farbe = MaterialTheme.colorScheme.tertiaryContainer,
+                                    inhaltFarbe = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    onClick = null,
+                                    modifier = Modifier.weight(1f),
+                                )
+                            }
+                        }
+                    }
                     // Platz unter der letzten Zeile, damit der Plus-Knopf nichts verdeckt.
-                    item(key = "platzhalter-unten") { Box(modifier = Modifier.padding(bottom = 88.dp)) {} }
+                    item(key = "platzhalter-unten") { Spacer(modifier = Modifier.height(96.dp)) }
                 }
             }
         }
@@ -350,10 +406,59 @@ fun GartenListeScreen(
 }
 
 @Composable
+private fun Abschnittsname(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 6.dp),
+    )
+}
+
+/** Große Kachel auf der Startseite. Ohne [onClick] ist sie abgeblendet (Funktion kommt später). */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun Kachel(
+    titel: String,
+    text: String,
+    farbe: Color,
+    inhaltFarbe: Color,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+) {
+    val inhalt: @Composable () -> Unit = {
+        Column(
+            modifier = Modifier.fillMaxWidth().heightIn(min = 92.dp).padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(titel, style = MaterialTheme.typography.titleMedium)
+            Text(text, style = MaterialTheme.typography.bodySmall)
+        }
+    }
+    if (onClick != null) {
+        Surface(
+            onClick = onClick,
+            shape = RoundedCornerShape(20.dp),
+            color = farbe,
+            contentColor = inhaltFarbe,
+            modifier = modifier,
+            content = inhalt,
+        )
+    } else {
+        Surface(
+            shape = RoundedCornerShape(20.dp),
+            color = farbe.copy(alpha = 0.55f),
+            contentColor = inhaltFarbe.copy(alpha = 0.7f),
+            modifier = modifier,
+            content = inhalt,
+        )
+    }
+}
+
+@Composable
 private fun LeerHinweis(onErstenGartenAnlegen: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(32.dp),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -380,26 +485,38 @@ private fun GrundstueckZeile(
     onUmbenennen: () -> Unit,
     onLoeschen: () -> Unit,
 ) {
-    Box {
-        ListItem(
-            leadingContent = { Text(if (offen) "▼" else "▶") },
-            headlineContent = { Text(grundstueck.name, style = MaterialTheme.typography.titleMedium) },
-            supportingContent = {
-                Text(
-                    if (anzahlGaerten == 1) {
-                        stringResource(R.string.ein_garten)
-                    } else {
-                        stringResource(R.string.n_gaerten, anzahlGaerten)
-                    },
+    Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
+        val form = RoundedCornerShape(20.dp)
+        Surface(
+            shape = form,
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            modifier = Modifier.fillMaxWidth().clip(form).combinedClickable(onClick = onKlick, onLongClick = onMenueOeffnen),
+        ) {
+            Row(
+                modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Icon(
+                    painterResource(if (offen) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
+                    contentDescription = null,
+                    modifier = Modifier.size(22.dp),
                 )
-            },
-            trailingContent = {
+                Column(Modifier.weight(1f)) {
+                    Text(grundstueck.name, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        if (anzahlGaerten == 1) {
+                            stringResource(R.string.ein_garten)
+                        } else {
+                            stringResource(R.string.n_gaerten, anzahlGaerten)
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
                 IconButton(onClick = onMenueOeffnen) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .combinedClickable(onClick = onKlick, onLongClick = onMenueOeffnen),
-        )
+            }
+        }
         DropdownMenu(expanded = menueOffen, onDismissRequest = onMenueSchliessen) {
             DropdownMenuItem(text = { Text(stringResource(R.string.umbenennen)) }, onClick = onUmbenennen)
             DropdownMenuItem(text = { Text(stringResource(R.string.loeschen)) }, onClick = onLoeschen)
@@ -422,19 +539,43 @@ private fun GartenZeile(
     onVerschieben: () -> Unit,
     onLoeschen: () -> Unit,
 ) {
-    Box(modifier = Modifier.padding(start = if (eingerueckt) 24.dp else 0.dp)) {
-        ListItem(
-            headlineContent = { Text(garten.name) },
-            supportingContent = {
-                Text(stringResource(R.string.zuletzt_geaendert, formatiere(garten.geaendertAm)))
-            },
-            trailingContent = {
+    Box(modifier = Modifier.padding(start = if (eingerueckt) 32.dp else 16.dp, end = 16.dp, top = 4.dp, bottom = 4.dp)) {
+        val form = RoundedCornerShape(20.dp)
+        Surface(
+            shape = form,
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            modifier = Modifier.fillMaxWidth().clip(form).combinedClickable(onClick = onOeffnen, onLongClick = onMenueOeffnen),
+        ) {
+            Row(
+                modifier = Modifier.padding(start = 12.dp, top = 10.dp, bottom = 10.dp, end = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                // Vorläufig der Anfangsbuchstabe; eine kleine Vorschau des Plans kommt später.
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = garten.name.trim().take(1).uppercase(),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    )
+                }
+                Column(Modifier.weight(1f)) {
+                    Text(garten.name, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        stringResource(R.string.zuletzt_geaendert, formatiere(garten.geaendertAm)),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
                 IconButton(onClick = onMenueOeffnen) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .combinedClickable(onClick = onOeffnen, onLongClick = onMenueOeffnen),
-        )
+            }
+        }
         DropdownMenu(expanded = menueOffen, onDismissRequest = onMenueSchliessen) {
             DropdownMenuItem(text = { Text(stringResource(R.string.bearbeiten)) }, onClick = onBearbeiten)
             DropdownMenuItem(text = { Text(stringResource(R.string.duplizieren)) }, onClick = onDuplizieren)

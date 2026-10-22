@@ -118,6 +118,45 @@ abstract class GartenDao {
     @Query("SELECT * FROM garten ORDER BY name COLLATE NOCASE")
     abstract fun gaerten(): Flow<List<Garten>>
 
+    // ---- Meine Pflanzen (Teilschritt 5) ----
+
+    @Query("SELECT * FROM bestand ORDER BY pflanzeName COLLATE NOCASE, id")
+    abstract fun alleBestand(): Flow<List<Bestand>>
+
+    /** Alle gesetzten Pflanzen aus allen Gärten. */
+    @Query("SELECT * FROM gegenstand WHERE art = 'pflanze' AND pflanzeId IS NOT NULL")
+    abstract fun allePflanzenImPlan(): Flow<List<Gegenstand>>
+
+    /** Fügt einen Eintrag ein; hat er schon eine Nummer, wird der bestehende ersetzt. */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun speichereBestandZeile(bestand: Bestand): Long
+
+    @Query("DELETE FROM bestand WHERE id = :id")
+    abstract suspend fun loescheBestand(id: Long)
+
+    @Query("SELECT * FROM bestand WHERE id = :id")
+    abstract suspend fun bestandMitId(id: Long): Bestand?
+
+    /** Ein Eintrag zur Pflanze, der zu diesem Garten passt oder keinem Garten gehört (der eigene Garten zuerst). */
+    @Query(
+        "SELECT * FROM bestand WHERE pflanzeId = :pflanzeId AND anzahl > 0 AND (gartenId IS NULL OR gartenId = :gartenId) " +
+            "ORDER BY (gartenId IS NULL), id LIMIT 1",
+    )
+    abstract suspend fun passenderBestand(pflanzeId: Long, gartenId: Long): Bestand?
+
+    /** Verringert die Anzahl um 1; bei 0 verschwindet der Eintrag. */
+    @Transaction
+    open suspend fun verringereBestand(id: Long) {
+        val b = bestandMitId(id) ?: return
+        if (b.anzahl <= 1) loescheBestand(id) else speichereBestandZeile(b.copy(anzahl = b.anzahl - 1))
+    }
+
+    @Query("UPDATE bestand SET gartenId = NULL WHERE gartenId = :gartenId")
+    abstract suspend fun loeseBestandVomGarten(gartenId: Long)
+
+    @Query("UPDATE bestand SET gartenId = NULL WHERE gartenId IN (SELECT id FROM garten WHERE grundstueckId = :grundstueckId)")
+    abstract suspend fun loeseBestandVomGrundstueck(grundstueckId: Long)
+
     @Query("SELECT * FROM garten WHERE id = :id")
     abstract suspend fun gartenMitId(id: Long): Garten?
 

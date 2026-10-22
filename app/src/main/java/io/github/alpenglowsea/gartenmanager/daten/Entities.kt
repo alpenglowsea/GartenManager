@@ -263,3 +263,24 @@ data class MerkerZeile(
     val abschnitt: String,
 )
 
+
+/**
+ * Ein Eintrag in "Meine Pflanzen", der nicht im Gartenplan steht (Teilschritt 5): "ich habe 5 Tomaten".
+ * [gartenId] ist leer, wenn die Pflanzen keinem Garten zugeordnet sind. Eine Fremdschlüssel-Verknüpfung gibt es
+ * absichtlich nicht; wird ein Garten gelöscht, löst die App die Zuordnung selbst.
+ * Pflanzenname, lateinischer Name und Gruppe sind wie bei gesetzten Pflanzen eine Kopie (Notfall-Anzeige).
+ */
+@Entity(tableName = "bestand")
+data class Bestand(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val pflanzeId: Long,
+    val pflanzeName: String,
+    val pflanzeLatein: String,
+    val pflanzeGruppe: String,
+    val anzahl: Int,
+    val gartenId: Long? = null,
+    /** Pflanzdatum als Tag seit 01.01.1970, leer = unbekannt. */
+    val pflanzdatum: Long? = null,
+    val notiz: String? = null,
+    val angelegtAm: Long,
+)

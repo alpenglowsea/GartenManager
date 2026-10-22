@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.alpenglowsea.gartenmanager.ui.GartenListeScreen
 import io.github.alpenglowsea.gartenmanager.ui.GartenManagerTheme
 import io.github.alpenglowsea.gartenmanager.ui.GartenScreen
+import io.github.alpenglowsea.gartenmanager.ui.MeinePflanzenScreen
 import io.github.alpenglowsea.gartenmanager.ui.PflanzenKatalogScreen
 import io.github.alpenglowsea.gartenmanager.ui.UeberScreen
 
@@ -36,10 +37,28 @@ class MainActivity : ComponentActivity() {
                 // Pflanzenkatalog und "Über GartenManager" (von der Gartenliste aus erreichbar)
                 var katalogOffen by rememberSaveable { mutableStateOf(false) }
                 var ueberOffen by rememberSaveable { mutableStateOf(false) }
+                // "Meine Pflanzen" bleibt offen, wenn man von dort in einen Garten springt; Zurück führt dann wieder hinein.
+                var meinePflanzenOffen by rememberSaveable { mutableStateOf(false) }
+                val bestand by viewModel.bestand.collectAsState()
+                val pflanzenImPlan by viewModel.pflanzenImPlan.collectAsState()
 
                 if (ueberOffen && offenerGarten == null) {
                     BackHandler { ueberOffen = false }
                     UeberScreen(onZurueck = { ueberOffen = false })
+                } else if (meinePflanzenOffen && offenerGarten == null) {
+                    BackHandler { meinePflanzenOffen = false }
+                    MeinePflanzenScreen(
+                        gaerten = gaerten.orEmpty(),
+                        imPlan = pflanzenImPlan,
+                        bestand = bestand,
+                        onSpeichern = viewModel::speichereBestand,
+                        onLoeschen = viewModel::loescheBestand,
+                        onGartenOeffnen = { id ->
+                            bearbeiten = false
+                            offenerGartenId = id
+                        },
+                        onZurueck = { meinePflanzenOffen = false },
+                    )
                 } else if (katalogOffen && offenerGarten == null) {
                     // Das Zurück-Verhalten innerhalb des Katalogs (Info-Fenster -> Liste) steckt im Katalog selbst.
                     BackHandler { katalogOffen = false }
@@ -87,6 +106,8 @@ class MainActivity : ComponentActivity() {
                         grundstuecke = grundstuecke,
                         gaerten = gaerten,
                         aufgeklappt = viewModel.aufgeklappt,
+                        pflanzenZahl = pflanzenImPlan.size + bestand.sumOf { it.anzahl },
+                        artenZahl = (pflanzenImPlan.mapNotNull { it.pflanzeId } + bestand.map { it.pflanzeId }).distinct().size,
                         onSchalteAufgeklappt = viewModel::schalteAufgeklappt,
                         onGartenOeffnen = { id ->
                             bearbeiten = false
@@ -106,6 +127,7 @@ class MainActivity : ComponentActivity() {
                         onGrundstueckAufloesen = viewModel::loeseGrundstueckAuf,
                         onGrundstueckMitGaertenLoeschen = viewModel::loescheGrundstueckMitGaerten,
                         onKatalog = { katalogOffen = true },
+                        onMeinePflanzen = { meinePflanzenOffen = true },
                         onUeber = { ueberOffen = true },
                     )
                 }

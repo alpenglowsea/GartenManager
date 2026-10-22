@@ -9,6 +9,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
+import io.github.alpenglowsea.gartenmanager.daten.Bestand
 import io.github.alpenglowsea.gartenmanager.daten.Ebene
 import io.github.alpenglowsea.gartenmanager.daten.Flaeche
 import io.github.alpenglowsea.gartenmanager.daten.Garten
@@ -100,7 +101,10 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun loescheGarten(id: Long) {
-        viewModelScope.launch { dao.loescheGarten(id) }
+        viewModelScope.launch {
+            dao.loeseBestandVomGarten(id)
+            dao.loescheGarten(id)
+        }
     }
 
     /** Löscht nur die Gruppe. Die Gärten bleiben als einzelne Gärten erhalten. */
@@ -109,7 +113,40 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun loescheGrundstueckMitGaerten(id: Long) {
-        viewModelScope.launch { dao.loescheGrundstueckMitGaerten(id) }
+        viewModelScope.launch {
+            dao.loeseBestandVomGrundstueck(id)
+            dao.loescheGrundstueckMitGaerten(id)
+        }
+    }
+
+    // ---- Meine Pflanzen (Teilschritt 5) ----
+
+    /** Einträge, die nicht im Plan stehen. */
+    val bestand: StateFlow<List<Bestand>> =
+        dao.alleBestand().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    /** Alle gesetzten Pflanzen aus allen Gärten. */
+    val pflanzenImPlan: StateFlow<List<Gegenstand>> =
+        dao.allePflanzenImPlan().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    fun speichereBestand(b: Bestand) {
+        viewModelScope.launch { dao.speichereBestandZeile(b) }
+    }
+
+    fun loescheBestand(id: Long) {
+        viewModelScope.launch { dao.loescheBestand(id) }
+    }
+
+    fun verringereBestand(id: Long) {
+        viewModelScope.launch { dao.verringereBestand(id) }
+    }
+
+    /** Sucht beim Setzen einer Pflanze einen passenden Eintrag in "Meine Pflanzen" und meldet ihn, falls es einen gibt. */
+    fun frageBestand(pflanzeId: Long, gartenId: Long, onGefunden: (Bestand) -> Unit) {
+        viewModelScope.launch {
+            val b = dao.passenderBestand(pflanzeId, gartenId)
+            if (b != null) onGefunden(b)
+        }
     }
 
     // ---- Zeichnen und Bearbeiten (Teilschritte 2c und 2e) ----

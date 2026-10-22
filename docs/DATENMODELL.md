@@ -312,3 +312,6 @@ Eine im Garten gesetzte Pflanze ist eine Zeile der Tabelle `gegenstand` mit `art
 - Wird eine eigene Pflanze umbenannt, ändert sich die Notfall-Kopie des Namens an allen gesetzten Pflanzen mit. Wird sie gelöscht, bleiben die gesetzten Pflanzen mit der Kopie bestehen.
 - Gehört ins Backup: alle vier Änderungen sowie `bild_ausschnitt`.
 
+
+## Nachtrag 22.10.2026: Version 9 (Meine Pflanzen ohne Plan)
+Neue Tabelle `bestand`: `id`, `pflanzeId` (Nummer wie bei gesetzten Pflanzen, eigene ab 1.000.000), `pflanzeName`, `pflanzeLatein`, `pflanzeGruppe` (Kopie), `anzahl`, `gartenId` (leer = keinem Garten zugeordnet), `pflanzdatum` (Tag seit 1970, leer erlaubt), `notiz` (höchstens 500 Zeichen), `angelegtAm`. Absichtlich ohne Fremdschlüssel: beim Löschen eines Gartens oder Grundstücks setzt die App `gartenId` selbst auf leer. Die Liste "Meine Pflanzen" verbindet diese Tabelle mit den gesetzten Pflanzen (`gegenstand`, `art = 'pflanze'`); gesetzte Pflanzen werden dafür nicht kopiert. Migration 8 -> 9 ist echt, bestehende Daten bleiben erhalten.

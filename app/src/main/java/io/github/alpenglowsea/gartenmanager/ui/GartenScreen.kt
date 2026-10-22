@@ -90,6 +90,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.Dialog
 import io.github.alpenglowsea.gartenmanager.daten.ART_PFLANZE
+import io.github.alpenglowsea.gartenmanager.daten.Bestand
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -556,6 +557,7 @@ fun GartenScreen(
     var ziehenFertig by remember { mutableStateOf(false) }
     var gZiehen by remember { mutableStateOf<GZiehen?>(null) } // laufendes Ziehen an einem Gegenstand
     var letzteVibration by remember { mutableFloatStateOf(-1f) }
+    var bestandFrage by remember { mutableStateOf<Bestand?>(null) } // passender Eintrag in "Meine Pflanzen" beim Setzen
     var platzOrt by remember { mutableStateOf<Offset?>(null) } // angetippte Stelle, für die der Katalog offen ist
     var gegenstandMenue by remember { mutableStateOf<Offset?>(null) }
     var gNamenDialog by remember { mutableStateOf(false) }
@@ -2112,6 +2114,34 @@ fun GartenScreen(
             },
         )
     }
+    val frage = bestandFrage
+    if (frage != null) {
+        AlertDialog(
+            onDismissRequest = { bestandFrage = null },
+            title = { Text(stringResource(R.string.bestand_frage_titel)) },
+            text = {
+                Text(
+                    stringResource(
+                        R.string.bestand_frage_text,
+                        frage.anzahl,
+                        frage.pflanzeName,
+                        if (frage.gartenId == null) stringResource(R.string.mp_ohne_garten) else garten.name,
+                    ),
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.verringereBestand(frage.id)
+                        bestandFrage = null
+                    },
+                ) { Text(stringResource(R.string.bestand_frage_ja)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { bestandFrage = null }) { Text(stringResource(R.string.bestand_frage_nein)) }
+            },
+        )
+    }
     val ortFuerKatalog = platzOrt
     if (ortFuerKatalog != null && viewModel.platzieren && viewModel.platzierenPflanze) {
         PflanzenWahlDialog(
@@ -2134,6 +2164,8 @@ fun GartenScreen(
                         pflanzeGruppe = t.hauptgruppe,
                     ),
                 )
+                // Gibt es dazu einen Eintrag in "Meine Pflanzen" (ohne Plan), fragt die App, ob er kleiner werden soll.
+                viewModel.frageBestand(t.id, gartenId) { bestandFrage = it }
             },
             onAbbrechen = { platzOrt = null },
         )
