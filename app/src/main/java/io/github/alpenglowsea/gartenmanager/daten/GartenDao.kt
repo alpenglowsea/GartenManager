@@ -115,8 +115,21 @@ abstract class GartenDao {
     @Query("SELECT * FROM grundstueck ORDER BY name COLLATE NOCASE")
     abstract fun grundstuecke(): Flow<List<Grundstueck>>
 
-    @Query("SELECT * FROM garten ORDER BY name COLLATE NOCASE")
+    @Query("SELECT * FROM garten ORDER BY reihenfolge, name COLLATE NOCASE, id")
     abstract fun gaerten(): Flow<List<Garten>>
+
+    /** Der nächste freie Platz am Ende der Gärten eines Grundstücks (null = einzelne Gärten). */
+    @Query("SELECT COALESCE(MAX(reihenfolge), -1) + 1 FROM garten WHERE grundstueckId IS :grundstueckId")
+    abstract suspend fun naechsteGartenReihenfolge(grundstueckId: Long?): Int
+
+    @Query("UPDATE garten SET reihenfolge = :nr WHERE id = :id")
+    abstract suspend fun setzeGartenReihenfolge(id: Long, nr: Int)
+
+    /** Setzt die Reihenfolge der Gärten einer Reihe in der Reihenfolge der Liste. */
+    @Transaction
+    open suspend fun ordneGaerten(ids: List<Long>) {
+        ids.forEachIndexed { nr, id -> setzeGartenReihenfolge(id, nr) }
+    }
 
     // ---- Meine Pflanzen (Teilschritt 5) ----
 
@@ -660,6 +673,7 @@ abstract class GartenDao {
             name = original.name + zusatz,
             angelegtAm = jetzt,
             geaendertAm = jetzt,
+            reihenfolge = naechsteGartenReihenfolge(original.grundstueckId),
         )
         val kopieId = fuegeGartenEin(kopie)
         // Ebenen zuerst kopieren und merken, welche alte Ebene zu welcher neuen gehört.

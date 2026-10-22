@@ -1,5 +1,6 @@
 package io.github.alpenglowsea.gartenmanager.daten
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -41,6 +42,8 @@ data class Garten(
     val ansichtY: Float = 0f,
     // Maßstab: so viele Skizzeneinheiten sind ein Meter (kommt mit Teilschritt 3a)
     val massstab: Float = 10f,
+    // Platz in der Reihe der Gärten desselben Grundstücks (oder der einzelnen Gärten); gleiche Zahlen sortieren nach Name
+    @ColumnInfo(defaultValue = "0") val reihenfolge: Int = 0,
 )
 
 /**

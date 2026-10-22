@@ -57,6 +57,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -76,6 +78,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.Bestand
+import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
+import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import io.github.alpenglowsea.gartenmanager.daten.Garten
 import io.github.alpenglowsea.gartenmanager.daten.Gegenstand
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
@@ -133,7 +139,7 @@ fun MeinePflanzenScreen(
     bestand: List<Bestand>,
     onSpeichern: (Bestand) -> Unit,
     onLoeschen: (Long) -> Unit,
-    onGartenOeffnen: (Long) -> Unit,
+    onGartenOeffnen: (gartenId: Long, pflanzeId: Long) -> Unit,
     onPlatzieren: (gartenId: Long, eintrag: Bestand) -> Unit,
     onZurueck: () -> Unit,
 ) {
@@ -143,6 +149,21 @@ fun MeinePflanzenScreen(
     var aufgeklappt by zustand::aufgeklappt
     var waehlen by remember { mutableStateOf(false) }
     var bearbeite by remember { mutableStateOf<Bestand?>(null) }
+
+    // Fotos und persönliche Ausschnitte wie im Katalog
+    val context = LocalContext.current
+    var bildDateien by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
+    LaunchedEffect(Unit) {
+        bildDateien = try {
+            withContext(Dispatchers.IO) { Grunddaten.bildDateien(context) }
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            emptyMap()
+        }
+    }
+    val bildDao = remember { MeineDatenDb.holen(context).gartenDao() }
+    val ausschnitte by remember { bildDao.alleAusschnitte() }.collectAsState(initial = emptyList())
+    val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
     var gartenWahlFuer by remember { mutableStateOf<Bestand?>(null) }
 
     // Kopf (Reiter, Suche, Filter) wandert beim Scrollen mit und blendet dabei aus; Hochscrollen holt ihn zurück.
@@ -277,6 +298,8 @@ fun MeinePflanzenScreen(
         BestandSheet(
             start = start,
             gaerten = gaerten,
+            bild = bildDateien[start.pflanzeId],
+            ausschnitt = ausschnittNachId[start.pflanzeId],
             onPlatzieren = if (start.id != 0L) {
                 {
                     bearbeite = null
@@ -348,7 +371,12 @@ fun MeinePflanzenScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 ) {
-                                    Kreis(art.name, art.gruppe, 42)
+                                    PflanzenKachelBild(
+                                        bild = bildDateien[art.pflanzeId],
+                                        gruppe = art.gruppe,
+                                        name = art.name,
+                                        ausschnitt = ausschnittNachId[art.pflanzeId],
+                                    )
                                     Column(Modifier.weight(1f)) {
                                         Text(art.name, style = MaterialTheme.typography.titleMedium)
                                         if (art.latein.isNotEmpty()) {
@@ -376,7 +404,7 @@ fun MeinePflanzenScreen(
                                     .map { (g, liste) -> g to liste.sumOf { it.anzahl } }
                                     .sortedWith(compareBy<Pair<Long?, Int>>({ it.first == null }, { gartenNamen[it.first].orEmpty().lowercase() }))
                                 FlowRow(
-                                    Modifier.padding(start = 66.dp, end = 12.dp, bottom = 10.dp),
+                                    Modifier.padding(start = 80.dp, end = 12.dp, bottom = 10.dp),
                                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                                     verticalArrangement = Arrangement.spacedBy(6.dp),
                                 ) {
@@ -388,12 +416,12 @@ fun MeinePflanzenScreen(
                                     }
                                 }
                                 if (offen) {
-                                    HorizontalDivider(Modifier.padding(start = 66.dp, end = 12.dp))
+                                    HorizontalDivider(Modifier.padding(start = 80.dp, end = 12.dp))
                                     for (p in art.posten.sortedWith(compareBy<Posten>({ it.gartenId == null }, { gartenNamen[it.gartenId].orEmpty().lowercase() }, { !it.imPlan }))) {
                                         PostenZeile(
                                             p = p,
                                             ortName = if (p.gartenId == null) ohneGarten else gartenNamen[p.gartenId].orEmpty(),
-                                            onOeffnen = { p.gartenId?.let(onGartenOeffnen) },
+                                            onOeffnen = { p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId) } },
                                             onAendern = { bearbeite = p.eintrag },
                                             onPlatzieren = { p.eintrag?.let { platziere(it) } },
                                         )
@@ -447,13 +475,19 @@ fun MeinePflanzenScreen(
                                 Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        if (p.imPlan) p.gartenId?.let(onGartenOeffnen) else bearbeite = p.eintrag
+                                        if (p.imPlan) p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId) } else bearbeite = p.eintrag
                                     }
                                     .padding(horizontal = 20.dp, vertical = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
-                                Kreis(p.name, p.gruppe, 34)
+                                PflanzenKachelBild(
+                                    bild = bildDateien[p.pflanzeId],
+                                    gruppe = p.gruppe,
+                                    name = p.name,
+                                    ausschnitt = ausschnittNachId[p.pflanzeId],
+                                    groesse = 48.dp,
+                                )
                                 Column(Modifier.weight(1f)) {
                                     Text(p.name, style = MaterialTheme.typography.bodyLarge)
                                     if (!p.imPlan) {
@@ -579,7 +613,7 @@ private fun PostenZeile(
 ) {
     val res = LocalContext.current.resources
     Row(
-        Modifier.fillMaxWidth().padding(start = 66.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
+        Modifier.fillMaxWidth().padding(start = 80.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -625,6 +659,8 @@ private fun PostenZeile(
 private fun BestandSheet(
     start: Bestand,
     gaerten: List<Garten>,
+    bild: String?,
+    ausschnitt: BildAusschnitt?,
     onPlatzieren: (() -> Unit)?,
     onSpeichern: (Bestand) -> Unit,
     onLoeschen: (() -> Unit)?,
@@ -673,7 +709,7 @@ private fun BestandSheet(
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Kreis(start.pflanzeName, start.pflanzeGruppe, 44)
+                PflanzenKachelBild(bild = bild, gruppe = start.pflanzeGruppe, name = start.pflanzeName, ausschnitt = ausschnitt)
                 Column {
                     Text(start.pflanzeName, style = MaterialTheme.typography.titleMedium)
                     if (start.pflanzeLatein.isNotEmpty()) {

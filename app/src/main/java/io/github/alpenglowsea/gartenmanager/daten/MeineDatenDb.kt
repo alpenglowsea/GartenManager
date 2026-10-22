@@ -22,7 +22,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         Gegenstand::class, Gegenstandspunkt::class, BildAusschnitt::class,
         EigenePflanze::class, EigeneAngabe::class, MerkerZeile::class, Bestand::class,
     ],
-    version = 9,
+    version = 10,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
@@ -90,6 +90,13 @@ abstract class MeineDatenDb : RoomDatabase() {
             }
         }
 
+        /** Version 9 -> 10: Reihenfolge der Gärten. Alle bisherigen Gärten starten bei 0 und bleiben damit nach Namen sortiert. */
+        private val VON_9_AUF_10 = object : Migration(9, 10) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `garten` ADD COLUMN `reihenfolge` INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
         @Volatile
         private var instanz: MeineDatenDb? = null
 
@@ -100,7 +107,7 @@ abstract class MeineDatenDb : RoomDatabase() {
                     MeineDatenDb::class.java,
                     "meine_daten.db",
                 )
-                    .addMigrations(VON_5_AUF_6, VON_6_AUF_7, VON_7_AUF_8, VON_8_AUF_9)
+                    .addMigrations(VON_5_AUF_6, VON_6_AUF_7, VON_7_AUF_8, VON_8_AUF_9, VON_9_AUF_10)
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { instanz = it }

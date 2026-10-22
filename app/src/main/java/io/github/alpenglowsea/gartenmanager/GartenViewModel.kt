@@ -66,7 +66,13 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val t = jetzt()
             dao.fuegeGartenEin(
-                Garten(grundstueckId = grundstueckId, name = name.trim(), angelegtAm = t, geaendertAm = t),
+                Garten(
+                    grundstueckId = grundstueckId,
+                    name = name.trim(),
+                    angelegtAm = t,
+                    geaendertAm = t,
+                    reihenfolge = dao.naechsteGartenReihenfolge(grundstueckId),
+                ),
             )
             if (grundstueckId != null) aufgeklappt = aufgeklappt + grundstueckId
         }
@@ -89,9 +95,17 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     fun verschiebeGarten(id: Long, grundstueckId: Long?) {
         viewModelScope.launch {
+            // Der Garten kommt ans Ende der Reihe im Ziel
+            val platz = dao.naechsteGartenReihenfolge(grundstueckId)
             dao.verschiebeGarten(id, grundstueckId, jetzt())
+            dao.setzeGartenReihenfolge(id, platz)
             if (grundstueckId != null) aufgeklappt = aufgeklappt + grundstueckId
         }
+    }
+
+    /** Neue Reihenfolge der Gärten einer Reihe (Ziehen auf der Startseite). */
+    fun ordneGaerten(ids: List<Long>) {
+        viewModelScope.launch { dao.ordneGaerten(ids) }
     }
 
     fun dupliziereGarten(id: Long, zusatz: String) {
@@ -255,6 +269,9 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
 
     /** Eine Pflanze aus "Meine Pflanzen", die beim nächsten Tippen in den Plan gesetzt werden soll (ohne Auswahlfenster). */
     var vorgemerktePflanze by mutableStateOf<VorgemerktePflanze?>(null)
+
+    /** Pflanzennummer, die im Garten hervorgehoben werden soll (Sprung aus "Meine Pflanzen"); leer = keine. */
+    var hervorgehobenePflanzeId by mutableStateOf<Long?>(null)
 
     /** Wie [startePflanzePlatzieren], behält aber die vorgemerkte Pflanze. */
     fun startePflanzeVorgemerkt() {

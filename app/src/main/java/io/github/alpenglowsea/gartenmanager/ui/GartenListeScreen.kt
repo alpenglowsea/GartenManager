@@ -4,6 +4,23 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.awaitLongPressOrCancellation
+import androidx.compose.foundation.gestures.drag
+import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.PointerInputScope
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.util.fastAll
+import androidx.compose.ui.zIndex
+import kotlin.math.abs
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.width
@@ -100,6 +117,7 @@ fun GartenListeScreen(
     onGartenLoeschen: (Long) -> Unit,
     onGrundstueckAufloesen: (Long) -> Unit,
     onGrundstueckMitGaertenLoeschen: (Long) -> Unit,
+    onGaertenOrdnen: (List<Long>) -> Unit,
     onKatalog: () -> Unit,
     onMeinePflanzen: () -> Unit,
     onUeber: () -> Unit,
@@ -140,10 +158,12 @@ fun GartenListeScreen(
                 // Wird geladen: kurz nichts anzeigen, damit der Leer-Hinweis nicht aufblitzt.
             } else {
                 val einzelne = gaerten.filter { it.grundstueckId == null }
-                val gartenKarte: @Composable (Garten, Color) -> Unit = { garten, hintergrund ->
+                val gartenKarte: @Composable (Garten, Color, Modifier, ZiehEreignisse) -> Unit = { garten, hintergrund, mod, zieh ->
                     GartenKarte(
                         garten = garten,
                         hintergrund = hintergrund,
+                        modifier = mod,
+                        ziehen = zieh,
                         menueOffen = menue == MenueZiel.ImGarten(garten.id),
                         onOeffnen = { onGartenOeffnen(garten.id) },
                         onMenueOeffnen = { menue = MenueZiel.ImGarten(garten.id) },
@@ -229,8 +249,9 @@ fun GartenListeScreen(
                                     gaerten = seineGaerten,
                                     seitenRand = 12.dp,
                                     hintergrund = MaterialTheme.colorScheme.surface,
-                                    karte = { g -> gartenKarte(g, MaterialTheme.colorScheme.surface) },
+                                    karte = { g, mod, zieh -> gartenKarte(g, MaterialTheme.colorScheme.surface, mod, zieh) },
                                     onNeu = { dialog = DialogZustand.NeuerGarten(grundstueck.id) },
+                                    onOrdnen = onGaertenOrdnen,
                                 )
                             }
                         }
@@ -244,8 +265,9 @@ fun GartenListeScreen(
                                 gaerten = einzelne,
                                 seitenRand = 16.dp,
                                 hintergrund = MaterialTheme.colorScheme.surfaceContainerHigh,
-                                karte = { g -> gartenKarte(g, MaterialTheme.colorScheme.surfaceContainerHigh) },
+                                karte = { g, mod, zieh -> gartenKarte(g, MaterialTheme.colorScheme.surfaceContainerHigh, mod, zieh) },
                                 onNeu = null,
+                                onOrdnen = onGaertenOrdnen,
                             )
                         }
                     }
@@ -537,21 +559,96 @@ private fun GrundstueckBlock(
     }
 }
 
-/** Seitlich scrollbare Reihe von Gartenkacheln; mit [onNeu] steht am Ende eine Kachel zum Hinzufügen. */
+/** Meldungen vom Ziehen einer Gartenkachel an die Reihe. */
+private class ZiehEreignisse(
+    val beiStart: () -> Unit,
+    val beiZug: (Float) -> Unit,
+    val beiEnde: (bewegt: Boolean) -> Unit,
+    val beiAbbruch: () -> Unit,
+)
+
+/**
+ * Seitlich scrollbare Reihe von Gartenkacheln; mit [onNeu] steht am Ende eine Kachel zum Hinzufügen.
+ * Langes Drücken auf eine Kachel hebt sie an, dann lässt sie sich an einen anderen Platz ziehen ([onOrdnen] bekommt
+ * danach die neue Reihenfolge). Lässt man nach dem langen Drücken los, ohne zu ziehen, öffnet sich das Menü.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun GartenReihe(
     gaerten: List<Garten>,
     seitenRand: androidx.compose.ui.unit.Dp,
     hintergrund: Color,
-    karte: @Composable (Garten) -> Unit,
+    karte: @Composable (Garten, Modifier, ZiehEreignisse) -> Unit,
     onNeu: (() -> Unit)?,
+    onOrdnen: (List<Long>) -> Unit,
 ) {
+    var anzeige by remember(gaerten) { mutableStateOf(gaerten) }
+    var gezogenId by remember { mutableStateOf<Long?>(null) }
+    var versatz by remember { mutableFloatStateOf(0f) }
+    val zustand = rememberLazyListState()
+    val bereich = rememberCoroutineScope()
+    val randPx = with(LocalDensity.current) { 72.dp.toPx() }
+
     LazyRow(
+        state = zustand,
         contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = seitenRand),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        items(gaerten, key = { it.id }) { g -> karte(g) }
+        items(anzeige, key = { it.id }) { g ->
+            val gezogen = g.id == gezogenId
+            val mod = Modifier
+                .zIndex(if (gezogen) 1f else 0f)
+                .graphicsLayer { translationX = if (gezogen) versatz else 0f }
+            val zieh = ZiehEreignisse(
+                beiStart = {
+                    gezogenId = g.id
+                    versatz = 0f
+                },
+                beiZug = { dx ->
+                    versatz += dx
+                    val id = gezogenId
+                    if (id != null) {
+                        val infos = zustand.layoutInfo.visibleItemsInfo
+                        val ich = infos.firstOrNull { it.key == id }
+                        val von = anzeige.indexOfFirst { it.id == id }
+                        if (ich != null && von >= 0 && ich.index == von) {
+                            val mitte = ich.offset + ich.size / 2f + versatz
+                            val ziel = infos.firstOrNull {
+                                it.key != id && it.key is Long && mitte >= it.offset && mitte < it.offset + it.size
+                            }
+                            if (ziel != null) {
+                                val nach = anzeige.indexOfFirst { it.id == ziel.key }
+                                if (nach >= 0 && nach != von) {
+                                    val neu = anzeige.toMutableList()
+                                    val x = neu.removeAt(von)
+                                    neu.add(nach, x)
+                                    anzeige = neu
+                                    versatz += (ich.offset - ziel.offset).toFloat()
+                                }
+                            }
+                            // Am Rand der Reihe weiterscrollen
+                            val breite = zustand.layoutInfo.viewportSize.width
+                            val schritt = if (mitte < randPx) -14f else if (mitte > breite - randPx) 14f else 0f
+                            if (schritt != 0f) bereich.launch { versatz += zustand.scrollBy(schritt) }
+                        }
+                    }
+                },
+                beiEnde = { bewegt ->
+                    gezogenId = null
+                    versatz = 0f
+                    if (bewegt) {
+                        val ids = anzeige.map { it.id }
+                        if (ids != gaerten.map { it.id }) onOrdnen(ids)
+                    }
+                },
+                beiAbbruch = {
+                    gezogenId = null
+                    versatz = 0f
+                    anzeige = gaerten
+                },
+            )
+            karte(g, mod, zieh)
+        }
         if (onNeu != null) {
             item(key = "neu") {
                 Surface(
@@ -574,12 +671,49 @@ private fun GartenReihe(
     }
 }
 
+/**
+ * Berührungen auf einer Gartenkachel: Tippen öffnet, langes Drücken hebt die Kachel zum Ziehen an; wer danach
+ * loslässt, ohne zu ziehen, bekommt das Menü. Wischt man vor dem langen Drücken, scrollt die Reihe wie gewohnt.
+ */
+private suspend fun PointerInputScope.kartenGesten(
+    beiTipp: () -> Unit,
+    beiLangemDruck: () -> Unit,
+    ziehen: ZiehEreignisse,
+) {
+    awaitEachGesture {
+        val runter = awaitFirstDown(requireUnconsumed = false)
+        val lang = awaitLongPressOrCancellation(runter.id)
+        if (lang == null) {
+            if (currentEvent.changes.fastAll { !it.pressed }) beiTipp()
+            return@awaitEachGesture
+        }
+        ziehen.beiStart()
+        var bewegt = false
+        var summe = 0f
+        val fertig = drag(lang.id) { c ->
+            val d = c.positionChange()
+            summe += abs(d.x) + abs(d.y)
+            if (summe > viewConfiguration.touchSlop) bewegt = true
+            if (bewegt) ziehen.beiZug(d.x)
+            c.consume()
+        }
+        if (fertig) {
+            ziehen.beiEnde(bewegt)
+            if (!bewegt) beiLangemDruck()
+        } else {
+            ziehen.beiAbbruch()
+        }
+    }
+}
+
 /** Kachel eines Gartens mit Vorschau, Name und Datum der letzten Änderung. */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun GartenKarte(
     garten: Garten,
     hintergrund: Color,
+    modifier: Modifier,
+    ziehen: ZiehEreignisse,
     menueOffen: Boolean,
     onOeffnen: () -> Unit,
     onMenueOeffnen: () -> Unit,
@@ -590,12 +724,29 @@ private fun GartenKarte(
     onVerschieben: () -> Unit,
     onLoeschen: () -> Unit,
 ) {
-    Box(modifier = Modifier.width(168.dp)) {
+    val tippen = rememberUpdatedState(onOeffnen)
+    val menue = rememberUpdatedState(onMenueOeffnen)
+    val zieher = rememberUpdatedState(ziehen)
+    Box(modifier = modifier.width(168.dp)) {
         val form = RoundedCornerShape(18.dp)
         Surface(
             shape = form,
             color = hintergrund,
-            modifier = Modifier.fillMaxWidth().clip(form).combinedClickable(onClick = onOeffnen, onLongClick = onMenueOeffnen),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(form)
+                .pointerInput(garten.id) {
+                    kartenGesten(
+                        beiTipp = { tippen.value() },
+                        beiLangemDruck = { menue.value() },
+                        ziehen = ZiehEreignisse(
+                            beiStart = { zieher.value.beiStart() },
+                            beiZug = { zieher.value.beiZug(it) },
+                            beiEnde = { zieher.value.beiEnde(it) },
+                            beiAbbruch = { zieher.value.beiAbbruch() },
+                        ),
+                    )
+                },
         ) {
             Column {
                 GartenVorschau(garten, Modifier.fillMaxWidth().aspectRatio(4f / 3f))

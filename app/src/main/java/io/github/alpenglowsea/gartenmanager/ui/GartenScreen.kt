@@ -49,6 +49,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,6 +65,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -564,7 +566,46 @@ fun GartenScreen(
         if (bearbeiten && viewModel.vorgemerktePflanze != null) viewModel.startePflanzeVorgemerkt()
     }
     androidx.compose.runtime.DisposableEffect(Unit) {
-        onDispose { viewModel.vorgemerktePflanze = null }
+        onDispose {
+            viewModel.vorgemerktePflanze = null
+            viewModel.hervorgehobenePflanzeId = null
+        }
+    }
+    // Sprung aus "Meine Pflanzen": Pflanze(n) der Art hervorheben und den Ausschnitt so wählen, dass man sie sieht.
+    val hervorgehoben = viewModel.hervorgehobenePflanzeId
+    var leinwand by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
+    var ausschnittGewaehlt by remember(gartenId) { mutableStateOf(false) }
+    LaunchedEffect(hervorgehoben, leinwand, gegenstaende) {
+        if (hervorgehoben == null || ausschnittGewaehlt || leinwand.width == 0 || leinwand.height == 0) return@LaunchedEffect
+        val ziele = gegenstaende.filter { it.art == ART_PFLANZE && it.pflanzeId == hervorgehoben }
+        if (ziele.isEmpty()) return@LaunchedEffect
+        val minX = ziele.minOf { it.mitteX - it.breite / 2f }
+        val maxX = ziele.maxOf { it.mitteX + it.breite / 2f }
+        val minY = ziele.minOf { it.mitteY - it.hoehe / 2f }
+        val maxY = ziele.maxOf { it.mitteY + it.hoehe / 2f }
+        // Mindestens zwei Meter Ausschnitt, damit eine einzelne kleine Pflanze nicht riesig wird
+        val mindest = garten.massstab.toFloat() * 2f
+        val breiteSkizze = maxOf(maxX - minX, mindest)
+        val hoeheSkizze = maxOf(maxY - minY, mindest)
+        val pixelProEinheit = minOf(leinwand.width * 0.6f / breiteSkizze, leinwand.height * 0.6f / hoeheSkizze)
+        zoom = (pixelProEinheit / dichte).coerceIn(ZOOM_MIN, ZOOM_MAX)
+        val fk = zoom * dichte
+        verschiebungX = leinwand.width / 2f - (minX + maxX) / 2f * fk
+        verschiebungY = leinwand.height / 2f - (minY + maxY) / 2f * fk
+        ausschnittGewaehlt = true
+    }
+    val pulsState: androidx.compose.runtime.State<Float> = if (hervorgehoben != null) {
+        androidx.compose.animation.core.rememberInfiniteTransition(label = "hervorheben").animateFloat(
+            initialValue = 0f,
+            targetValue = 1f,
+            animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+                androidx.compose.animation.core.tween(700),
+                androidx.compose.animation.core.RepeatMode.Reverse,
+            ),
+            label = "puls",
+        )
+    } else {
+        remember { mutableFloatStateOf(0f) }
     }
     var bestandFrage by remember { mutableStateOf<Bestand?>(null) } // passender Eintrag in "Meine Pflanzen" beim Setzen
     var platzOrt by remember { mutableStateOf<Offset?>(null) } // angetippte Stelle, für die der Katalog offen ist
@@ -1090,6 +1131,7 @@ fun GartenScreen(
     }
 
     val beiTippAnsicht = rememberUpdatedState<(Offset) -> Unit> { pos ->
+        viewModel.hervorgehobenePflanzeId = null
         val treffer = if (bearbeiten) null else elementBei(pos)
         infoFlaecheId = treffer?.flaeche?.id
         infoGegenstandId = treffer?.gegenstand?.id
@@ -1382,6 +1424,7 @@ fun GartenScreen(
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()
+                    .onSizeChanged { leinwand = it }
                     .pointerInput(bearbeiten) {
                         gartenGesten(
                             einFingerVerschiebt = !bearbeiten,
@@ -1434,6 +1477,23 @@ fun GartenScreen(
                                 umriss = umrissFarbe,
                                 umrissBreite = umrissDicke,
                             )
+                            if (hervorgehoben != null && live.pflanzeId == hervorgehoben) {
+                                val mitteH = zuBildschirm(Offset(live.mitteX, live.mitteY))
+                                val rH = live.breite * faktor / 2f
+                                val puls = pulsState.value
+                                drawCircle(
+                                    Color(0xFFFFC107).copy(alpha = 0.35f + 0.3f * (1f - puls)),
+                                    radius = rH + (8f + 10f * puls) * dichte,
+                                    center = mitteH,
+                                    style = Stroke(width = 5f * dichte),
+                                )
+                                drawCircle(
+                                    Color(0xFFFF6F00),
+                                    radius = rH + 3f * dichte,
+                                    center = mitteH,
+                                    style = Stroke(width = 3f * dichte),
+                                )
+                            }
                         } else if (istGebaeude(live)) {
                             zeichneGebaeude(
                                 live,

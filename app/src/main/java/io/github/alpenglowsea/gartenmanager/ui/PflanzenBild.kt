@@ -190,14 +190,15 @@ fun PflanzenKachelBild(
     name: String,
     modifier: Modifier = Modifier,
     ausschnitt: BildAusschnitt? = null,
+    groesse: androidx.compose.ui.unit.Dp = 56.dp,
 ) {
     // Die kürzere Seite bleibt mindestens 320 Pixel, damit auch ein hineingezoomter Ausschnitt scharf ist
     val bmp = rememberPflanzenBild(bild, 320)
-    Box(modifier.size(56.dp), contentAlignment = Alignment.Center) {
+    Box(modifier.size(groesse), contentAlignment = Alignment.Center) {
         if (bmp != null) {
             AusschnittBild(bmp, ausschnitt, name, Modifier.fillMaxSize().clip(RoundedCornerShape(10.dp)))
         } else {
-            PflanzenSymbol(gruppe, name, 44.dp)
+            PflanzenSymbol(gruppe, name, groesse * 0.79f)
         }
     }
 }

@@ -56,7 +56,8 @@ class MainActivity : ComponentActivity() {
                         bestand = bestand,
                         onSpeichern = viewModel::speichereBestand,
                         onLoeschen = viewModel::loescheBestand,
-                        onGartenOeffnen = { id ->
+                        onGartenOeffnen = { id, pflanzeId ->
+                            viewModel.hervorgehobenePflanzeId = pflanzeId
                             bearbeiten = false
                             offenerGartenId = id
                         },
@@ -68,6 +69,7 @@ class MainActivity : ComponentActivity() {
                                 latein = eintrag.pflanzeLatein,
                                 gruppe = eintrag.pflanzeGruppe,
                             )
+                            viewModel.hervorgehobenePflanzeId = null
                             bearbeiten = true
                             offenerGartenId = id
                         },
@@ -140,6 +142,7 @@ class MainActivity : ComponentActivity() {
                         onGartenLoeschen = viewModel::loescheGarten,
                         onGrundstueckAufloesen = viewModel::loeseGrundstueckAuf,
                         onGrundstueckMitGaertenLoeschen = viewModel::loescheGrundstueckMitGaerten,
+                        onGaertenOrdnen = viewModel::ordneGaerten,
                         onKatalog = { katalogOffen = true },
                         onMeinePflanzen = { meinePflanzenOffen = true },
                         onUeber = { ueberOffen = true },

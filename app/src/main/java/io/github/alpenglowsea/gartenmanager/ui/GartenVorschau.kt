@@ -88,15 +88,28 @@ private fun baueSzene(
             }
         } else {
             val g = e.gegenstand ?: continue
-            val radius = when {
-                g.art == ART_PFLANZE -> g.breite / 2f
-                e.gegenstandspunkte.isNotEmpty() -> e.gegenstandspunkte.maxOf { hypot(it.x, it.y) }
-                else -> hypot(g.breite, g.hoehe) / 2f
+            val rad = Math.toRadians(g.drehung.toDouble())
+            val c = kotlin.math.abs(kotlin.math.cos(rad)).toFloat()
+            val sn = kotlin.math.abs(kotlin.math.sin(rad)).toFloat()
+            val halbX: Float
+            val halbY: Float
+            when {
+                g.art == ART_PFLANZE -> { halbX = g.breite / 2f; halbY = g.breite / 2f }
+                e.gegenstandspunkte.isNotEmpty() -> {
+                    // Punkte liegen relativ zur Mitte; ob schon gedreht, ist hier unsicher -> vorsichtig mit dem größten Abstand
+                    val r = e.gegenstandspunkte.maxOf { hypot(it.x, it.y) }
+                    halbX = r; halbY = r
+                }
+                else -> {
+                    // Gedrehtes Rechteck: genaue Ausdehnung statt Umkreis
+                    halbX = c * g.breite / 2f + sn * g.hoehe / 2f
+                    halbY = sn * g.breite / 2f + c * g.hoehe / 2f
+                }
             }
-            minX = min(minX, g.mitteX - radius)
-            maxX = max(maxX, g.mitteX + radius)
-            minY = min(minY, g.mitteY - radius)
-            maxY = max(maxY, g.mitteY + radius)
+            minX = min(minX, g.mitteX - halbX)
+            maxX = max(maxX, g.mitteX + halbX)
+            minY = min(minY, g.mitteY - halbY)
+            maxY = max(maxY, g.mitteY + halbY)
         }
     }
     return VorschauSzene(alle.map { it.element }, minX, minY, maxX, maxY)
@@ -135,7 +148,7 @@ fun GartenVorschau(garten: Garten, modifier: Modifier = Modifier) {
             Canvas(Modifier.fillMaxSize()) {
                 val breite = max(szene.maxX - szene.minX, 1f)
                 val hoehe = max(szene.maxY - szene.minY, 1f)
-                val skala = min(size.width * 0.9f / breite, size.height * 0.9f / hoehe)
+                val skala = min(size.width * 0.95f / breite, size.height * 0.95f / hoehe)
                 val ox = size.width / 2f - (szene.minX + szene.maxX) / 2f * skala
                 val oy = size.height / 2f - (szene.minY + szene.maxY) / 2f * skala
                 fun zu(x: Float, y: Float) = Offset(ox + x * skala, oy + y * skala)
