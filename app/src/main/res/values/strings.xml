@@ -361,4 +361,5 @@
     <string name="mp_garten_waehlen_titel">In welchem Garten?</string>
     <string name="mp_kein_garten">Lege zuerst einen Garten an, dann kannst du die Pflanze dort platzieren.</string>
     <string name="platzieren_hinweis_vorgemerkt">%1$s: Tippe auf die Stelle im Garten, an die die Pflanze kommen soll.</string>
+    <string name="geaendert_kurz">Geändert %1$s</string>
 </resources>

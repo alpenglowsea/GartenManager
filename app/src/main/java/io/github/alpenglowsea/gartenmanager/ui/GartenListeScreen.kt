@@ -4,6 +4,13 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -133,6 +140,36 @@ fun GartenListeScreen(
                 // Wird geladen: kurz nichts anzeigen, damit der Leer-Hinweis nicht aufblitzt.
             } else {
                 val einzelne = gaerten.filter { it.grundstueckId == null }
+                val gartenKarte: @Composable (Garten, Color) -> Unit = { garten, hintergrund ->
+                    GartenKarte(
+                        garten = garten,
+                        hintergrund = hintergrund,
+                        menueOffen = menue == MenueZiel.ImGarten(garten.id),
+                        onOeffnen = { onGartenOeffnen(garten.id) },
+                        onMenueOeffnen = { menue = MenueZiel.ImGarten(garten.id) },
+                        onMenueSchliessen = { menue = null },
+                        onBearbeiten = {
+                            menue = null
+                            onGartenBearbeiten(garten.id)
+                        },
+                        onDuplizieren = {
+                            menue = null
+                            onGartenDuplizieren(garten.id, kopieZusatz)
+                        },
+                        onUmbenennen = {
+                            menue = null
+                            dialog = DialogZustand.GartenUmbenennen(garten)
+                        },
+                        onVerschieben = {
+                            menue = null
+                            dialog = DialogZustand.GartenVerschieben(garten)
+                        },
+                        onLoeschen = {
+                            menue = null
+                            dialog = DialogZustand.GartenLoeschen(garten)
+                        },
+                    )
+                }
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     // Kopf mit Name der App und Menü
                     item(key = "kopf") {
@@ -170,10 +207,11 @@ fun GartenListeScreen(
                         val seineGaerten = gaerten.filter { it.grundstueckId == grundstueck.id }
                         val offen = grundstueck.id in aufgeklappt
                         item(key = "grundstueck-${grundstueck.id}") {
-                            GrundstueckZeile(
+                            GrundstueckBlock(
                                 grundstueck = grundstueck,
                                 anzahlGaerten = seineGaerten.size,
                                 offen = offen,
+                                farbe = grundstueckFarbe(grundstueck.id),
                                 menueOffen = menue == MenueZiel.ImGrundstueck(grundstueck.id),
                                 onKlick = { onSchalteAufgeklappt(grundstueck.id) },
                                 onMenueOeffnen = { menue = MenueZiel.ImGrundstueck(grundstueck.id) },
@@ -186,81 +224,28 @@ fun GartenListeScreen(
                                     menue = null
                                     dialog = DialogZustand.GrundstueckLoeschen(grundstueck, seineGaerten.size)
                                 },
-                            )
-                        }
-                        if (offen) {
-                            for (garten in seineGaerten) {
-                                item(key = "garten-${garten.id}") {
-                                    GartenZeile(
-                                        garten = garten,
-                                        eingerueckt = true,
-                                        menueOffen = menue == MenueZiel.ImGarten(garten.id),
-                                        onOeffnen = { onGartenOeffnen(garten.id) },
-                                        onMenueOeffnen = { menue = MenueZiel.ImGarten(garten.id) },
-                                        onMenueSchliessen = { menue = null },
-                                        onBearbeiten = {
-                                            menue = null
-                                            onGartenBearbeiten(garten.id)
-                                        },
-                                        onDuplizieren = {
-                                            menue = null
-                                            onGartenDuplizieren(garten.id, kopieZusatz)
-                                        },
-                                        onUmbenennen = {
-                                            menue = null
-                                            dialog = DialogZustand.GartenUmbenennen(garten)
-                                        },
-                                        onVerschieben = {
-                                            menue = null
-                                            dialog = DialogZustand.GartenVerschieben(garten)
-                                        },
-                                        onLoeschen = {
-                                            menue = null
-                                            dialog = DialogZustand.GartenLoeschen(garten)
-                                        },
-                                    )
-                                }
-                            }
-                            item(key = "hinzufuegen-${grundstueck.id}") {
-                                TextButton(
-                                    onClick = { dialog = DialogZustand.NeuerGarten(grundstueck.id) },
-                                    modifier = Modifier.padding(start = 32.dp),
-                                ) { Text(stringResource(R.string.garten_hinzufuegen)) }
+                            ) {
+                                GartenReihe(
+                                    gaerten = seineGaerten,
+                                    seitenRand = 12.dp,
+                                    hintergrund = MaterialTheme.colorScheme.surface,
+                                    karte = { g -> gartenKarte(g, MaterialTheme.colorScheme.surface) },
+                                    onNeu = { dialog = DialogZustand.NeuerGarten(grundstueck.id) },
+                                )
                             }
                         }
                     }
                     if (grundstuecke.isNotEmpty() && einzelne.isNotEmpty()) {
                         item(key = "trenner") { Abschnittsname(stringResource(R.string.einzelne_gaerten)) }
                     }
-                    for (garten in einzelne) {
-                        item(key = "garten-${garten.id}") {
-                            GartenZeile(
-                                garten = garten,
-                                eingerueckt = false,
-                                menueOffen = menue == MenueZiel.ImGarten(garten.id),
-                                onOeffnen = { onGartenOeffnen(garten.id) },
-                                onMenueOeffnen = { menue = MenueZiel.ImGarten(garten.id) },
-                                onMenueSchliessen = { menue = null },
-                                onBearbeiten = {
-                                    menue = null
-                                    onGartenBearbeiten(garten.id)
-                                },
-                                onDuplizieren = {
-                                    menue = null
-                                    onGartenDuplizieren(garten.id, kopieZusatz)
-                                },
-                                onUmbenennen = {
-                                    menue = null
-                                    dialog = DialogZustand.GartenUmbenennen(garten)
-                                },
-                                onVerschieben = {
-                                    menue = null
-                                    dialog = DialogZustand.GartenVerschieben(garten)
-                                },
-                                onLoeschen = {
-                                    menue = null
-                                    dialog = DialogZustand.GartenLoeschen(garten)
-                                },
+                    if (einzelne.isNotEmpty()) {
+                        item(key = "einzelne") {
+                            GartenReihe(
+                                gaerten = einzelne,
+                                seitenRand = 16.dp,
+                                hintergrund = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                karte = { g -> gartenKarte(g, MaterialTheme.colorScheme.surfaceContainerHigh) },
+                                onNeu = null,
                             )
                         }
                     }
@@ -472,39 +457,58 @@ private fun LeerHinweis(onErstenGartenAnlegen: () -> Unit) {
     }
 }
 
+/** Farben für die Rahmen der Grundstücke; ein Grundstück behält seine Farbe, weil sie an seiner Nummer hängt. */
+private val GRUNDSTUECK_FARBEN = listOf(
+    Color(0xFF3F8A4A), Color(0xFFC46A8F), Color(0xFF5B8FB9),
+    Color(0xFFE8A33D), Color(0xFF8E6BBF), Color(0xFFC0684A),
+)
+
+private fun grundstueckFarbe(id: Long): Color = GRUNDSTUECK_FARBEN[(id % GRUNDSTUECK_FARBEN.size).toInt()]
+
+private val TAG_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+
+private fun formatiereTag(millis: Long): String =
+    Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).format(TAG_FORMAT)
+
+/**
+ * Ein Grundstück als Block mit farbigem Rahmen: oben Name und Anzahl (Tipp klappt auf und zu, langes Drücken
+ * oder die Punkte öffnen das Menü), darunter die Gärten in einer seitlich scrollbaren Reihe.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun GrundstueckZeile(
+private fun GrundstueckBlock(
     grundstueck: Grundstueck,
     anzahlGaerten: Int,
     offen: Boolean,
+    farbe: Color,
     menueOffen: Boolean,
     onKlick: () -> Unit,
     onMenueOeffnen: () -> Unit,
     onMenueSchliessen: () -> Unit,
     onUmbenennen: () -> Unit,
     onLoeschen: () -> Unit,
+    inhalt: @Composable () -> Unit,
 ) {
-    Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
-        val form = RoundedCornerShape(20.dp)
-        Surface(
-            shape = form,
-            color = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-            modifier = Modifier.fillMaxWidth().clip(form).combinedClickable(onClick = onKlick, onLongClick = onMenueOeffnen),
+    Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
+        val form = RoundedCornerShape(24.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(form)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
+                .border(2.dp, farbe, form),
         ) {
             Row(
-                modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 4.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .combinedClickable(onClick = onKlick, onLongClick = onMenueOeffnen)
+                    .padding(start = 16.dp, top = 6.dp, bottom = 6.dp, end = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                Icon(
-                    painterResource(if (offen) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
-                    contentDescription = null,
-                    modifier = Modifier.size(22.dp),
-                )
+                Box(Modifier.size(12.dp).clip(CircleShape).background(farbe))
                 Column(Modifier.weight(1f)) {
-                    Text(grundstueck.name, style = MaterialTheme.typography.titleMedium)
+                    Text(grundstueck.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     Text(
                         if (anzahlGaerten == 1) {
                             stringResource(R.string.ein_garten)
@@ -512,9 +516,18 @@ private fun GrundstueckZeile(
                             stringResource(R.string.n_gaerten, anzahlGaerten)
                         },
                         style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                Icon(
+                    painterResource(if (offen) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                )
                 IconButton(onClick = onMenueOeffnen) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
+            }
+            if (offen) {
+                Box(Modifier.padding(bottom = 12.dp)) { inhalt() }
             }
         }
         DropdownMenu(expanded = menueOffen, onDismissRequest = onMenueSchliessen) {
@@ -524,11 +537,49 @@ private fun GrundstueckZeile(
     }
 }
 
+/** Seitlich scrollbare Reihe von Gartenkacheln; mit [onNeu] steht am Ende eine Kachel zum Hinzufügen. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun GartenReihe(
+    gaerten: List<Garten>,
+    seitenRand: androidx.compose.ui.unit.Dp,
+    hintergrund: Color,
+    karte: @Composable (Garten) -> Unit,
+    onNeu: (() -> Unit)?,
+) {
+    LazyRow(
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = seitenRand),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        items(gaerten, key = { it.id }) { g -> karte(g) }
+        if (onNeu != null) {
+            item(key = "neu") {
+                Surface(
+                    onClick = onNeu,
+                    shape = RoundedCornerShape(18.dp),
+                    color = hintergrund,
+                    modifier = Modifier.width(120.dp).height(172.dp),
+                ) {
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize().padding(12.dp)) {
+                        Text(
+                            stringResource(R.string.garten_hinzufuegen),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** Kachel eines Gartens mit Vorschau, Name und Datum der letzten Änderung. */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun GartenZeile(
+private fun GartenKarte(
     garten: Garten,
-    eingerueckt: Boolean,
+    hintergrund: Color,
     menueOffen: Boolean,
     onOeffnen: () -> Unit,
     onMenueOeffnen: () -> Unit,
@@ -539,41 +590,32 @@ private fun GartenZeile(
     onVerschieben: () -> Unit,
     onLoeschen: () -> Unit,
 ) {
-    Box(modifier = Modifier.padding(start = if (eingerueckt) 32.dp else 16.dp, end = 16.dp, top = 4.dp, bottom = 4.dp)) {
-        val form = RoundedCornerShape(20.dp)
+    Box(modifier = Modifier.width(168.dp)) {
+        val form = RoundedCornerShape(18.dp)
         Surface(
             shape = form,
-            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            color = hintergrund,
             modifier = Modifier.fillMaxWidth().clip(form).combinedClickable(onClick = onOeffnen, onLongClick = onMenueOeffnen),
         ) {
-            Row(
-                modifier = Modifier.padding(start = 12.dp, top = 10.dp, bottom = 10.dp, end = 4.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                // Vorläufig der Anfangsbuchstabe; eine kleine Vorschau des Plans kommt später.
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center,
+            Column {
+                GartenVorschau(garten, Modifier.fillMaxWidth().aspectRatio(4f / 3f))
+                Row(
+                    modifier = Modifier.padding(start = 12.dp, top = 4.dp, bottom = 4.dp, end = 0.dp),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
-                        text = garten.name.trim().take(1).uppercase(),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    )
+                    Column(Modifier.weight(1f)) {
+                        Text(garten.name, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text(
+                            stringResource(R.string.geaendert_kurz, formatiereTag(garten.geaendertAm)),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                        )
+                    }
+                    IconButton(onClick = onMenueOeffnen, modifier = Modifier.size(40.dp)) {
+                        Text("⋮", style = MaterialTheme.typography.titleLarge)
+                    }
                 }
-                Column(Modifier.weight(1f)) {
-                    Text(garten.name, style = MaterialTheme.typography.titleMedium)
-                    Text(
-                        stringResource(R.string.zuletzt_geaendert, formatiere(garten.geaendertAm)),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                IconButton(onClick = onMenueOeffnen) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
             }
         }
         DropdownMenu(expanded = menueOffen, onDismissRequest = onMenueSchliessen) {

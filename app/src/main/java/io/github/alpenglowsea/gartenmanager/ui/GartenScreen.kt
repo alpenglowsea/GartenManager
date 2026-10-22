@@ -360,7 +360,7 @@ private fun angepasst(
 }
 
 /** Zeichnet einen Gegenstand gedreht an seine Stelle (Bildschirmkoordinaten). */
-private fun DrawScope.zeichneGegenstandBild(
+internal fun DrawScope.zeichneGegenstandBild(
     g: Gegenstand,
     mitte: Offset,
     faktor: Float,
@@ -386,7 +386,7 @@ private fun DrawScope.zeichneGegenstandBild(
 }
 
 /** Zeichnet ein freies Gebäude aus seinen Punkten (relativ zur Mitte), gedreht, mit Dachziegel-Muster. */
-private fun DrawScope.zeichneGebaeude(
+internal fun DrawScope.zeichneGebaeude(
     g: Gegenstand,
     ps: List<Gegenstandspunkt>,
     mitte: Offset,
