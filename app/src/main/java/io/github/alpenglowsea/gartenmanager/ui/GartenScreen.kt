@@ -15,6 +15,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -1801,7 +1802,7 @@ fun GartenScreen(
             if (!bearbeiten && infoG != null) {
                 val gart = GegenstandsArt.vonSchluessel(infoG.art)
                 Surface(
-                    modifier = Modifier.align(Alignment.TopCenter).padding(12.dp),
+                    modifier = Modifier.align(Alignment.TopCenter).padding(12.dp).widthIn(max = 280.dp),
                     shape = RoundedCornerShape(12.dp),
                     tonalElevation = 6.dp,
                     shadowElevation = 4.dp,
@@ -1839,16 +1840,23 @@ fun GartenScreen(
                         if (!infoNotiz.isNullOrBlank()) {
                             var notizAuf by remember(infoG.id) { mutableStateOf(false) }
                             val notizLang = infoNotiz.trim().length > KARTE_NOTIZ_ZEICHEN || infoNotiz.trim().contains('\n')
-                            Text(
-                                text = if (notizAuf) infoNotiz.trim() else kuerze(infoNotiz, KARTE_NOTIZ_ZEICHEN),
-                                style = MaterialTheme.typography.bodySmall,
-                                maxLines = if (notizAuf) Int.MAX_VALUE else KARTE_NOTIZ_ZEILEN,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.padding(top = 4.dp),
-                            )
-                            if (notizLang) {
-                                TextButton(onClick = { notizAuf = !notizAuf }) {
-                                    Text(stringResource(if (notizAuf) R.string.notiz_weniger else R.string.notiz_mehr))
+                            Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.Bottom) {
+                                Text(
+                                    text = if (notizAuf) infoNotiz.trim() else kuerze(infoNotiz, KARTE_NOTIZ_ZEICHEN),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    maxLines = if (notizAuf) Int.MAX_VALUE else KARTE_NOTIZ_ZEILEN,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.weight(1f, fill = false),
+                                )
+                                if (notizLang) {
+                                    Icon(
+                                        painterResource(if (notizAuf) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
+                                        contentDescription = stringResource(if (notizAuf) R.string.notiz_weniger else R.string.notiz_mehr),
+                                        modifier = Modifier
+                                            .padding(start = 4.dp)
+                                            .size(20.dp)
+                                            .clickable { notizAuf = !notizAuf },
+                                    )
                                 }
                             }
                         }

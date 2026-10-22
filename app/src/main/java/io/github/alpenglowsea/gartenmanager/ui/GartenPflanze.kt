@@ -3,6 +3,12 @@ package io.github.alpenglowsea.gartenmanager.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -189,6 +195,17 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
     val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
     var editorOffen by remember { mutableStateOf(false) }
     var nurEigene by remember { mutableStateOf(false) }
+    // Kopf (Suche, Filter, Trefferzeile) wandert beim Scrollen mit und blendet aus; Hochscrollen holt ihn zurück.
+    var kopfHoehe by remember { mutableStateOf(0) }
+    var kopfVersatz by remember { mutableStateOf(0f) }
+    val kopfVerbindung = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                kopfVersatz = (kopfVersatz + available.y).coerceIn(-kopfHoehe.toFloat(), 0f)
+                return Offset.Zero
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         try {
@@ -233,93 +250,106 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                         Text(stringResource(R.string.abbrechen), maxLines = 1, softWrap = false)
                     }
                 }
-                if (fehler != null) {
-                    Text(
-                        stringResource(R.string.pflanzen_test_fehler, fehler ?: ""),
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.padding(16.dp),
-                    )
-                }
-                OutlinedTextField(
-                    value = suchtext,
-                    onValueChange = { suchtext = it },
-                    label = { Text(stringResource(R.string.pflanzen_test_suche)) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-                )
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    item(key = "eigene") {
-                        FilterChip(
-                            selected = nurEigene,
-                            onClick = { nurEigene = !nurEigene },
-                            label = { Text(stringResource(R.string.eigene_pflanzen_filter)) },
-                        )
-                    }
-                    items(gruppen, key = { it.id }) { g ->
-                        FilterChip(
-                            selected = g.id in gewaehlt,
-                            onClick = { gewaehlt = if (g.id in gewaehlt) gewaehlt - g.id else gewaehlt + g.id },
-                            label = { Text("${g.name} (${g.anzahl})") },
-                        )
-                    }
-                }
-                Row(
-                    Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Text(
-                        stringResource(R.string.pflanzen_test_treffer, treffer.size),
-                        style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier.padding(vertical = 10.dp),
-                    )
-                    TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
-                }
-                HorizontalDivider()
-                LazyColumn(Modifier.fillMaxSize()) {
-                    items(treffer, key = { it.id }) { t ->
-                        val farbe = gruppenFarbe(t.hauptgruppe)
-                        val hintergrund = lerp(MaterialTheme.colorScheme.surface, farbe, 0.16f)
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 12.dp, vertical = 3.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .height(IntrinsicSize.Min),
-                        ) {
-                            Box(Modifier.width(8.dp).fillMaxHeight().background(farbe))
+                val kopfDp = with(LocalDensity.current) { kopfHoehe.toDp() }
+                Box(Modifier.fillMaxSize().nestedScroll(kopfVerbindung)) {
+                    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(top = kopfDp)) {
+                        items(treffer, key = { it.id }) { t ->
+                            val farbe = gruppenFarbe(t.hauptgruppe)
+                            val hintergrund = lerp(MaterialTheme.colorScheme.surface, farbe, 0.16f)
                             Row(
                                 Modifier
-                                    .weight(1f)
-                                    .background(hintergrund)
-                                    .clickable { onWahl(t) }
-                                    .padding(horizontal = 12.dp, vertical = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp, vertical = 3.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .height(IntrinsicSize.Min),
                             ) {
-                                PflanzenKachelBild(
-                                    bild = t.bild,
-                                    gruppe = t.hauptgruppe,
-                                    name = t.hauptname,
-                                    ausschnitt = ausschnittNachId[t.id],
-                                )
-                                Column(Modifier.weight(1f)) {
-                                    Text(t.hauptname, style = MaterialTheme.typography.titleMedium)
-                                    Text(
-                                        t.lateinisch,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        fontStyle = FontStyle.Italic,
+                                Box(Modifier.width(8.dp).fillMaxHeight().background(farbe))
+                                Row(
+                                    Modifier
+                                        .weight(1f)
+                                        .background(hintergrund)
+                                        .clickable { onWahl(t) }
+                                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                ) {
+                                    PflanzenKachelBild(
+                                        bild = t.bild,
+                                        gruppe = t.hauptgruppe,
+                                        name = t.hauptname,
+                                        ausschnitt = ausschnittNachId[t.id],
                                     )
-                                    Text(
-                                        if (t.eigene) t.hauptgruppe + " · " + stringResource(R.string.eigene_pflanze_marke) else t.hauptgruppe,
-                                        style = MaterialTheme.typography.labelSmall,
-                                    )
+                                    Column(Modifier.weight(1f)) {
+                                        Text(t.hauptname, style = MaterialTheme.typography.titleMedium)
+                                        Text(
+                                            t.lateinisch,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontStyle = FontStyle.Italic,
+                                        )
+                                        Text(
+                                            if (t.eigene) t.hauptgruppe + " · " + stringResource(R.string.eigene_pflanze_marke) else t.hauptgruppe,
+                                            style = MaterialTheme.typography.labelSmall,
+                                        )
+                                    }
                                 }
                             }
                         }
+                    }
+                    Column(
+                        Modifier
+                            .onSizeChanged { kopfHoehe = it.height }
+                            .graphicsLayer {
+                                translationY = kopfVersatz
+                                alpha = if (kopfHoehe > 0) (1f + kopfVersatz / kopfHoehe).coerceIn(0f, 1f) else 1f
+                            }
+                            .background(MaterialTheme.colorScheme.surface),
+                    ) {
+                    if (fehler != null) {
+                        Text(
+                            stringResource(R.string.pflanzen_test_fehler, fehler ?: ""),
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.padding(16.dp),
+                        )
+                    }
+                    OutlinedTextField(
+                        value = suchtext,
+                        onValueChange = { suchtext = it },
+                        label = { Text(stringResource(R.string.pflanzen_test_suche)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                    )
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        item(key = "eigene") {
+                            FilterChip(
+                                selected = nurEigene,
+                                onClick = { nurEigene = !nurEigene },
+                                label = { Text(stringResource(R.string.eigene_pflanzen_filter)) },
+                            )
+                        }
+                        items(gruppen, key = { it.id }) { g ->
+                            FilterChip(
+                                selected = g.id in gewaehlt,
+                                onClick = { gewaehlt = if (g.id in gewaehlt) gewaehlt - g.id else gewaehlt + g.id },
+                                label = { Text("${g.name} (${g.anzahl})") },
+                            )
+                        }
+                    }
+                    Row(
+                        Modifier.fillMaxWidth().padding(start = 16.dp, end = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            stringResource(R.string.pflanzen_test_treffer, treffer.size),
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier.padding(vertical = 10.dp),
+                        )
+                        TextButton(onClick = { editorOffen = true }) { Text(stringResource(R.string.eigene_pflanze_anlegen)) }
+                    }
+                    HorizontalDivider()
                     }
                 }
             }
