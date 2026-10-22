@@ -211,6 +211,7 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
         try {
             gruppen = withContext(Dispatchers.IO) { Grunddaten.gruppen(context) }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             fehler = e.toString()
         }
     }
@@ -218,6 +219,7 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
         try {
             treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen, nurEigene) }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             fehler = e.toString()
         }
     }

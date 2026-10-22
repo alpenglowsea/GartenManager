@@ -18,6 +18,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -98,25 +108,54 @@ private data class Art(
 private const val FILTER_OHNE_PLAN = "\u0000ohne-plan"
 
 /**
+ * Was der Bildschirm sich merkt (Reiter, Filter, Suche, aufgeklappte Zeilen, Listenposition), damit man nach einem Sprung
+ * in einen Garten und zurück genau dort weitermacht. Liegt in der MainActivity, weil der Bildschirm beim Sprung verschwindet.
+ */
+class MeinePflanzenZustand {
+    var nachGarten by mutableStateOf(false)
+    var filter by mutableStateOf<String?>(null)
+    var suche by mutableStateOf("")
+    var aufgeklappt by mutableStateOf(setOf<Long>())
+    val listeArt = LazyListState()
+    val listeGarten = LazyListState()
+}
+
+/**
  * "Meine Pflanzen": alles, was der Nutzer hat. Zum einen die Pflanzen, die in Gärten gezeichnet sind, zum anderen
  * Einträge ohne Zeichnung (Anzahl, Ort, Datum, Notiz). Sortiert nach Pflanze oder nach Garten.
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun MeinePflanzenScreen(
+    zustand: MeinePflanzenZustand,
     gaerten: List<Garten>,
     imPlan: List<Gegenstand>,
     bestand: List<Bestand>,
     onSpeichern: (Bestand) -> Unit,
     onLoeschen: (Long) -> Unit,
     onGartenOeffnen: (Long) -> Unit,
+    onPlatzieren: (gartenId: Long, eintrag: Bestand) -> Unit,
     onZurueck: () -> Unit,
 ) {
-    var nachGarten by rememberSaveable { mutableStateOf(false) }
-    var filter by rememberSaveable { mutableStateOf<String?>(null) }
-    var aufgeklappt by remember { mutableStateOf(setOf<Long>()) }
+    var nachGarten by zustand::nachGarten
+    var filter by zustand::filter
+    var suche by zustand::suche
+    var aufgeklappt by zustand::aufgeklappt
     var waehlen by remember { mutableStateOf(false) }
     var bearbeite by remember { mutableStateOf<Bestand?>(null) }
+    var gartenWahlFuer by remember { mutableStateOf<Bestand?>(null) }
+
+    // Kopf (Reiter, Suche, Filter) wandert beim Scrollen mit und blendet dabei aus; Hochscrollen holt ihn zurück.
+    var kopfHoehe by remember { mutableIntStateOf(0) }
+    var kopfVersatz by remember { mutableFloatStateOf(0f) }
+    val kopfVerbindung = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                kopfVersatz = (kopfVersatz + available.y).coerceIn(-kopfHoehe.toFloat(), 0f)
+                return Offset.Zero
+            }
+        }
+    }
 
     val gartenNamen = remember(gaerten) { gaerten.associate { it.id to it.name } }
 
@@ -165,12 +204,30 @@ fun MeinePflanzenScreen(
     }
     val gruppenImBestand = remember(arten) { arten.map { it.gruppe }.filter { it.isNotEmpty() }.distinct().sorted() }
 
-    fun passt(p: Posten): Boolean = when (filter) {
-        null -> true
-        FILTER_OHNE_PLAN -> !p.imPlan
-        else -> p.gruppe == filter
+    val suchNorm = Grunddaten.normalisiere(suche)
+    fun passt(p: Posten): Boolean {
+        val gruppeOk = when (filter) {
+            null -> true
+            FILTER_OHNE_PLAN -> !p.imPlan
+            else -> p.gruppe == filter
+        }
+        val sucheOk = suchNorm.isEmpty() ||
+            Grunddaten.normalisiere(p.name).contains(suchNorm) ||
+            Grunddaten.normalisiere(p.latein).contains(suchNorm)
+        return gruppeOk && sucheOk
+    }
+
+    /** Leitet "Platzieren" ein: bekannter Garten oder einziger Garten direkt, sonst Auswahl. */
+    fun platziere(b: Bestand) {
+        val ziel = gaerten.firstOrNull { it.id == b.gartenId }
+        when {
+            ziel != null -> onPlatzieren(ziel.id, b)
+            gaerten.size == 1 -> onPlatzieren(gaerten[0].id, b)
+            else -> gartenWahlFuer = b
+        }
     }
     val sichtbareArten = arten.filter { art -> art.posten.any { passt(it) } }
+    val kopfDp = with(LocalDensity.current) { kopfHoehe.toDp() }
 
     val ohneGarten = stringResource(R.string.mp_ohne_garten)
 
@@ -190,10 +247,44 @@ fun MeinePflanzenScreen(
             onAbbrechen = { waehlen = false },
         )
     }
+    gartenWahlFuer?.let { b ->
+        AlertDialog(
+            onDismissRequest = { gartenWahlFuer = null },
+            title = { Text(stringResource(R.string.mp_garten_waehlen_titel)) },
+            text = {
+                if (gaerten.isEmpty()) {
+                    Text(stringResource(R.string.mp_kein_garten))
+                } else {
+                    Column(Modifier.verticalScroll(rememberScrollState())) {
+                        for (g in gaerten.sortedBy { it.name.lowercase() }) {
+                            TextButton(
+                                onClick = {
+                                    gartenWahlFuer = null
+                                    onPlatzieren(g.id, b)
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                            ) { Text(g.name) }
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { gartenWahlFuer = null }) { Text(stringResource(R.string.abbrechen)) }
+            },
+        )
+    }
     bearbeite?.let { start ->
         BestandSheet(
             start = start,
             gaerten = gaerten,
+            onPlatzieren = if (start.id != 0L) {
+                {
+                    bearbeite = null
+                    platziere(start)
+                }
+            } else {
+                null
+            },
             onSpeichern = {
                 onSpeichern(it)
                 bearbeite = null
@@ -229,55 +320,16 @@ fun MeinePflanzenScreen(
             )
         },
     ) { innen ->
-        Column(Modifier.padding(innen).fillMaxSize()) {
-            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
-                SegmentedButton(
-                    selected = !nachGarten,
-                    onClick = { nachGarten = false },
-                    shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
-                ) { Text(stringResource(R.string.mp_nach_pflanze)) }
-                SegmentedButton(
-                    selected = nachGarten,
-                    onClick = { nachGarten = true },
-                    shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
-                ) { Text(stringResource(R.string.mp_nach_garten)) }
-            }
-            LazyRow(
-                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                item(key = "alle") {
-                    FilterChip(
-                        selected = filter == null,
-                        onClick = { filter = null },
-                        label = { Text(stringResource(R.string.mp_filter_alle)) },
-                    )
-                }
-                items(gruppenImBestand, key = { it }) { g ->
-                    FilterChip(
-                        selected = filter == g,
-                        onClick = { filter = if (filter == g) null else g },
-                        label = { Text(g) },
-                    )
-                }
-                item(key = "ohne") {
-                    FilterChip(
-                        selected = filter == FILTER_OHNE_PLAN,
-                        onClick = { filter = if (filter == FILTER_OHNE_PLAN) null else FILTER_OHNE_PLAN },
-                        label = { Text(stringResource(R.string.mp_filter_ohne_plan)) },
-                    )
-                }
-            }
-
+        Box(Modifier.padding(innen).fillMaxSize().nestedScroll(kopfVerbindung)) {
             if (alle.isEmpty()) {
                 Text(
                     stringResource(R.string.mp_leer),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(24.dp),
+                    modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 24.dp, top = kopfDp + 16.dp),
                 )
             } else if (!nachGarten) {
-                LazyColumn(Modifier.fillMaxSize(), contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 96.dp)) {
+                LazyColumn(Modifier.fillMaxSize(), state = zustand.listeArt, contentPadding = androidx.compose.foundation.layout.PaddingValues(top = kopfDp, bottom = 96.dp)) {
                     items(sichtbareArten, key = { it.pflanzeId }) { art ->
                         val offen = art.pflanzeId in aufgeklappt
                         Surface(
@@ -343,6 +395,7 @@ fun MeinePflanzenScreen(
                                             ortName = if (p.gartenId == null) ohneGarten else gartenNamen[p.gartenId].orEmpty(),
                                             onOeffnen = { p.gartenId?.let(onGartenOeffnen) },
                                             onAendern = { bearbeite = p.eintrag },
+                                            onPlatzieren = { p.eintrag?.let { platziere(it) } },
                                         )
                                     }
                                 }
@@ -362,7 +415,7 @@ fun MeinePflanzenScreen(
                     if (o.isNotEmpty()) liste.add(null to o)
                     liste
                 }
-                LazyColumn(Modifier.fillMaxSize(), contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 96.dp)) {
+                LazyColumn(Modifier.fillMaxSize(), state = zustand.listeGarten, contentPadding = androidx.compose.foundation.layout.PaddingValues(top = kopfDp, bottom = 96.dp)) {
                     for ((gartenId, liste) in abschnitte) {
                         val gefiltert = liste.filter { passt(it) }.sortedBy { Grunddaten.normalisiere(it.name) }
                         if (gefiltert.isEmpty()) continue
@@ -422,6 +475,62 @@ fun MeinePflanzenScreen(
                     }
                 }
             }
+            Column(
+                Modifier
+                    .onSizeChanged { kopfHoehe = it.height }
+                    .graphicsLayer {
+                        translationY = kopfVersatz
+                        alpha = if (kopfHoehe > 0) (1f + kopfVersatz / kopfHoehe).coerceIn(0f, 1f) else 1f
+                    }
+                    .background(MaterialTheme.colorScheme.surface),
+            ) {
+            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
+                SegmentedButton(
+                    selected = !nachGarten,
+                    onClick = { nachGarten = false },
+                    shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
+                ) { Text(stringResource(R.string.mp_nach_pflanze)) }
+                SegmentedButton(
+                    selected = nachGarten,
+                    onClick = { nachGarten = true },
+                    shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+                ) { Text(stringResource(R.string.mp_nach_garten)) }
+            }
+            OutlinedTextField(
+                value = suche,
+                onValueChange = { suche = it },
+                label = { Text(stringResource(R.string.mp_suche)) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+            )
+            LazyRow(
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                item(key = "alle") {
+                    FilterChip(
+                        selected = filter == null,
+                        onClick = { filter = null },
+                        label = { Text(stringResource(R.string.mp_filter_alle)) },
+                    )
+                }
+                items(gruppenImBestand, key = { it }) { g ->
+                    FilterChip(
+                        selected = filter == g,
+                        onClick = { filter = if (filter == g) null else g },
+                        label = { Text(g) },
+                    )
+                }
+                item(key = "ohne") {
+                    FilterChip(
+                        selected = filter == FILTER_OHNE_PLAN,
+                        onClick = { filter = if (filter == FILTER_OHNE_PLAN) null else FILTER_OHNE_PLAN },
+                        label = { Text(stringResource(R.string.mp_filter_ohne_plan)) },
+                    )
+                }
+            }
+
+            }
         }
     }
 }
@@ -461,7 +570,13 @@ private fun OrtChip(text: String, gestrichelt: Boolean) {
 
 /** Ein Ort einer Pflanzenart in der aufgeklappten Zeile. */
 @Composable
-private fun PostenZeile(p: Posten, ortName: String, onOeffnen: () -> Unit, onAendern: () -> Unit) {
+private fun PostenZeile(
+    p: Posten,
+    ortName: String,
+    onOeffnen: () -> Unit,
+    onAendern: () -> Unit,
+    onPlatzieren: () -> Unit,
+) {
     val res = LocalContext.current.resources
     Row(
         Modifier.fillMaxWidth().padding(start = 66.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
@@ -491,13 +606,15 @@ private fun PostenZeile(p: Posten, ortName: String, onOeffnen: () -> Unit, onAen
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-        }
-        if (p.imPlan) {
-            if (p.gartenId != null) {
-                TextButton(onClick = onOeffnen) { Text(stringResource(R.string.mp_im_plan)) }
+            if (!p.imPlan) {
+                Row {
+                    TextButton(onClick = onAendern) { Text(stringResource(R.string.mp_aendern)) }
+                    TextButton(onClick = onPlatzieren) { Text(stringResource(R.string.mp_platzieren_kurz)) }
+                }
             }
-        } else {
-            TextButton(onClick = onAendern) { Text(stringResource(R.string.mp_aendern)) }
+        }
+        if (p.imPlan && p.gartenId != null) {
+            TextButton(onClick = onOeffnen) { Text(stringResource(R.string.mp_im_plan)) }
         }
     }
 }
@@ -508,6 +625,7 @@ private fun PostenZeile(p: Posten, ortName: String, onOeffnen: () -> Unit, onAen
 private fun BestandSheet(
     start: Bestand,
     gaerten: List<Garten>,
+    onPlatzieren: (() -> Unit)?,
     onSpeichern: (Bestand) -> Unit,
     onLoeschen: (() -> Unit)?,
     onAbbruch: () -> Unit,
@@ -616,6 +734,11 @@ private fun BestandSheet(
                 minLines = 2,
                 maxLines = 5,
             )
+            if (onPlatzieren != null) {
+                OutlinedButton(onClick = onPlatzieren, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.mp_platzieren))
+                }
+            }
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 if (onLoeschen != null) {
                     TextButton(onClick = { loeschenFrage = true }) { Text(stringResource(R.string.loeschen)) }

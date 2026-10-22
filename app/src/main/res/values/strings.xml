@@ -355,4 +355,10 @@
     <string name="bestand_frage_text">In „Meine Pflanzen“ stehen noch %1$d × %2$s (%3$s). Soll dieser Eintrag um 1 verringert werden?</string>
     <string name="bestand_frage_ja">Ja, um 1</string>
     <string name="bestand_frage_nein">Nein</string>
+    <string name="mp_suche">Pflanze suchen</string>
+    <string name="mp_platzieren">In einem Garten platzieren</string>
+    <string name="mp_platzieren_kurz">Platzieren</string>
+    <string name="mp_garten_waehlen_titel">In welchem Garten?</string>
+    <string name="mp_kein_garten">Lege zuerst einen Garten an, dann kannst du die Pflanze dort platzieren.</string>
+    <string name="platzieren_hinweis_vorgemerkt">%1$s: Tippe auf die Stelle im Garten, an die die Pflanze kommen soll.</string>
 </resources>

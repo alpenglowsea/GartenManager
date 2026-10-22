@@ -56,12 +56,14 @@ fun UeberScreen(onZurueck: () -> Unit) {
                 bilder = b
             }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             // Ohne Grunddaten bleibt der Datenteil einfach leer.
         }
     }
     val appVersion = try {
         context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "?"
     } catch (e: Exception) {
+        if (e is kotlinx.coroutines.CancellationException) throw e
         "?"
     }
 

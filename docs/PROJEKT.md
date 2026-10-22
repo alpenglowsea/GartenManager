@@ -383,3 +383,8 @@ Als Nächstes:
 - Umsetzung (ungetestet, nicht kompiliert): Datenbank Version 9 mit echter Migration 8 -> 9 (neue Tabelle `bestand`); neue Datei `MeinePflanzenScreen.kt`; `GartenListeScreen.kt` neu gestaltet (Karten statt Listenzeilen, Grundstücke und alle Menüs bleiben); Nachfrage im `GartenScreen.kt`.
 - Bewusst noch nicht enthalten: Aufgabenblock oben auf der Startseite (braucht den Pflegekalender), Vorschaubilder der Gärten (Anfangsbuchstabe als Platzhalter), Suche in "Meine Pflanzen", Markierung der Pflanze beim Sprung in den Garten, Rückgängig für Einträge in "Meine Pflanzen" (sie liegen außerhalb des Garten-Rückgängig).
 - Offen: Backup muss die Tabelle `bestand` mit exportieren.
+
+### 22.10.2026 (abends): Test Teilschritt 5, Korrekturen 5b geliefert
+- Test: Startseite, Meine Pflanzen, Eintragen, Nachfrage, Garten löschen mit Einträgen laufen. Gärten sollen später mit Vorschaubildern **seitlich scrollbar** angezeigt werden (Entwurf C). Darstellung der Grundstücke ist offen (Vorschläge liegen vor).
+- Fehler im Katalog ("The coroutine scope left the composition"): die App zeigte das normale Abbrechen einer Suche als Fehler an. Behoben in allen Stellen, die Fehler abfangen (Abbruch wird weitergereicht).
+- 5b (ungetestet, nicht kompiliert): Meine Pflanzen merkt sich Reiter, Filter, Suche, aufgeklappte Zeilen und Listenposition beim Sprung in einen Garten; Suche (Name und lateinischer Name); Kopf blendet beim Scrollen aus; Knopf "Platzieren" an Einträgen ohne Plan (auch im Bearbeiten-Fenster): öffnet den Garten im Bearbeitungsmodus, ein Tipp setzt die Pflanze ohne Auswahlfenster, danach die bekannte Nachfrage zum Eintrag.

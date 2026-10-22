@@ -109,6 +109,7 @@ internal fun ladeBild(context: Context, datei: String, maxKante: Int): ImageBitm
             bild
         }
     } catch (e: Exception) {
+        if (e is kotlinx.coroutines.CancellationException) throw e
         null
     }
 }

@@ -111,6 +111,7 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
                 gruppen = g
             }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             fehler = e.toString()
         }
     }
@@ -119,6 +120,7 @@ fun PflanzenKatalogScreen(onZurueck: () -> Unit) {
         try {
             treffer = withContext(Dispatchers.IO) { sucheMitEigenen(context, suchtext, gewaehlt, gruppen, nurEigene) }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             fehler = e.toString()
         }
     }

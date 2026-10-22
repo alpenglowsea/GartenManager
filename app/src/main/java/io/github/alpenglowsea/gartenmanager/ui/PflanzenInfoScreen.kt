@@ -88,6 +88,7 @@ internal fun LinkText(adresse: String, modifier: Modifier = Modifier, anzeige: S
             try {
                 uri.openUri(adresse)
             } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
                 // Kein Browser vorhanden: nichts tun
             }
         },
@@ -127,6 +128,7 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 if (d == null) fehler = context.getString(R.string.info_nicht_gefunden) else detail = d
             }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             fehler = context.getString(R.string.info_laden_fehler, e.toString())
         }
     }

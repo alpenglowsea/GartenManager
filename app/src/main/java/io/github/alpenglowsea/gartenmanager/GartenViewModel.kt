@@ -31,6 +31,9 @@ import kotlinx.coroutines.sync.withLock
  * Verbindet die Datenbank mit der Oberfläche. "null" heißt: wird noch geladen.
  * Alle Änderungen werden sofort gespeichert (Entscheidung, siehe GARTENPLAN.md).
  */
+/** Pflanze, die aus "Meine Pflanzen" direkt in einen Garten gesetzt werden soll. */
+data class VorgemerktePflanze(val id: Long, val name: String, val latein: String, val gruppe: String)
+
 class GartenViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dao = MeineDatenDb.holen(application).gartenDao()
@@ -250,7 +253,18 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
         platzieren = true
     }
 
+    /** Eine Pflanze aus "Meine Pflanzen", die beim nächsten Tippen in den Plan gesetzt werden soll (ohne Auswahlfenster). */
+    var vorgemerktePflanze by mutableStateOf<VorgemerktePflanze?>(null)
+
+    /** Wie [startePflanzePlatzieren], behält aber die vorgemerkte Pflanze. */
+    fun startePflanzeVorgemerkt() {
+        val v = vorgemerktePflanze
+        startePflanzePlatzieren()
+        vorgemerktePflanze = v
+    }
+
     fun startePflanzePlatzieren() {
+        vorgemerktePflanze = null
         zeichnung = null
         formAuswahl = null
         waehleFlaeche(null)
@@ -259,6 +273,7 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun brichPlatzierenAb() {
+        vorgemerktePflanze = null
         platzieren = false
         platzierenPflanze = false
     }

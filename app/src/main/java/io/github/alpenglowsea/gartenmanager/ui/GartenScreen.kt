@@ -483,6 +483,7 @@ fun GartenScreen(
         bildDateien = try {
             withContext(Dispatchers.IO) { Grunddaten.bildDateien(context) }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             emptyMap()
         }
     }
@@ -557,6 +558,14 @@ fun GartenScreen(
     var ziehenFertig by remember { mutableStateOf(false) }
     var gZiehen by remember { mutableStateOf<GZiehen?>(null) } // laufendes Ziehen an einem Gegenstand
     var letzteVibration by remember { mutableFloatStateOf(-1f) }
+    // Kam man aus "Meine Pflanzen" mit "Platzieren", ist das Setzen der Pflanze gleich scharf geschaltet.
+    LaunchedEffect(Unit) {
+        kotlinx.coroutines.yield()
+        if (bearbeiten && viewModel.vorgemerktePflanze != null) viewModel.startePflanzeVorgemerkt()
+    }
+    androidx.compose.runtime.DisposableEffect(Unit) {
+        onDispose { viewModel.vorgemerktePflanze = null }
+    }
     var bestandFrage by remember { mutableStateOf<Bestand?>(null) } // passender Eintrag in "Meine Pflanzen" beim Setzen
     var platzOrt by remember { mutableStateOf<Offset?>(null) } // angetippte Stelle, für die der Katalog offen ist
     var gegenstandMenue by remember { mutableStateOf<Offset?>(null) }
@@ -1323,6 +1332,7 @@ fun GartenScreen(
                     },
                     platzieren = viewModel.platzieren,
                     platzierenPflanze = viewModel.platzierenPflanze,
+                    vorgemerktName = viewModel.vorgemerktePflanze?.name,
                     gewaehlterPunkt = gewaehlterPunkt,
                     punktLoeschenMoeglich = gewaehltePunkte.size > 3,
                     onFlaecheZeichnen = viewModel::starteZeichnung,
@@ -2143,29 +2153,40 @@ fun GartenScreen(
         )
     }
     val ortFuerKatalog = platzOrt
-    if (ortFuerKatalog != null && viewModel.platzieren && viewModel.platzierenPflanze) {
+    val vorgemerkt = viewModel.vorgemerktePflanze
+    // Setzt eine Pflanze an die Stelle [ort]; gibt es dazu einen Eintrag in "Meine Pflanzen" (ohne Plan), fragt die App nach.
+    fun setzePflanze(ort: Offset, pflanzeId: Long, name: String, latein: String, gruppe: String) {
+        val durchmesser = standardDurchmesserCm(gruppe) / 100f * garten.massstab
+        viewModel.legeGegenstandAn(
+            gartenId,
+            Gegenstand(
+                gartenId = gartenId,
+                ebeneId = 0,
+                art = ART_PFLANZE,
+                mitteX = ort.x,
+                mitteY = ort.y,
+                breite = durchmesser,
+                hoehe = durchmesser,
+                pflanzeId = pflanzeId,
+                pflanzeName = name,
+                pflanzeLatein = latein,
+                pflanzeGruppe = gruppe,
+            ),
+        )
+        viewModel.frageBestand(pflanzeId, gartenId) { bestandFrage = it }
+    }
+    if (ortFuerKatalog != null && viewModel.platzieren && viewModel.platzierenPflanze && vorgemerkt != null) {
+        // Pflanze steht schon fest: ohne Auswahlfenster setzen
+        LaunchedEffect(ortFuerKatalog) {
+            platzOrt = null
+            viewModel.vorgemerktePflanze = null
+            setzePflanze(ortFuerKatalog, vorgemerkt.id, vorgemerkt.name, vorgemerkt.latein, vorgemerkt.gruppe)
+        }
+    } else if (ortFuerKatalog != null && viewModel.platzieren && viewModel.platzierenPflanze) {
         PflanzenWahlDialog(
             onWahl = { t ->
                 platzOrt = null
-                val durchmesser = standardDurchmesserCm(t.hauptgruppe) / 100f * garten.massstab
-                viewModel.legeGegenstandAn(
-                    gartenId,
-                    Gegenstand(
-                        gartenId = gartenId,
-                        ebeneId = 0,
-                        art = ART_PFLANZE,
-                        mitteX = ortFuerKatalog.x,
-                        mitteY = ortFuerKatalog.y,
-                        breite = durchmesser,
-                        hoehe = durchmesser,
-                        pflanzeId = t.id,
-                        pflanzeName = t.hauptname,
-                        pflanzeLatein = t.lateinisch,
-                        pflanzeGruppe = t.hauptgruppe,
-                    ),
-                )
-                // Gibt es dazu einen Eintrag in "Meine Pflanzen" (ohne Plan), fragt die App, ob er kleiner werden soll.
-                viewModel.frageBestand(t.id, gartenId) { bestandFrage = it }
+                setzePflanze(ortFuerKatalog, t.id, t.hauptname, t.lateinisch, t.hauptgruppe)
             },
             onAbbrechen = { platzOrt = null },
         )
@@ -2385,6 +2406,7 @@ private fun Werkzeugleiste(
     onGebaeudePunktRund: () -> Unit,
     platzieren: Boolean,
     platzierenPflanze: Boolean,
+    vorgemerktName: String?,
     gewaehlterPunkt: Punkt?,
     punktLoeschenMoeglich: Boolean,
     onFlaecheZeichnen: () -> Unit,
@@ -2426,7 +2448,11 @@ private fun Werkzeugleiste(
                 }
             } else if (platzieren) {
                 Text(
-                    stringResource(if (platzierenPflanze) R.string.platzieren_hinweis_pflanze else R.string.platzieren_hinweis),
+                    if (platzierenPflanze && vorgemerktName != null) {
+                        stringResource(R.string.platzieren_hinweis_vorgemerkt, vorgemerktName)
+                    } else {
+                        stringResource(if (platzierenPflanze) R.string.platzieren_hinweis_pflanze else R.string.platzieren_hinweis)
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

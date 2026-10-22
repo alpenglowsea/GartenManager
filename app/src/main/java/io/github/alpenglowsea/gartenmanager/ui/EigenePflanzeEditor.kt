@@ -76,6 +76,7 @@ internal fun EigenePflanzeDialog(id: Long, onFertig: (Long?) -> Unit) {
         gruppenNamen = try {
             withContext(Dispatchers.IO) { Grunddaten.gruppen(context).map { it.name } }
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             emptyList()
         }
     }
