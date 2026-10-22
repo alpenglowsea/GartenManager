@@ -65,20 +65,27 @@ object EigeneBilder {
         return try {
             val aufloeser = context.applicationContext.contentResolver
             val grenzen = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-            aufloeser.openInputStream(quelle)?.use { BitmapFactory.decodeStream(it, null, grenzen) } ?: return false
+            // Beim reinen Ausmessen liefert decodeStream absichtlich kein Bild (null) - nur der Stream selbst muss da sein
+            val stream = aufloeser.openInputStream(quelle) ?: return false
+            stream.use { BitmapFactory.decodeStream(it, null, grenzen) }
             if (grenzen.outWidth <= 0 || grenzen.outHeight <= 0) return false
             var stufe = 1
             while (maxOf(grenzen.outWidth, grenzen.outHeight) / (stufe * 2) >= LAENGSTE_KANTE) stufe *= 2
             val optionen = BitmapFactory.Options().apply { inSampleSize = stufe }
             val roh = aufloeser.openInputStream(quelle)?.use { BitmapFactory.decodeStream(it, null, optionen) } ?: return false
-            val drehung = aufloeser.openInputStream(quelle)?.use { s ->
-                when (ExifInterface(s).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
-                    ExifInterface.ORIENTATION_ROTATE_90 -> 90f
-                    ExifInterface.ORIENTATION_ROTATE_180 -> 180f
-                    ExifInterface.ORIENTATION_ROTATE_270 -> 270f
-                    else -> 0f
-                }
-            } ?: 0f
+            val drehung = try {
+                aufloeser.openInputStream(quelle)?.use { st ->
+                    when (ExifInterface(st).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+                        ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+                        ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+                        else -> 0f
+                    }
+                } ?: 0f
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                0f // ohne lesbare Drehangabe das Bild so nehmen, wie es ist
+            }
             val bild = if (drehung == 0f) roh else {
                 Bitmap.createBitmap(roh, 0, 0, roh.width, roh.height, Matrix().apply { postRotate(drehung) }, true)
             }
