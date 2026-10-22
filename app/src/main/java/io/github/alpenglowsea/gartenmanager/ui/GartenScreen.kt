@@ -480,15 +480,17 @@ fun GartenScreen(
     // Pflanzen im Garten: Bilddateien der Grunddaten, persönliche Ausschnitte und geladene Fotos
     val ausschnitteListe by viewModel.ausschnitte.collectAsState()
     val ausschnittNachId = remember(ausschnitteListe) { ausschnitteListe.associateBy { it.pflanzeId } }
-    var bildDateien by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
+    var bildDateienGrund by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
     LaunchedEffect(Unit) {
-        bildDateien = try {
+        bildDateienGrund = try {
             withContext(Dispatchers.IO) { Grunddaten.bildDateien(context) }
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             emptyMap()
         }
     }
+    val eigeneFotos = rememberEigeneBilder()
+    val bildDateien = remember(bildDateienGrund, eigeneFotos) { eigeneFotos + bildDateienGrund }
     val fotos = remember { mutableStateMapOf<String, ImageBitmap>() }
     val pflanzenPinsel = remember {
         android.graphics.Paint().apply {

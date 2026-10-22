@@ -231,6 +231,14 @@
     <!-- Pflanzenfotos -->
     <string name="info_bild_gross">Bild in voller Größe</string>
     <string name="info_foto_mit">Foto: %1$s · %2$s</string>
+    <string name="info_foto_eigen">Eigenes Foto</string>
+    <string name="info_foto_eigen_nachweis">Dieses Foto hast du selbst hinzugefügt. Es liegt nur auf deinem Gerät.</string>
+    <string name="foto_hinzufuegen">Foto hinzufügen</string>
+    <string name="foto_aendern">Foto ändern</string>
+    <string name="foto_entfernen">Foto entfernen</string>
+    <string name="foto_entfernen_titel">Foto entfernen?</string>
+    <string name="foto_entfernen_text">Dein eigenes Foto wird von diesem Gerät gelöscht.</string>
+    <string name="foto_fehler">Das Foto konnte nicht gelesen werden.</string>
     <string name="info_foto_ohne">Foto: %1$s</string>
     <string name="info_bild_titel">Foto</string>
     <string name="info_bild_urheber">Urheber: %1$s</string>

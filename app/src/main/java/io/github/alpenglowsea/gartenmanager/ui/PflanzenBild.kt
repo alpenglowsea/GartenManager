@@ -91,16 +91,20 @@ private object BildCache {
  * als [maxKante] Pixel wird. Gibt null zurück, wenn das Bild fehlt oder nicht lesbar ist.
  */
 internal fun ladeBild(context: Context, datei: String, maxKante: Int): ImageBitmap? {
-    val schluessel = "$datei@$maxKante"
+    // Eigene Fotos liegen im privaten Speicher der App; die Änderungszeit im Schlüssel sorgt dafür, dass ein ausgetauschtes Foto neu gelesen wird
+    val eigen = datei.startsWith(io.github.alpenglowsea.gartenmanager.daten.EigeneBilder.VORSATZ)
+    val eigeneDatei = if (eigen) io.github.alpenglowsea.gartenmanager.daten.EigeneBilder.datei(context, datei) else null
+    val schluessel = "$datei@$maxKante@${eigeneDatei?.lastModified() ?: 0L}"
     BildCache.hole(schluessel)?.let { return it }
     return try {
         val assets = context.applicationContext.assets
+        fun oeffnen(): java.io.InputStream = eigeneDatei?.inputStream() ?: assets.open("bilder/$datei")
         val grenzen = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        assets.open("bilder/$datei").use { BitmapFactory.decodeStream(it, null, grenzen) }
+        oeffnen().use { BitmapFactory.decodeStream(it, null, grenzen) }
         var stufe = 1
         while (grenzen.outWidth / (stufe * 2) >= maxKante && grenzen.outHeight / (stufe * 2) >= maxKante) stufe *= 2
         val optionen = BitmapFactory.Options().apply { inSampleSize = stufe }
-        val bitmap = assets.open("bilder/$datei").use { BitmapFactory.decodeStream(it, null, optionen) }
+        val bitmap = oeffnen().use { BitmapFactory.decodeStream(it, null, optionen) }
         if (bitmap == null) {
             null
         } else {
@@ -237,12 +241,17 @@ internal fun PflanzenKopfbild(bild: BildInfo, name: String, ausschnitt: BildAuss
 /** Kurze Namensnennung unter dem Bild. */
 @Composable
 internal fun fotoZeile(b: BildInfo): String =
-    if (b.urheber.isNullOrBlank()) stringResource(R.string.info_foto_ohne, b.lizenz)
+    if (b.lizenz == io.github.alpenglowsea.gartenmanager.daten.LIZENZ_EIGEN) stringResource(R.string.info_foto_eigen)
+    else if (b.urheber.isNullOrBlank()) stringResource(R.string.info_foto_ohne, b.lizenz)
     else stringResource(R.string.info_foto_mit, b.urheber, b.lizenz)
 
 /** Vollständiger Nachweis zu einem Foto: Urheber, Lizenz, Links zur Quelle. */
 @Composable
 internal fun BildNachweis(b: BildInfo) {
+    if (b.lizenz == io.github.alpenglowsea.gartenmanager.daten.LIZENZ_EIGEN) {
+        Text(stringResource(R.string.info_foto_eigen_nachweis), style = MaterialTheme.typography.bodySmall)
+        return
+    }
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Text(stringResource(R.string.info_bild_titel), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
         if (!b.urheber.isNullOrBlank()) {
@@ -448,4 +457,15 @@ private fun AusschnittEditor(
             }
         }
     }
+}
+
+/**
+ * Eigene Fotos (Pflanzennummer -> Dateiname). Zeichnet sich neu, sobald ein Foto hinzukommt oder entfällt.
+ * Wer beides hat, nimmt zuerst das Foto aus den Grunddaten.
+ */
+@Composable
+internal fun rememberEigeneBilder(): Map<Long, String> {
+    val context = LocalContext.current
+    val stand = io.github.alpenglowsea.gartenmanager.daten.EigeneBilder.stand.intValue
+    return remember(stand) { io.github.alpenglowsea.gartenmanager.daten.EigeneBilder.alle(context) }
 }

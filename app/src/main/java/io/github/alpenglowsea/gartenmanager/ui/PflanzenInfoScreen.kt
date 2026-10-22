@@ -44,6 +44,8 @@ import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.BildAusschnitt
 import io.github.alpenglowsea.gartenmanager.daten.EIGENE_BASIS
 import io.github.alpenglowsea.gartenmanager.daten.EigeneAngabe
+import io.github.alpenglowsea.gartenmanager.daten.EigeneBilder
+import io.github.alpenglowsea.gartenmanager.daten.LIZENZ_EIGEN
 import io.github.alpenglowsea.gartenmanager.daten.Grunddaten
 import io.github.alpenglowsea.gartenmanager.daten.MeineDatenDb
 import io.github.alpenglowsea.gartenmanager.daten.MerkerZeile
@@ -132,7 +134,32 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
             fehler = context.getString(R.string.info_laden_fehler, e.toString())
         }
     }
-    val anzeige: PflanzeDetail? = if (eigene) eigenePflanze?.let { baueEigenesDetail(it, meineAngaben) } else detail
+    val grundAnzeige: PflanzeDetail? = if (eigene) eigenePflanze?.let { baueEigenesDetail(it, meineAngaben) } else detail
+    // Ein eigenes Foto gilt nur, wenn die Grunddaten keines haben
+    val eigeneFotos = rememberEigeneBilder()
+    val anzeige: PflanzeDetail? = if (grundAnzeige != null && grundAnzeige.bild == null && pflanzeId in eigeneFotos) {
+        grundAnzeige.copy(bild = EigeneBilder.bildInfo(pflanzeId))
+    } else grundAnzeige
+    val fotoWaehler = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia(),
+    ) { uri ->
+        if (uri != null) {
+            bereich.launch {
+                val ok = withContext(Dispatchers.IO) { EigeneBilder.speichere(context, pflanzeId, uri) }
+                if (ok) {
+                    dao.loescheAusschnitt(pflanzeId) // neues Bild, alter Ausschnitt passt nicht mehr
+                } else {
+                    android.widget.Toast.makeText(context, context.getString(R.string.foto_fehler), android.widget.Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+    val fotoWaehlen = {
+        fotoWaehler.launch(
+            androidx.activity.result.PickVisualMediaRequest(androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly),
+        )
+    }
+    var fotoEntfernenFrage by remember(pflanzeId) { mutableStateOf(false) }
 
     val grossesBild = anzeige?.bild
     if (voll && grossesBild != null) {
@@ -180,7 +207,18 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 Text(fehler ?: "", color = MaterialTheme.colorScheme.error)
             }
             if (d != null && zuListe != null) {
-                Kopf(d, ausschnitt) { voll = true }
+                Kopf(d, ausschnitt, onVoll = { voll = true })
+                // Fotos aus den Grunddaten bleiben unangetastet; ohne Foto oder mit eigenem Foto kann man es setzen
+                if (d.bild == null || d.bild?.lizenz == LIZENZ_EIGEN) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        TextButton(onClick = fotoWaehlen) {
+                            Text(stringResource(if (d.bild == null) R.string.foto_hinzufuegen else R.string.foto_aendern))
+                        }
+                        if (d.bild != null) {
+                            TextButton(onClick = { fotoEntfernenFrage = true }) { Text(stringResource(R.string.foto_entfernen)) }
+                        }
+                    }
+                }
                 Spacer(Modifier.height(8.dp))
                 for (abschnitt in ABSCHNITTE) {
                     val zu = abschnitt in zuListe
@@ -237,6 +275,19 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
             onAbbruch = { notizAbschnitt = null },
         )
     }
+    if (fotoEntfernenFrage) {
+        BestaetigenDialog(
+            titel = stringResource(R.string.foto_entfernen_titel),
+            text = stringResource(R.string.foto_entfernen_text),
+            bestaetigenText = stringResource(R.string.foto_entfernen),
+            onBestaetigt = {
+                fotoEntfernenFrage = false
+                EigeneBilder.loesche(context, pflanzeId)
+                bereich.launch { dao.loescheAusschnitt(pflanzeId) }
+            },
+            onAbbruch = { fotoEntfernenFrage = false },
+        )
+    }
     if (editorOffen && eigene) {
         EigenePflanzeDialog(id = pflanzeId - EIGENE_BASIS, onFertig = { editorOffen = false })
     }
@@ -249,6 +300,8 @@ fun PflanzenInfoScreen(pflanzeId: Long, onZurueck: () -> Unit) {
                 loeschenFrage = false
                 bereich.launch {
                     dao.loescheEigenePflanze(pflanzeId - EIGENE_BASIS)
+                    EigeneBilder.loesche(context, pflanzeId)
+                    dao.loescheAusschnitt(pflanzeId)
                     onZurueck()
                 }
             },

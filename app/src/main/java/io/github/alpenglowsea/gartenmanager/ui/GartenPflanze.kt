@@ -190,6 +190,7 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
     var gewaehlt by remember { mutableStateOf<Set<Long>>(emptySet()) }
     var treffer by remember { mutableStateOf<List<PflanzeTreffer>>(emptyList()) }
     val dao = remember { MeineDatenDb.holen(context).gartenDao() }
+    val eigeneFotos = rememberEigeneBilder()
     val ausschnitte by remember { dao.alleAusschnitte() }.collectAsState(initial = emptyList())
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
     val eigenePflanzen by remember { dao.eigenePflanzen() }.collectAsState(initial = emptyList())
@@ -276,7 +277,7 @@ internal fun PflanzenWahlDialog(onWahl: (PflanzeTreffer) -> Unit, onAbbrechen: (
                                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 ) {
                                     PflanzenKachelBild(
-                                        bild = t.bild,
+                                        bild = t.bild ?: eigeneFotos[t.id],
                                         gruppe = t.hauptgruppe,
                                         name = t.hauptname,
                                         ausschnitt = ausschnittNachId[t.id],

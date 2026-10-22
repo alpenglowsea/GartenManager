@@ -571,7 +571,7 @@ private class ZiehEreignisse(
 /**
  * Seitlich scrollbare Reihe von Gartenkacheln; mit [onNeu] steht am Ende eine Kachel zum Hinzufügen.
  * Langes Drücken auf eine Kachel hebt sie an, dann lässt sie sich an einen anderen Platz ziehen ([onOrdnen] bekommt
- * danach die neue Reihenfolge). Lässt man nach dem langen Drücken los, ohne zu ziehen, öffnet sich das Menü.
+ * danach die neue Reihenfolge). Das Menü erreicht man über die drei Punkte.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -589,6 +589,10 @@ private fun GartenReihe(
     val zustand = rememberLazyListState()
     val bereich = rememberCoroutineScope()
     val randPx = with(LocalDensity.current) { 72.dp.toPx() }
+    val kartePx = with(LocalDensity.current) { 168.dp.toPx() }
+    val schrittPx = with(LocalDensity.current) { (168.dp + 10.dp).toPx() }
+    val randLinksPx = with(LocalDensity.current) { seitenRand.toPx() }
+    val haptik = androidx.compose.ui.platform.LocalHapticFeedback.current
 
     LazyRow(
         state = zustand,
@@ -599,39 +603,42 @@ private fun GartenReihe(
             val gezogen = g.id == gezogenId
             val mod = Modifier
                 .zIndex(if (gezogen) 1f else 0f)
-                .graphicsLayer { translationX = if (gezogen) versatz else 0f }
+                .graphicsLayer {
+                    if (gezogen) {
+                        translationX = versatz
+                        scaleX = 1.06f
+                        scaleY = 1.06f
+                        shadowElevation = 24f
+                    }
+                }
+                .then(if (gezogen) Modifier else Modifier.animateItem())
             val zieh = ZiehEreignisse(
                 beiStart = {
+                    haptik.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
                     gezogenId = g.id
                     versatz = 0f
                 },
                 beiZug = { dx ->
                     versatz += dx
                     val id = gezogenId
-                    if (id != null) {
-                        val infos = zustand.layoutInfo.visibleItemsInfo
-                        val ich = infos.firstOrNull { it.key == id }
-                        val von = anzeige.indexOfFirst { it.id == id }
-                        if (ich != null && von >= 0 && ich.index == von) {
-                            val mitte = ich.offset + ich.size / 2f + versatz
-                            val ziel = infos.firstOrNull {
-                                it.key != id && it.key is Long && mitte >= it.offset && mitte < it.offset + it.size
-                            }
-                            if (ziel != null) {
-                                val nach = anzeige.indexOfFirst { it.id == ziel.key }
-                                if (nach >= 0 && nach != von) {
-                                    val neu = anzeige.toMutableList()
-                                    val x = neu.removeAt(von)
-                                    neu.add(nach, x)
-                                    anzeige = neu
-                                    versatz += (ich.offset - ziel.offset).toFloat()
-                                }
-                            }
-                            // Am Rand der Reihe weiterscrollen
-                            val breite = zustand.layoutInfo.viewportSize.width
-                            val schritt = if (mitte < randPx) -14f else if (mitte > breite - randPx) 14f else 0f
-                            if (schritt != 0f) bereich.launch { versatz += zustand.scrollBy(schritt) }
+                    val von = anzeige.indexOfFirst { it.id == id }
+                    if (id != null && von >= 0) {
+                        // Alle Kacheln sind gleich breit: Position wird gerechnet statt aus dem (hinterherhinkenden) Layout gelesen
+                        val scrollX = zustand.firstVisibleItemIndex * schrittPx + zustand.firstVisibleItemScrollOffset
+                        val mitte = randLinksPx + von * schrittPx - scrollX + kartePx / 2f + versatz
+                        val nach = kotlin.math.floor((mitte + scrollX - randLinksPx) / schrittPx).toInt()
+                            .coerceIn(0, anzeige.size - 1)
+                        if (nach != von) {
+                            val neu = anzeige.toMutableList()
+                            val x = neu.removeAt(von)
+                            neu.add(nach, x)
+                            anzeige = neu
+                            versatz -= (nach - von) * schrittPx
                         }
+                        // Am Rand der Reihe weiterscrollen
+                        val breite = zustand.layoutInfo.viewportSize.width
+                        val schritt = if (mitte < randPx) -14f else if (mitte > breite - randPx) 14f else 0f
+                        if (schritt != 0f) bereich.launch { versatz += zustand.scrollBy(schritt) }
                     }
                 },
                 beiEnde = { bewegt ->
@@ -673,16 +680,16 @@ private fun GartenReihe(
 }
 
 /**
- * Berührungen auf einer Gartenkachel: Tippen öffnet, langes Drücken hebt die Kachel zum Ziehen an; wer danach
- * loslässt, ohne zu ziehen, bekommt das Menü. Wischt man vor dem langen Drücken, scrollt die Reihe wie gewohnt.
+ * Berührungen auf einer Gartenkachel: Tippen öffnet, langes Drücken hebt die Kachel zum Ziehen an.
+ * Wischt man vor dem langen Drücken, scrollt die Reihe wie gewohnt.
  */
 private suspend fun PointerInputScope.kartenGesten(
     beiTipp: () -> Unit,
-    beiLangemDruck: () -> Unit,
     ziehen: ZiehEreignisse,
 ) {
     awaitEachGesture {
-        val runter = awaitFirstDown(requireUnconsumed = false)
+        // Nur unberührte Berührungen: wer auf den ⋮-Knopf tippt, hat sie dort schon verbraucht
+        val runter = awaitFirstDown()
         val lang = awaitLongPressOrCancellation(runter.id)
         if (lang == null) {
             if (currentEvent.changes.fastAll { !it.pressed }) beiTipp()
@@ -700,7 +707,6 @@ private suspend fun PointerInputScope.kartenGesten(
         }
         if (fertig) {
             ziehen.beiEnde(bewegt)
-            if (!bewegt) beiLangemDruck()
         } else {
             ziehen.beiAbbruch()
         }
@@ -726,7 +732,6 @@ private fun GartenKarte(
     onLoeschen: () -> Unit,
 ) {
     val tippen = rememberUpdatedState(onOeffnen)
-    val menue = rememberUpdatedState(onMenueOeffnen)
     val zieher = rememberUpdatedState(ziehen)
     Box(modifier = modifier.width(168.dp)) {
         val form = RoundedCornerShape(18.dp)
@@ -739,7 +744,6 @@ private fun GartenKarte(
                 .pointerInput(garten.id) {
                     kartenGesten(
                         beiTipp = { tippen.value() },
-                        beiLangemDruck = { menue.value() },
                         ziehen = ZiehEreignisse(
                             beiStart = { zieher.value.beiStart() },
                             beiZug = { zieher.value.beiZug(it) },

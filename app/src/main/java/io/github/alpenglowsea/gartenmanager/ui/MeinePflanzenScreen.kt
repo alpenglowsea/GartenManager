@@ -152,15 +152,17 @@ fun MeinePflanzenScreen(
 
     // Fotos und persönliche Ausschnitte wie im Katalog
     val context = LocalContext.current
-    var bildDateien by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
+    var bildDateienGrund by remember { mutableStateOf<Map<Long, String>>(emptyMap()) }
     LaunchedEffect(Unit) {
-        bildDateien = try {
+        bildDateienGrund = try {
             withContext(Dispatchers.IO) { Grunddaten.bildDateien(context) }
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             emptyMap()
         }
     }
+    val eigeneFotos = rememberEigeneBilder()
+    val bildDateien = remember(bildDateienGrund, eigeneFotos) { eigeneFotos + bildDateienGrund }
     val bildDao = remember { MeineDatenDb.holen(context).gartenDao() }
     val ausschnitte by remember { bildDao.alleAusschnitte() }.collectAsState(initial = emptyList())
     val ausschnittNachId = remember(ausschnitte) { ausschnitte.associateBy { it.pflanzeId } }
