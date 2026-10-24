@@ -5,10 +5,12 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.runtime.key
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitLongPressOrCancellation
 import androidx.compose.foundation.gestures.scrollBy
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -120,6 +122,7 @@ fun GartenListeScreen(
     onKatalog: () -> Unit,
     onMeinePflanzen: () -> Unit,
     onUeber: () -> Unit,
+    onOptionen: () -> Unit,
 ) {
     var dialog by remember { mutableStateOf<DialogZustand>(DialogZustand.Keiner) }
     var menue by remember { mutableStateOf<MenueZiel?>(null) }
@@ -204,6 +207,13 @@ fun GartenListeScreen(
                             Box {
                                 IconButton(onClick = { ueberMenue = true }) { Text("⋮", style = MaterialTheme.typography.titleLarge) }
                                 DropdownMenu(expanded = ueberMenue, onDismissRequest = { ueberMenue = false }) {
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(R.string.opt_titel)) },
+                                        onClick = {
+                                            ueberMenue = false
+                                            onOptionen()
+                                        },
+                                    )
                                     DropdownMenuItem(
                                         text = { Text(stringResource(R.string.ueber_titel)) },
                                         onClick = {
@@ -576,7 +586,8 @@ private fun GartenReihe(
     var anzeige by remember(gaerten) { mutableStateOf(gaerten) }
     var gezogenId by remember { mutableStateOf<Long?>(null) }
     var versatz by remember { mutableFloatStateOf(0f) }
-    val zustand = rememberLazyListState()
+    val scrollZustand = androidx.compose.foundation.rememberScrollState()
+    var breitePx by remember { mutableFloatStateOf(0f) }
     val dichte = LocalDensity.current
     val randPx = with(dichte) { 72.dp.toPx() }
     val kartePx = with(dichte) { 168.dp.toPx() }
@@ -586,8 +597,9 @@ private fun GartenReihe(
     val gaertenAktuell = rememberUpdatedState(gaerten)
     val ordnenAktuell = rememberUpdatedState(onOrdnen)
 
-    // Wie weit die Reihe gescrollt ist (Pixel vom Anfang)
-    fun scrollX(): Float = zustand.firstVisibleItemIndex * schrittPx + zustand.firstVisibleItemScrollOffset
+    // Wie weit die Reihe gescrollt ist (Pixel vom Anfang). Bewusst eine einfache Reihe statt LazyRow: Eine LazyRow
+    // hält beim Umsortieren die erste sichtbare Kachel fest und verschiebt dabei selbst den Bildausschnitt.
+    fun scrollX(): Float = scrollZustand.value.toFloat()
 
     // Mitte der gezogenen Kachel im Sichtfenster; tauscht sie mit dem Nachbarn, sobald die Mitte dort angekommen ist
     fun pruefeTausch(): Float? {
@@ -613,18 +625,16 @@ private fun GartenReihe(
         while (true) {
             androidx.compose.runtime.withFrameNanos { }
             val mitte = pruefeTausch() ?: break
-            val breite = zustand.layoutInfo.viewportSize.width
-            val schritt = if (mitte < randPx) -14f else if (mitte > breite - randPx) 14f else 0f
+            val schritt = if (mitte < randPx) -14f else if (mitte > breitePx - randPx) 14f else 0f
             if (schritt != 0f) {
-                versatz += zustand.scrollBy(schritt)
+                versatz += scrollZustand.scrollBy(schritt)
                 pruefeTausch()
             }
         }
     }
 
-    LazyRow(
-        state = zustand,
-        modifier = Modifier.pointerInput(Unit) {
+    Box(
+        modifier = Modifier.fillMaxWidth().onSizeChanged { breitePx = it.width.toFloat() }.pointerInput(Unit) {
             awaitEachGesture {
                 val runter = awaitFirstDown(requireUnconsumed = false)
                 val lang = awaitLongPressOrCancellation(runter.id) ?: return@awaitEachGesture
@@ -671,10 +681,12 @@ private fun GartenReihe(
                 }
             }
         },
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = seitenRand),
+    ) {
+    Row(
+        modifier = Modifier.horizontalScroll(scrollZustand).padding(horizontal = seitenRand),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        items(anzeige, key = { it.id }) { g ->
+        for (g in anzeige) key(g.id) {
             val gezogen = g.id == gezogenId
             val mod = Modifier
                 .zIndex(if (gezogen) 1f else 0f)
@@ -686,11 +698,10 @@ private fun GartenReihe(
                         shadowElevation = 24f
                     }
                 }
-                .then(if (gezogen) Modifier else Modifier.animateItem())
             karte(g, mod)
         }
         if (onNeu != null) {
-            item(key = "neu") {
+            run {
                 Surface(
                     onClick = onNeu,
                     shape = RoundedCornerShape(18.dp),
@@ -708,6 +719,7 @@ private fun GartenReihe(
                 }
             }
         }
+    }
     }
 }
 

@@ -28,7 +28,7 @@ object EigeneBilder {
 
     fun dateiname(pflanzeId: Long): String = "$VORSATZ$pflanzeId.jpg"
 
-    private fun ordner(context: Context): File =
+    internal fun ordner(context: Context): File =
         File(context.applicationContext.filesDir, "eigene_bilder").also { it.mkdirs() }
 
     fun datei(context: Context, dateiname: String): File =

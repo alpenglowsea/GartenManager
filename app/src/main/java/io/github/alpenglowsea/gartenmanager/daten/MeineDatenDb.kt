@@ -22,7 +22,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         Gegenstand::class, Gegenstandspunkt::class, BildAusschnitt::class,
         EigenePflanze::class, EigeneAngabe::class, MerkerZeile::class, Bestand::class,
     ],
-    version = 10,
+    version = MeineDatenDb.VERSION,
     exportSchema = false,
 )
 abstract class MeineDatenDb : RoomDatabase() {
@@ -30,6 +30,17 @@ abstract class MeineDatenDb : RoomDatabase() {
     abstract fun gartenDao(): GartenDao
 
     companion object {
+        /** Aktuelle Version des Datenbankaufbaus; auch die Datensicherung prüft damit, ob eine Sicherung passt. */
+        const val VERSION = 10
+        const val DATEI = "meine_daten.db"
+
+        /** Schließt die Datenbank, damit ihre Dateien ersetzt oder gelöscht werden können (danach folgt ein App-Neustart). */
+        @Synchronized
+        fun schliessen() {
+            instanz?.close()
+            instanz = null
+        }
+
         /** Version 5 -> 6: neue Tabelle für persönliche Bildausschnitte. Bestehende Gärten bleiben erhalten. */
         private val VON_5_AUF_6 = object : Migration(5, 6) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -105,7 +116,7 @@ abstract class MeineDatenDb : RoomDatabase() {
                 instanz ?: Room.databaseBuilder(
                     context.applicationContext,
                     MeineDatenDb::class.java,
-                    "meine_daten.db",
+                    DATEI,
                 )
                     .addMigrations(VON_5_AUF_6, VON_6_AUF_7, VON_7_AUF_8, VON_8_AUF_9, VON_9_AUF_10)
                     .fallbackToDestructiveMigration()
