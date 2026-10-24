@@ -273,6 +273,9 @@ class GartenViewModel(application: Application) : AndroidViewModel(application) 
     /** Pflanzennummer, die im Garten hervorgehoben werden soll (Sprung aus "Meine Pflanzen"); leer = keine. */
     var hervorgehobenePflanzeId by mutableStateOf<Long?>(null)
 
+    /** Wenn gesetzt, wird nur diese eine gezeichnete Pflanze hervorgehoben (statt aller der Art). */
+    var hervorgehobenerGegenstandId by mutableStateOf<Long?>(null)
+
     /** Wie [startePflanzePlatzieren], behält aber die vorgemerkte Pflanze. */
     fun startePflanzeVorgemerkt() {
         val v = vorgemerktePflanze

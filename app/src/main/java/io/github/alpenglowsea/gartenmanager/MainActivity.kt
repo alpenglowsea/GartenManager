@@ -61,8 +61,9 @@ class MainActivity : ComponentActivity() {
                         bestand = bestand,
                         onSpeichern = viewModel::speichereBestand,
                         onLoeschen = viewModel::loescheBestand,
-                        onGartenOeffnen = { id, pflanzeId ->
+                        onGartenOeffnen = { id, pflanzeId, gegenstandId ->
                             viewModel.hervorgehobenePflanzeId = pflanzeId
+                            viewModel.hervorgehobenerGegenstandId = gegenstandId
                             bearbeiten = false
                             offenerGartenId = id
                         },
@@ -75,6 +76,7 @@ class MainActivity : ComponentActivity() {
                                 gruppe = eintrag.pflanzeGruppe,
                             )
                             viewModel.hervorgehobenePflanzeId = null
+                            viewModel.hervorgehobenerGegenstandId = null
                             bearbeiten = true
                             offenerGartenId = id
                         },

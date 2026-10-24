@@ -371,9 +371,11 @@
     <string name="mp_filter_ohne_plan">Ohne Plan</string>
     <string name="mp_ohne_plan">ohne Plan</string>
     <string name="mp_ohne_garten">Ohne Garten</string>
+    <string name="mp_hat_notiz">Mit Notiz</string>
+    <string name="mp_pflanze_nr">Pflanze %1$d</string>
     <string name="mp_nur_eingetragen">nur eingetragen, nicht im Plan</string>
     <string name="mp_leer">Hier steht, was du im Garten hast. Tippe auf „Pflanze“, um etwas einzutragen. Pflanzen, die du in einem Garten einzeichnest, erscheinen von selbst.</string>
-    <string name="mp_im_plan">Im Plan ›</string>
+    <string name="mp_im_plan">Im Plan zeigen</string>
     <string name="mp_aendern">Ändern</string>
     <plurals name="mp_n_im_plan">
         <item quantity="one">%d Pflanze im Plan</item>

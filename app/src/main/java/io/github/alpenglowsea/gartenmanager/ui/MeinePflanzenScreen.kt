@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -75,6 +76,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.alpenglowsea.gartenmanager.R
 import io.github.alpenglowsea.gartenmanager.daten.Bestand
@@ -98,7 +100,14 @@ private data class Posten(
     /** Wahr: im Gartenplan gezeichnet. Falsch: nur eingetragen (dann ist [eintrag] gesetzt). */
     val imPlan: Boolean,
     val eintrag: Bestand?,
-)
+    /** Notizen zu den Pflanzen dieser Zeile (bei gezeichneten Pflanzen eine je Pflanze, nur nicht leere). */
+    val notizen: List<String> = emptyList(),
+    /** Die einzelnen gezeichneten Pflanzen dieser Zeile (leer bei nur eingetragenen). */
+    val pflanzen: List<Gegenstand> = emptyList(),
+) {
+    /** Eindeutiger Schlüssel, unter dem sich merkt, ob die Zeile aufgeklappt ist. */
+    val schluessel: String get() = "$pflanzeId-$gartenId-$imPlan-${eintrag?.id ?: 0}"
+}
 
 /** Alle Posten einer Pflanzenart. */
 private data class Art(
@@ -109,6 +118,7 @@ private data class Art(
     val posten: List<Posten>,
 ) {
     val summe: Int get() = posten.sumOf { it.anzahl }
+    val notizen: List<String> get() = posten.flatMap { it.notizen }
 }
 
 private const val FILTER_OHNE_PLAN = "\u0000ohne-plan"
@@ -122,6 +132,9 @@ class MeinePflanzenZustand {
     var filter by mutableStateOf<String?>(null)
     var suche by mutableStateOf("")
     var aufgeklappt by mutableStateOf(setOf<Long>())
+    /** Aufgeklappte Garten-Zeilen (Schlüssel siehe Posten.schluessel) und aufgeklappte lange Notizen. */
+    var postenOffen by mutableStateOf(setOf<String>())
+    var notizOffen by mutableStateOf(setOf<String>())
     val listeArt = LazyListState()
     val listeGarten = LazyListState()
 }
@@ -139,7 +152,7 @@ fun MeinePflanzenScreen(
     bestand: List<Bestand>,
     onSpeichern: (Bestand) -> Unit,
     onLoeschen: (Long) -> Unit,
-    onGartenOeffnen: (gartenId: Long, pflanzeId: Long) -> Unit,
+    onGartenOeffnen: (gartenId: Long, pflanzeId: Long, gegenstandId: Long?) -> Unit,
     onPlatzieren: (gartenId: Long, eintrag: Bestand) -> Unit,
     onZurueck: () -> Unit,
 ) {
@@ -198,6 +211,8 @@ fun MeinePflanzenScreen(
                         anzahl = liste.size,
                         imPlan = true,
                         eintrag = null,
+                        notizen = liste.mapNotNull { g -> g.notiz?.trim()?.takeIf { it.isNotEmpty() } },
+                        pflanzen = liste.sortedBy { it.id },
                     ),
                 )
             }
@@ -213,6 +228,7 @@ fun MeinePflanzenScreen(
                     anzahl = b.anzahl,
                     imPlan = false,
                     eintrag = b,
+                    notizen = listOfNotNull(b.notiz?.trim()?.takeIf { it.isNotEmpty() }),
                 ),
             )
         }
@@ -236,7 +252,8 @@ fun MeinePflanzenScreen(
         }
         val sucheOk = suchNorm.isEmpty() ||
             Grunddaten.normalisiere(p.name).contains(suchNorm) ||
-            Grunddaten.normalisiere(p.latein).contains(suchNorm)
+            Grunddaten.normalisiere(p.latein).contains(suchNorm) ||
+            p.notizen.any { Grunddaten.normalisiere(it).contains(suchNorm) }
         return gruppeOk && sucheOk
     }
 
@@ -373,12 +390,20 @@ fun MeinePflanzenScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                                 ) {
-                                    PflanzenKachelBild(
-                                        bild = bildDateien[art.pflanzeId],
-                                        gruppe = art.gruppe,
-                                        name = art.name,
-                                        ausschnitt = ausschnittNachId[art.pflanzeId],
-                                    )
+                                    Box {
+                                        PflanzenKachelBild(
+                                            bild = bildDateien[art.pflanzeId],
+                                            gruppe = art.gruppe,
+                                            name = art.name,
+                                            ausschnitt = ausschnittNachId[art.pflanzeId],
+                                        )
+                                        if (art.notizen.isNotEmpty()) {
+                                            NotizAbzeichen(
+                                                MaterialTheme.colorScheme.surfaceContainerHigh,
+                                                Modifier.align(Alignment.TopEnd).offset(x = 6.dp, y = (-6).dp),
+                                            )
+                                        }
+                                    }
                                     Column(Modifier.weight(1f)) {
                                         Text(art.name, style = MaterialTheme.typography.titleMedium)
                                         if (art.latein.isNotEmpty()) {
@@ -423,7 +448,16 @@ fun MeinePflanzenScreen(
                                         PostenZeile(
                                             p = p,
                                             ortName = if (p.gartenId == null) ohneGarten else gartenNamen[p.gartenId].orEmpty(),
-                                            onOeffnen = { p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId) } },
+                                            offen = p.schluessel in zustand.postenOffen,
+                                            notizOffen = zustand.notizOffen,
+                                            onUmschalten = {
+                                                zustand.postenOffen = if (p.schluessel in zustand.postenOffen) zustand.postenOffen - p.schluessel else zustand.postenOffen + p.schluessel
+                                            },
+                                            onNotizUmschalten = { k ->
+                                                zustand.notizOffen = if (k in zustand.notizOffen) zustand.notizOffen - k else zustand.notizOffen + k
+                                            },
+                                            onOeffnen = { p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId, null) } },
+                                            onPflanzeOeffnen = { gid -> p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId, gid) } },
                                             onAendern = { bearbeite = p.eintrag },
                                             onPlatzieren = { p.eintrag?.let { platziere(it) } },
                                         )
@@ -477,19 +511,27 @@ fun MeinePflanzenScreen(
                                 Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        if (p.imPlan) p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId) } else bearbeite = p.eintrag
+                                        if (p.imPlan) p.gartenId?.let { g -> onGartenOeffnen(g, p.pflanzeId, null) } else bearbeite = p.eintrag
                                     }
                                     .padding(horizontal = 20.dp, vertical = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
-                                PflanzenKachelBild(
-                                    bild = bildDateien[p.pflanzeId],
-                                    gruppe = p.gruppe,
-                                    name = p.name,
-                                    ausschnitt = ausschnittNachId[p.pflanzeId],
-                                    groesse = 48.dp,
-                                )
+                                Box {
+                                    PflanzenKachelBild(
+                                        bild = bildDateien[p.pflanzeId],
+                                        gruppe = p.gruppe,
+                                        name = p.name,
+                                        ausschnitt = ausschnittNachId[p.pflanzeId],
+                                        groesse = 48.dp,
+                                    )
+                                    if (p.notizen.isNotEmpty()) {
+                                        NotizAbzeichen(
+                                            MaterialTheme.colorScheme.surface,
+                                            Modifier.align(Alignment.TopEnd).offset(x = 6.dp, y = (-6).dp),
+                                        )
+                                    }
+                                }
                                 Column(Modifier.weight(1f)) {
                                     Text(p.name, style = MaterialTheme.typography.bodyLarge)
                                     if (!p.imPlan) {
@@ -609,48 +651,124 @@ private fun OrtChip(text: String, gestrichelt: Boolean) {
 private fun PostenZeile(
     p: Posten,
     ortName: String,
+    offen: Boolean,
+    notizOffen: Set<String>,
+    onUmschalten: () -> Unit,
+    onNotizUmschalten: (String) -> Unit,
     onOeffnen: () -> Unit,
+    onPflanzeOeffnen: (gegenstandId: Long) -> Unit,
     onAendern: () -> Unit,
     onPlatzieren: () -> Unit,
 ) {
     val res = LocalContext.current.resources
-    Row(
-        Modifier.fillMaxWidth().padding(start = 80.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Column(Modifier.weight(1f)) {
-            Text(ortName, style = MaterialTheme.typography.bodyMedium)
-            Text(
-                if (p.imPlan) {
-                    res.getQuantityString(R.plurals.mp_n_im_plan, p.anzahl, p.anzahl)
-                } else {
-                    res.getQuantityString(R.plurals.mp_n_eingetragen, p.anzahl, p.anzahl)
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            val tag = p.eintrag?.pflanzdatum
-            if (tag != null) {
-                Text(pflanzdatumText(tag), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    // Gezeichnete Pflanzen lassen sich einzeln aufklappen; eingetragene nur, wenn sie eine Notiz haben
+    val ausklappbar = p.imPlan || p.notizen.isNotEmpty()
+    Column(Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .then(if (ausklappbar) Modifier.clickable(onClick = onUmschalten) else Modifier)
+                .padding(end = 12.dp, top = 6.dp, bottom = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            // Der Platz unter dem Pflanzenbild: Hinweis auf eine Notiz in diesem Garten
+            Box(Modifier.width(80.dp), contentAlignment = Alignment.Center) {
+                if (p.notizen.isNotEmpty()) NotizAbzeichen(MaterialTheme.colorScheme.surfaceContainerHigh)
             }
-            val notiz = p.eintrag?.notiz
-            if (!notiz.isNullOrBlank()) {
+            Column(Modifier.weight(1f)) {
+                Text(ortName, style = MaterialTheme.typography.bodyMedium)
                 Text(
-                    kuerze(notiz, KARTE_NOTIZ_ZEICHEN),
+                    if (p.imPlan) {
+                        res.getQuantityString(R.plurals.mp_n_im_plan, p.anzahl, p.anzahl)
+                    } else {
+                        res.getQuantityString(R.plurals.mp_n_eingetragen, p.anzahl, p.anzahl)
+                    },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                val tag = p.eintrag?.pflanzdatum
+                if (tag != null) {
+                    Text(pflanzdatumText(tag), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (!p.imPlan) {
+                    Row {
+                        TextButton(onClick = onAendern) { Text(stringResource(R.string.mp_aendern)) }
+                        TextButton(onClick = onPlatzieren) { Text(stringResource(R.string.mp_platzieren_kurz)) }
+                    }
+                }
             }
-            if (!p.imPlan) {
-                Row {
-                    TextButton(onClick = onAendern) { Text(stringResource(R.string.mp_aendern)) }
-                    TextButton(onClick = onPlatzieren) { Text(stringResource(R.string.mp_platzieren_kurz)) }
+            if (ausklappbar) {
+                Icon(
+                    painterResource(if (offen) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+            if (p.imPlan && p.gartenId != null) {
+                StandortKnopf(stringResource(R.string.mp_im_plan), onOeffnen)
+            }
+        }
+        if (offen) {
+            if (p.imPlan) {
+                for ((i, g) in p.pflanzen.withIndex()) {
+                    val notiz = g.notiz?.trim().orEmpty()
+                    Row(Modifier.fillMaxWidth().padding(end = 12.dp, top = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.Top) {
+                        Box(Modifier.width(96.dp).padding(top = 3.dp), contentAlignment = Alignment.TopCenter) {
+                            if (notiz.isNotEmpty()) NotizAbzeichen(MaterialTheme.colorScheme.surfaceContainerHigh)
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text(stringResource(R.string.mp_pflanze_nr, i + 1), style = MaterialTheme.typography.bodyMedium)
+                            val tag = g.pflanzdatum
+                            if (tag != null) {
+                                Text(pflanzdatumText(tag), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            if (notiz.isNotEmpty()) {
+                                val k = "g-${g.id}"
+                                NotizText(notiz, k in notizOffen) { onNotizUmschalten(k) }
+                            }
+                        }
+                        StandortKnopf(stringResource(R.string.mp_im_plan), { onPflanzeOeffnen(g.id) })
+                    }
+                }
+            } else {
+                val notiz = p.eintrag?.notiz?.trim().orEmpty()
+                if (notiz.isNotEmpty()) {
+                    val k = "b-${p.eintrag?.id ?: 0}"
+                    Row(Modifier.fillMaxWidth().padding(start = 80.dp, end = 12.dp, bottom = 6.dp)) {
+                        NotizText(notiz, k in notizOffen) { onNotizUmschalten(k) }
+                    }
                 }
             }
         }
-        if (p.imPlan && p.gartenId != null) {
-            TextButton(onClick = onOeffnen) { Text(stringResource(R.string.mp_im_plan)) }
+    }
+}
+
+/** Notiz: zwei Zeilen; ist sie länger, zeigt ein Pfeil das an, und ein Tipp klappt sie aus und wieder ein. */
+@Composable
+private fun NotizText(text: String, offen: Boolean, onUmschalten: () -> Unit) {
+    var ueberlaeuft by remember(text) { mutableStateOf(false) }
+    val umschaltbar = ueberlaeuft || offen
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .then(if (umschaltbar) Modifier.clickable(onClick = onUmschalten) else Modifier),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Text(
+            text,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = if (offen) Int.MAX_VALUE else 2,
+            overflow = TextOverflow.Ellipsis,
+            onTextLayout = { if (!offen) ueberlaeuft = it.hasVisualOverflow },
+            modifier = Modifier.weight(1f),
+        )
+        if (umschaltbar) {
+            Icon(
+                painterResource(if (offen) R.drawable.ic_pfeil_hoch else R.drawable.ic_pfeil_runter),
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+            )
         }
     }
 }

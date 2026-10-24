@@ -571,15 +571,17 @@ fun GartenScreen(
         onDispose {
             viewModel.vorgemerktePflanze = null
             viewModel.hervorgehobenePflanzeId = null
+            viewModel.hervorgehobenerGegenstandId = null
         }
     }
     // Sprung aus "Meine Pflanzen": Pflanze(n) der Art hervorheben und den Ausschnitt so wählen, dass man sie sieht.
     val hervorgehoben = viewModel.hervorgehobenePflanzeId
+    val hervorgehobenG = viewModel.hervorgehobenerGegenstandId
     var leinwand by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
     var ausschnittGewaehlt by remember(gartenId) { mutableStateOf(false) }
-    LaunchedEffect(hervorgehoben, leinwand, gegenstaende) {
+    LaunchedEffect(hervorgehoben, hervorgehobenG, leinwand, gegenstaende) {
         if (hervorgehoben == null || ausschnittGewaehlt || leinwand.width == 0 || leinwand.height == 0) return@LaunchedEffect
-        val ziele = gegenstaende.filter { it.art == ART_PFLANZE && it.pflanzeId == hervorgehoben }
+        val ziele = gegenstaende.filter { it.art == ART_PFLANZE && (if (hervorgehobenG != null) it.id == hervorgehobenG else it.pflanzeId == hervorgehoben) }
         if (ziele.isEmpty()) return@LaunchedEffect
         val minX = ziele.minOf { it.mitteX - it.breite / 2f }
         val maxX = ziele.maxOf { it.mitteX + it.breite / 2f }
@@ -1134,6 +1136,7 @@ fun GartenScreen(
 
     val beiTippAnsicht = rememberUpdatedState<(Offset) -> Unit> { pos ->
         viewModel.hervorgehobenePflanzeId = null
+        viewModel.hervorgehobenerGegenstandId = null
         val treffer = if (bearbeiten) null else elementBei(pos)
         infoFlaecheId = treffer?.flaeche?.id
         infoGegenstandId = treffer?.gegenstand?.id
@@ -1479,7 +1482,7 @@ fun GartenScreen(
                                 umriss = umrissFarbe,
                                 umrissBreite = umrissDicke,
                             )
-                            if (hervorgehoben != null && live.pflanzeId == hervorgehoben) {
+                            if (hervorgehoben != null && (if (hervorgehobenG != null) live.id == hervorgehobenG else live.pflanzeId == hervorgehoben)) {
                                 val mitteH = zuBildschirm(Offset(live.mitteX, live.mitteY))
                                 val rH = live.breite * faktor / 2f
                                 val puls = pulsState.value
